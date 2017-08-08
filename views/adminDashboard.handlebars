@@ -1,0 +1,189 @@
+{{#if message}}
+        <div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+          {{message}}
+        </div>
+{{/if}}
+
+
+<!--Header of the Page -->
+<div class="box box-primary" id="box_orders">
+  <div class="box-header with-border">
+    <h3 class="box-title">Admin - Dashboard</h3>
+  </div>
+</div>
+
+
+<!-- Main content -->
+<!--Icon Bar for Items, Orders, Location's usesrs -->
+<section class="content">
+  <div class="row">
+    
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>20</h3>
+          <p>Items</p>
+        </div> 
+        <div class="icon">
+          <i class="ion-images"></i>
+        </div>
+        <a href="../catalog/" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div><!-- ./col -->
+    
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+           <h3>21</h3>
+           <p>Orders</p>
+        </div>
+        <div class="icon">
+          <i class="ion-bag"></i>
+        </div>
+        <a href="../orders/" class="small-box-footer"> View All <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div><!-- ./col -->
+    
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-yellow">
+        <div class="inner">
+          <h3>9</h3>
+          <p>Location's</p>
+        </div>
+        <div class="icon">
+          <i class="ion-ios-keypad-outline"></i>
+        </div>
+        <a id="viewAllLocation" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div><!-- ./col -->
+    
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-red">
+        <div class="inner">
+          <h3>9</h3>
+          <p>Users</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-ios-people-outline"></i>
+        </div>
+        <a href="../customers/" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div><!-- ./col -->
+
+  </div><!-- /.row -->
+
+
+<!--Location DIV -->
+
+<div id="locationDIV">
+  <a class="btn btn-success toright" href="#" id="addLocation">
+    <i class="icon-picture icon-white fa fa-leaf"></i>
+    &nbsp;Add Location to Catalog
+  </a>
+  <a class="btn btn-success toright" href="#">
+    <i class="icon-music icon-white fa fa-music"></i>
+    &nbsp; Remove Selected
+  </a>
+
+  <br /><br />
+
+  <div class="box box-primary" id="box_orders">
+    <div class="box-header with-border">
+      <h3 class="box-title">Available Locations</h3>
+    </div>
+  </div>
+
+  <form method="post" style="margin:0px">
+      <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
+        
+        <tr>
+          <th><input type="checkbox" name="selector" value="1"></th>
+          <th width="50%" class="hidden-phone hidden-tablet">City</th>
+          <th width="50%" class="hidden-phone hidden-tablet">Company/Insititute/Location</th>
+          <th></th>
+          <th></th>
+        </tr>
+        {{#each locationList}}
+          <tr valign="top" >
+            <td><input type="checkbox" name="sel8200" id="sel8200"></td>
+            <td>{{city}}</td>
+            <td class="hidden-phone hidden-tablet">{{company}}</td>
+            <td><div class="link_edit"><a href="#">Edit</a></div></td>
+            <td><div class="link_delete"><a href="#"">Delete</a></div></td>
+          </tr>
+        {{/each}}
+    
+      </table>
+  </form>
+  </div>  
+</section>
+
+
+<!-- New Location Form -->
+<div id="locationModal" class="modal">
+  <div class="location-modal-content">
+    <span class="close">&times;</span>
+    <h1>New Location Form</h1>
+    <form method="post">
+      <fieldset>
+        <label for="city">City : </label>
+        <input type="text" name="cityTxtBox" id="cityTxtBox" require>
+        <label for="location">Location : </label>
+        <input type="text" name="locationTxtBox" id="locationTxtBox" require>
+        <input type="submit" class="location-modal-content-submit bg-green">
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/adminLocation.js"></script>
+
+<!-- Location JS -->
+
+<script>
+$("#locationDIV").toggle();
+$(document).ready(function(){
+    $("#viewAllLocation").click(function(){
+        $("#locationDIV").toggle(); 
+    });
+});
+</script>
+
+<script>
+// Get the modal
+var modal = document.getElementById('locationModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("addLocation");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

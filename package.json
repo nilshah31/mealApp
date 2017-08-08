@@ -1,0 +1,32 @@
+{
+  "name": "mealapp",
+  "version": "1.0.0",
+  "description": "An Ordering System",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nil Shah",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "^4.10.8",
+    "nexmo": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "textmagic-rest-client": "*",
+    "twilio": "^2.0.0"
+  },
+  "devDependencies": {}
+}

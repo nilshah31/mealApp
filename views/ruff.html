@@ -1,0 +1,459 @@
+
+    
+
+
+
+
+
+
+
+<script language="javascript">
+
+function bulk_action(value)
+{
+document.getElementById("formaction").value=value;
+
+document.getElementById("adminform").submit();
+}
+
+
+</script>
+
+
+<div id="catalog_menu">
+
+
+<form method="get" action="index.php" style="margin:0px">
+<div class="toleft">
+<span>Search:</span>
+<input type="text" name="search" style="width:200px;display:inline" class="ft" value="" onClick="this.value=''">
+<select name="search_type" style="width:120px;display:inline" class="ft">
+<option value="id" >Branch</option>
+<option value="title" >Name</option>
+<option value="author" >Categery</option>
+</select>
+</div>
+
+
+
+<br>
+
+<div class="toleft">
+<span>&nbsp;</span>
+<input type="submit" class="btn btn-danger" value="Search">
+</div>
+
+<div class="toleft_clear"></div>
+</form>
+
+
+</div>
+
+
+
+
+
+<div style="padding-bottom:15px;float:right;"></div>
+<div style="clear:both"></div>
+
+<script language="javascript">
+function publications_select_all(sel_form)
+{
+    if(sel_form.selector.checked)
+    {
+        $("input:checkbox", sel_form).attr("checked",true);
+    }
+    else
+    {
+        $("input:checkbox", sel_form).attr("checked",false);
+    }
+}
+</script>
+
+
+
+<form method="post" action="../categories/edit.php" style="margin:0px"  id="adminform" name="adminform">
+<table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
+<tr>
+<th><input type="checkbox"  name="selector" value="1" onClick="publications_select_all(document.adminform);"></th>
+<th class="hidden-phone hidden-tablet">
+<a href="index.php?search=&search_type=&category_id=0&type=all&items=30&pub_type=all&pub_ctype=all&filter=all&aid=2">ID</a> </th>
+<th width="50%" class="hidden-phone hidden-tablet">
+Branch
+</th>
+
+<th width="50%" class="hidden-phone hidden-tablet">
+Company/Insititute/Location
+</th>
+
+<th></th>
+<th></th>
+</tr>
+  <tr valign="top" >
+  <td><input type="checkbox" name="sel8200" id="sel8200"></td>
+  <td class="hidden-phone hidden-tablet">765</td>
+  <td>Bangalore</td>
+  <td class="hidden-phone hidden-tablet"><div class="link_file"><a href="content.php?id=8200"></a></div><small></small>Cerner</td>
+  
+  <td><div class="link_edit"><a href="content.php?id=8200">Edit</a></div></td>
+  <td><div class="link_delete"><a href="delete.php?id=8200&search=&search_type=&category_id=0&type=all&items=30&pub_type=all&pub_ctype=all&filter=all&adate=2"  onClick="return confirm('Delete?');">Delete</a></div></td>
+</tr>
+
+</tr>
+  <tr valign="top" >
+  <td><input type="checkbox" name="sel8200" id="sel8200"></td>
+  <td class="hidden-phone hidden-tablet">766</td>
+  <td>Bangalore</td>
+  <td class="hidden-phone hidden-tablet"><div class="link_file"><a href="content.php?id=8200"></a></div><small></small>IBM</td>
+  
+  <td><div class="link_edit"><a href="content.php?id=8200">Edit</a></div></td>
+  <td><div class="link_delete"><a href="delete.php?id=8200&search=&search_type=&category_id=0&type=all&items=30&pub_type=all&pub_ctype=all&filter=all&adate=2"  onClick="return confirm('Delete?');">Delete</a></div></td>
+</tr>
+
+</tr>
+  <tr valign="top" >
+  <td><input type="checkbox" name="sel8200" id="sel8200"></td>
+  <td class="hidden-phone hidden-tablet">766</td>
+  <td>Bangalore</td>
+  <td class="hidden-phone hidden-tablet"><div class="link_file"><a href="content.php?id=8200"></a></div><small></small>Cognizant</td>
+  
+  <td><div class="link_edit"><a href="content.php?id=8200">Edit</a></div></td>
+  <td><div class="link_delete"><a href="delete.php?id=8200&search=&search_type=&category_id=0&type=all&items=30&pub_type=all&pub_ctype=all&filter=all&adate=2"  onClick="return confirm('Delete?');">Delete</a></div></td>
+</tr>
+
+</div>
+</table>
+
+
+<div style="padding-top:30px;float:right"></div>
+
+
+
+<br /><br /><br /><br /><br /><br />
+
+
+<a class="btn btn-success toright" href="content.php?type=vector"><i class="icon-picture icon-white fa fa-leaf"></i>&nbsp;Add Item to Catalog</a>
+<a class="btn btn-success toright" href="content.php?type=audio"><i class="icon-music icon-white fa fa-music"></i>&nbsp; Remove Selected</a>
+
+<br /><br />
+
+    <div class="box box-primary" id="box_orders">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Catalog</h3>
+                </div>
+    </div>
+
+<script language="javascript">
+
+function bulk_action(value)
+{
+document.getElementById("formaction").value=value;
+
+document.getElementById("adminform").submit();
+}
+
+
+</script>
+
+
+<div id="catalog_menu">
+
+
+<form method="get" action="index.php" style="margin:0px">
+<div class="toleft">
+<span>Search:</span>
+<input type="text" name="search" style="width:200px;display:inline" class="ft" value="" onClick="this.value=''">
+<select name="search_type" style="width:120px;display:inline" class="ft">
+<option value="id" >ID</option>
+<option value="title" >Name</option>
+<option value="author" >Categery</option>
+</select>
+</div>
+
+
+
+<br>
+
+<div class="toleft">
+<span>&nbsp;</span>
+<input type="submit" class="btn btn-danger" value="Search">
+</div>
+
+<div class="toleft_clear"></div>
+</form>
+
+
+</div>
+
+
+
+
+
+<div style="padding-bottom:15px;float:right;"></div>
+<div style="clear:both"></div>
+
+<script language="javascript">
+function publications_select_all(sel_form)
+{
+    if(sel_form.selector.checked)
+    {
+        $("input:checkbox", sel_form).attr("checked",true);
+    }
+    else
+    {
+        $("input:checkbox", sel_form).attr("checked",false);
+    }
+}
+</script>
+
+
+
+<form method="post" action="../categories/edit.php" style="margin:0px"  id="adminform" name="adminform">
+<table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
+<tr>
+<th><input type="checkbox"  name="selector" value="1" onClick="publications_select_all(document.adminform);"></th>
+<th class="hidden-phone hidden-tablet">
+<a href="index.php?search=&search_type=&category_id=0&type=all&items=30&pub_type=all&pub_ctype=all&filter=all&aid=2">ID</a> </th>
+<th>Image</th>
+<th width="50%" class="hidden-phone hidden-tablet">
+
+
+Title
+</th>
+
+<th class="hidden-phone hidden-tablet">
+<a href="index.php?search=&search_type=&category_id=0&type=all&items=30&pub_type=all&pub_ctype=all&filter=all&adate=1">Date</a> <img src="/admin/images/sort_down.gif" width="11" height="8">
+</th>
+<th class="hidden-phone hidden-tablet">
+
+<a href="index.php?search=&search_type=&category_id=0&type=all&items=30&pub_type=all&pub_ctype=all&filter=all&aviewed=2">Cancled</a> 
+</th>
+<th class="hidden-phone hidden-tablet">
+
+<a href="index.php?search=&search_type=&category_id=0&type=all&items=30&pub_type=all&pub_ctype=all&filter=all&adownloads=2">Ordered</a> 
+</th>
+<th class="hidden-phone hidden-tablet">Category</th>
+<th></th>
+<th></th>
+</tr>
+  <tr valign="top" >
+  <td><input type="checkbox" name="sel8200" id="sel8200"></td>
+  <td class="hidden-phone hidden-tablet">8200</td>
+  <td class='preview_img'><a href="content.php?id=8200"><img src="/images/icon_vector.gif" border="0" ></a>
+  </td>
+  <td class="hidden-phone hidden-tablet"><div class="link_file"><a href="content.php?id=8200"></a></div><small></small>Veg Biryani</td>
+  <td class="hidden-phone hidden-tablet gray">06/19/2017</div></td>
+  <td class="hidden-phone hidden-tablet">0</td>
+  <td class="hidden-phone hidden-tablet"><a href="../downloads/?search=8200&search_type=file">0</a></td>
+  <td class="hidden-phone hidden-tablet">
+  Rice & Items</td>
+
+  <td><div class="link_edit"><a href="content.php?id=8200">Edit</a></div></td>
+  <td><div class="link_delete"><a href="delete.php?id=8200&search=&search_type=&category_id=0&type=all&items=30&pub_type=all&pub_ctype=all&filter=all&adate=2"  onClick="return confirm('Delete?');">Delete</a></div></td>
+  </tr>
+
+</div>
+</table>
+
+
+<div style="padding-top:30px;float:right"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="box box-primary" id="box_orders">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Orders</h3>
+                  <div class="box-tools pull-right">
+                    <button id="orders_collapse" class="btn btn-box-tool" data-widget="collapse" onClick="collapse_tab('orders')"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove" onClick="remove_tab('orders')"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+            <tr>
+            <th><b>Stats</b></th>
+            <th><b>Day</b></th>
+            <th><b>Week</b></th>
+            <th><b>Month</b></th>
+            <th><b>Year</b></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>Deleivered</td>
+            <td>
+            0           </td>
+            <td>
+            0           </td>
+            <td>
+            0           </td>
+            <td>
+            0           </td>
+            </tr>
+            <tr class="snd">
+            <td>Pending</td>
+            <td>
+            0           </td>
+            <td>
+            0           </td>
+            <td>
+            0           </td>
+            <td>
+            0           </td>
+            </tr>
+            <tr>
+            <td>Canceled</td>
+            <td>
+            0           </td>
+            <td>
+            0           </td>
+            <td>
+            0           </td>
+            <td>
+            0           </td>
+            </tr>
+            
+            <tr class="snd">
+            <td>Total (Pending)</td>
+            <td>
+            0.00            </td>
+            <td>
+            0.00            </td>
+            <td>
+            0.00            </td>
+            <td>
+            0.00            </td>
+            </tr>
+            
+            
+            
+            
+            <tr>
+            <td>Total (Deleivered)</td>
+            <td><b>
+            0.00            </td>
+            <td><b>
+            0.00            </td>
+            <td><b>
+            0.00            </td>
+            <td><b>
+            0.00           </td>
+            </tr>
+            </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="box box-info" id="box_new_orders">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Orders</h3>
+                  <div class="box-tools pull-right">
+                                        <button  id="new_orders_collapse" class="btn btn-box-tool" data-widget="collapse" onClick="collapse_tab('new_orders')"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove" onClick="remove_tab('new_orders')"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                        <tr>
+              <th><b>ID</b></th>
+              <th><b>Date</b></th>
+              <th><b>User</b></th>
+              <th><b>Total</b></th>
+              <th><b>Status</b></th>
+              <th><b>Shipping</b></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        
+                                    <tr  valign="top">
+            <td><a href="../orders/order_content.php?id=237"><b>#237</b></a></td>
+            <td>04/13/2017</td>
+            <td>
+            <div class="link_user"><a href="../customers/content.php?id=6355">Customer</a></div>           </td>
+            <td>34.00</td>
+            <td>
+            
+            
+            <div id="status237" name="status237"><a href="javascript:doLoad(237);"><span class="label label-success">Approved</span></a></div>
+            
+            
+            
+            <form id="f237" enctype="multipart/form-data" style="margin:0">
+            
+            <input type="hidden" name="id" value="237">
+            
+            </form>
+            
+            
+            
+            </td>
+            <td>
+                        
+            <div class="link_status" id="shipping237" name="shipping237"><a href="javascript:doLoad4(237);"><span class="label label-info">Shipped</span></a></div>
+            
+            
+            
+                        
+            
+            </td>
+            </tr>
+            
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="box-footer clearfix">
+                  <a href="../orders/" class="btn btn-sm btn-default btn-flat pull-right">All Orders</a>
+                </div>
+              </div>
+              
