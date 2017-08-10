@@ -10,6 +10,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+var fileUpload = require('express-fileupload');
 
 
 
@@ -34,6 +35,10 @@ app.use(cookieParser());
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+//fileupload
+app.use(fileUpload());
+
 
 // Express Session
 app.use(session({

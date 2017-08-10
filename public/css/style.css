@@ -118,6 +118,15 @@ footer{
     width: 80%;
 }
 
+/* Modal Content */
+.item-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
 /* The Close Button */
 .close {
     color: #aaaaaa;
@@ -144,7 +153,25 @@ footer{
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
 }
 
+.item-modal-content-submit {
+  /* border: 1px solid #3079ed; */
+  border: 0px;
+  color: #fff;
+  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  padding: 17px 0px;
+  font-family: roboto;
+  font-size: 14px;
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+}
+
 .location-modal-content input[type=submit] {
+  width: 13%;
+  display: block;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.item-modal-content input[type=submit] {
   width: 13%;
   display: block;
   margin-bottom: 10px;
@@ -157,7 +184,28 @@ footer{
   font-family: roboto;
 }
 
+.item-modal-content h1 {
+  text-align: center;
+  font-size: 1.8em;
+  font-family: roboto;
+}
+
 .location-modal-content input[type=text], input[type=password] {
+  height: 44px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  /* border-radius: 2px; */
+  padding: 0 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.item-modal-content input[type=text], input[type=password] {
   height: 44px;
   font-size: 16px;
   width: 100%;
