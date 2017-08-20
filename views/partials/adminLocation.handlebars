@@ -1,0 +1,61 @@
+<!--Location DIV -->
+
+<div id="locationDIV">
+    <a class="btn btn-success toright" href="#" id="addLocation">
+        <i class="icon-picture icon-white fa fa-leaf"></i>
+        &nbsp;Add Location to Catalog
+    </a>
+    <a class="btn btn-success toright" href="#">
+        <i class="icon-music icon-white fa fa-music"></i>
+        &nbsp; Remove Selected
+    </a>
+
+    <br /><br />
+
+    <div class="box box-primary" id="box_orders">
+        <div class="box-header with-border">
+            <h3 class="box-title">Available Locations</h3>
+        </div>
+    </div>
+
+    <form method="post" style="margin:0px">
+        <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
+
+            <tr>
+                <th><input type="checkbox" name="selector" value="1"></th>
+                <th width="50%" class="hidden-phone hidden-tablet">City</th>
+                <th width="50%" class="hidden-phone hidden-tablet">Company/Insititute/Location</th>
+                <th></th>
+                <th></th>
+            </tr>
+            {{#each locationList}}
+                <tr valign="top" >
+                    <td><input type="checkbox" name="sel8200" id="sel8200"></td>
+                    <td>{{city}}</td>
+                    <td class="hidden-phone hidden-tablet">{{company}}</td>
+                    <td><div class="link_edit"><a href="#">Edit</a></div></td>
+                    <td><div class="link_delete"><a href="#">Delete</a></div></td>
+                </tr>
+            {{/each}}
+
+        </table>
+    </form>
+</div>
+
+
+<!-- New Location Form -->
+<div id="locationModal" class="modal">
+    <div class="location-modal-content">
+        <span class="close">&times;</span>
+        <h1>New Location Form</h1>
+        <form method="post" action="/newLocation" class="newLocation">
+            <fieldset>
+                <label for="city">City : </label>
+                <input type="text" name="cityTxtBox" id="cityTxtBox" require>
+                <label for="location">Location : </label>
+                <input type="text" name="locationTxtBox" id="locationTxtBox" require>
+                <input type="submit" class="location-modal-content-submit bg-green newLocation">
+            </fieldset>
+        </form>
+    </div>
+</div>

@@ -40,7 +40,31 @@ router.get('/adminDashboard', function(req, res){
         if (err) return res.sendStatus(500);
         Item.find(function(err, Itemresults){
             if (err) return res.sendStatus(500);
-            res.render('adminDashboard', { locationList : Locationresults,itemList : Itemresults });
+            Order.find(function(err, results,callback){
+                if (err) return res.sendStatus(500);
+                var object_item_hash = [];
+                var total=0;
+                for(var i=0;i<results.length;i++){
+                    if(results[i].status==0)
+                        status='Ordered';
+                    else if(results[i].status==1)
+                        status='Delevereid';
+                    else
+                        state='Cancled';
+                    var order_date=new Date(String(results[i].order_date_time));
+                    var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth())+'/'+String(order_date.getFullYear());
+                    object_item_hash.push({
+                        order_itemName:results[i].item_name,
+                        order_itemPrice:results[i].price,
+                        order_itemQty:results[i].qty,
+                        sub_Total:results[i].sub_Total,
+                        order_date: ordr_dt,
+                        status:status,
+                        total:results[i].total
+                    });
+                }
+                res.render('adminDashboard', { locationList : Locationresults,itemList : Itemresults,object_item_hash:object_item_hash });
+            });
         });
     });
 });

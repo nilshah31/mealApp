@@ -5,7 +5,6 @@
         </div>
 {{/if}}
 
-
 <!--Header of the Page -->
 <div class="box box-primary" id="box_orders">
   <div class="box-header with-border">
@@ -13,211 +12,74 @@
   </div>
 </div>
 
-
 <!-- Main content -->
 <!--Icon Bar for Items, Orders, Location's usesrs -->
 <section class="content">
-  <div class="row">
-    
-      <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-yellow">
-        <div class="inner">
-          <h3>9</h3>
-          <p>Menu Item</p>
-        </div>
-        <div class="icon">
-          <i class="ion-ios-keypad-outline"></i>
-        </div>
-        <a id="viewAllItem" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div><!-- ./col -->
-    
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-green">
-        <div class="inner">
-           <h3>21</h3>
-           <p>Orders</p>
-        </div>
-        <div class="icon">
-          <i class="ion-bag"></i>
-        </div>
-        <a href="../orders/" class="small-box-footer"> View All <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div><!-- ./col -->
-    
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-yellow">
-        <div class="inner">
-          <h3>9</h3>
-          <p>Location's</p>
-        </div>
-        <div class="icon">
-          <i class="ion-ios-keypad-outline"></i>
-        </div>
-        <a id="viewAllLocation" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div><!-- ./col -->
-    
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-red">
-        <div class="inner">
-          <h3>9</h3>
-          <p>Users</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-ios-people-outline"></i>
-        </div>
-        <a href="../customers/" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div><!-- ./col -->
-
-  </div><!-- /.row -->
-
-<!--Location DIV -->
-
-<div id="locationDIV">
-  <a class="btn btn-success toright" href="#" id="addLocation">
-    <i class="icon-picture icon-white fa fa-leaf"></i>
-    &nbsp;Add Location to Catalog
-  </a>
-  <a class="btn btn-success toright" href="#">
-    <i class="icon-music icon-white fa fa-music"></i>
-    &nbsp; Remove Selected
-  </a>
-
-  <br /><br />
-
-  <div class="box box-primary" id="box_orders">
-    <div class="box-header with-border">
-      <h3 class="box-title">Available Locations</h3>
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>{{itemList.length}}</h3>
+                    <p>Menu Item</p>
+                </div>
+                <div class="icon">
+                    <i class="ion-ios-keypad-outline"></i>
+                </div>
+                <a id="viewAllItem" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{object_item_hash.length}}</h3>
+                    <p>Orders</p>
+                </div>
+                <div class="icon">
+                    <i class="ion-bag"></i>
+                </div>
+                <a id="viewAllOrders" class="small-box-footer"> View All <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>{{locationList.length}}</h3>
+                    <p>Location's</p>
+                </div>
+                <div class="icon">
+                    <i class="ion-ios-keypad-outline"></i>
+                </div>
+                <a id="viewAllLocation" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>9</h3>
+                    <p>Users</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-ios-people-outline"></i>
+                </div>
+                <a href="../customers/" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div><!-- ./col -->
+    </div><!-- /.row -->
+    <div class="row">
+        {{> adminLocation }}
     </div>
-  </div>
-
-  <form method="post" style="margin:0px">
-      <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
-        
-        <tr>
-          <th><input type="checkbox" name="selector" value="1"></th>
-          <th width="50%" class="hidden-phone hidden-tablet">City</th>
-          <th width="50%" class="hidden-phone hidden-tablet">Company/Insititute/Location</th>
-          <th></th>
-          <th></th>
-        </tr>
-        {{#each locationList}}
-          <tr valign="top" >
-            <td><input type="checkbox" name="sel8200" id="sel8200"></td>
-            <td>{{city}}</td>
-            <td class="hidden-phone hidden-tablet">{{company}}</td>
-            <td><div class="link_edit"><a href="#">Edit</a></div></td>
-            <td><div class="link_delete"><a href="#"">Delete</a></div></td>
-          </tr>
-        {{/each}}
-    
-      </table>
-  </form>
-  </div>  
-</section>
-
-
-<!-- New Location Form -->
-<div id="locationModal" class="modal">
-  <div class="location-modal-content">
-    <span class="close">&times;</span>
-    <h1>New Location Form</h1>
-    <form method="post" action="/newLocation" class="newLocation">
-      <fieldset>
-        <label for="city">City : </label>
-        <input type="text" name="cityTxtBox" id="cityTxtBox" require>
-        <label for="location">Location : </label>
-        <input type="text" name="locationTxtBox" id="locationTxtBox" require>
-        <input type="submit" class="location-modal-content-submit bg-green newLocation">
-      </fieldset>
-    </form>
-  </div>
-</div>
-
-
-
-<!--Item DIV -->
-
-<div id="itemDIV">
-  <a class="btn btn-success toright" href="#" id="addItem">
-    <i class="icon-picture icon-white fa fa-leaf"></i>
-    &nbsp;Add Item to Catalog
-  </a>
-  <a class="btn btn-success toright" href="#">
-    <i class="icon-music icon-white fa fa-music"></i>
-    &nbsp; Remove Selected
-  </a>
-
-  <br /><br />
-
-  <div class="box box-primary" id="box_orders">
-    <div class="box-header with-border">
-      <h3 class="box-title">Available Item's</h3>
+    <div class="row">
+        {{> adminItems }}
     </div>
-  </div>
+    <div class="row">
+        {{> adminOrders }}
+    </div>
 
-  <form method="post" style="margin:0px">
-      <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
-        
-        <tr>
-          <th><input type="checkbox" name="selector" value="1"></th>
-          <th width="50%" class="hidden-phone hidden-tablet">Name</th>
-          <th width="50%" class="hidden-phone hidden-tablet">Description</th>
-          <th>Price</th>
-          <th>Initial Qty</th>
-          <th>Image</th>
-          <th></th>
-          <th></th>
-        </tr>
-        {{#each itemList}}
-          <tr valign="top" >
-            <td><input type="checkbox" name="sel8200" id="sel8200"></td>
-            <td>{{name}}</td>
-            <td>{{description}}</td>
-            <td>{{price}}</td>
-            <td>{{initial_qty}}</td>
-            <td><img src='{{item_image_path}}' alt="Menu Item" height="42" width="42"></td>
-            <td><div class="link_edit"><a href="#">Edit</a></div></td>
-            <td><div class="link_delete"><a href="#"">Delete</a></div></td>
-          </tr>
-        {{/each}}
-    
-      </table>
-  </form>
-  </div>  
 </section>
-
-
-<!-- New Item Form -->
-<div id="itemModal" class="modal">
-  <div class="item-modal-content">
-    <span class="close">&times;</span>
-    <h1>New Item Form</h1>
-    <form method="post" name="itemForm" action="/newItem" class="newItem" enctype="multipart/form-data">
-      <fieldset>
-        <label for="name">Name : </label>
-        <input type="text" name="itemNameTxtBox" id="itemNameTxtBox" require>
-        <label for="descript ion">Description : </label>
-        <input type="text" name="descTxtBox" id="descTxtBox" require>
-        <label for="price">Price : </label>
-        <input type="text" name="priceTxtBox" id="priceTxtBox" require>
-        <label for="initial_qty">Description : </label>
-        <input type="text" name="inititalQtyTxtBox" id="inititalQtyTxtBox" require>
-        <label for="item_img">Image : </label>
-        <input type="file" accept="image/*" name="item_img">
-        <br />
-        <input type="submit" class="item-modal-content-submit bg-green newItem">
-      </fieldset>
-    </form>
-  </div>
-</div>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/adminLocation.js"></script>
@@ -228,8 +90,15 @@
 $("#locationDIV").toggle();
 $(document).ready(function(){
     $("#viewAllLocation").click(function(){
+        if ( $('#itemDIV').is(':visible')){
+            $("#itemDIV").toggle();
+        }
+        if ( $('#OrderDiv').is(':visible')){
+            $("#OrderDiv").toggle();
+        }
         $("#locationDIV").toggle(); 
     });
+
 });
 </script>
 
@@ -267,6 +136,12 @@ window.onclick = function(event) {
 $("#itemDIV").toggle();
 $(document).ready(function(){
     $("#viewAllItem").click(function(){
+        if ( $('#locationDIV').is(':visible')){
+            $("#locationDIV").toggle();
+        }
+        if ( $('#OrderDiv').is(':visible')){
+            $("#locationDIV").toggle();
+        }
         $("#itemDIV").toggle(); 
     });
 });
@@ -307,6 +182,24 @@ $('button.newItem').click( function() {
    });
 
 </script>
+
+<!-- Location JS -->
+
+<script>
+    $("#OrderDiv").toggle();
+    $(document).ready(function(){
+        $("#viewAllOrders").click(function(){
+            if ( $('#itemDIV').is(':visible')){
+                $("#itemDIV").toggle();
+            }
+            if ( $('#locationDIV').is(':visible')){
+                $("#locationDIV").toggle();
+            }
+            $("#OrderDiv").toggle();
+        });
+    });
+</script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

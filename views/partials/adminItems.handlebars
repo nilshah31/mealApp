@@ -1,0 +1,72 @@
+<!--Item DIV -->
+<div id="itemDIV">
+    <a class="btn btn-success toright" href="#" id="addItem">
+        <i class="icon-picture icon-white fa fa-leaf"></i>
+        &nbsp;Add Item to Catalog
+    </a>
+    <a class="btn btn-success toright" href="#">
+        <i class="icon-music icon-white fa fa-music"></i>
+        &nbsp; Remove Selected
+    </a>
+
+    <br /><br />
+
+    <div class="box box-primary" id="box_orders">
+        <div class="box-header with-border">
+            <h3 class="box-title">Available Item's</h3>
+        </div>
+    </div>
+
+    <form method="post" style="margin:0px">
+        <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
+
+            <tr>
+                <th><input type="checkbox" name="selector" value="1"></th>
+                <th width="50%" class="hidden-phone hidden-tablet">Name</th>
+                <th width="50%" class="hidden-phone hidden-tablet">Description</th>
+                <th>Price</th>
+                <th>Initial Qty</th>
+                <th>Image</th>
+                <th></th>
+                <th></th>
+            </tr>
+            {{#each itemList}}
+                <tr valign="top" >
+                    <td><input type="checkbox" name="sel8200" id="sel8200"></td>
+                    <td>{{name}}</td>
+                    <td>{{description}}</td>
+                    <td>{{price}}</td>
+                    <td>{{initial_qty}}</td>
+                    <td><img src='{{item_image_path}}' alt="Menu Item" height="42" width="42"></td>
+                    <td><div class="link_edit"><a href="#">Edit</a></div></td>
+                    <td><div class="link_delete"><a href="#">Delete</a></div></td>
+                </tr>
+            {{/each}}
+
+        </table>
+    </form>
+</div>
+
+<!-- New Item Form -->
+<div id="itemModal" class="modal">
+    <div class="item-modal-content">
+        <span class="close">&times;</span>
+        <h1>New Item Form</h1>
+        <form method="post" name="itemForm" action="/newItem" class="newItem" enctype="multipart/form-data">
+            <fieldset>
+                <label for="name">Name : </label>
+                <input type="text" name="itemNameTxtBox" id="itemNameTxtBox" require>
+                <label for="descript ion">Description : </label>
+                <input type="text" name="descTxtBox" id="descTxtBox" require>
+                <label for="price">Price : </label>
+                <input type="text" name="priceTxtBox" id="priceTxtBox" require>
+                <label for="initial_qty">Description : </label>
+                <input type="text" name="inititalQtyTxtBox" id="inititalQtyTxtBox" require>
+                <label for="item_img">Image : </label>
+                <input type="file" accept="image/*" name="item_img">
+                <br />
+                <input type="submit" class="item-modal-content-submit bg-green newItem">
+            </fieldset>
+        </form>
+    </div>
+</div>

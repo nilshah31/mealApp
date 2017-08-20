@@ -25,8 +25,9 @@ var app = express();
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout:'layout'}));
+app.engine('handlebars', exphbs({defaultLayout:'layout',partialsDir: __dirname + '/views/partials/'}));
 app.set('view engine', 'handlebars');
+
 
 // BodyParser Middleware
 app.use(bodyParser.json());

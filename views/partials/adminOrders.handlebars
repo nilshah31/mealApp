@@ -1,0 +1,39 @@
+<!--Item DIV -->
+<div id="OrderDiv">
+    <div class="box box-primary" id="box_orders">
+        <div class="box-header with-border">
+            <h3 class="box-title">Placed Orders</h3>
+        </div>
+    </div>
+
+    <form method="post" style="margin:0px">
+        <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
+
+            <thead>
+            <tr>
+                <th>Order Date</th>
+                <th>Order ID</th>
+                <th>Item</th>
+                <th>#</th>
+                <th>Price</th>
+                <th>Bill Amount</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each object_item_hash}}
+                <tr>
+                    <td>{{order_date}}</td>
+                    <td>12345</td>
+                    <td>{{order_itemName}}</td>
+                    <td>{{order_itemQty}}</td>
+                    <td>{{order_itemPrice}}</td>
+                    <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
+                    <td><span class="label label-info">{{status}}</span></td>
+                </tr>
+            {{/each}}
+            </tbody>
+
+        </table>
+    </form>
+</div>
