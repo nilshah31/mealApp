@@ -7,7 +7,6 @@ const nexmo = new Nexmo({
   apiSecret: 'd7ad3d8e371abb15'
 });
 
-
 // User Schema
 var UserSchema = mongoose.Schema({
 	firstname: {
@@ -47,8 +46,10 @@ var UserSchema = mongoose.Schema({
     },
 });
 
+//User Modal Handler
 var User = module.exports = mongoose.model('User', UserSchema);
 
+//Create User and encode password
 module.exports.createUser = function(newUser, callback){
 	bcrypt.genSalt(10, function(err, salt) {
 	    bcrypt.hash(newUser.password, salt, function(err, hash) {
@@ -57,6 +58,7 @@ module.exports.createUser = function(newUser, callback){
 	    });
 	});
 }
+
 
 module.exports.getUserBymobNumber = function(mobileNumber, callback){
 	var query = {phone: mobileNumber};

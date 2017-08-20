@@ -1,16 +1,205 @@
-<div class="container">    
-  {{#each itemList}}
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="panel panel-success">
-        <div class="panel-heading">{{name}}</div>
-        <div class="panel-body">
-          <img src="{{item_image_path}}" class="img-responsive" style="width:100%" alt="Image">
+<style>
+    #cart_order_div {
+        position: fixed;
+        right: 1%;
+        top: 37%;
+        width: 18em;
+        margin-top: -2.5em;
+        background-color:  #ffffb3;
+        padding-top: 1em;
+        padding-left: 1em;
+    }
+    #order_cart_value {
+        background-color:  #ffffb3;
+    }
+    body{
+        background-color: #f5f5f5;
+    }
+</style>
+ <br /><br />
+  <br />
+
+{{#if message}}
+        <div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+          {{message}}
         </div>
-        <div class="panel-footer">Rs : {{price}}</div>
+{{/if}}
+
+<form action="" onsubmit="return false">
+
+<div>
+<div class="row">    
+  {{#each itemList}}
+    {{#ifCustomize @index}}
+      <div class="col-sm-4">
+        <div class="panel panel-success" style="background-color: white">
+          <div class="panel-heading">{{name}}</div>
+          <input type="hidden" name="item_name" value='{{name}}'>
+          <input type="hidden" name="item_price" value='{{price}}'>
+          <input type="hidden" name="item_id" value='{{id}}'>
+          <div class="panel-body">
+            <img src="{{item_image_path}}" class="img-responsive" style="width:100%;height:150px" alt="Image">
+          </div>
+          <div class="panel-footer" style="background-color: white">
+              <i class="fa fa-inr"></i>&nbsp;{{price}}
+              <br />{{description}}
+              <br /><br />
+              <span class="glyphicon glyphicon-shopping-cart"></span>
+              <input type="submit"
+                     class="btn btn-success"
+                     value="Add to Cart"
+                     onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
+              />
+          </div>
+        </div>
       </div>
-    </div> 
-  </div>
-  <br>
+      {{incrementCounterVariable}}
+    {{else}}
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="panel panel-success">
+            <input type="hidden" name="item_name[]" value='{{name}}'>
+            <input type="hidden" name="item_price[]" value='{{price}}'>
+            <input type="hidden" name="item_id[]" value='{{id}}'>
+
+            <div class="panel-heading">{{name}}</div>
+            <div class="panel-body">
+              <img src="{{item_image_path}}" class="img-responsive" style="width:100%;height:150px" alt="Image">
+            </div>
+              <div class="panel-footer" style="background-color: white">
+                  <i class="fa fa-inr"></i>&nbsp;{{price}}
+                  <br />{{description}}
+                  <br /><br />
+                  <span class="glyphicon glyphicon-shopping-cart"></span>
+                  <input type="submit"
+                         class="btn btn-success"
+                         value="Add to Cart"
+                         onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
+                  />
+              </div>
+          </div>
+        </div> 
+    {{resetCounterVariable}}
+    {{/ifCustomize}}
   {{/each}}
 </div>
+{{resetCounterVariable}}
+</div>
+</form>
+
+<form id="order_cart_form" class="order_place" method="post">
+<div id="cart_order_div" class="cart_order_div">
+  <h5><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;YOUR ORDER</h5>
+    <div class="panel-body" id="order_cart_value">
+    <!--cart contents-->
+    </div>
+</div>
+</form>
+
+
+
+ <script>
+     var order_object = [];
+     var total = 0;
+     if(order_object .length==0){
+         document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Please add items to your order</div>";
+     }
+     
+     function addItemtoCart(id,name,price,qty) {
+         newItemobject = { "ID": id, "Name": name, "Price": price,"Qty": qty,"SubTotal": parseInt(price)*parseInt(qty) };
+         addItemToOrder(newItemobject);
+     }
+
+     function  addItemToOrder(newItemobject) {
+         order_object.push(newItemobject);
+         add_item_to_cart();
+     }
+     function add_item_to_cart() {
+         sessionStorage.order_object = order_object;
+         var sub_total=0;
+         document.getElementById("order_cart_value").innerHTML="";
+         document.getElementById("order_cart_value").innerHTML += ""+
+                 "<table id='order_cart_table' class='table' style='font-family:\"Courier New\"; font-size:80%'>" +
+                 "<tr>" +
+                    "<th></th>" +
+                    "<th></th>" +
+                    "<th></th>" +
+                 "</tr></table>";
+
+
+         for(i=0;i<=order_object.length-1;i++){
+             var table = document.getElementById("order_cart_table");
+             var row = table.insertRow(i+1);
+             var cell1 = row.insertCell(0);
+             var cell2 = row.insertCell(1);
+             var cell3 = row.insertCell(2);
+             cell1.innerHTML = order_object[i].Name+"<input type='hidden' value='"+order_object[i].Name+"' name='itemName' />"+
+                     "<br /><a href='#'><span class='glyphicon glyphicon-plus-sign'></span></a>" +
+                     "<a href='#'><span class='glyphicon glyphicon-minus-sign'></span></a>" +
+                     "<input type='hidden' value='"+order_object[i].ID+"' name='itemID' />";
+             cell2.innerHTML = order_object[i].Qty+"<input type='hidden' value='"+order_object[i].Qty+"' name='itemQty' />&nbsp;X&nbsp;" +
+                     order_object[i].Price+"<input type='hidden' value='"+order_object[i].Price+"' name='itemPrice' />";
+             cell3.innerHTML = parseInt(order_object[i].Price)*parseInt(order_object[i].Qty);
+             sub_total += parseInt(order_object[i].Price);
+
+         }
+
+         var table = document.getElementById("order_cart_table");
+
+         var row = table.insertRow(order_object.length+1);
+         var cell1 = row.insertCell(0);
+         var cell2 = row.insertCell(1);
+         var cell3 = row.insertCell(2);
+
+         cell2.innerHTML = "Sub Total";
+         cell3.innerHTML = sub_total;
+
+         var table = document.getElementById("order_cart_table");
+
+         var row = table.insertRow(order_object.length+2);
+         var cell1 = row.insertCell(0);
+         var cell2 = row.insertCell(1);
+         var cell3 = row.insertCell(2);
+
+         cell2.innerHTML = "Tax";
+         cell3.innerHTML = '0';
+
+         var table = document.getElementById("order_cart_table");
+
+         var row = table.insertRow(order_object.length+3);
+         var cell1 = row.insertCell(0);
+         var cell2 = row.insertCell(1);
+         var cell3 = row.insertCell(2);
+
+         cell2.innerHTML = "Grand Total";
+         cell3.innerHTML = sub_total;
+
+         document.getElementById("order_cart_value").innerHTML +="<br />" +
+                 "<input type='button' class='btn btn-success' style='height: 3em;' onclick='submitform()' " +
+                 "value='Process to Checkout' />";
+
+     }
+
+ </script>
+ <style>
+
+     th, td {
+         text-align: justify;
+         padding: 0px;
+     }
+    tr:nth-child(odd){}
+    tr:nth-child(even){}
+
+     th {
+         background-color: #4CAF50;
+         color: white;
+     }
+ </style>
+<script>
+    function submitform() {
+        sessionStorage.myvar = document.getElementsByName("itemName[]");
+        document.getElementById("order_cart_form").submit();
+    }
+</script>

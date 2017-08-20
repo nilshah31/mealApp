@@ -21,9 +21,16 @@ var ItemSchema = mongoose.Schema({
 	} 
 });
 
+//Item Modal Handler
 var Item = module.exports = mongoose.model('Item', ItemSchema);
 
+//Store new Item
 module.exports.createItem = function(newItem, callback){
 	        newItem.save(callback);
 	}
 
+//get item row by Item ID
+module.exports.getItemByIdCustom = function(id, callback){
+    var query = {_id: id};
+    Item.findOne(query, callback);
+}
