@@ -272,6 +272,13 @@ Handlebars.registerHelper('resetCounterVariable', function(options) {
     i = 1;
 });
 
+Handlebars.registerHelper('checkAvableQty', function(qty,options) {
+    if(qty>0)
+        return options.fn(this);
+    else
+        return options.inverse(this);
+});
+
 Handlebars.registerHelper('checkIfUserSession', function(userSession, options) {
     if(userSession){
         return true;
