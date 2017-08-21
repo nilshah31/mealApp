@@ -6,6 +6,13 @@ var Item = require('../models/item');
 var Order = require('../models/order');
 module.exports = router;
 
+/*
+Item.updateItemQtyAll('ID',function (err,result) {
+
+});
+
+*/
+
 
 router.get('/user_profile',function(req, res){
     res.render('user_profile',{user:req.session.user});
@@ -74,26 +81,42 @@ router.get('/payment',function(req, res){
     order_itemName = req.session.order_itemName;
     order_itemPrice = req.session.order_itemPrice;
     order_itemQty = req.session.order_itemQty;
+
     total=0;
     object_item_hash = [];
-    for(i=0;i<order_itemQty.length;i++) {
-        sub_Total=parseInt(order_itemQty[i])*parseInt(order_itemPrice[i]);
+    if(order_itemQty.length==1) {
+        sub_Total = parseInt(order_itemQty) * parseInt(order_itemPrice);
         object_item_hash.push({
-            order_itemID:order_itemID[i],
-            order_itemName:order_itemName[i],
-            order_itemPrice:order_itemPrice[i],
-            order_itemQty:order_itemQty[i],
-            sub_Total:sub_Total
+            order_itemID: order_itemID,
+            order_itemName: order_itemName,
+            order_itemPrice: order_itemPrice,
+            order_itemQty: order_itemQty,
+            sub_Total: sub_Total
         });
-        total+=sub_Total;
+        total += sub_Total;
+        req.session.sub_Total = sub_Total;
     }
-    req.session.sub_Total=sub_Total;
+    else{
+        for (i = 0; i < order_itemQty.length; i++) {
+            sub_Total = parseInt(order_itemQty[i]) * parseInt(order_itemPrice[i]);
+            object_item_hash.push({
+                order_itemID: order_itemID[i],
+                order_itemName: order_itemName[i],
+                order_itemPrice: order_itemPrice[i],
+                order_itemQty: order_itemQty[i],
+                sub_Total: sub_Total
+            });
+            total += sub_Total;
+        }
+        req.session.sub_Total = sub_Total;
+    }
     res.render('payment',
         {
-            user:req.session.user,
+            user: req.session.user,
             object_item_hash: object_item_hash,
-            bill_total:total
+            bill_total: total
         });
+
 });
 
 router.get('/user_order_history',function(req, res){
@@ -145,7 +168,8 @@ router.post('/newItem', function(req, res){
 			description : descriptionValue,
 			initial_qty : initial_qtyValue,
 			price : priceValue,
-			item_image_path : item_image_pathValue
+			item_image_path : item_image_pathValue,
+            avaible_qty : initial_qtyValue
 		});
 	Item.createItem(newItem, function(err, Item){
 	if(err) throw err;
@@ -192,11 +216,15 @@ router.post('/payment', function(req, res){
     order_itemQty = req.session.order_itemQty;
     total=0;
 
+    itemIDArray = String(req.session.order_itemID).split(',');
     itemPriceArray = String(req.session.order_itemPrice).split(',');
     itemQtyArray = String(req.session.order_itemQty).split(',');
 
     for(var i=0;i<itemPriceArray.length;i++){
-		total+=parseInt(itemPriceArray[i])*parseInt(itemQtyArray[i]);
+ 		total+=parseInt(itemPriceArray[i])*parseInt(itemQtyArray[i]);
+        Item.updateItemQty(itemIDArray[i],itemQtyArray[i],function(err, result){
+            if(err) throw err;
+        });
 	}
 
     var newOrder = new Order({

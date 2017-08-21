@@ -1,11 +1,11 @@
 <!--Item DIV -->
 <div id="itemDIV">
     <a class="btn btn-success toright" href="#" id="addItem">
-        <i class="icon-picture icon-white fa fa-leaf"></i>
+        <i class="fa fa-plus" aria-hidden="true"></i>
         &nbsp;Add Item to Catalog
     </a>
     <a class="btn btn-success toright" href="#">
-        <i class="icon-music icon-white fa fa-music"></i>
+        <i class="fa fa-times" aria-hidden="true"></i>
         &nbsp; Remove Selected
     </a>
 
@@ -51,7 +51,7 @@
 <div id="itemModal" class="modal">
     <div class="item-modal-content">
         <span class="close">&times;</span>
-        <h1>New Item Form</h1>
+        <h1>New Item</h1>
         <form method="post" name="itemForm" action="/newItem" class="newItem" enctype="multipart/form-data">
             <fieldset>
                 <label for="name">Name : </label>
@@ -60,7 +60,7 @@
                 <input type="text" name="descTxtBox" id="descTxtBox" require>
                 <label for="price">Price : </label>
                 <input type="text" name="priceTxtBox" id="priceTxtBox" require>
-                <label for="initial_qty">Description : </label>
+                <label for="initial_qty">Initial Quantity : </label>
                 <input type="text" name="inititalQtyTxtBox" id="inititalQtyTxtBox" require>
                 <label for="item_img">Image : </label>
                 <input type="file" accept="image/*" name="item_img">
