@@ -1,13 +1,22 @@
+
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+<style>
+</style>
+
 <style>
     #cart_order_div {
         position: fixed;
-        right: 1%;
+        right: 8%;
         top: 37%;
-        width: 18em;
+        width: 20em;
         margin-top: -2.5em;
         background-color:  #ffffb3;
         padding-top: 1em;
         padding-left: 1em;
+        border-right-color: #0f0f0f;
+        border-right-style:solid;
     }
     #order_cart_value {
         background-color:  #ffffb3;
@@ -15,24 +24,32 @@
     body{
         background-color: #f5f5f5;
     }
+    .blackColorIcon {
+        color: #727272;
+    }
+    .itemPanel{
+        margin-left: 15%;
+    }
 </style>
  <br /><br />
   <br />
 
+<div class="container" >
 {{#if message}}
         <div class="alert alert-success alert-dismissable">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
           {{message}}
         </div>
 {{/if}}
+</div>
 
+<div class="itemPanel">
 <form action="" onsubmit="return false">
-
 <div>
-<div class="row">    
+<div class="row">
   {{#each itemList}}
     {{#ifCustomize @index}}
-      <div class="col-sm-4">
+      <div class="col-sm-2 column">
         <div class="panel panel-success" style="background-color: white">
           <div class="panel-heading">{{name}}</div>
           <input type="hidden" name="item_name" value='{{name}}'>
@@ -43,7 +60,8 @@
             <img src="{{item_image_path}}" class="img-responsive" style="width:100%;height:150px" alt="Image">
           </div>
           <div class="panel-footer" style="background-color: white">
-              <i class="fa fa-inr"></i>&nbsp;{{price}}&nbsp;(Available : {{avaible_qty}})
+              <i class="fa fa-inr"></i>&nbsp;{{price}}&nbsp;
+              <br />Available Quantity: {{avaible_qty}}
               <br />{{description}}
               <br /><br />
               {{#checkAvableQty avaible_qty}}
@@ -68,7 +86,7 @@
     {{else}}
       </div>
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-2 column">
           <div class="panel panel-success">
             <input type="hidden" name="item_name" value='{{name}}'>
             <input type="hidden" name="item_price" value='{{price}}'>
@@ -79,7 +97,8 @@
               <img src="{{item_image_path}}" class="img-responsive" style="width:100%;height:150px" alt="Image">
             </div>
               <div class="panel-footer" style="background-color: white">
-                  <i class="fa fa-inr"></i>&nbsp;{{price}}&nbsp;(Available : {{avaible_qty}})
+                  <i class="fa fa-inr"></i>&nbsp;{{price}}
+                  <br />Available Quantity: {{avaible_qty}}
                   <br />{{description}}
                   <br /><br />
                   {{#checkAvableQty avaible_qty}}
@@ -121,16 +140,22 @@
     <p class='message'></p>
     <input type='button' class='confirmButton custmMessageClassButton' value='Ok'>
 </div>
+</div>
+
 
  <script>
      var order_object = [];
      var total = 0;
+     if(!(checkTime())){
+         document.getElementById("overlay").style.display = "block";
+     }
+
      if(order_object .length==0){
          document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Please add items to your order</div>";
      }
 
      function addItemtoCart(id,name,price,qty,avaible_qty) {
-        /* if(checkTime()){
+         if(checkTime()){
              var currentCallback;
              // override default browser alert
              window.alert = function(msg, callback){
@@ -156,7 +181,7 @@
                 setTimeout(function() {
                 });
             });
-         }*/
+         }
          newItemobject = { "ID": id, "Name": name, "Price": price,"Qty": qty,"SubTotal": parseInt(price)*parseInt(qty),"avaible_qty":parseInt(avaible_qty) };
          addItemToOrder(newItemobject);
      }
@@ -164,8 +189,8 @@
      function checkTime() {
          var today=new Date();
          var h=today.getHours();
-         if(((h>= 12) && (h<18)) || ((h>= 18) && (h<21))){
-            return true;
+         if(((h>= 12) && (h<17)) || ((h>= 17) && (h<21))){
+            return false;
          }
          else{
              return false;
@@ -184,7 +209,7 @@
          document.getElementById("order_cart_value").innerHTML="";
 
          document.getElementById("order_cart_value").innerHTML += ""+
-                 "<table id='order_cart_table' class='table' style='font-family:\"Courier New\"; font-size:80%'>" +
+                 "<table id='order_cart_table' class='table' style='font-size:90%'>" +
                  "<tr>" +
                     "<th></th>" +
                     "<th></th>" +
@@ -198,8 +223,8 @@
              var cell2 = row.insertCell(1);
              var cell3 = row.insertCell(2);
              cell1.innerHTML = order_object[i].Name+"<input type='hidden' value='"+order_object[i].Name+"' name='itemName' />"+
-                     "<br /><a href='#' onclick='add_quintity("+i+","+order_object[i].avaible_qty+")'><span class='glyphicon glyphicon-plus-sign'></span></a>" +
-                     "<a href='#' onclick='reduce_quintity("+i+")'><span class='glyphicon glyphicon-minus-sign'></span></a>" +
+                     "<br /><a href='#' onclick='add_quintity("+i+","+order_object[i].avaible_qty+")'><span class='icon-2x blackColorIcon icon-plus-sign'></span></a>" +
+                     "<a href='#' onclick='reduce_quintity("+i+")'><span class='icon-2x blackColorIcon icon-minus-sign'></span></a>" +
                      "<input type='hidden' value='"+order_object[i].ID+"' name='itemID' />";
              cell2.innerHTML = order_object[i].Qty+"<input type='hidden' value='"+order_object[i].Qty+"' name='itemQty' />&nbsp;X&nbsp;" +
                      order_object[i].Price+"<input type='hidden' value='"+order_object[i].Price+"' name='itemPrice' />";
@@ -243,8 +268,8 @@
 
      }
  </script>
- <style>
 
+ <style>
      th, td {
          text-align: justify;
          padding: 0px;
@@ -268,9 +293,7 @@
 <script>
     function add_quintity(index,avbl_qnty){
         order_object[index].Qty = parseInt(order_object[index].Qty);
-        if(order_object[index].Qty>=avbl_qnty)
-            alert("We don't have this much avaible items, kindly order avaible qunityty only");
-        else
+        if(order_object[index].Qty<avbl_qnty)
             order_object[index].Qty+=1;
         add_item_to_cart();
     }
@@ -366,5 +389,32 @@
         to{
             opacity: 1;
         }
+    }
+</style>
+
+
+<style>
+    .productbox {
+        background-color:#ffffff;
+        padding:10px;
+        margin-bottom:10px;
+        -webkit-box-shadow: 0 8px 6px -6px  #999;
+        -moz-box-shadow: 0 8px 6px -6px  #999;
+        box-shadow: 0 8px 6px -6px #999;
+    }
+
+    .producttitle {
+        font-weight:bold;
+        padding:5px 0 5px 0;
+    }
+
+    .productprice {
+        border-top:1px solid #dadada;
+        padding-top:5px;
+    }
+
+    .pricetext {
+        font-weight:bold;
+        font-size:1.4em;
     }
 </style>

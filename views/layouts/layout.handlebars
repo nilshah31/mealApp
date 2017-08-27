@@ -45,7 +45,7 @@
         <li>
             <div class="dropdown accountdropdown">
                 <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user" /> Account <span class="caret"></span>
+                    <span class="glyphicon glyphicon-user" /> {{user.lastname}} <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="/user_order_history">Order History</a></li>
@@ -62,9 +62,7 @@
   </div>
 </nav>
 
-<div class="container">
-    {{{body}}}
-</div>
+{{{body}}}
 
 <footer id="site-footer">
   <center><p>
@@ -80,8 +78,6 @@
         background: Black;
         color: white;
     }
-
-
     #footer1{
         margin-left:2%;
         float:left;

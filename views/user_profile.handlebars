@@ -1,75 +1,176 @@
-<div id="profile-tab" class="tab-pane active">
-    <div class="pd-20">
-        <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="glyphicon glyphicon-user"></i> ABOUT</h3>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="row mgbt-xs-0">
-                    <label class="col-xs-5 control-label">First Name:</label>
-                    <div class="col-xs-7 controls">Mariah</div>
-                    <!-- col-sm-10 -->
+<br />
+<!--
+<div class="container">
+    <div id="profile-tab" class="tab-pane active">
+        <div class="pd-20">
+            <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="glyphicon glyphicon-user"></i> Nilkumar,Shah</h3>
+            <br />
+            <form method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="group">
+                            <label class="label_form">First Name</label>
+                            <input type="pwd" name="txtfName" maxlength="15" value="{{user.firstname}}" required/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="group">
+                            <label class="label_form">Last Name</label>
+                            <input type="pwd" name="txtLName" maxlength="15" value="{{user.lastname}}" required/>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="row mgbt-xs-0">
-                    <label class="col-xs-5 control-label">Last Name:</label>
-                    <div class="col-xs-7 controls">Caraiban</div>
-                    <!-- col-sm-10 -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="group">
+                            <label class="label_form">Email</label>
+                            <input type="pwd" name="txtfName" maxlength="15" value="{{user.email}}" required/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="group">
+                            <label class="label_form">Phone Number</label><br />
+                            <input type="pwd" name="txtLName" maxlength="15" value="{{user.phone}}" required/>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="row mgbt-xs-0">
-                    <label class="col-xs-5 control-label">User Name:</label>
-                    <div class="col-xs-7 controls">Mariah</div>
-                    <!-- col-sm-10 -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="group">
+                            <label class="label_form">City</label><br />
+                            <input type="pwd" name="txtfName" maxlength="15" value="{{user.locationn}}" required/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="group">
+                            <label class="label_form">Location</label><br />
+                            <input type="text" name="txtLName" maxlength="15" value="{{user.locationn}}" required/>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="row mgbt-xs-0">
-                    <label class="col-xs-5 control-label">Email:</label>
-                    <div class="col-xs-7 controls">mariah@Vendroid.com</div>
-                    <!-- col-sm-10 -->
+                <br />
+                <button type="submit" class="btn btn-success btn-lg btn-block">
+                       <span class="glyphicon glyphicon-chevron-up"></span>&nbsp;&nbsp;&nbsp;Update Profile
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+-->
+
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{user.lastname}} {{user.firstname}}</h3>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="row mgbt-xs-0">
-                    <label class="col-xs-5 control-label">City:</label>
-                    <div class="col-xs-7 controls">Los Angeles</div>
-                    <!-- col-sm-10 -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center">
+                            <img alt="User Pic" src="\images\user_pic.png" class="img-circle img-responsive"> </div>
+
+                        <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                          <dl>
+                            <dt>DEPARTMENT:</dt>
+                            <dd>Administrator</dd>
+                            <dt>HIRE DATE</dt>
+                            <dd>11/12/2013</dd>
+                            <dt>DATE OF BIRTH</dt>
+                               <dd>11/12/2013</dd>
+                            <dt>GENDER</dt>
+                            <dd>Male</dd>
+                          </dl>
+                        </div>-->
+                        <div class=" col-md-9 col-lg-9 ">
+                            <table class="table table-user-information">
+                                <tbody>
+                                <tr>
+                                    <td>First Name</td>
+                                    <td>{{user.firstname}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name</td>
+                                    <td>{{user.lastname}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Delievery Address</td>
+                                    <td>Cerner Healthcare,Bangalore</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>nilshah.31@gmail.com</td>
+                                </tr>
+                                <td>Phone Number</td>
+                                <td>7204572637
+                                </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2"><br />
+                                        <a href="#">Change Password</a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                            <center><a href="#" class="btn btn-primary">Update Your Profile</a></center>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="row mgbt-xs-0">
-                    <label class="col-xs-5 control-label">Country:</label>
-                    <div class="col-xs-7 controls">United States</div>
-                    <!-- col-sm-10 -->
+
+
+                <div class="panel-footer">
+                    <span class="pull-right">
+                    </span>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="row mgbt-xs-0">
-                    <label class="col-xs-5 control-label">Birthday:</label>
-                    <div class="col-xs-7 controls">Jan 22, 1984</div>
-                    <!-- col-sm-10 -->
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="row mgbt-xs-0">
-                    <label class="col-xs-5 control-label">Interests:</label>
-                    <div class="col-xs-7 controls">Basketball, Web, Design, etc.</div>
-                    <!-- col-sm-10 -->
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="row mgbt-xs-0">
-                    <label class="col-xs-5 control-label">Website:</label>
-                    <div class="col-xs-7 controls"><a href="http://Vendroid.venmond.com">Vendroid.venmond.com</a></div>
-                    <!-- col-sm-10 -->
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="row mgbt-xs-0">
-                    <label class="col-xs-5 control-label">Phone:</label>
-                    <div class="col-xs-7 controls">+1-234-5678</div>
-                    <!-- col-sm-10 -->
-                </div>
+
             </div>
         </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+    <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+
+                -->
+
+
+
+
+
+
+
+
+
+

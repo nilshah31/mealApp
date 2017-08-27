@@ -110,11 +110,13 @@ router.get('/payment',function(req, res){
         }
         req.session.sub_Total = sub_Total;
     }
+
     res.render('payment',
         {
             user: req.session.user,
             object_item_hash: object_item_hash,
-            bill_total: total
+            bill_total: total,
+            order_rcpt_number: req.session.order_rcpt_number
         });
 
 });
@@ -137,6 +139,7 @@ router.get('/user_order_history',function(req, res){
             var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth())+'/'+String(order_date.getFullYear());
             object_item_hash.push({
                 order_itemName:results[i].item_name,
+                receipt_number:results[i].receipt_number,
                 order_itemPrice:results[i].price,
                 order_itemQty:results[i].qty,
                 sub_Total:results[i].sub_Total,
@@ -204,8 +207,18 @@ router.post('/', function(req, res){
     req.session.order_itemName =  req.body.itemName;
     req.session.order_itemQty =  req.body.itemQty;
     req.session.order_itemPrice =  req.body.itemPrice;
+    req.session.order_rcpt_number = ("MEAL"+stringGen(5)).replace(/ /g,'');
     res.redirect('payment');
 });
+
+function stringGen(len)
+{
+    var text = " ";
+    var charset = "abcdefghijklmnopqrstuvwxyz0123456789";
+    for( var i=0; i < len; i++ )
+        text += charset.charAt(Math.floor(Math.random() * charset.length));
+    return text;
+}
 
 router.post('/payment', function(req, res){
 
@@ -214,6 +227,7 @@ router.post('/payment', function(req, res){
     order_itemName = req.session.order_itemName;
     order_itemPrice = req.session.order_itemPrice;
     order_itemQty = req.session.order_itemQty;
+
     total=0;
 
     itemIDArray = String(req.session.order_itemID).split(',');
@@ -229,6 +243,7 @@ router.post('/payment', function(req, res){
 
     var newOrder = new Order({
         user_id  : req.session.user._id,
+        receipt_number: req.session.order_rcpt_number,
         item_name : order_itemName,
         qty : order_itemQty,
         price : order_itemPrice,
@@ -261,7 +276,7 @@ Handlebars.registerHelper('incrementCounterVariable', function(options) {
 });
 
 Handlebars.registerHelper('ifCustomize', function(conditional, options) {
-    if(conditional%3) {
+    if(conditional%4) {
         return options.fn(this);
     } else {
         return options.inverse(this);
@@ -272,13 +287,6 @@ Handlebars.registerHelper('resetCounterVariable', function(options) {
     i = 1;
 });
 
-Handlebars.registerHelper('checkAvableQty', function(qty,options) {
-    if(qty>0)
-        return options.fn(this);
-    else
-        return options.inverse(this);
-});
-
 Handlebars.registerHelper('checkIfUserSession', function(userSession, options) {
     if(userSession){
         return true;
@@ -286,3 +294,18 @@ Handlebars.registerHelper('checkIfUserSession', function(userSession, options) {
         return false;
     }
 });
+
+Handlebars.registerHelper('checkAvableQty', function(qty,options) {
+    if(qty>0)
+        return options.fn(this);
+    else
+        return options.inverse(this);
+});
+
+Handlebars.registerHelper('checkOrderStatus', function(orderStatus,options) {
+    if(String(orderStatus)=='Ordered')
+        return options.fn(this);
+    else
+        return options.inverse(this);
+});
+

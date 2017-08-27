@@ -7,6 +7,9 @@ var OrderSchema = mongoose.Schema({
 	user_id: {
 		type: String
 	},
+	receipt_number:{
+		type: String
+	},
 	item_name: {
 		type: String
 	},
