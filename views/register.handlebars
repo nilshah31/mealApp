@@ -1,48 +1,26 @@
 <br /><br />
+
+
 <script>
-  //using the function:
-  //removeOptions(document.getElementById("location"));
-  /*var companyList = [][];
-  var city = [];
-  var i=0,j=0,k=0;
-  
-  {{#each cityList}}
-      city[i++]='{{this}}'
-  {{/each}}
+    city_arry = [];
+    city_unique_list = [];
 
-  for(k = city.length - 1 ; k >= 0 ; k--)
-  {
-    {{#each locationList}}
-      {if city==}city[k]
-       company[i][j++]='{{company}}';   
+    {{#each cityList}}
+        city_arry.push('{{this}}');
     {{/each}}
-    i+=1;
-  }
-    
-  for(k = city.length - 1 ; k >= 0 ; k--)
-  {
-      if(city[k]==selectedCityName){
-        var option = document.createElement("option");
-        option.text = company[i][0];
-        selectBox.add(option);
-      }
-  }
 
-  function removeOptions(selectbox)
-  {
-    var i;
-    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
-    {
-        selectbox.remove(i);
+    for(i=0;i<city_arry.length;i++) {
+        {{#each locationList}}
+            temp = '{{city}}';
+            if (temp == city_arry[i]) {
+                city_unique_list.push({city: city_arry[i],company: '{{company}}'} );
+            }
+        {{/each}}
     }
-  }
-  function addOptions()
-  {
-    
-    selectedCityName = document.getElementById("city").value;
-    selectBox = document.getElementById("location");
-    removeOptions(selectBox);  
-  }*/
+
+    for(i=0;i<city_unique_list.length;i++) {
+        alert("City : "+city_unique_list[i].city+"   Company : "+city_unique_list[i].company);
+    }
 </script>
 
 <style href='http://www.authy.com/form.authy.min.css'></style>

@@ -15,8 +15,9 @@ router.get('/register', function(req, res){
 				unique_city_list.push(item['city']);
 			}
 		})
+        console.log(results);
 		if (err) return res.sendStatus(500);
-		res.render('register', { cityList : unique_city_list, locationList : results });   	  
+		res.render('register', { cityList : unique_city_list, locationList : results });
 	});
 		
 });
