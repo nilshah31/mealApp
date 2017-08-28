@@ -9,6 +9,21 @@
         city_arry.push('{{this}}');
     {{/each}}
 
+    function addOption() {
+        removeAllOptions();
+        temp = document.getElementById("city");
+        temp = temp.options[temp.selectedIndex].value;
+        var selectobject=document.getElementById("location");
+        for (i = 0; i < city_unique_list.length; i++) {
+            if(city_unique_list[i].city==temp){
+                opt = document.createElement("option");
+                opt.value = city_unique_list[i].company;
+                opt.text = city_unique_list[i].company;
+                selectobject.add(opt, null);
+            }
+        }
+    }
+
     for(i=0;i<city_arry.length;i++) {
         {{#each locationList}}
             temp = '{{city}}';
@@ -18,8 +33,11 @@
         {{/each}}
     }
 
-    for(i=0;i<city_unique_list.length;i++) {
-        alert("City : "+city_unique_list[i].city+"   Company : "+city_unique_list[i].company);
+    function removeAllOptions() {
+        var selectobject=document.getElementById("location");
+        for (var i=0; i<selectobject.length; i++){
+            selectobject.remove(i);
+        }
     }
 </script>
 
@@ -93,7 +111,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="select city">Select City</label>
   <div class="col-md-4">
-    <select id="city" onchange="addOptions()" name="city" class="form-control input-md">
+    <select id="city" onchange="addOption()" name="city" class="form-control input-md">
       <option>Please Select City</option>
       {{#each cityList}}
         <option>{{this}}</option>

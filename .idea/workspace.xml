@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="950b4c02-1753-4d93-bb2f-d24ba886aa52" name="Default" comment="Complated Index">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/users.js" afterPath="$PROJECT_DIR$/routes/users.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/layouts/layout.handlebars" afterPath="$PROJECT_DIR$/views/layouts/layout.handlebars" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/login.handlebars" afterPath="$PROJECT_DIR$/views/login.handlebars" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/register.handlebars" afterPath="$PROJECT_DIR$/views/register.handlebars" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -48,8 +44,8 @@
       <file leaf-file-name="register.handlebars" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/register.handlebars">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+            <state relative-caret-position="420">
+              <caret line="20" column="24" lean-forward="false" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -391,12 +387,12 @@
       <workItem from="1503123477674" duration="40181000" />
       <workItem from="1503286891802" duration="16201000" />
       <workItem from="1503417938857" duration="13157000" />
-      <workItem from="1503570107501" duration="22498000" />
+      <workItem from="1503570107501" duration="24016000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175614000" />
+    <option name="totallyTimeSpent" value="177132000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1932" height="1038" extended-state="0" />
@@ -847,8 +843,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/register.handlebars">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+        <state relative-caret-position="420">
+          <caret line="20" column="24" lean-forward="false" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
           <folding />
         </state>
       </provider>
