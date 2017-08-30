@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var Handlebars = require('handlebars');
+var Location = require('../models/location');
+var Item = require('../models/item');
+var Order = require('../models/order');
 
 var User = require('../models/user');
 var Location = require('../models/location');
@@ -34,20 +38,39 @@ router.get('/login', function(req, res){
 
 // Login
 router.get('/loginVerify', function(req, res){
-	user = req.session.user;
-	res.render('loginVerify',{ Current_User_Id : user._id });
+    var query = {phone: req.query.phone};
+    User.findOne(query, function(err,results){
+        User.updateuserTokan(results.id,function(err, results) {
+            if (err) throw err;
+        });
+
+        User.sendMessage(results.lastname, results.phone, results.token, function (err, result) {
+            console.log("Result is :"+results);
+        	if (results.verified == false) {
+            	req.session.user = result;
+                    user = results;
+                    res.render('loginVerify', {Current_User_Id: user._id});
+                }
+                else {
+                    res.redirect('/');
+                }
+            });
+
+    });
 });
 
 // Register User
 router.post('/register', function(req, res){
 
-	var firstname = req.body.fn;
-	var lastname = req.body.ln;
-	var email = req.body.email;
-	var phone = req.body.phone;
-	var location = req.body.location;
-	var password = req.body.password;
-	var cnfpassword = req.body.cnfpassword;
+	firstname = req.body.fn;
+	lastname = req.body.ln;
+	email = req.body.email;
+	phone = req.body.phone;
+	location = req.body.location;
+	password = req.body.password;
+	cnfpassword = req.body.cnfpassword;
+
+
 
 	// Validation
 	req.checkBody('fn', 'FirstName is required').notEmpty();
@@ -75,15 +98,15 @@ router.post('/register', function(req, res){
 		});
 
 		User.createUser(newUser, function(err, user){
-			if(err) throw err;
+			if(err){
+                throw err;
+			}
 			console.log(user);
 		});
 
+        res.redirect("/users/loginVerify?phone=" + req.body.phone);
 
-		req.flash('success_msg', 'You have Scussfully Registered to MealApp, Please use your login credentials to login');
-
-		res.redirect('/users/login');
-	}
+    }
 });
 
 passport.use(new LocalStrategy(
@@ -124,7 +147,12 @@ router.post('/login',function(req, res) {
 				User.getUserBymobNumber(req.body.username, function(err, user){
 					User.sendMessage(user.lastname,user.phone,user.token,function(err,result){
 						req.session.user = user;
-						res.redirect('loginVerify');
+						if(req.session.user.verified==true) {
+                            res.redirect('/');
+                        }
+                        else{
+                            res.redirect("/users/loginVerify?phone=" + req.body.username);
+						}
 					});
 				});
 			});
