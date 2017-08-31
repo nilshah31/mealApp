@@ -6,9 +6,10 @@ var Handlebars = require('handlebars');
 var Location = require('../models/location');
 var Item = require('../models/item');
 var Order = require('../models/order');
-
 var User = require('../models/user');
 var Location = require('../models/location');
+
+
 
 // Register
 router.get('/register', function(req, res){
@@ -23,7 +24,6 @@ router.get('/register', function(req, res){
 		if (err) return res.sendStatus(500);
 		res.render('register', { cityList : unique_city_list, locationList : results });
 	});
-		
 });
 
 // Login
@@ -43,7 +43,6 @@ router.get('/loginVerify', function(req, res){
         User.updateuserTokan(results.id,function(err, results) {
             if (err) throw err;
         });
-
         User.sendMessage(results.lastname, results.phone, results.token, function (err, result) {
             console.log("Result is :"+results);
         	if (results.verified == false) {
@@ -55,22 +54,19 @@ router.get('/loginVerify', function(req, res){
                     res.redirect('/');
                 }
             });
-
     });
 });
 
 // Register User
 router.post('/register', function(req, res){
-
 	firstname = req.body.fn;
 	lastname = req.body.ln;
 	email = req.body.email;
 	phone = req.body.phone;
 	location = req.body.location;
+	city = req.body.city;
 	password = req.body.password;
 	cnfpassword = req.body.cnfpassword;
-
-
 
 	// Validation
 	req.checkBody('fn', 'FirstName is required').notEmpty();
@@ -93,6 +89,7 @@ router.post('/register', function(req, res){
 			password: password,
 			email: email,
 			phone: phone,
+            city: city,
 			location: location,
 			password: password  
 		});
@@ -103,9 +100,7 @@ router.post('/register', function(req, res){
 			}
 			console.log(user);
 		});
-
         res.redirect("/users/loginVerify?phone=" + req.body.phone);
-
     }
 });
 
@@ -116,7 +111,6 @@ passport.use(new LocalStrategy(
    	if(!user){
    		return done(null, false, {message: 'Unknown User'});
    	}
-
    	User.comparePassword(password, user.password, function(err, isMatch){
    		if(err) throw err;
    		if(isMatch){

@@ -51,10 +51,7 @@ module.exports.updateItemQty = function(id,orderedQty,callback){
 module.exports.updateItemQtyAll = function(id,callback){
     Item.find({},function(err,results){
         for(i=0;i<results.length;i++){
-    		Item.update({_id:results[i].id}, {$set:{avaible_qty:results[i].initial_qty}}, function(err, result) {
-                if(err) throw err;
-                callback(null,result);
-            });
+    		Item.update({_id:results[i].id}, {$set:{avaible_qty:results[i].initial_qty}}, callback);
         }
     });
 }

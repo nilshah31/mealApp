@@ -9,7 +9,7 @@
     #cart_order_div {
         position: fixed;
         right: 8%;
-        top: 37%;
+        top: 35%;
         width: 20em;
         margin-top: -2.5em;
         background-color:  #ffffb3;
@@ -34,13 +34,14 @@
  <br /><br />
   <br />
 
-<div class="container" >
 {{#if message}}
-        <div class="alert alert-success alert-dismissable">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-          {{message}}
-        </div>
+    <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        {{message}}
+    </div>
 {{/if}}
+
+<div class="container" >
 </div>
 
 <div class="itemPanel">
@@ -67,7 +68,7 @@
               {{#checkAvableQty avaible_qty}}
                   <span class="glyphicon glyphicon-shopping-cart"></span>
                   <input type="submit"
-                         class="btn btn-success"
+                         class="add_to_cart_btn add_to_cart btn btn-success"
                          value="Add to Cart"
                          onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1',{{avaible_qty}})"
                   />
@@ -104,7 +105,7 @@
                   {{#checkAvableQty avaible_qty}}
                       <span class="glyphicon glyphicon-shopping-cart"></span>
                       <input type="submit"
-                         class="btn btn-success"
+                         class="add_to_cart_btn btn btn-success"
                          value="Add to Cart"
                          onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1',{{avaible_qty}})"
                   />
@@ -146,12 +147,18 @@
  <script>
      var order_object = [];
      var total = 0;
-     if(!(checkTime())){
-         document.getElementById("overlay").style.display = "block";
+     if(checkTime()) {
+         document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Ordering starts from <br />LUNCH --- 9:00 AM to 11:30 AM <br />DINNER --- 5:00 PM to 7:00 PM</div>";
+         var all_btns = document.getElementsByClassName("add_to_cart_btn")
+         for(var i=0, len=all_btns.length; i<len; i++)
+         {
+             all_btns[i].disabled=true;
+         }
      }
-
-     if(order_object .length==0){
-         document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Please add items to your order</div>";
+     else{
+        if(order_object.length==0){
+             document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Please add items to your order</div>";
+        }
      }
 
      function addItemtoCart(id,name,price,qty,avaible_qty) {
@@ -189,14 +196,13 @@
      function checkTime() {
          var today=new Date();
          var h=today.getHours();
-         if(((h>= 12) && (h<17)) || ((h>= 17) && (h<21))){
+         if(((h>= 9) && (h<=12)) || ((h>= 17) && (h<=19))){
             return false;
          }
          else{
-             return false;
+             return true;
          }
      }
-
 
      function  addItemToOrder(newItemobject) {
          order_object.push(newItemobject);
@@ -233,7 +239,6 @@
          }
 
          var table = document.getElementById("order_cart_table");
-
          var row = table.insertRow(order_object.length+1);
          var cell1 = row.insertCell(0);
          var cell2 = row.insertCell(1);

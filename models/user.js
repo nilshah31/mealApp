@@ -29,6 +29,9 @@ var UserSchema = mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	city: {
+        type: String,
+	},
 	location: {
 		type: String
 	},
@@ -43,12 +46,11 @@ var UserSchema = mongoose.Schema({
     token_exp: {
         type: Date,
         default: '',
-    },
+    }
 });
 
 //User Modal Handler
 var User = module.exports = mongoose.model('User', UserSchema);
-
 //Create User and encode password
 module.exports.createUser = function(newUser, callback){
 	bcrypt.genSalt(10, function(err, salt) {
@@ -88,6 +90,10 @@ module.exports.updateuserTokan = function(id, callback){
     	callback(null,result);
     });
 }
+
+
+
+
 
 module.exports.verifiedSucess = function(id, callback){
 	User.update({_id:id}, {$set:{verified:true}}, function(err, result) {

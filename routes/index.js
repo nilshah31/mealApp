@@ -6,13 +6,27 @@ var Item = require('../models/item');
 var Order = require('../models/order');
 module.exports = router;
 
+var schedule = require('node-schedule');
+
+var con_job_update_qty_noon = schedule.scheduleJob('00 12 * * *', function(){
+    Item.updateItemQtyAll('neel',function (err,results) {
+        console.log(results);
+    });
+});
+
+var con_job_update_qty_noon = schedule.scheduleJob('00 21 * * *', function(){
+    Item.updateItemQtyAll('neel',function (err,results) {
+        console.log(results);
+    });
+});
+
+
 /*
 Item.updateItemQtyAll('ID',function (err,result) {
 
 });
 
 */
-
 
 router.get('/user_profile',function(req, res){
     res.render('user_profile',{user:req.session.user});
