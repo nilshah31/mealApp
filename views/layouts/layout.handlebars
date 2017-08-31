@@ -1,20 +1,17 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-  	<title>MealApp</title>
-  	 <meta charset="utf-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" type="text/css" href="/css/skdslider.css">
-      <link rel="stylesheet" type="text/css" href="/css/style.css">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<head>
+    <title>MealApp</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/skdslider.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
-
 <div class="logo_products">
     <div class="container">
         <div class="w3ls_logo_products_left1">
@@ -25,48 +22,46 @@
         <div class="w3ls_logo_products_left">
             <h1><a href="/">Meal App</a></h1>
         </div>
-
         <div class="clearfix"> </div>
     </div>
 </div>
-
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar-center">
-            <li><a href="../deals">Logo</a></li>
-            <li class="active"><a href="/">Home</a></li>
-        <li><a href="../deals">Deals</a></li>
-        <li><a href="../howWeWork">How we Work?</a></li>
-        <li><a href="../contact">Contact</a></li>
-      </ul>
-      {{#if user}}
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-            <div class="dropdown accountdropdown">
-                <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user" /> {{user.lastname}} <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/user_order_history">Order History</a></li>
-                    <li><a href="/user_profile">View Profile</a></li>
-                    <li><a href="#">Support</a></li>
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-center">
+                <li><a href="../deals">Logo</a></li>
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="../deals">Deals</a></li>
+                <li><a href="../howWeWork">How we Work?</a></li>
+                <li><a href="../contact">Contact</a></li>
+            </ul>
+            {{#if user}}
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="dropdown accountdropdown">
+                            <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user" /> {{user.lastname}} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/user_order_history">Order History</a></li>
+                                <li><a href="/user_profile">View Profile</a></li>
+                                <li><a href="#">Support</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="/users/logout"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
                 </ul>
-            </div>
-        </li>
-          <li><a href="/users/logout"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
-      </ul>
-      {{/if}}
+            {{/if}}
+        </div>
     </div>
-  </div>
 </nav>
 
 {{{body}}}
 
 <footer id="site-footer">
-  <center><p>
-    &copy; 2017 Shah Technologies,Vadodara,Gujarat,India.
-  </p></center>
+    <center><p>
+        &copy; 2017 Shah Technologies,Vadodara,Gujarat,India.
+    </p></center>
 </footer>
 </body>
 </html>

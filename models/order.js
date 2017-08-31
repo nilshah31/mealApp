@@ -45,3 +45,6 @@ module.exports.createOrder = function(newOrder, callback){
 	        newOrder.save(callback);
 	}
 
+module.exports.updateOrderStatusAlltoCompleted = function(callback){
+    Order.update({status:'0'}, {$set:{status:'1'}}, callback);
+}

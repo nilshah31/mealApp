@@ -20,6 +20,13 @@ var con_job_update_qty_noon = schedule.scheduleJob('00 21 * * *', function(){
     });
 });
 
+var con_job_update_order_status = schedule.scheduleJob('00 13 * * *', function(){
+    Order.updateOrderStatusAlltoCompleted(function (err,results) {
+        console.log(results);
+    });
+});
+
+
 
 /*
 Item.updateItemQtyAll('ID',function (err,result) {
@@ -146,9 +153,9 @@ router.get('/user_order_history',function(req, res){
             if(results[i].status==0)
                 status='Ordered';
             else if(results[i].status==1)
-                status='Delevereid';
+                status='Completed';
             else
-                state='Cancled';
+                status='Cancled';
             var order_date=new Date(String(results[i].order_date_time));
             var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth())+'/'+String(order_date.getFullYear());
             object_item_hash.push({
@@ -164,6 +171,14 @@ router.get('/user_order_history',function(req, res){
         }
         res.render('user_order_history',{user:req.session.user,object_item_hash:object_item_hash});
     });
+});
+
+router.post('/user_order_history', function(req, res) {
+    var myquery = { receipt_number: req.body.rcptnumber };
+    Order.updateOne(myquery, {$set:{status:'2'}}, function(err, res) {
+        if (err) throw err;
+    });
+    res.redirect('/user_order_history');
 });
 
 router.post('/newItem', function(req, res){
