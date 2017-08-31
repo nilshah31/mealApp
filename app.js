@@ -87,9 +87,14 @@ app.use(function (req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 
-// Set Port
-app.set('port', (process.env.PORT || 3000));
+//set Port
+app.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
 
+/*// Set Port
+app.set('port', (process.env.PORT || 3000));
+*/
 app.listen(app.get('port'), function(){
 	console.log('Server started on port '+app.get('port'));
 });
