@@ -78,6 +78,7 @@
     </div>
     <div class="row">
         {{> adminOrders }}
+        {{>adminItemWiseOrders}}
     </div>
 
 </section>
@@ -99,11 +100,35 @@ $(document).ready(function(){
         if ( $('#OrderDiv').is(':visible')){
             $("#OrderDiv").toggle();
         }
+        if ( $('#ItemOrderDiv').is(':visible')){
+            $("#ItemOrderDiv").toggle();
+        }
         $("#locationDIV").toggle(); 
     });
 
 });
 </script>
+
+<script>
+$("#ItemOrderDiv").toggle();
+$("#viewAllItemOrderTable").click(function(){
+    if ( $('#itemDIV').is(':visible')){
+        $("#itemDIV").toggle();
+    }
+    if ( $('#OrderDiv').is(':visible')){
+        $("#OrderDiv").toggle();
+    }
+    if ( $('#OrderDiv').is(':visible')){
+        $("#OrderDiv").toggle();
+    }
+    if ( $('#viewAllLocation').is(':visible')){
+        $("#viewAllLocation").toggle();
+    }
+    $("#ItemOrderDiv").toggle();
+});
+
+</script>
+
 
 <script>
 // Get the modal
@@ -143,7 +168,10 @@ $(document).ready(function(){
             $("#locationDIV").toggle();
         }
         if ( $('#OrderDiv').is(':visible')){
-            $("#locationDIV").toggle();
+            $("#OrderDiv").toggle();
+        }
+        if ( $('#ItemOrderDiv').is(':visible')){
+            $("#ItemOrderDiv").toggle();
         }
         $("#itemDIV").toggle(); 
     });
@@ -197,6 +225,9 @@ $('button.newItem').click( function() {
             }
             if ( $('#locationDIV').is(':visible')){
                 $("#locationDIV").toggle();
+            }
+            if ( $('#ItemOrderDiv').is(':visible')){
+                $("#ItemOrderDiv").toggle();
             }
             $("#OrderDiv").toggle();
         });

@@ -1,0 +1,54 @@
+<!--Item DIV -->
+<div id="ItemOrderDiv">
+    <div class="box box-primary" id="box_orders">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-history" aria-hidden="true"></i> ORDER HISTORY<br /></h3>
+        </div>
+    </div>
+    <center>
+    <div class="row">
+        <div class="table-responsive">
+            <table id="itemWiseOrdered">
+                <tr class="header">
+                    <th>Item</th>
+                    <th>Ordered Item</th>
+                </tr>
+                {{#each itemList}}
+                    <tr>
+                        <td>{{name}}</td>
+                        <td>{{#getOrderedQnty avaible_qty initial_qty}}{{/getOrderedQnty}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+        </div>
+    </div>
+    </center>
+</div>
+
+
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    #itemWiseOrdered {
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+    }
+
+    #itemWiseOrdered th, #itemWiseOrdered td {
+        text-align: left;
+        padding: 10px;
+    }
+
+    #itemWiseOrdered tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    #itemWiseOrdered tr.header, #myTable tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+
+</div>

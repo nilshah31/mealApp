@@ -24,6 +24,7 @@
     "mongoose": "^4.10.8",
     "nexmo": "*",
     "passport": "*",
+    "html-pdf": "*",
     "passport-http": "*",
     "passport-local": "*",
     "textmagic-rest-client": "*",

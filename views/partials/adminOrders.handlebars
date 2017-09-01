@@ -1,19 +1,23 @@
 <!--Item DIV -->
 <div id="OrderDiv">
-
     <div class="box box-primary" id="box_orders">
         <div class="box-header with-border">
             <h3 class="box-title"><i class="fa fa-history" aria-hidden="true"></i> ORDER HISTORY<br /></h3>
         </div>
     </div>
-
+    {{#if object_item_hash}}
     <div class="row">
         <input type="text" id="myInput1" onkeyup="myFunction(0,'myInput1')" placeholder="Search by Order Date" title="Type in a name">
         <input type="text" id="myInput2" onkeyup="myFunction(1,'myInput2')" placeholder="Search by Receipt Number" title="Type in a name">
         <br />
-        <a href="" >Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="" >Item Wise Order(Today)</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="" >Today's Cancel Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="hidden" id="myInput3" value="">
+        <input type="hidden" id="myInput4" value="">
+        <form id="downloadpdf_form" action="/print_del_report">
+            <a href="#" onclick="downloadpdf()">Download Today's Order</a>
+        </form>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+        <a href="#" onclick="myFunction(0,'myInput3')">Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="#" id="viewAllItemOrderTable" >Item Wise Order(Today)</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="#" onclick="myFunction(6,'myInput4')">Today's Cancel Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a href="" ></a>
         <div class="table-responsive">
         <table id="myTable">
@@ -35,18 +39,15 @@
                     <td>{{order_itemPrice}}</td>
                     <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
                     <td style="width: 25%;"><span class="label label-info">{{status}}</span>
-                        {{#checkOrderStatus status}}
-                            <a href="" >Update</a>
-                        {{/checkOrderStatus}}
                     </td>
                 </tr>
             {{/each}}
         </table><br />
-        <a href="" >Export Data to PDF</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="" >Print</a>
         </div>
     </div>
-
+    {{else}}
+        <h1><span class="glyphicon glyphicon-star-empty"> No Order Placed Yet</span></h1>
+    {{/if}}
 </div>
 
 
@@ -54,8 +55,14 @@
 <br />
 <div class="container">
 
+</div>
 
-    </div>
+
+<script>
+    function downloadpdf() {
+        document.getElementById("downloadpdf_form").submit();
+    }
+</script>
 
 
     <script>
@@ -185,9 +192,15 @@
 </div>
 
 
+<script>
+    n =  new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    document.getElementById("myInput3").value = d + "/" + m + "/" + y;
+    document.getElementById("myInput4").value = "Cancled";
 
-
-
+</script>
 
 
 

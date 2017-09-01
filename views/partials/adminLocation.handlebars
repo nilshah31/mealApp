@@ -18,11 +18,10 @@
         </div>
     </div>
 
-    <form method="post" style="margin:0px">
+    <form method="post" action="/location_form" style="margin:0px" id="location_form" name="location_form">
         <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
-
+            <input type='hidden' id='location_ID' name="location_ID" value='' />
             <tr>
-                <th><input type="checkbox" name="selector" value="1"></th>
                 <th width="50%" class="hidden-phone hidden-tablet">City</th>
                 <th width="50%" class="hidden-phone hidden-tablet">Company/Insititute/Location</th>
                 <th></th>
@@ -30,11 +29,10 @@
             </tr>
             {{#each locationList}}
                 <tr valign="top" >
-                    <td><input type="checkbox" name="sel8200" id="sel8200"></td>
                     <td>{{city}}</td>
                     <td class="hidden-phone hidden-tablet">{{company}}</td>
-                    <td><div class="link_edit"><a href="#">Edit</a></div></td>
-                    <td><div class="link_delete"><a href="#">Delete</a></div></td>
+                    <td><div class="link_edit"><a href="#" onclick="">Edit</a></div></td>
+                    <td><div class="link_delete"><a href="#" onclick="delete_location('{{_id}}')">Delete</a></div></td>
                 </tr>
             {{/each}}
 
@@ -59,3 +57,10 @@
         </form>
     </div>
 </div>
+
+<script>
+    function delete_location(location_id) {
+        document.getElementById('location_ID').value = location_id;
+        document.getElementById("location_form").submit();
+    }
+</script>

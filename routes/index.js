@@ -4,6 +4,9 @@ var router = express.Router();
 var Location = require('../models/location');
 var Item = require('../models/item');
 var Order = require('../models/order');
+var pdf = require('html-pdf');
+var fs = require('fs');
+
 module.exports = router;
 
 var schedule = require('node-schedule');
@@ -76,11 +79,12 @@ router.get('/adminDashboard', function(req, res){
                     if(results[i].status==0)
                         status='Ordered';
                     else if(results[i].status==1)
-                        status='Delevereid';
+                        status='Completed';
                     else
-                        state='Cancled';
+                        status='Cancled';
                     var order_date=new Date(String(results[i].order_date_time));
-                    var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth())+'/'+String(order_date.getFullYear());
+                    var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
+                    console.log(order_date.getMonth());
                     object_item_hash.push({
                         order_itemName:results[i].item_name,
                         order_itemPrice:results[i].price,
@@ -181,6 +185,128 @@ router.post('/user_order_history', function(req, res) {
     res.redirect('/user_order_history');
 });
 
+
+router.post('/location_form', function(req, res) {
+    var loc_id = req.body.location_ID;
+    console.log(loc_id);
+    var myquery = { _id: loc_id };
+
+    Location.remove(myquery, function(err, obj) {
+        if (err) throw err;
+        console.log(obj.result.n + " document(s) deleted");
+        res.redirect('adminDashboard');
+    });
+
+});
+
+router.get('/print_del_report', function(req, res) {
+    var options = { format: 'Letter' };
+
+    Order.find(function(err, results,callback){
+        if (err) return res.sendStatus(500);
+        var object_item_hash = [];
+        var total=0;
+        for(var i=0;i<results.length;i++){
+            if(results[i].status==0)
+                status='Ordered';
+            else if(results[i].status==1)
+                status='Completed';
+            else
+                status='Cancled';
+            var order_date=new Date(String(results[i].order_date_time));
+            var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
+            console.log(ordr_dt);
+
+            var todaysDate=new Date();
+
+            if( (order_date.getDate() == (todaysDate.getDate())) && (order_date.getMonth()+1 == (todaysDate.getMonth()+1)) && (order_date.getFullYear() == (todaysDate.getFullYear())))
+            {
+                object_item_hash.push({
+                    user_id:results[i].user_id,
+                    order_itemName:results[i].item_name,
+                    order_itemPrice:results[i].price,
+                    order_itemQty:results[i].qty,
+                    receipt_number:results[i].receipt_number,
+                    sub_Total:results[i].sub_Total,
+                    order_date: ordr_dt,
+                    status:status,
+                    total:results[i].total
+                });
+            }
+        }
+
+
+        var htmlString = "";
+
+        htmlString+="<h1>Deleivery Report for "+object_item_hash[0].order_date+"</h1><br />";
+
+        htmlString+="<div class=\"table-responsive\">\n" +
+            "    <table id=\"myTable\">\n" +
+            "        <tr class=\"header\">\n" +
+            "            <th>Order Date <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+            "            <th>Receipt Number <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+            "            <th>Item</th>\n" +
+            "            <th># <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+            "            <th>Price <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+            "            <th>Bill Amount <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+            "            <th>Status <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+            "        </tr>\n" ;
+        for(var i=0;i<object_item_hash.length;i++) {
+
+            htmlString +=
+                "            <tr>\n" +
+                "                <td>"+object_item_hash[i].order_date+"</td>\n" +
+                "                <td>"+object_item_hash[i].receipt_number+"</td>\n" +
+                "                <td>"+object_item_hash[i].order_itemName+"</td>\n" +
+                "                <td>"+object_item_hash[i].order_itemQty+"</td>" +
+                "                <td>"+object_item_hash[i].order_itemPrice+"</td>"+
+                "                <td>"+object_item_hash[i].total+"</td>\n" +
+                "                <td>"+object_item_hash[i].status+"</td>\n" +
+                "                </td>\n" +
+                "            </tr>\n";
+        }
+        htmlString+=
+            "    </table>\n" +
+            "</div>\n" +
+            "<br />";
+
+        pdf.create(htmlString, options).toFile('./public/pdf/employee.pdf', function (err, result) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            }
+        })
+
+        res.redirect('/pdf/employee.pdf');
+
+        /*
+
+        //res.render('del_report', { object_item_hash:object_item_hash });
+
+        res.render('del_report', {
+            object_item_hash:object_item_hash,
+        }, function (err, HTML) {
+            console.log("HTML STRING : "+HTML);
+            pdf.create("<html><body>Neel</body></html>", options).toFile('./public/pdf/employee.pdf', function (err, result) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                }
+            })
+        });
+        */
+        /*var html = fs.readFileSync('./views/del_report.html', 'utf8');
+        pdf.create(html, options).toFile('./public/pdf/order_report.pdf', function(err, res) {
+            if (err) return console.log(err);
+            console.log(res); // { filename: '/app/businesscard.pdf' }
+        });*/
+        //res.redirect('/pdf/order_report.pdf');
+    });
+
+});
+
 router.post('/newItem', function(req, res){
 	var path = require('path');
 	var appDir = path.dirname(require.main.filename);
@@ -220,7 +346,6 @@ router.post('/newLocation', function(req, res){
 		city : cityTxtBox,
 		company : locationTxtBox  
 	});
-
 	Location.createLocation(newLocation, function(err, Location){
 		if(err) throw err;
 	});
@@ -338,3 +463,6 @@ Handlebars.registerHelper('checkOrderStatus', function(orderStatus,options) {
         return options.inverse(this);
 });
 
+Handlebars.registerHelper('getOrderedQnty', function(avaible_qty,initial_qty,options) {
+    return parseInt(initial_qty)-parseInt(avaible_qty);
+});
