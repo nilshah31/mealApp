@@ -1,11 +1,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
+var sinchAuth = require('sinch-auth');
+var sinchSms = require('sinch-messaging');
 
-const Nexmo = require('nexmo');
-const nexmo = new Nexmo({
-  apiKey: '93c98651',
-  apiSecret: 'd7ad3d8e371abb15'
-});
 
 // User Schema
 var UserSchema = mongoose.Schema({
@@ -104,7 +101,7 @@ module.exports.verifiedSucess = function(id, callback){
 
 function generateRandomNumber(){
 	var number = Math.floor((Math.random()*10000));
-	 if(number < 999){
+	 if(number.length < 4 || number.length > 4){
     	generateRandomNumber();
     }
 	return number;
@@ -112,15 +109,8 @@ function generateRandomNumber(){
 
 module.exports.sendMessage = function(lastname,phone,token, callback){
 	const toNumber = '91'+phone;
-  /*	nexmo.message.sendSms(
-  		'917204572637', toNumber, message,
-    	(err, responseData) => {
-      	if (err) {
-        	console.log(err);
-      	} else {
-        	console.dir(responseData);
-      	}
-    	}
- 	); */
+	message = "Use "+token+" as one time password(OTP) to verify your mobile Number, Team MealAPP";
+    var auth = sinchAuth("680458d3-6111-46c1-bcf9-7e009dc8da10", "v2xihZABnUS8dP92RuMvEA==");
+    sinchSms.sendMessage(toNumber, message);
  	callback(null,"Success");
 }

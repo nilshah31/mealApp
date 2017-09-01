@@ -6,6 +6,7 @@ var Item = require('../models/item');
 var Order = require('../models/order');
 var pdf = require('html-pdf');
 var fs = require('fs');
+var sinchAuth = require('sinch-auth');
 
 module.exports = router;
 
