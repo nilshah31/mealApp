@@ -13,7 +13,7 @@ var mongoose = require('mongoose');
 var fileUpload = require('express-fileupload');
 
 var mongoURI="mongodb://localhost/mealapp";
-var MONGOLAB_URI="mongodb://nlishah31:NVD420nvd@ds119524.mlab.com:19524/mealapp";
+var MONGOLAB_URI="mongodb://nilshah32:NVD420nvd@ds119524.mlab.com:19524/mealapp";
 
 mongoose.connect(MONGOLAB_URI);
 
