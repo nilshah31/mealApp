@@ -15,8 +15,15 @@ var fileUpload = require('express-fileupload');
 var mongoURI="mongodb://localhost/mealapp";
 var MONGOLAB_URI="mongodb://nilshah32:NVD420nvd@ds119524.mlab.com:19524/mealapp";
 
-mongoose.connect(mongoURI);
 
+if (process.env.NODE_ENV == "production")
+{
+    mongoose.connect(MONGOLAB_URI);
+}
+else if ((process.env.NODE_ENV == "development"))
+{
+    mongoose.connect(mongoURI);
+}
 //mongoose.connect('mongodb://localhost/mealapp');
 var db = mongoose.connection;
 
