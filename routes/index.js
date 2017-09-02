@@ -339,7 +339,9 @@ router.post('/newItem', function(req, res){
 	var appDir = path.dirname(require.main.filename);
 	var itemImage = req.files.item_img;
 	// Use the mv() method to place the file somewhere on your server
-	itemImage.mv(appDir+'\\public\\images\\'+itemImage.name, function(err) {
+	//itemImage.mv(appDir+'\\public\\images\\'+itemImage.name, function(err) {
+    itemImage.mv('/images//'+itemImage.name, function(err) {
+
     if (err)
       return res.status(500).send(err);
     });
