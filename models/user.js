@@ -88,6 +88,18 @@ module.exports.updateuserTokan = function(id, callback){
     });
 }
 
+module.exports.updateuserPassword = function(id,newPassword, callback){
+	console.log("ID is :"+id);
+	console.log("newPasswrd: "+newPassword);
+    bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(newPassword, salt, function(err, hash) {
+            User.update({_id:id}, {$set:{password:hash}}, function(err, result) {
+                if(err) throw err;
+                callback(null,result);
+            });
+        });
+    });
+}
 
 
 

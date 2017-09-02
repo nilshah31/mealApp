@@ -7,6 +7,7 @@ var Order = require('../models/order');
 var pdf = require('html-pdf');
 var fs = require('fs');
 var sinchAuth = require('sinch-auth');
+var User = require('../models/user');
 
 module.exports = router;
 
@@ -40,7 +41,6 @@ router.get('/user_profile',function(req, res){
 router.get('/', function(req, res){
 	Item.find(function(err, results){
 		if (err) return res.sendStatus(500);
-        console.log("User Is : ");
 		if(req.session.user)
 		    if(req.session.user.firstname)
 		        res.render('index',{i: 1,user: req.session.user,itemList: results});
@@ -57,6 +57,11 @@ router.get('/', function(req, res){
 router.get('/admin', function(req, res){
     res.render('admin',{user: req.session.user});
 });
+
+router.get('/user_password_update', function(req, res){
+    res.render('user_password_update',{user: req.session.user});
+});
+
 
 router.get('/contact', function(req, res){
     res.render('contact',{user: req.session.user});
@@ -189,6 +194,24 @@ router.post('/user_order_history', function(req, res) {
     res.redirect('/user_order_history');
 });
 
+
+router.post('/user_password_update', function(req, res) {
+    User.comparePassword(req.body.cur_pass, req.session.user.password, function(err, isMatch){
+        if(err) throw err;
+        if(isMatch){
+            User.updateuserPassword(req.session.user._id,req.body.new_pass,function (err,result) {
+                if(err){
+                    res.render('user_password_update',{msg_err:"Something went wrong Please try agains"});
+                }
+                else{
+                    res.render('user_password_update',{msg_success:"Updated Successfully"});
+                }
+            });
+        } else {
+            res.render('user_password_update',{msg_err:"Enter Correct Password!"});
+        }
+    });
+});
 
 router.post('/location_form', function(req, res) {
     var loc_id = req.body.location_ID;
@@ -334,12 +357,11 @@ router.post('/newItem', function(req, res){
             avaible_qty : initial_qtyValue
 		});
 	Item.createItem(newItem, function(err, Item){
-	if(err) throw err;
+	if(err) res.redirect('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
 	});
 	Item.find(function(err, results){
 		if (err) return res.sendStatus(500);
-        req.flash('You have Scussfully Added New Item');
-		res.redirect('adminDashboard');
+        res.redirect('adminDashboard');
 	});
 });
 

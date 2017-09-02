@@ -136,20 +136,31 @@ router.post('/login',function(req, res) {
 	User.getUserBymobNumber(req.body.username, function(err, user){
 		if(err) throw err;
 		if(user){
-			User.updateuserTokan(user.id,function(err, result) {
-				if(err) throw err;
-				User.getUserBymobNumber(req.body.username, function(err, user){
-                    if(user.verified==true) {
-                        req.session.user = user;
-                        res.redirect('/');
-                    }
-                    else{
-                        User.sendMessage(user.lastname,user.phone,user.token,function(err,result){
-                            res.redirect("/users/loginVerify?phone=" + req.body.username);
+            User.comparePassword(req.body.password, user.password, function(err, isMatch){
+                if(err) throw err;
+                if(isMatch){
+                    User.updateuserTokan(user.id,function(err, result) {
+                        if(err) throw err;
+                        User.getUserBymobNumber(req.body.username, function(err, user){
+                            if(user.verified==true) {
+                                req.session.user = user;
+                                res.redirect('/');
+                            }
+                            else{
+                                User.sendMessage(user.lastname,user.phone,user.token,function(err,result){
+                                    res.redirect("/users/loginVerify?phone=" + req.body.username);
+                                });
+                            }
                         });
-					}
-				});
-			});
+                    });
+                } else {
+                    res.render('login',{msg:"Please Check Username/Password"});
+                }
+            });
+
+		}
+		else{
+            res.render('login',{msg:"Please Check Username/Password"});
 		}
 	});
 });
