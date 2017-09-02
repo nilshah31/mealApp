@@ -139,15 +139,15 @@ router.post('/login',function(req, res) {
 			User.updateuserTokan(user.id,function(err, result) {
 				if(err) throw err;
 				User.getUserBymobNumber(req.body.username, function(err, user){
-					User.sendMessage(user.lastname,user.phone,user.token,function(err,result){
-						req.session.user = user;
-						if(req.session.user.verified==true) {
-                            res.redirect('/');
-                        }
-                        else{
+                    if(user.verified==true) {
+                        req.session.user = user;
+                        res.redirect('/');
+                    }
+                    else{
+                        User.sendMessage(user.lastname,user.phone,user.token,function(err,result){
                             res.redirect("/users/loginVerify?phone=" + req.body.username);
-						}
-					});
+                        });
+					}
 				});
 			});
 		}

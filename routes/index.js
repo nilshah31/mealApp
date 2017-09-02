@@ -32,13 +32,6 @@ var con_job_update_order_status = schedule.scheduleJob('00 13 * * *', function()
 
 
 
-/*
-Item.updateItemQtyAll('ID',function (err,result) {
-
-});
-
-*/
-
 router.get('/user_profile',function(req, res){
     res.render('user_profile',{user:req.session.user});
 });
@@ -47,7 +40,14 @@ router.get('/user_profile',function(req, res){
 router.get('/', function(req, res){
 	Item.find(function(err, results){
 		if (err) return res.sendStatus(500);
-		res.render('index',{i: 1,user: req.session.user,itemList: results});   	  
+        console.log("User Is : ");
+		if(req.session.user)
+		    if(req.session.user.firstname)
+		        res.render('index',{i: 1,user: req.session.user,itemList: results});
+		    else
+                res.render('index',{i: 1,user: null,itemList: results});
+        else
+            res.render('index',{i: 1,user: null,itemList: results});
 	});
 });
 
