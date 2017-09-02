@@ -8,6 +8,8 @@ var pdf = require('html-pdf');
 var fs = require('fs');
 var sinchAuth = require('sinch-auth');
 var User = require('../models/user');
+var multer  =   require('multer');
+
 
 module.exports = router;
 
@@ -340,7 +342,27 @@ router.post('/newItem', function(req, res){
 	var itemImage = req.files.item_img;
 	// Use the mv() method to place the file somewhere on your server
 	//itemImage.mv(appDir+'\\public\\images\\'+itemImage.name, function(err) {
-    itemImage.mv('/images//'+itemImage.name, function(err) {
+    itemImage.mv(process.cwd()+'//public//images//'+itemImage.name, function(err) {
+
+/*
+    //fileUpload
+
+    var storage =   multer.diskStorage({
+        destination: function (req, file, callback) {
+            callback(null, './views');
+        },
+        filename: function (req, file, callback) {
+            callback(null, file.fieldname + '-' + Date.now());
+        }
+    });
+
+    var upload = multer({ storage : storage}).single('item_img');
+
+    upload(req,res,function(err) {
+        if(err) {
+            return res.end("Error uploading file.");
+        }
+*/
 
     if (err)
       return res.status(500).send(err);
@@ -349,7 +371,7 @@ router.post('/newItem', function(req, res){
 	var descriptionValue = req.body.descTxtBox;
 	var initial_qtyValue = req.body.inititalQtyTxtBox; 
 	var priceValue = req.body.priceTxtBox;
-	var item_image_pathValue = '/images/'+itemImage.name;
+	var item_image_pathValue = '/images//'+itemImage.name;
 	var newItem = new Item({
 	    	name : nameValue,
 			description : descriptionValue,
@@ -359,7 +381,7 @@ router.post('/newItem', function(req, res){
             avaible_qty : initial_qtyValue
 		});
 	Item.createItem(newItem, function(err, Item){
-	if(err) res.redirect('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
+	if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
 	});
 	Item.find(function(err, results){
 		if (err) return res.sendStatus(500);

@@ -27,6 +27,7 @@
     "msg91": "0.0.6",
     "sinch-auth": "*",
     "sinch-messaging":"*",
+    "multer": "1.1.0",
     "html-pdf": "*",
     "passport-http": "*",
     "passport-local": "*",
