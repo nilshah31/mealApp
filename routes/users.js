@@ -172,7 +172,7 @@ router.post('/loginVerify',function(req, res) {
 });
 
 router.get('/logout', function(req, res){
-	req.session.user = null;
+	delete req.session.user;
 	req.logout();
 	res.redirect('/');
 });
