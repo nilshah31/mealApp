@@ -174,7 +174,7 @@ router.post('/loginVerify',function(req, res) {
 router.get('/logout', function(req, res){
 	req.session.user = null;
 	req.logout();
-	res.redirect('/users/login');
+	res.redirect('/');
 });
 
 module.exports = router;

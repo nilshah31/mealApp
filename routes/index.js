@@ -44,7 +44,7 @@ router.get('/user_profile',function(req, res){
 });
 
 // Get Homepage
-router.get('/', ensureAuthenticated, function(req, res){
+router.get('/', function(req, res){
 	Item.find(function(err, results){
 		if (err) return res.sendStatus(500);
 		res.render('index',{i: 1,user: req.session.user,itemList: results});   	  

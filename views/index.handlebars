@@ -147,6 +147,7 @@
  <script>
      var order_object = [];
      var total = 0;
+     var loged_user = '{{user}}';
      if(checkTime()) {
          document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Ordering starts from <br />LUNCH --- 9:00 AM to 11:30 AM <br />DINNER --- 5:00 PM to 7:00 PM</div>";
          var all_btns = document.getElementsByClassName("add_to_cart_btn")
@@ -156,9 +157,17 @@
          }
      }
      else{
-        if(order_object.length==0){
+         if(order_object.length==0){
              document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Please add items to your order</div>";
-        }
+         }
+     }
+     if(loged_user==''){
+         document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Please Log in To start placing order</div>";
+         var all_btns = document.getElementsByClassName("add_to_cart_btn")
+         for(var i=0, len=all_btns.length; i<len; i++)
+         {
+             all_btns[i].disabled=true;
+         }
      }
 
      function addItemtoCart(id,name,price,qty,avaible_qty) {
