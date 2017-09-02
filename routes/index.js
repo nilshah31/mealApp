@@ -44,10 +44,13 @@ router.get('/', function(req, res){
 		if(req.session.user)
 		    if(req.session.user.firstname)
 		        res.render('index',{i: 1,user: req.session.user,itemList: results});
-		    else
-                res.render('index',{i: 1,user: null,itemList: results});
-        else
+		    else{
+                req.session.user = null;
+                res.render('index',{i: 1,user: null,itemList: results});}
+        else{
+            req.session.user = null;
             res.render('index',{i: 1,user: null,itemList: results});
+		    }
 	});
 });
 
