@@ -6,26 +6,24 @@
         </div>
     </div>
     <center>
-    <div class="row">
-        <div class="table-responsive">
-            <table id="itemWiseOrdered">
-                <tr class="header">
-                    <th>Item</th>
-                    <th>Ordered Item</th>
-                </tr>
-                {{#each itemList}}
-                    <tr>
-                        <td>{{name}}</td>
-                        <td>{{#getOrderedQnty avaible_qty initial_qty}}{{/getOrderedQnty}}</td>
+        <div class="row">
+            <div class="table-responsive">
+                <table id="itemWiseOrdered">
+                    <tr class="header">
+                        <th>Item</th>
+                        <th>Ordered Item</th>
                     </tr>
-                {{/each}}
-            </table>
+                    {{#each itemList}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td>{{#getOrderedQnty avaible_qty initial_qty}}{{/getOrderedQnty}}</td>
+                        </tr>
+                    {{/each}}
+                </table>
+            </div>
         </div>
-    </div>
     </center>
 </div>
-
-
 
 <style>
     * {
@@ -50,5 +48,3 @@
     }
 </style>
 
-
-</div>

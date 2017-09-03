@@ -9,8 +9,6 @@ var Order = require('../models/order');
 var User = require('../models/user');
 var Location = require('../models/location');
 
-
-
 // Register
 router.get('/register', function(req, res){
 	Location.find(function(err, results){
@@ -19,9 +17,8 @@ router.get('/register', function(req, res){
 			if(unique_city_list.indexOf(item['city']) < 0) {
 				unique_city_list.push(item['city']);
 			}
-		})
-        console.log(results);
-		if (err) return res.sendStatus(500);
+		});
+        if (err) return res.sendStatus(500);
 		res.render('register', { cityList : unique_city_list, locationList : results });
 	});
 });
@@ -32,7 +29,7 @@ router.get('/login', function(req, res){
 		res.redirect("/");	
 	}
 	else {
-	res.render('login');
+		res.render('login');
 	}
 });
 
@@ -44,16 +41,15 @@ router.get('/loginVerify', function(req, res){
             if (err) throw err;
         });
         User.sendMessage(results.lastname, results.phone, results.token, function (err, result) {
-            console.log("Result is :"+results);
-        	if (results.verified == false) {
-            	req.session.user = result;
-                    user = results;
-                    res.render('loginVerify', {Current_User_Id: user._id});
-                }
-                else {
-                    res.redirect('/');
-                }
-            });
+            if (results.verified == false) {
+            	req.session.user = result; //Check this line
+            	user = results;
+            	res.render('loginVerify', {Current_User_Id: user._id});
+            }
+            else {
+            	res.redirect('/');
+            }
+        });
     });
 });
 
@@ -93,12 +89,10 @@ router.post('/register', function(req, res){
 			location: location,
 			password: password  
 		});
-
 		User.createUser(newUser, function(err, user){
 			if(err){
-                throw err;
+				throw err;
 			}
-			console.log(user);
 		});
         res.redirect("/users/loginVerify?phone=" + req.body.phone);
     }
@@ -120,7 +114,8 @@ passport.use(new LocalStrategy(
    		}
    	});
    });
-  }));
+  })
+);
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -136,28 +131,27 @@ router.post('/login',function(req, res) {
 	User.getUserBymobNumber(req.body.username, function(err, user){
 		if(err) throw err;
 		if(user){
-            User.comparePassword(req.body.password, user.password, function(err, isMatch){
-                if(err) throw err;
-                if(isMatch){
-                    User.updateuserTokan(user.id,function(err, result) {
-                        if(err) throw err;
-                        User.getUserBymobNumber(req.body.username, function(err, user){
-                            if(user.verified==true) {
-                                req.session.user = user;
-                                res.redirect('/');
-                            }
-                            else{
-                                User.sendMessage(user.lastname,user.phone,user.token,function(err,result){
-                                    res.redirect("/users/loginVerify?phone=" + req.body.username);
-                                });
-                            }
+			User.comparePassword(req.body.password, user.password, function(err, isMatch){
+				if(err) throw err;
+				if(isMatch){
+					User.updateuserTokan(user.id,function(err, result) {
+						if(err) throw err;
+						User.getUserBymobNumber(req.body.username, function(err, user){
+							if(user.verified==true) {
+								req.session.user = user;
+								res.redirect('/');
+							}
+							else{
+								User.sendMessage(user.lastname,user.phone,user.token,function(err,result){
+									res.redirect("/users/loginVerify?phone=" + req.body.username);
+								});
+							}
                         });
                     });
                 } else {
                     res.render('login',{msg:"Please Check Username/Password"});
                 }
             });
-
 		}
 		else{
             res.render('login',{msg:"Please Check Username/Password"});
@@ -166,20 +160,20 @@ router.post('/login',function(req, res) {
 });
 
 router.post('/loginVerify',function(req, res) {
-	 token = req.body.token;
-	 id = req.body.userId;
-	 User.getUserByIdCustom(id, function(err, user) {
-	 UsrGeneratedtoken = user.token;
-	   if(UsrGeneratedtoken.match( token )){
-	 		User.verifiedSucess(user.id,function(err,result){
-	 			var now_date = new Date();
+	token = req.body.token;
+	id = req.body.userId;
+	User.getUserByIdCustom(id, function(err, user) {
+		UsrGeneratedtoken = user.token;
+		if(UsrGeneratedtoken.match( token )){
+			User.verifiedSucess(user.id,function(err,result){
+				var now_date = new Date();
 				if(isTokenExpires(user.token_exp)){
 					req.session.user = user;
-					res.redirect('/');	
+					res.redirect('/');
 				}
 			});
-	 	}
-	 });
+		}
+	});
 });
 
 router.get('/logout', function(req, res){

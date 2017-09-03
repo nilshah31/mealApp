@@ -17,8 +17,8 @@ var Location = module.exports = mongoose.model('Location', LocationSchema);
 
 //Store New Location
 module.exports.createLocation = function(newLocation, callback){
-	        newLocation.save(callback);
-	}
+	newLocation.save(callback);
+}
 
 //find Company Name by City
 module.exports.getCompanyByName = function(com_name, callback){

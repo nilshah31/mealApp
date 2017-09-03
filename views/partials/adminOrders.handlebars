@@ -6,55 +6,54 @@
         </div>
     </div>
     {{#if object_item_hash}}
-    <div class="row">
-        <input type="text" id="myInput1" onkeyup="myFunction(0,'myInput1')" placeholder="Search by Order Date" title="Type in a name">
-        <input type="text" id="myInput2" onkeyup="myFunction(1,'myInput2')" placeholder="Search by Receipt Number" title="Type in a name">
-        <br />
-        <input type="hidden" id="myInput3" value="">
-        <input type="hidden" id="myInput4" value="">
-        <form id="downloadpdf_form" action="/print_del_report">
-            <a href="#" onclick="downloadpdf()">Download Today's Order</a>
-        </form>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-        <a href="#" onclick="myFunction(0,'myInput3')">Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="#" id="viewAllItemOrderTable" >Item Wise Order(Today)</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="#" onclick="myFunction(6,'myInput4')">Today's Cancel Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="" ></a>
-        <div class="table-responsive">
-        <table id="myTable">
-            <tr class="header">
-                <th onclick="sortTable(0)">Order Date <span class="glyphicon glyphicon-sort"></span></th>
-                <th onclick="sortTable(1)">Receipt Number <span class="glyphicon glyphicon-sort"></span></th>
-                <th>Item</th>
-                <th onclick="sortTable(3)"># <span class="glyphicon glyphicon-sort"></span></th>
-                <th onclick="sortTable(4)">Price <span class="glyphicon glyphicon-sort"></span></th>
-                <th onclick="sortTable(5)">Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
-                <th onclick="sortTable(6)">Status <span class="glyphicon glyphicon-sort"></span></th>
-            </tr>
-            {{#each object_item_hash}}
-                <tr>
-                    <td>{{order_date}}</td>
-                    <td>{{receipt_number}}</td>
-                    <td>{{order_itemName}}</td>
-                    <td>{{order_itemQty}}</td>
-                    <td>{{order_itemPrice}}</td>
-                    <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
-                    <td style="width: 25%;"><span class="label label-info">{{status}}</span>
-                    </td>
-                </tr>
-            {{/each}}
-        </table><br />
+        <div class="row">
+            <input type="text" id="myInput1" onkeyup="myFunction(0,'myInput1')" placeholder="Search by Order Date" title="Type in a name">
+            <input type="text" id="myInput2" onkeyup="myFunction(1,'myInput2')" placeholder="Search by Receipt Number" title="Type in a name">
+            <br />
+            <input type="hidden" id="myInput3" value="">
+            <input type="hidden" id="myInput4" value="">
+            <form id="downloadpdf_form" action="/print_del_report">
+                <a href="#" onclick="downloadpdf()">Download Today's Order</a>
+            </form>
+            <br />
+            <a href="#" onclick="myFunction(0,'myInput3')">Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" id="viewAllItemOrderTable" >Item Wise Order(Today)</a>
+            &nbsp;&nbsp;<a href="#" onclick="myFunction(6,'myInput4')">Today's Cancel Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="" ></a>
+            <div class="table-responsive">
+                <table id="myTable">
+                    <tr class="header">
+                        <th onclick="sortTable(0)">Order Date <span class="glyphicon glyphicon-sort"></span></th>
+                        <th onclick="sortTable(1)">Receipt Number <span class="glyphicon glyphicon-sort"></span></th>
+                        <th>Item</th>
+                        <th onclick="sortTable(3)"># <span class="glyphicon glyphicon-sort"></span></th>
+                        <th onclick="sortTable(4)">Price <span class="glyphicon glyphicon-sort"></span></th>
+                        <th onclick="sortTable(5)">Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
+                        <th onclick="sortTable(6)">Status <span class="glyphicon glyphicon-sort"></span></th>
+                    </tr>
+                    {{#each object_item_hash}}
+                        <tr>
+                            <td>{{order_date}}</td>
+                            <td>{{receipt_number}}</td>
+                            <td>{{order_itemName}}</td>
+                            <td>{{order_itemQty}}</td>
+                            <td>{{order_itemPrice}}</td>
+                            <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
+                            <td style="width: 25%;"><span class="label label-info">{{status}}</span>
+                            </td>
+                        </tr>
+                    {{/each}}
+                </table>
+                <br />
+            </div>
         </div>
-    </div>
     {{else}}
         <h1><span class="glyphicon glyphicon-star-empty"> No Order Placed Yet</span></h1>
     {{/if}}
 </div>
 
-
-
 <br />
 <div class="container">
-
 </div>
 
 

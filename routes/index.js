@@ -8,11 +8,7 @@ var pdf = require('html-pdf');
 var fs = require('fs');
 var sinchAuth = require('sinch-auth');
 var User = require('../models/user');
-var multer  =   require('multer');
-
-
 module.exports = router;
-
 var schedule = require('node-schedule');
 
 var con_job_update_qty_noon = schedule.scheduleJob('00 12 * * *', function(){
@@ -33,19 +29,17 @@ var con_job_update_order_status = schedule.scheduleJob('00 13 * * *', function()
     });
 });
 
-
-
 router.get('/user_profile',function(req, res){
     res.render('user_profile',{user:req.session.user});
 });
 
 // Get Homepage
 router.get('/', function(req, res){
-	Item.find(function(err, results){
-		if (err) return res.sendStatus(500);
-		if(req.session.user)
-		    if(req.session.user.firstname)
-		        res.render('index',{i: 1,user: req.session.user,itemList: results});
+    Item.find(function(err, results){
+        if (err) return res.sendStatus(500);
+        if(req.session.user)
+            if(req.session.user.firstname)
+                res.render('index',{i: 1,user: req.session.user,itemList: results});
 		    else{
                 req.session.user = null;
                 res.render('index',{i: 1,user: null,itemList: results});}
@@ -95,7 +89,6 @@ router.get('/adminDashboard', function(req, res){
                         status='Cancled';
                     var order_date=new Date(String(results[i].order_date_time));
                     var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
-                    console.log(order_date.getMonth());
                     object_item_hash.push({
                         order_itemName:results[i].item_name,
                         order_itemPrice:results[i].price,
@@ -106,7 +99,10 @@ router.get('/adminDashboard', function(req, res){
                         total:results[i].total
                     });
                 }
-                res.render('adminDashboard', { locationList : Locationresults,itemList : Itemresults,object_item_hash:object_item_hash });
+                User.find(function(err, Userresults) {
+                    if (err) return res.sendStatus(500);
+                    res.render('adminDashboard', { userList : Userresults,locationList : Locationresults,itemList : Itemresults,object_item_hash:object_item_hash });
+                });
             });
         });
     });
@@ -117,7 +113,6 @@ router.get('/payment',function(req, res){
     order_itemName = req.session.order_itemName;
     order_itemPrice = req.session.order_itemPrice;
     order_itemQty = req.session.order_itemQty;
-
     total=0;
     object_item_hash = [];
     if(order_itemQty.length==1) {
@@ -146,7 +141,6 @@ router.get('/payment',function(req, res){
         }
         req.session.sub_Total = sub_Total;
     }
-
     res.render('payment',
         {
             user: req.session.user,
@@ -154,7 +148,6 @@ router.get('/payment',function(req, res){
             bill_total: total,
             order_rcpt_number: req.session.order_rcpt_number
         });
-
 });
 
 router.get('/user_order_history',function(req, res){
@@ -219,13 +212,21 @@ router.post('/location_form', function(req, res) {
     var loc_id = req.body.location_ID;
     console.log(loc_id);
     var myquery = { _id: loc_id };
-
     Location.remove(myquery, function(err, obj) {
         if (err) throw err;
         console.log(obj.result.n + " document(s) deleted");
         res.redirect('adminDashboard');
     });
+});
 
+router.post('/item_list_form', function(req, res) {
+    var item_id = req.body.item_ID;
+    var myquery = { _id: item_id };
+    Item.remove(myquery, function(err, obj) {
+        if (err) throw err;
+        console.log(obj.result.n + " document(s) deleted");
+        res.redirect('adminDashboard');
+    });
 });
 
 router.get('/print_del_report', function(req, res) {
@@ -299,7 +300,7 @@ router.get('/print_del_report', function(req, res) {
             "</div>\n" +
             "<br />";
 
-        pdf.create(htmlString, options).toFile('./public/pdf/employee.pdf', function (err, result) {
+        pdf.create(htmlString, options).toFile('./public/pdf/del_report.pdf', function (err, result) {
             if (err) {
                 return res.status(400).send({
                     message: errorHandler.getErrorMessage(err)
@@ -307,31 +308,8 @@ router.get('/print_del_report', function(req, res) {
             }
         })
 
-        res.redirect('/pdf/employee.pdf');
+        res.redirect('/pdf/del_report.pdf');
 
-        /*
-
-        //res.render('del_report', { object_item_hash:object_item_hash });
-
-        res.render('del_report', {
-            object_item_hash:object_item_hash,
-        }, function (err, HTML) {
-            console.log("HTML STRING : "+HTML);
-            pdf.create("<html><body>Neel</body></html>", options).toFile('./public/pdf/employee.pdf', function (err, result) {
-                if (err) {
-                    return res.status(400).send({
-                        message: errorHandler.getErrorMessage(err)
-                    });
-                }
-            })
-        });
-        */
-        /*var html = fs.readFileSync('./views/del_report.html', 'utf8');
-        pdf.create(html, options).toFile('./public/pdf/order_report.pdf', function(err, res) {
-            if (err) return console.log(err);
-            console.log(res); // { filename: '/app/businesscard.pdf' }
-        });*/
-        //res.redirect('/pdf/order_report.pdf');
     });
 
 });
@@ -340,29 +318,8 @@ router.post('/newItem', function(req, res){
 	var path = require('path');
 	var appDir = path.dirname(require.main.filename);
 	var itemImage = req.files.item_img;
-	// Use the mv() method to place the file somewhere on your server
-	//itemImage.mv(appDir+'\\public\\images\\'+itemImage.name, function(err) {
-    itemImage.mv(process.cwd()+'//public//images//'+itemImage.name, function(err) {
-
-/*
-    //fileUpload
-
-    var storage =   multer.diskStorage({
-        destination: function (req, file, callback) {
-            callback(null, './views');
-        },
-        filename: function (req, file, callback) {
-            callback(null, file.fieldname + '-' + Date.now());
-        }
-    });
-
-    var upload = multer({ storage : storage}).single('item_img');
-
-    upload(req,res,function(err) {
-        if(err) {
-            return res.end("Error uploading file.");
-        }
-*/
+    //Move Images to Server
+	itemImage.mv(process.cwd()+'//public//images//'+itemImage.name, function(err) {
 
     if (err)
       return res.status(500).send(err);

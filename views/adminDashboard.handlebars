@@ -60,13 +60,13 @@
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner">
-                    <h3>9</h3>
+                    <h3>{{userList.length}}</h3>
                     <p>Users</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-ios-people-outline"></i>
                 </div>
-                <a href="../customers/" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
+                <a id="viewAllUser" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div><!-- ./col -->
     </div><!-- /.row -->
@@ -89,6 +89,10 @@
         {{>adminItemWiseOrders}}
     </div>
 
+    <div class="row">
+        {{> adminUsers }}
+    </div>
+
 </section>
 
 </div>
@@ -99,9 +103,9 @@
 <!-- Location JS -->
 
 <script>
-$("#locationDIV").toggle();
+$("#userDIV").toggle();
 $(document).ready(function(){
-    $("#viewAllLocation").click(function(){
+    $("#viewAllUser").click(function(){
         if ( $('#itemDIV').is(':visible')){
             $("#itemDIV").toggle();
         }
@@ -111,10 +115,35 @@ $(document).ready(function(){
         if ( $('#ItemOrderDiv').is(':visible')){
             $("#ItemOrderDiv").toggle();
         }
-        $("#locationDIV").toggle(); 
+        if ( $('#locationDIV').is(':visible')){
+            $("#locationDIV").toggle();
+        }
+        $("#userDIV").toggle();
     });
 
 });
+</script>
+
+<script>
+    $("#locationDIV").toggle();
+    $(document).ready(function(){
+        $("#viewAllLocation").click(function(){
+            if ( $('#itemDIV').is(':visible')){
+                $("#itemDIV").toggle();
+            }
+            if ( $('#OrderDiv').is(':visible')){
+                $("#OrderDiv").toggle();
+            }
+            if ( $('#ItemOrderDiv').is(':visible')){
+                $("#ItemOrderDiv").toggle();
+            }
+            if ( $('#userDIV').is(':visible')){
+                $("#userDIV").toggle();
+            }
+            $("#locationDIV").toggle();
+        });
+
+    });
 </script>
 
 <script>
@@ -131,6 +160,9 @@ $("#viewAllItemOrderTable").click(function(){
     }
     if ( $('#viewAllLocation').is(':visible')){
         $("#viewAllLocation").toggle();
+    }
+    if ( $('#userDIV').is(':visible')){
+        $("#userDIV").toggle();
     }
     $("#ItemOrderDiv").toggle();
 });
@@ -180,6 +212,9 @@ $(document).ready(function(){
         }
         if ( $('#ItemOrderDiv').is(':visible')){
             $("#ItemOrderDiv").toggle();
+        }
+        if ( $('#userDIV').is(':visible')){
+            $("#userDIV").toggle();
         }
         $("#itemDIV").toggle(); 
     });

@@ -1,12 +1,10 @@
 <!--Item DIV -->
 <div id="itemDIV">
     <a class="btn btn-success toright" href="#" id="addItem">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        &nbsp;Add Item to Catalog
+        <i class="fa fa-plus" aria-hidden="true"></i>Add Item to Catalog
     </a>
     <a class="btn btn-success toright" href="#">
-        <i class="fa fa-times" aria-hidden="true"></i>
-        &nbsp; Remove Selected
+        <i class="fa fa-times" aria-hidden="true"></i>Remove Selected
     </a>
 
     <br /><br />
@@ -16,10 +14,9 @@
             <h3 class="box-title">Available Item's</h3>
         </div>
     </div>
-
-    <form method="post" style="margin:0px">
+    <form method="post" action="/item_list_form" style="margin:0px" id="item_list_form" name="item_list_form">
+        <input type='hidden' id='item_ID' name="item_ID" value='' />
         <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
-
             <tr>
                 <th><input type="checkbox" name="selector" value="1"></th>
                 <th width="50%" class="hidden-phone hidden-tablet">Name</th>
@@ -39,10 +36,9 @@
                     <td>{{initial_qty}}</td>
                     <td><img src='{{item_image_path}}' alt="Menu Item" height="42" width="42"></td>
                     <td><div class="link_edit"><a href="#">Edit</a></div></td>
-                    <td><div class="link_delete"><a href="#">Delete</a></div></td>
+                    <td><div class="link_delete"><a href="#" onclick="delete_item('{{_id}}')">Delete</a></div></td>
                 </tr>
             {{/each}}
-
         </table>
     </form>
 </div>
@@ -70,3 +66,11 @@
         </form>
     </div>
 </div>
+
+
+<script>
+    function delete_item(item_id) {
+        document.getElementById('item_ID').value = item_id;
+        document.getElementById("item_list_form").submit();
+    }
+</script>

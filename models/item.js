@@ -29,23 +29,23 @@ var Item = module.exports = mongoose.model('Item', ItemSchema);
 
 //Store new Item
 module.exports.createItem = function(newItem, callback){
-	        newItem.save(callback);
-	}
+	newItem.save(callback);
+}
 
 //get item row by Item ID
 module.exports.getItemByIdCustom = function(id, callback){
-    var query = {_id: id};
-    Item.findOne(query, callback);
+	var query = {_id: id};
+	Item.findOne(query, callback);
 }
 
 module.exports.updateItemQty = function(id,orderedQty,callback){
-    var query = {_id: id};
-    Item.findOne(query, function(err,results){
-        Item.update({_id:id}, {$set:{avaible_qty:String(parseInt(results.avaible_qty)-parseInt(orderedQty))}}, function(err, result) {
-            if(err) throw err;
-            callback(null,result);
+	var query = {_id: id};
+	Item.findOne(query, function(err,results){
+		Item.update({_id:id}, {$set:{avaible_qty:String(parseInt(results.avaible_qty)-parseInt(orderedQty))}}, function(err, result) {
+			if(err) throw err;
+			callback(null,result);
 		});
-    });
+	});
 }
 
 module.exports.updateItemQtyAll = function(id,callback){

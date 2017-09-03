@@ -42,8 +42,8 @@ var Order = module.exports = mongoose.model('Order', OrderSchema);
 
 //Create New Order
 module.exports.createOrder = function(newOrder, callback){
-	        newOrder.save(callback);
-	}
+	newOrder.save(callback);
+}
 
 module.exports.updateOrderStatusAlltoCompleted = function(callback){
     Order.update({status:'0'}, {$set:{status:'1'}}, callback);
