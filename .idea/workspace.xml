@@ -3,21 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="950b4c02-1753-4d93-bb2f-d24ba886aa52" name="Default" comment="Complated Index">
       <change type="DELETED" beforePath="$PROJECT_DIR$/npm-debug.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/pdf/employee.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/pdf/order_report.pdf" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/views/partials/adminUseres.handlebars" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/item.js" afterPath="$PROJECT_DIR$/models/item.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/location.js" afterPath="$PROJECT_DIR$/models/location.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/order.js" afterPath="$PROJECT_DIR$/models/order.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/user.js" afterPath="$PROJECT_DIR$/models/user.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/users.js" afterPath="$PROJECT_DIR$/routes/users.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/adminDashboard.handlebars" afterPath="$PROJECT_DIR$/views/adminDashboard.handlebars" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/adminItemWiseOrders.handlebars" afterPath="$PROJECT_DIR$/views/partials/adminItemWiseOrders.handlebars" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/adminItems.handlebars" afterPath="$PROJECT_DIR$/views/partials/adminItems.handlebars" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/adminLocation.handlebars" afterPath="$PROJECT_DIR$/views/partials/adminLocation.handlebars" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/adminOrders.handlebars" afterPath="$PROJECT_DIR$/views/partials/adminOrders.handlebars" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,31 +18,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="adminDashboard.handlebars" pinned="false" current-in-tab="true">
+      <file leaf-file-name="adminDashboard.handlebars" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/adminDashboard.handlebars">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
+            <state relative-caret-position="1260">
               <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="278">
+              <caret line="64" column="3" lean-forward="true" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <file leaf-file-name="user_password_update.handlebars" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/user_password_update.handlebars">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="145" column="4" lean-forward="true" selection-start-line="145" selection-start-column="4" selection-end-line="145" selection-end-column="4" />
+            <state relative-caret-position="799">
+              <caret line="54" column="10" lean-forward="true" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -140,7 +127,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>checkTi</find>
       <find>user_or</find>
       <find>3000</find>
       <find>URI</find>
@@ -163,13 +149,14 @@
       <find>logout</find>
       <find>login</find>
       <find>user is</find>
-      <find>update</find>
       <find>/new</find>
       <find>/newI</find>
       <find>path</find>
       <find>img</find>
       <find>itemDIV</find>
       <find>.post</find>
+      <find>pdf</find>
+      <find>update</find>
     </findStrings>
     <replaceStrings>
       <replace>MealApp</replace>
@@ -206,13 +193,13 @@
         <option value="$PROJECT_DIR$/models/location.js" />
         <option value="$PROJECT_DIR$/models/order.js" />
         <option value="$PROJECT_DIR$/models/user.js" />
-        <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/views/partials/adminItems.handlebars" />
         <option value="$PROJECT_DIR$/views/partials/adminItemWiseOrders.handlebars" />
         <option value="$PROJECT_DIR$/views/partials/adminLocation.handlebars" />
         <option value="$PROJECT_DIR$/views/partials/adminOrders.handlebars" />
         <option value="$PROJECT_DIR$/views/adminDashboard.handlebars" />
+        <option value="$PROJECT_DIR$/routes/index.js" />
       </list>
     </option>
   </component>
@@ -401,12 +388,12 @@
       <workItem from="1503123477674" duration="40181000" />
       <workItem from="1503286891802" duration="16201000" />
       <workItem from="1503417938857" duration="13157000" />
-      <workItem from="1503570107501" duration="117494000" />
+      <workItem from="1503570107501" duration="118333000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="270610000" />
+    <option name="totallyTimeSpent" value="271449000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1932" height="1038" extended-state="0" />
@@ -707,14 +694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/user_password_update.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
@@ -758,14 +737,6 @@
     <entry file="file://$PROJECT_DIR$/public/images/add_circle_icon.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
@@ -839,8 +810,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/adminDashboard.handlebars">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
+        <state relative-caret-position="1260">
           <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/user_password_update.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="54" column="10" lean-forward="true" selection-start-line="54" selection-start-column="10" selection-end-line="54" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="64" column="3" lean-forward="true" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
           <folding />
         </state>
       </provider>

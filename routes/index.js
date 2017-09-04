@@ -29,6 +29,12 @@ var con_job_update_order_status = schedule.scheduleJob('00 13 * * *', function()
     });
 });
 
+var con_job_update_order_status = schedule.scheduleJob('00 20 * * *', function(){
+    Order.updateOrderStatusAlltoCompleted(function (err,results) {
+        console.log(results);
+    });
+});
+
 router.get('/user_profile',function(req, res){
     res.render('user_profile',{user:req.session.user});
 });
@@ -300,7 +306,7 @@ router.get('/print_del_report', function(req, res) {
             "</div>\n" +
             "<br />";
 
-        pdf.create(htmlString, options).toFile('./public/pdf/del_report.pdf', function (err, result) {
+        pdf.create(htmlString, options).toFile(process.cwd()+'//public//images///order_del_report.pdf', function (err, result) {
             if (err) {
                 return res.status(400).send({
                     message: errorHandler.getErrorMessage(err)
@@ -308,7 +314,7 @@ router.get('/print_del_report', function(req, res) {
             }
         })
 
-        res.redirect('/pdf/del_report.pdf');
+        res.redirect(process.cwd()+'//public//images///order_del_report.pdf');
 
     });
 
