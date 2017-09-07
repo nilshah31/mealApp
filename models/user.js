@@ -101,7 +101,12 @@ module.exports.updateuserPassword = function(id,newPassword, callback){
     });
 }
 
-
+module.exports.updateuserProfile = function(id,firstname,lastname,email,city,location, callback) {
+    User.update({_id:id}, {$set:{firstname:firstname,lastname:lastname,email:email,city:city,location:location}}, function(err, result) {
+        if (err) throw err;
+        callback(null,result);
+    });
+}
 
 
 module.exports.verifiedSucess = function(id, callback){

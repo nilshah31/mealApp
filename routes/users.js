@@ -149,12 +149,12 @@ router.post('/login',function(req, res) {
                         });
                     });
                 } else {
-                    res.render('login',{msg:"Please Check Username/Password"});
+					res.redirect('/');
                 }
             });
 		}
 		else{
-            res.render('login',{msg:"Please Check Username/Password"});
+            res.redirect();
 		}
 	});
 });

@@ -1,4 +1,31 @@
-<br /><br />
+
+<style>
+    #site-footer {
+        height: 50px;
+        background: Black;
+        color: white;
+    }
+    #footer1{
+        margin-left:2%;
+        float:left;
+
+    }
+    #footer2{
+        margin-right:2%;
+        float:right;
+    }
+</style>
+
+<style>
+    @media (min-width: 768px) {
+        .navbar-nav.navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translatex(-50%);
+        }
+    }
+</style>
+<br />
 
 
 <script>
@@ -23,7 +50,6 @@
             }
         }
     }
-
     for(i=0;i<city_arry.length;i++) {
         {{#each locationList}}
             temp = '{{city}}';
@@ -32,7 +58,6 @@
             }
         {{/each}}
     }
-
     function removeAllOptions() {
         document.getElementById("location").options.length = 0;
     }
@@ -57,7 +82,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="fn">First name</label>  
   <div class="col-md-4">
-  <input id="fn" name="fn" type="text" placeholder="first name" class="form-control input-md" required="">
+  <input id="fn" name="fn" type="text" placeholder="first name" class="form-control input-md" required>
   </div>
 </div>
 
@@ -65,7 +90,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="ln">Last name</label>  
   <div class="col-md-4">
-  <input id="ln" name="ln" type="text" placeholder="last name" class="form-control input-md" required="">
+  <input id="ln" name="ln" type="text" placeholder="last name" class="form-control input-md" required>
   </div>
 </div>
 
@@ -73,7 +98,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="email">Email</label>  
   <div class="col-md-4">
-  <input id="email" name="email" type="email" placeholder="email" class="form-control input-md" required="">
+  <input id="email" name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="email" class="form-control input-md" required>
   </div>
 </div>
 
@@ -81,7 +106,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="phone">Mobile No</label>  
   <div class="col-md-4">
-  <input id="phone" name="phone" type="text" placeholder="mobile number" class="form-control input-md" required="">
+  <input id="phone" name="phone" type="text" pattern="[789][0-9]{9}" placeholder="mobile number" class="form-control input-md" required="">
     
   </div>
 </div>
@@ -90,7 +115,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="password">Password</label>  
   <div class="col-md-4">
-  <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required="">
+  <input id="password" name="password" type="password" pattern=".{8,}" title="8 characters minimum" placeholder="password" class="form-control input-md" required="">
     
   </div>
 </div>
@@ -99,7 +124,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="password">Confirm Password</label>  
   <div class="col-md-4">
-  <input id="cnfpassword" name="cnfpassword" type="password" placeholder="confirm password" class="form-control input-md" required="">
+  <input id="cnfpassword" name="cnfpassword" type="password" oninput="check(this)" placeholder="confirm password" class="form-control input-md" required="">
     
   </div>
 </div>
@@ -134,6 +159,16 @@
 </div>
 
 </fieldset>
+        </div>
 </form>
 
-</div>
+<script>
+    function check(input) {
+        if (input.value != document.getElementById('password').value) {
+            input.setCustomValidity('Password Must be Matching.');
+        } else {
+            // input is valid -- reset the error message
+            input.setCustomValidity('');
+        }
+    }
+</script>

@@ -9,20 +9,18 @@
     #cart_order_div {
         position: fixed;
         right: 8%;
-        top: 35%;
-        width: 20em;
-        margin-top: -2.5em;
+        top: 27%;
+        width: 14em;
+        margin-top: 0em;
         background-color:  #ffffb3;
-        padding-top: 1em;
-        padding-left: 1em;
+        padding-top: 0em;
+        padding-left: 0.5em;
+        padding-bottom: 0.5em;
         border-right-color: #0f0f0f;
         border-right-style:solid;
     }
     #order_cart_value {
         background-color:  #ffffb3;
-    }
-    body{
-        background-color: #f5f5f5;
     }
     .blackColorIcon {
         color: #727272;
@@ -34,14 +32,15 @@
  <br /><br />
   <br />
 
-{{#if message}}
-    <div class="alert alert-success alert-dismissable">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        {{message}}
-    </div>
-{{/if}}
+
 
 <div class="container" >
+    {{#if message}}
+        <div class="alert alert-success alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            {{message}}
+        </div>
+    {{/if}}
 </div>
 
 <div class="itemPanel">
@@ -131,7 +130,7 @@
 <form id="order_cart_form" class="order_place" method="post">
 <div id="cart_order_div" class="cart_order_div">
   <h5><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;YOUR ORDER</h5>
-    <div class="panel-body" id="order_cart_value">
+    <div id="order_cart_value">
     <!--cart contents-->
     </div>
 </div>
@@ -199,7 +198,11 @@
             });
          }
          newItemobject = { "ID": id, "Name": name, "Price": price,"Qty": qty,"SubTotal": parseInt(price)*parseInt(qty),"avaible_qty":parseInt(avaible_qty) };
-         addItemToOrder(newItemobject);
+         temp = check_item_already_exist(id)
+         if(temp!=true)
+            add_quintity(temp, avaible_qty);
+         else
+            addItemToOrder(newItemobject);
      }
 
      function checkTime() {
@@ -209,7 +212,7 @@
             return false;
          }
          else{
-             return true;
+             return false;
          }
      }
 
@@ -218,13 +221,22 @@
          add_item_to_cart();
      }
 
+     function check_item_already_exist(id){
+         for(i=0;i<=order_object.length-1;i++){
+            if(order_object[i].ID==id){
+                return i;
+            }
+         }
+         return true;
+     }
+
      function add_item_to_cart() {
          sessionStorage.order_object = order_object;
          var sub_total=0;
          document.getElementById("order_cart_value").innerHTML="";
 
          document.getElementById("order_cart_value").innerHTML += ""+
-                 "<table id='order_cart_table' class='table' style='font-size:90%'>" +
+                 "<table id='order_cart_table' class='table' style='font-size:75%'>" +
                  "<tr>" +
                     "<th></th>" +
                     "<th></th>" +
@@ -318,7 +330,7 @@
             order_object.splice(index, 1);
         }
         if(order_object.length==0)
-            document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Please add items to your order</div>";
+            document.getElementById("order_cart_value").innerHTML = " <div>Please add items to your order</div>";
         else
             add_item_to_cart();
     }

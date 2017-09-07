@@ -36,7 +36,10 @@ var con_job_update_order_status = schedule.scheduleJob('00 20 * * *', function()
 });
 
 router.get('/user_profile',function(req, res){
-    res.render('user_profile',{user:req.session.user});
+    if(req.session.user)
+        res.render('user_profile',{user:req.session.user});
+    else
+        res.redirect('/');
 });
 
 // Get Homepage
@@ -61,12 +64,45 @@ router.get('/admin', function(req, res){
 });
 
 router.get('/user_password_update', function(req, res){
-    res.render('user_password_update',{user: req.session.user});
+    if(req.session.user) {
+        res.render('user_password_update', {user: req.session.user});
+    }
+    else
+        res.redirect('/');
+});
+
+router.get('/user_edit_profile', function(req, res){
+    if(req.session.user) {
+        User.getUserBymobNumber(req.session.user.phone, function (err, user) {
+            req.session.user = user;
+        });
+        console.log(req.session.user);
+        Location.find(function (err, results) {
+            var unique_city_list = [];
+            results.forEach(function (item) {
+                if (unique_city_list.indexOf(item['city']) < 0) {
+                    unique_city_list.push(item['city']);
+                }
+            });
+            if (err) return res.sendStatus(500);
+            res.render('user_edit_profile', {
+                user: req.session.user,
+                cityList: unique_city_list,
+                locationList: results
+            });
+        });
+    }
+    else
+        res.redirect('/');
 });
 
 
 router.get('/contact', function(req, res){
-    res.render('contact',{user: req.session.user});
+    if(req.session.user) {
+        res.render('contact',{user: req.session.user});
+    }
+    else
+        res.redirect('/');
 });
 
 router.get('/deals', function(req, res){
@@ -115,76 +151,84 @@ router.get('/adminDashboard', function(req, res){
 });
 
 router.get('/payment',function(req, res){
-    order_itemID = req.session.order_itemID;
-    order_itemName = req.session.order_itemName;
-    order_itemPrice = req.session.order_itemPrice;
-    order_itemQty = req.session.order_itemQty;
-    total=0;
-    object_item_hash = [];
-    if(order_itemQty.length==1) {
-        sub_Total = parseInt(order_itemQty) * parseInt(order_itemPrice);
-        object_item_hash.push({
-            order_itemID: order_itemID,
-            order_itemName: order_itemName,
-            order_itemPrice: order_itemPrice,
-            order_itemQty: order_itemQty,
-            sub_Total: sub_Total
-        });
-        total += sub_Total;
-        req.session.sub_Total = sub_Total;
-    }
-    else{
-        for (i = 0; i < order_itemQty.length; i++) {
-            sub_Total = parseInt(order_itemQty[i]) * parseInt(order_itemPrice[i]);
+    if(req.session.user) {
+        order_itemID = req.session.order_itemID;
+        order_itemName = req.session.order_itemName;
+        order_itemPrice = req.session.order_itemPrice;
+        order_itemQty = req.session.order_itemQty;
+        total=0;
+        object_item_hash = [];
+        if(order_itemQty.length==1) {
+            sub_Total = parseInt(order_itemQty) * parseInt(order_itemPrice);
             object_item_hash.push({
-                order_itemID: order_itemID[i],
-                order_itemName: order_itemName[i],
-                order_itemPrice: order_itemPrice[i],
-                order_itemQty: order_itemQty[i],
+                order_itemID: order_itemID,
+                order_itemName: order_itemName,
+                order_itemPrice: order_itemPrice,
+                order_itemQty: order_itemQty,
                 sub_Total: sub_Total
             });
             total += sub_Total;
+            req.session.sub_Total = sub_Total;
         }
-        req.session.sub_Total = sub_Total;
+        else{
+            for (i = 0; i < order_itemQty.length; i++) {
+                sub_Total = parseInt(order_itemQty[i]) * parseInt(order_itemPrice[i]);
+                object_item_hash.push({
+                    order_itemID: order_itemID[i],
+                    order_itemName: order_itemName[i],
+                    order_itemPrice: order_itemPrice[i],
+                    order_itemQty: order_itemQty[i],
+                    sub_Total: sub_Total
+                });
+                total += sub_Total;
+            }
+            req.session.sub_Total = sub_Total;
+        }
+        res.render('payment',
+            {
+                user: req.session.user,
+                object_item_hash: object_item_hash,
+                bill_total: total,
+                order_rcpt_number: req.session.order_rcpt_number
+            });
     }
-    res.render('payment',
-        {
-            user: req.session.user,
-            object_item_hash: object_item_hash,
-            bill_total: total,
-            order_rcpt_number: req.session.order_rcpt_number
-        });
+    else
+        res.redirect('/');
 });
 
 router.get('/user_order_history',function(req, res){
-    var query = {user_id: req.session.user._id};
-    //Retreive All the orders based on the the User
-    Order.find(query,function(err, results,callback){
-        if (err) return res.sendStatus(500);
-        var object_item_hash = [];
-        var total=0;
-        for(var i=0;i<results.length;i++){
-            if(results[i].status==0)
-                status='Ordered';
-            else if(results[i].status==1)
-                status='Completed';
-            else
-                status='Cancled';
-            var order_date=new Date(String(results[i].order_date_time));
-            var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth())+'/'+String(order_date.getFullYear());
-            object_item_hash.push({
-                order_itemName:results[i].item_name,
-                receipt_number:results[i].receipt_number,
-                order_itemPrice:results[i].price,
-                order_itemQty:results[i].qty,
-                sub_Total:results[i].sub_Total,
-                order_date: ordr_dt,
-                status:status,
-                total:results[i].total
-            });
-        }
-        res.render('user_order_history',{user:req.session.user,object_item_hash:object_item_hash});
-    });
+    if(req.session.user) {
+        var query = {user_id: req.session.user._id};
+        //Retreive All the orders based on the the User
+        Order.find(query, function (err, results, callback) {
+            if (err) return res.sendStatus(500);
+            var object_item_hash = [];
+            var total = 0;
+            for (var i = 0; i < results.length; i++) {
+                if (results[i].status == 0)
+                    status = 'Ordered';
+                else if (results[i].status == 1)
+                    status = 'Completed';
+                else
+                    status = 'Cancled';
+                var order_date = new Date(String(results[i].order_date_time));
+                var ordr_dt = String(order_date.getDate()) + '/' + String(order_date.getMonth()) + '/' + String(order_date.getFullYear());
+                object_item_hash.push({
+                    order_itemName: results[i].item_name,
+                    receipt_number: results[i].receipt_number,
+                    order_itemPrice: results[i].price,
+                    order_itemQty: results[i].qty,
+                    sub_Total: results[i].sub_Total,
+                    order_date: ordr_dt,
+                    status: status,
+                    total: results[i].total
+                });
+            }
+            res.render('user_order_history', {user: req.session.user, object_item_hash: object_item_hash});
+        });
+    }
+    else
+        res.redirect('/');
 });
 
 router.post('/user_order_history', function(req, res) {
@@ -271,51 +315,53 @@ router.get('/print_del_report', function(req, res) {
             }
         }
 
+        if(object_item_hash) {
+            var htmlString = "";
 
-        var htmlString = "";
+            htmlString += "<h1>Deleivery Report for " + object_item_hash[0].order_date + "</h1><br />";
 
-        htmlString+="<h1>Deleivery Report for "+object_item_hash[0].order_date+"</h1><br />";
+            htmlString += "<div class=\"table-responsive\">\n" +
+                "    <table id=\"myTable\">\n" +
+                "        <tr class=\"header\">\n" +
+                "            <th>Order Date <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+                "            <th>Receipt Number <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+                "            <th>Item</th>\n" +
+                "            <th># <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+                "            <th>Price <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+                "            <th>Bill Amount <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+                "            <th>Status <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
+                "        </tr>\n";
+            for (var i = 0; i < object_item_hash.length; i++) {
 
-        htmlString+="<div class=\"table-responsive\">\n" +
-            "    <table id=\"myTable\">\n" +
-            "        <tr class=\"header\">\n" +
-            "            <th>Order Date <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
-            "            <th>Receipt Number <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
-            "            <th>Item</th>\n" +
-            "            <th># <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
-            "            <th>Price <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
-            "            <th>Bill Amount <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
-            "            <th>Status <span class=\"glyphicon glyphicon-sort\"></span></th>\n" +
-            "        </tr>\n" ;
-        for(var i=0;i<object_item_hash.length;i++) {
-
-            htmlString +=
-                "            <tr>\n" +
-                "                <td>"+object_item_hash[i].order_date+"</td>\n" +
-                "                <td>"+object_item_hash[i].receipt_number+"</td>\n" +
-                "                <td>"+object_item_hash[i].order_itemName+"</td>\n" +
-                "                <td>"+object_item_hash[i].order_itemQty+"</td>" +
-                "                <td>"+object_item_hash[i].order_itemPrice+"</td>"+
-                "                <td>"+object_item_hash[i].total+"</td>\n" +
-                "                <td>"+object_item_hash[i].status+"</td>\n" +
-                "                </td>\n" +
-                "            </tr>\n";
-        }
-        htmlString+=
-            "    </table>\n" +
-            "</div>\n" +
-            "<br />";
-
-        pdf.create(htmlString, options).toFile(process.cwd()+'//public//images///order_del_report.pdf', function (err, result) {
-            if (err) {
-                return res.status(400).send({
-                    message: errorHandler.getErrorMessage(err)
-                });
+                htmlString +=
+                    "            <tr>\n" +
+                    "                <td>" + object_item_hash[i].order_date + "</td>\n" +
+                    "                <td>" + object_item_hash[i].receipt_number + "</td>\n" +
+                    "                <td>" + object_item_hash[i].order_itemName + "</td>\n" +
+                    "                <td>" + object_item_hash[i].order_itemQty + "</td>" +
+                    "                <td>" + object_item_hash[i].order_itemPrice + "</td>" +
+                    "                <td>" + object_item_hash[i].total + "</td>\n" +
+                    "                <td>" + object_item_hash[i].status + "</td>\n" +
+                    "                </td>\n" +
+                    "            </tr>\n";
             }
-        })
+            htmlString +=
+                "    </table>\n" +
+                "</div>\n" +
+                "<br />";
+            pdf.create(htmlString, options).toFile(process.cwd() + '//public//pdf//order_del_report.pdf', function (err, result) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                }
+            })
 
-        res.redirect(process.cwd()+'//public//images///order_del_report.pdf');
-
+            res.redirect(process.cwd() + '//public//pdf//order_del_report.pdf');
+        }
+        else{
+            res.redirect('adminDashboard');
+        }
     });
 
 });
@@ -378,6 +424,19 @@ router.post('/', function(req, res){
     res.redirect('payment');
 });
 
+router.post('/user_edit_profile', function(req, res){
+    console.log("Coming Here")
+    var user_id = req.session.user._id;
+    var fname=req.body.fname;
+    var lname=req.body.lname;
+    var city=req.body.city;
+    var location=req.body.location;
+    var email=req.body.email;
+    User.updateuserProfile (req.session.user._id,fname,lname,email,city,location,function (err,result) {
+    });
+    res.redirect('/user_edit_profile');
+});
+
 function stringGen(len)
 {
     var text = " ";
@@ -423,10 +482,12 @@ router.post('/payment', function(req, res){
         if(err) throw err;
     });
 
-    Item.find(function(err, results){
+    res.redirect('/');
+    /*Item.find(function(err, results){
         if (err) return res.sendStatus(500);
-        res.render('index',{i: 1,itemList: results,user:req.session.user,message : 'You have Scussfully Placed Order'});
-    });
+        res.render('index',{i: 1,itemList: results,user:req.session.user,message : 'You have Scussfully Placed Order, Please note down your Order' +
+        'Number : '+req.session.order_rcpt_number});
+    });*/
 });
 
 function ensureAuthenticated(req, res, next){

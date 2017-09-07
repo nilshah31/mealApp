@@ -3,14 +3,14 @@
     <div class="row">
         <h1><i class="fa fa-history" aria-hidden="true"></i> ORDER HISTORY</h1><br />
         <input type="text" id="myInput1" onkeyup="myFunction(0,'myInput1')" placeholder="Search by Order Date" title="Type in a name">
-        <input type="text" id="myInput2" onkeyup="myFunction(1,'myInput2')" placeholder="Search by Receipt Number" title="Type in a name">
+        <input type="text" id="myInput2" onkeyup="myFunction(1,'myInput2')" placeholder="Search by Order Number" title="Type in a name">
         <form id="order_history_tbl" method="post">
             <input type='hidden' id= 'rcptnumber' name='rcptnumber' value='' />
             <div class="table-responsive">
                 <table id="myTable">
                     <tr class="header">
                         <th onclick="sortTable(0)">Order Date <span class="glyphicon glyphicon-sort"></span></th>
-                        <th onclick="sortTable(1)">Receipt Number <span class="glyphicon glyphicon-sort"></span></th>
+                        <th onclick="sortTable(1)">Order Number <span class="glyphicon glyphicon-sort"></span></th>
                         <th>Item</th>
                         <th onclick="sortTable(3)"># <span class="glyphicon glyphicon-sort"></span></th>
                         <th onclick="sortTable(4)">Price <span class="glyphicon glyphicon-sort"></span></th>
