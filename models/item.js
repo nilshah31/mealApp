@@ -55,3 +55,15 @@ module.exports.updateItemQtyAll = function(id,callback){
         }
     });
 }
+
+module.exports.updateItemDetails = function(id,item_detail,callback){
+    var query = {_id: id};
+    Item.findOne(query, function(err,results){
+        Item.update({_id:id}, {$set:{name:item_detail.name,description:item_detail.description,initial_qty:item_detail.initial_qty,
+			price:item_detail.price,item_image_path:item_detail.item_image_path,avaible_qty:item_detail.initial_qty}},
+			function(err, result) {
+            if(err) throw err;
+            callback(null,result);
+        });
+    });
+}

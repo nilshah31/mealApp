@@ -366,6 +366,40 @@ router.get('/print_del_report', function(req, res) {
 
 });
 
+
+router.post('/editItem', function(req, res) {
+    var path = require('path');
+    var appDir = path.dirname(require.main.filename);
+    var itemImage = req.files.edit_item_img;
+    var item_id = req.body.editItemId;
+    //Move Images to Server
+    itemImage.mv(process.cwd()+'//public//images//'+itemImage.name, function(err) {
+        if (err)
+            return res.status(500).send(err);
+    });
+    var nameValue = req.body.edititemNameTxtBox;
+    var descriptionValue = req.body.editdescTxtBox;
+    var initial_qtyValue = req.body.editinititalQtyTxtBox;
+    var priceValue = req.body.editpriceTxtBox;
+    var item_image_pathValue = '/images//'+itemImage.name;
+    var newItem = new Item({
+        name : nameValue,
+        description : descriptionValue,
+        initial_qty : initial_qtyValue,
+        price : priceValue,
+        item_image_path : item_image_pathValue,
+        avaible_qty : initial_qtyValue
+    });
+    Item.updateItemDetails(item_id,newItem, function(err, Item){
+        if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
+    });
+    Item.find(function(err, results){
+        if (err) return res.sendStatus(500);
+        res.redirect('adminDashboard');
+    });
+});
+
+
 router.post('/newItem', function(req, res){
 	var path = require('path');
 	var appDir = path.dirname(require.main.filename);
@@ -424,8 +458,18 @@ router.post('/', function(req, res){
     res.redirect('payment');
 });
 
+router.post('/delete_multiple_items', function(req, res) {
+    var id_array = String(req.body.delete_all_items_ids).split(',');
+    for(var i = 1; i < id_array.length; i++) {
+        var myquery = { _id: id_array[i] };
+        Item.remove(myquery, function(err, obj) {
+            if (err) throw err;
+        });
+    }
+    res.redirect('adminDashboard');
+});
+
 router.post('/user_edit_profile', function(req, res){
-    console.log("Coming Here")
     var user_id = req.session.user._id;
     var fname=req.body.fname;
     var lname=req.body.lname;
