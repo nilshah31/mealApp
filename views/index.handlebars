@@ -35,18 +35,28 @@
 
 
 <div class="container" >
-    {{#if message}}
-        <div class="alert alert-success alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            {{message}}
+
+    {{#if success_msg}}
+        <div class="alert alert-success">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{success_msg}}
         </div>
     {{/if}}
+
+    {{#if error_msg}}
+        <div class="alert alert-danger">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{error_msg}}
+        </div>
+    {{/if}}
+
 </div>
 
 <div class="itemPanel">
 <form action="" onsubmit="return false">
 <div>
 <div class="row">
+  {{#if itemList}}
   {{#each itemList}}
     {{#ifCustomize @index}}
       <div class="col-sm-2 column">
@@ -122,6 +132,11 @@
     {{resetCounterVariable}}
     {{/ifCustomize}}
   {{/each}}
+  {{else}}
+      <h1>OOPS! We don't have anything added!</h1>
+      <br /><br /><br /><br /><br />
+  {{/if}}
+
 </div>
 {{resetCounterVariable}}
 </div>

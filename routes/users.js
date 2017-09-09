@@ -139,22 +139,26 @@ router.post('/login',function(req, res) {
 						User.getUserBymobNumber(req.body.username, function(err, user){
 							if(user.verified==true) {
 								req.session.user = user;
-								res.redirect('/');
+                                req.flash('success_msg','Welcome to SouthMeal');
+                                res.redirect('/');
 							}
 							else{
 								User.sendMessage(user.lastname,user.phone,user.token,function(err,result){
-									res.redirect("/users/loginVerify?phone=" + req.body.username);
+                                    req.flash('success_msg','Please Verify Your Mobile Number');
+                                    res.redirect("/users/loginVerify?phone=" + req.body.username);
 								});
 							}
                         });
                     });
                 } else {
-					res.redirect('/');
+                    req.flash('error_msg','Username/Password not match');
+                    res.redirect('/');
                 }
             });
 		}
 		else{
-            res.redirect();
+            req.flash('error_msg','Username/Password not match');
+            res.redirect('/');
 		}
 	});
 });

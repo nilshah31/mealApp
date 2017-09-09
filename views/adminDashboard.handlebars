@@ -6,12 +6,26 @@
 {{/if}}
 
 <div class="container">
-<!--Header of the Page -->
-<div class="box box-primary" id="box_orders">
-  <div class="box-header with-border">
-    <h3 class="box-title">Admin - Dashboard</h3>
-  </div>
-</div>
+    {{#if success_msg}}
+        <div class="alert alert-success">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{success_msg}}
+        </div>
+    {{/if}}
+
+    {{#if error_msg}}
+        <div class="alert alert-danger">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{error_msg}}
+        </div>
+    {{/if}}
+
+    <!--Header of the Page -->
+    <div class="box box-primary" id="box_orders">
+      <div class="box-header with-border">
+        <h3 class="box-title">Admin - Dashboard</h3>
+      </div>
+    </div>
 
 <!-- Main content -->
 <!--Icon Bar for Items, Orders, Location's usesrs -->

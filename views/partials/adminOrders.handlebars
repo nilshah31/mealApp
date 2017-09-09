@@ -13,18 +13,18 @@
             <input type="hidden" id="myInput3" value="">
             <input type="hidden" id="myInput4" value="">
             <form id="downloadpdf_form" action="/print_del_report">
-                <a href="#" onclick="downloadpdf()">Download Today's Order</a>
+                <a onclick="downloadpdf()">Download Today's Order</a>
             </form>
             <br />
             <a href="#" onclick="myFunction(0,'myInput3')">Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="#" id="viewAllItemOrderTable" >Item Wise Order(Today)</a>
-            &nbsp;&nbsp;<a href="#" onclick="myFunction(6,'myInput4')">Today's Cancel Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;<a href="#" onclick="searchTodaysOrder(6,'myInput4','myInput3')">Today's Cancel Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="" ></a>
             <div class="table-responsive">
                 <table id="myTable">
                     <tr class="header">
                         <th onclick="sortTable(0)">Order Date <span class="glyphicon glyphicon-sort"></span></th>
-                        <th onclick="sortTable(1)">Receipt Number <span class="glyphicon glyphicon-sort"></span></th>
+                        <th onclick="sortTable(1)">Order Number <span class="glyphicon glyphicon-sort"></span></th>
                         <th>Item</th>
                         <th onclick="sortTable(3)"># <span class="glyphicon glyphicon-sort"></span></th>
                         <th onclick="sortTable(4)">Price <span class="glyphicon glyphicon-sort"></span></th>
@@ -82,6 +82,36 @@
                 }
             }
         }
+
+        function searchTodaysOrder(index,id,id2) {
+            var input, filter, table, tr, td, i,td1;
+            input = document.getElementById(id);
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            var input1 = document.getElementById(id2);
+            var filter1 = input1.value.toUpperCase();
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[index];
+                td1 = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        if(td1.innerHTML.toUpperCase().indexOf(filter1) > -1){
+                            tr[i].style.display = "";
+                        }
+                        else{
+                            tr[i].style.display = "none";
+                        }
+                    }else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+        }
+
     </script>
 
     <script>
@@ -198,7 +228,6 @@
     d = n.getDate();
     document.getElementById("myInput3").value = d + "/" + m + "/" + y;
     document.getElementById("myInput4").value = "Cancled";
-
 </script>
 
 

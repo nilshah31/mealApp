@@ -44,6 +44,9 @@ router.get('/user_profile',function(req, res){
 
 // Get Homepage
 router.get('/', function(req, res){
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.success_msg = req.flash('error_msg');
+
     Item.find(function(err, results){
         if (err) return res.sendStatus(500);
         if(req.session.user)
@@ -114,6 +117,7 @@ router.get('/howWeWork', function(req, res){
 });
 
 router.get('/adminDashboard', function(req, res){
+    if(req.session.user=='Admin'){
     Location.find(function(err, Locationresults){
         if (err) return res.sendStatus(500);
         Item.find(function(err, Itemresults){
@@ -133,6 +137,7 @@ router.get('/adminDashboard', function(req, res){
                     var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
                     object_item_hash.push({
                         order_itemName:results[i].item_name,
+                        receipt_number:results[i].receipt_number,
                         order_itemPrice:results[i].price,
                         order_itemQty:results[i].qty,
                         sub_Total:results[i].sub_Total,
@@ -143,11 +148,16 @@ router.get('/adminDashboard', function(req, res){
                 }
                 User.find(function(err, Userresults) {
                     if (err) return res.sendStatus(500);
-                    res.render('adminDashboard', { userList : Userresults,locationList : Locationresults,itemList : Itemresults,object_item_hash:object_item_hash });
+                    res.render('adminDashboard', { user: req.session.user,userList : Userresults,locationList : Locationresults,itemList : Itemresults,object_item_hash:object_item_hash });
                 });
             });
         });
     });
+    }
+    else{
+        req.flash('error_msg','You dont have Permission to access Admin Page');
+        res.redirect('/');
+    }
 });
 
 router.get('/payment',function(req, res){
@@ -264,7 +274,7 @@ router.post('/location_form', function(req, res) {
     var myquery = { _id: loc_id };
     Location.remove(myquery, function(err, obj) {
         if (err) throw err;
-        console.log(obj.result.n + " document(s) deleted");
+        req.flash('success_msg','Removed Successfully');
         res.redirect('adminDashboard');
     });
 });
@@ -274,14 +284,22 @@ router.post('/item_list_form', function(req, res) {
     var myquery = { _id: item_id };
     Item.remove(myquery, function(err, obj) {
         if (err) throw err;
-        console.log(obj.result.n + " document(s) deleted");
+        req.flash('success_msg','Removed Successfully');
         res.redirect('adminDashboard');
     });
 });
 
+router.post('/admin',function(req,res){
+    var uname = req.body.userName;
+    var pw = req.body.password;
+    if(uname=='admin' && pw=='admin'){
+        req.session.user = 'Admin';
+        res.redirect('/adminDashboard');
+    }
+});
+
 router.get('/print_del_report', function(req, res) {
     var options = { format: 'Letter' };
-
     Order.find(function(err, results,callback){
         if (err) return res.sendStatus(500);
         var object_item_hash = [];
@@ -356,10 +374,10 @@ router.get('/print_del_report', function(req, res) {
                     });
                 }
             })
-
-            res.redirect(process.cwd() + '//public//pdf//order_del_report.pdf');
+            res.redirect('/pdf/order_del_report.pdf');
         }
         else{
+            req.flash('error_msg','Something went wrong');
             res.redirect('adminDashboard');
         }
     });
@@ -395,6 +413,26 @@ router.post('/editItem', function(req, res) {
     });
     Item.find(function(err, results){
         if (err) return res.sendStatus(500);
+        req.flash('success_msg','Item Updated Successfully');
+        res.redirect('adminDashboard');
+    });
+});
+
+router.post('/editLocation', function(req, res) {
+    var location_id = req.body.locationItemId;
+    var cityTxtBox = req.body.cityeditTxtBox;
+    var locationTxtBox = req.body.locationeditTxtBox;
+    var newLocation = new Location({
+        city : cityTxtBox,
+        company : locationTxtBox
+    });
+
+    Location.updateLocationDetails(location_id,newLocation, function(err, Item){
+        if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
+    });
+    Location.find(function(err, results){
+        if (err) return res.sendStatus(500);
+        req.flash('success_msg','Location Updated Successfully');
         res.redirect('adminDashboard');
     });
 });
@@ -428,6 +466,7 @@ router.post('/newItem', function(req, res){
 	});
 	Item.find(function(err, results){
 		if (err) return res.sendStatus(500);
+        req.flash('success_msg','Item Added Successfully');
         res.redirect('adminDashboard');
 	});
 });
@@ -444,7 +483,7 @@ router.post('/newLocation', function(req, res){
 	});
 	Location.find(function(err, results){
 		if (err) return res.sendStatus(500);
-        req.flash('You have Scussfully Added New Location');
+        req.flash('success_msg','Added New Location');
         res.redirect('adminDashboard');
 	});
 });
@@ -466,6 +505,20 @@ router.post('/delete_multiple_items', function(req, res) {
             if (err) throw err;
         });
     }
+    req.flash('success_msg','Deleted All the Item\'s');
+    res.redirect('adminDashboard');
+});
+
+router.post('/delete_multiple_location', function(req, res) {
+    var id_array = String(req.body.delete_all_location_ids).split(',');
+    for(var i = 1; i < id_array.length; i++) {
+        console.log(id_array[i]);
+        var myquery = { _id: id_array[i] };
+        Location.remove(myquery, function(err, obj) {
+            if (err) throw err;
+        });
+    }
+    req.flash('success_msg','Deleted All the Location\'s');
     res.redirect('adminDashboard');
 });
 
@@ -478,6 +531,7 @@ router.post('/user_edit_profile', function(req, res){
     var email=req.body.email;
     User.updateuserProfile (req.session.user._id,fname,lname,email,city,location,function (err,result) {
     });
+    req.flash('success_msg','Successfully Updated Profile');
     res.redirect('/user_edit_profile');
 });
 
@@ -583,4 +637,11 @@ Handlebars.registerHelper('checkOrderStatus', function(orderStatus,options) {
 
 Handlebars.registerHelper('getOrderedQnty', function(avaible_qty,initial_qty,options) {
     return parseInt(initial_qty)-parseInt(avaible_qty);
+});
+
+Handlebars.registerHelper('returnYesNo', function(value,options) {
+    if(value)
+        return 'Yes';
+    else
+        return 'No'
 });

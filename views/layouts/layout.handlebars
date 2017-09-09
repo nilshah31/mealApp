@@ -21,11 +21,12 @@
             </ul>
         </div>
         <div class="w3ls_logo_products_left">
-            <h1><a href="index.html">SOUTHMEAL</a></h1>
+            <h1><a href="index.html">SOUTHMEAL'S</a></h1>
+            <br />
         </div>
         {{#if user}}
         {{else}}
-        <div><br />
+        <div>
             <form id="loginform" class="form-horizontal" role="form" method="post" action="/users/login">
                 <span><i class="glyphicon glyphicon-user"></i></span>
                     <input type="search" name="username"  class="custmInputBox" placeholder="Mobile Number" pattern="[789][0-9]{9}" required>
@@ -46,7 +47,6 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-center">
-                <li><a href="../deals">Logo</a></li>
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="../howWeWork">How we Work?</a></li>
                 <li><a href="../contact">Contact</a></li>
@@ -108,4 +108,24 @@
         }
     }
 
+</style>
+
+<style>
+    .alert {
+        padding: 20px;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .closebtn:hover {
+        color: black;
+    }
 </style>

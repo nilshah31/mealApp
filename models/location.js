@@ -25,3 +25,14 @@ module.exports.getCompanyByName = function(com_name, callback){
 	var query = {company: com_name};
 	Location.find(callback);
 }
+
+module.exports.updateLocationDetails = function(id,location_detail,callback){
+    var query = {_id: id};
+    Location.findOne(query, function(err,results){
+        Location.update({_id:id}, {$set:{city:location_detail.city,company:location_detail.company}},
+            function(err, result) {
+                if(err) throw err;
+                callback(null,result);
+            });
+    });
+}
