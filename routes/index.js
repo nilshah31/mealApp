@@ -118,42 +118,42 @@ router.get('/howWeWork', function(req, res){
 
 router.get('/adminDashboard', function(req, res){
     if(req.session.user=='ADMIN'){
-    Location.find(function(err, Locationresults){
-        if (err) return res.sendStatus(500);
-        Item.find(function(err, Itemresults){
+        Location.find(function(err, Locationresults){
             if (err) return res.sendStatus(500);
-            Order.find(function(err, results,callback){
+            Item.find(function(err, Itemresults){
                 if (err) return res.sendStatus(500);
-                var object_item_hash = [];
-                var total=0;
-                for(var i=0;i<results.length;i++){
-                    if(results[i].status==0)
-                        status='Ordered';
-                    else if(results[i].status==1)
-                        status='Completed';
-                    else
-                        status='Cancled';
-                    var order_date=new Date(String(results[i].order_date_time));
-                    var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
-                    object_item_hash.push({
-                        order_itemName:results[i].item_name,
-                        receipt_number:results[i].receipt_number,
-                        order_itemPrice:results[i].price,
-                        order_itemQty:results[i].qty,
-                        sub_Total:results[i].sub_Total,
-                        order_date: ordr_dt,
-                        status:status,
-                        total:results[i].total
-                    });
-                }
-                User.find(function(err, Userresults) {
+                Order.find(function(err, results,callback){
                     if (err) return res.sendStatus(500);
-                    res.render('adminDashboard', { user: req.session.user,userList : Userresults,locationList : Locationresults,itemList : Itemresults,object_item_hash:object_item_hash });
+                    var object_item_hash = [];
+                    var total=0;
+                    for(var i=0;i<results.length;i++){
+                        if(results[i].status==0)
+                            status='Ordered';
+                        else if(results[i].status==1)
+                            status='Completed';
+                        else
+                            status='Cancled';
+                        var order_date=new Date(String(results[i].order_date_time));
+                        var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
+                        object_item_hash.push({
+                            order_itemName:results[i].item_name,
+                            receipt_number:results[i].receipt_number,
+                            order_itemPrice:results[i].price,
+                            order_itemQty:results[i].qty,
+                            sub_Total:results[i].sub_Total,
+                            order_date: ordr_dt,
+                            status:status,
+                            total:results[i].total
+                        });
+                    }
+                    User.find(function(err, Userresults) {
+                        if (err) return res.sendStatus(500);
+                        res.render('adminDashboard', { user: req.session.user,userList : Userresults,locationList : Locationresults,itemList : Itemresults,object_item_hash:object_item_hash });
+                    });
                 });
             });
         });
-    });
-    }
+        }
     else{
         req.flash('error_msg','You dont have Permission to access Admin Page');
         res.redirect('/');
@@ -296,9 +296,10 @@ router.post('/admin',function(req,res){
         req.session.user = 'ADMIN';
         res.redirect('/adminDashboard');
     }
-    else
+    else{
         req.flash('error_msg','Username/Password not matched');
         res.redirect('/admin');
+    }
 });
 
 router.get('/print_del_report', function(req, res) {
