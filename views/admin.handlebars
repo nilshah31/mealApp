@@ -1,6 +1,14 @@
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<div class="container" >
+
+
+</div>
 
 <body class="login-page">
     <div class="login-box">
@@ -9,13 +17,27 @@
       </div>
       <div class="login-box-body">
         <p class="login-box-msg">Authorization</p>
-        <form method="post">
+          {{#if success_msg}}
+              <div class="alert alert-success">
+                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                  {{success_msg}}
+              </div>
+          {{/if}}
+
+          {{#if error_msg}}
+              <div class="alert alert-danger">
+                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                  {{error_msg}}
+              </div>
+          {{/if}}
+
+          <form method="post">
           <div class="form-group has-feedback">
-            <input type="text"  name="userName" required class="form-control" placeholder="User Name" />
+            <input type="text" style="height: 30px;"  name="userName" required class="form-control" placeholder="User Name" />
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" name="password" required class="form-control" placeholder="Password" />
+            <input type="password" style="height: 30px;" name="password" required class="form-control" placeholder="Password" />
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">

@@ -44,8 +44,8 @@ router.get('/user_profile',function(req, res){
 
 // Get Homepage
 router.get('/', function(req, res){
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.success_msg = req.flash('error_msg');
+   // res.locals.success_msg = req.flash('success_msg');
+   // res.locals.success_msg = req.flash('error_msg');
 
     Item.find(function(err, results){
         if (err) return res.sendStatus(500);
@@ -63,7 +63,7 @@ router.get('/', function(req, res){
 });
 
 router.get('/admin', function(req, res){
-    res.render('admin',{user: req.session.user});
+    res.render('admin',{user: 'ADMIN'});
 });
 
 router.get('/user_password_update', function(req, res){
@@ -117,7 +117,7 @@ router.get('/howWeWork', function(req, res){
 });
 
 router.get('/adminDashboard', function(req, res){
-    if(req.session.user=='Admin'){
+    if(req.session.user=='ADMIN'){
     Location.find(function(err, Locationresults){
         if (err) return res.sendStatus(500);
         Item.find(function(err, Itemresults){
@@ -293,9 +293,12 @@ router.post('/admin',function(req,res){
     var uname = req.body.userName;
     var pw = req.body.password;
     if(uname=='admin' && pw=='admin'){
-        req.session.user = 'Admin';
+        req.session.user = 'ADMIN';
         res.redirect('/adminDashboard');
     }
+    else
+        req.flash('error_msg','Username/Password not matched');
+        res.redirect('/admin');
 });
 
 router.get('/print_del_report', function(req, res) {
@@ -644,4 +647,11 @@ Handlebars.registerHelper('returnYesNo', function(value,options) {
         return 'Yes';
     else
         return 'No'
+});
+
+Handlebars.registerHelper('checkUserIsAdmin', function(user,options) {
+    if(user=='ADMIN')
+        return options.fn(this);
+    else
+        return options.inverse(this);
 });
