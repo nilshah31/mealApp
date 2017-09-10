@@ -317,7 +317,6 @@ router.get('/print_del_report', function(req, res) {
                 status='Cancled';
             var order_date=new Date(String(results[i].order_date_time));
             var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
-            console.log(ordr_dt);
 
             var todaysDate=new Date();
 
@@ -337,7 +336,7 @@ router.get('/print_del_report', function(req, res) {
             }
         }
 
-        if(object_item_hash) {
+        if(object_item_hash.length!=0) {
             var htmlString = "";
 
             htmlString += "<h1>Deleivery Report for " + object_item_hash[0].order_date + "</h1><br />";
@@ -381,7 +380,7 @@ router.get('/print_del_report', function(req, res) {
             res.redirect('/pdf/order_del_report.pdf');
         }
         else{
-            req.flash('error_msg','Something went wrong');
+            req.flash('error_msg','Couldnt find any order which placed today');
             res.redirect('adminDashboard');
         }
     });
