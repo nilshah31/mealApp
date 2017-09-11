@@ -241,6 +241,7 @@
      var order_object = [];
      var total = 0;
      var loged_user = '{{user}}';
+     var isLocationAvaible = {{isLocationAvaible}};
      if(checkTime()) {
          document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Ordering starts from <br />LUNCH --- 9:00 AM to 11:30 AM <br />DINNER --- 5:00 PM to 7:00 PM</div>";
          var all_btns = document.getElementsByClassName("add_to_cart_btn")
@@ -262,7 +263,17 @@
              all_btns[i].disabled=true;
          }
      }
-     
+     if(isLocationAvaible==false){
+         document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>We have stopped delevery at your location, Kindly update your profile" +
+                 "</div>";
+         var all_btns = document.getElementsByClassName("add_to_cart_btn")
+         for(var i=0, len=all_btns.length; i<len; i++)
+         {
+             all_btns[i].disabled=true;
+         }
+     }
+
+
      function check_cart_value(price) {
          if((parseInt(price)+parseInt(sub_total))<=250){
              return true;
@@ -303,7 +314,6 @@
              }
              newItemobject = { "ID": id, "Name": name, "Price": price,"Qty": qty,"SubTotal": parseInt(price)*parseInt(qty),"avaible_qty":parseInt(avaible_qty) };
              temp = check_item_already_exist(id)
-             alert(temp);
              if(temp!=-1)
                 add_quintity(temp, avaible_qty,price);
              else
@@ -426,6 +436,13 @@
 </script>
 
 <script>
+    function check_order_location(){
+        if(order_location_avbl)
+            return true;
+        else
+            return false;
+    }
+
     function add_quintity(index,avbl_qnty,price){
         if((parseInt(price)+parseInt(sub_total))<=250){
             order_object[index].Qty = parseInt(order_object[index].Qty);
@@ -561,4 +578,5 @@
 
 <script>
     var sub_total=0;
+
 </script>

@@ -50,9 +50,25 @@ router.get('/', function(req, res){
     Item.find(function(err, results){
         if (err) return res.sendStatus(500);
         if(req.session.user)
-            if(req.session.user.firstname)
-                res.render('index',{i: 1,user: req.session.user,itemList: results});
-		    else{
+            if(req.session.user.firstname) {
+                Location.find(function (err, location_results) {
+                    var temp=false;
+                    if(location_results.length>0){
+                        location_results.forEach(function (item) {
+                            if(item['company']==req.session.user.location){
+                                res.render('index', {i: 1, user: req.session.user, itemList: results,isLocationAvaible:true});
+                                temp=true;
+                            }
+                            if(temp==false)
+                                res.render('index', {i: 1, user: req.session.user, itemList: results,isLocationAvaible:false});
+                        });
+                    }
+                    else{
+                        res.render('index', {i: 1, user: req.session.user, itemList: results,isLocationAvaible:false});
+                    }
+                });
+            }
+            else{
                 req.session.user = null;
                 res.render('index',{i: 1,user: null,itemList: results});}
         else{
@@ -79,7 +95,6 @@ router.get('/user_edit_profile', function(req, res){
         User.getUserBymobNumber(req.session.user.phone, function (err, user) {
             req.session.user = user;
         });
-        console.log(req.session.user);
         Location.find(function (err, results) {
             var unique_city_list = [];
             results.forEach(function (item) {
@@ -270,7 +285,6 @@ router.post('/user_password_update', function(req, res) {
 
 router.post('/location_form', function(req, res) {
     var loc_id = req.body.location_ID;
-    console.log(loc_id);
     var myquery = { _id: loc_id };
     Location.remove(myquery, function(err, obj) {
         if (err) throw err;
