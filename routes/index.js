@@ -70,10 +70,10 @@ router.get('/', function(req, res){
             }
             else{
                 req.session.user = null;
-                res.render('index',{i: 1,user: null,itemList: results});}
+                res.render('index',{i: 1,user: null,itemList: results,isLocationAvaible:false});}
         else{
             req.session.user = null;
-            res.render('index',{i: 1,user: null,itemList: results});
+            res.render('index',{i: 1,user: null,itemList: results,isLocationAvaible:false});
 		    }
 	});
 });
