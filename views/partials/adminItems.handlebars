@@ -64,6 +64,13 @@
                 <input type="text" name="priceTxtBox"  pattern="\d*" id="priceTxtBox" required>
                 <label for="initial_qty">Initial Quantity : </label>
                 <input type="text" name="inititalQtyTxtBox"  pattern="\d*" id="inititalQtyTxtBox" required>
+
+                <label for="category">Select Category : </label>
+                <select name="category" id="category" class="form-control input-md" required>
+                    <option>Veg</option>
+                    <option>Non-Veg</option>
+                </select>
+                <br />
                 <label for="item_img">Image : </label>
                 <input type="file" accept="image/*" name="item_img" required>
                 <br />
@@ -173,7 +180,7 @@
         var modal6 = document.getElementById('editItemModal');
 
         // Get the <span> element that closes the modal
-        var span6 = document.getElementsByClassName("close")[2];
+        var span6 = document.getElementsByClassName("close")[3];
 
         modal6.style.display = "block";
 

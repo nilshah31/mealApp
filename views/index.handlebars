@@ -251,7 +251,7 @@
                 {{#each itemList}}
                     {{#ifCustomize @index}}
                         <div class="col-sm-2 column">
-                            <div class="panel panel-success" style="background-color: white">
+                            <div class="panel panel-{{#checkFoodCatVeg category}}success{{else}}danger{{/checkFoodCatVeg}}" style="background-color: white">
                                 <div class="panel-heading">{{name}}</div>
                                 <input type="hidden" name="item_name" value='{{name}}'>
                                 <input type="hidden" name="item_price" value='{{price}}'>

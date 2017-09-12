@@ -21,6 +21,9 @@ var ItemSchema = mongoose.Schema({
 	},
 	avaible_qty:{
 		type:String
+	},
+	category:{
+		type:String
 	}
 });
 

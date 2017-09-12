@@ -467,13 +467,15 @@ router.post('/newItem', function(req, res){
 	var initial_qtyValue = req.body.inititalQtyTxtBox; 
 	var priceValue = req.body.priceTxtBox;
 	var item_image_pathValue = '/images//'+itemImage.name;
+	var category = req.body.category;
 	var newItem = new Item({
 	    	name : nameValue,
 			description : descriptionValue,
 			initial_qty : initial_qtyValue,
 			price : priceValue,
 			item_image_path : item_image_pathValue,
-            avaible_qty : initial_qtyValue
+            avaible_qty : initial_qtyValue,
+            category : category
 		});
 	Item.createItem(newItem, function(err, Item){
 	if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
@@ -659,6 +661,14 @@ Handlebars.registerHelper('returnYesNo', function(value,options) {
 
 Handlebars.registerHelper('checkUserIsAdmin', function(user,options) {
     if(user=='ADMIN')
+        return options.fn(this);
+    else
+        return options.inverse(this);
+});
+
+
+Handlebars.registerHelper('checkFoodCatVeg', function(foodCat,options) {
+    if(foodCat=='Veg')
         return options.fn(this);
     else
         return options.inverse(this);
