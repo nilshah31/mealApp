@@ -4,8 +4,10 @@
     <list default="true" id="950b4c02-1753-4d93-bb2f-d24ba886aa52" name="Default" comment="Complated Index">
       <change type="DELETED" beforePath="$PROJECT_DIR$/npm-debug.log" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/views/partials/adminUseres.handlebars" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.handlebars" afterPath="$PROJECT_DIR$/views/index.handlebars" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/user_order_history.handlebars" afterPath="$PROJECT_DIR$/views/user_order_history.handlebars" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,18 +24,28 @@
       <file leaf-file-name="adminDashboard.handlebars" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/adminDashboard.handlebars">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+            <state relative-caret-position="546">
+              <caret line="132" column="22" lean-forward="true" selection-start-line="132" selection-start-column="22" selection-end-line="132" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="53" column="16" lean-forward="false" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+            <state relative-caret-position="483">
+              <caret line="252" column="3" lean-forward="true" selection-start-line="252" selection-start-column="3" selection-end-line="252" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/users.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="165" column="11" lean-forward="false" selection-start-line="165" selection-start-column="6" selection-end-line="165" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -76,26 +88,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.handlebars" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.handlebars" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/index.handlebars">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="365" column="4" lean-forward="true" selection-start-line="365" selection-start-column="4" selection-end-line="365" selection-end-column="4" />
+            <state relative-caret-position="314">
+              <caret line="489" column="71" lean-forward="false" selection-start-line="489" selection-start-column="71" selection-end-line="489" selection-end-column="71" />
               <folding>
                 <element signature="n#style#0;n#!!top" expanded="false" />
                 <element signature="n#style#1;n#!!top" expanded="false" />
                 <element signature="n#style#2;n#!!top" expanded="false" />
-                <element signature="n#style#3;n#!!top" expanded="false" />
                 <element signature="n#style#4;n#!!top" expanded="false" />
-                <element signature="e#4702#4709#1#HTML" expanded="true" />
-                <element signature="e#4922#4929#1#HTML" expanded="true" />
+                <element signature="e#4703#4710#1#HTML" expanded="true" />
+                <element signature="e#4923#4930#1#HTML" expanded="true" />
                 <element signature="n#div#1;n#!!top" expanded="false" />
                 <element signature="n#script#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#!!top" expanded="false" />
-                <marker date="1505138236952" expanded="true" signature="15551:15564" ph="..." />
-                <marker date="1505138236952" expanded="true" signature="16701:16707" ph=" " />
-                <marker date="1505138236952" expanded="true" signature="16708:16714" ph=" " />
-                <marker date="1505138236952" expanded="true" signature="18111:18123" ph="..." />
+                <marker date="1505191463441" expanded="true" signature="15835:15848" ph="..." />
+                <marker date="1505191463441" expanded="true" signature="17030:17036" ph=" " />
+                <marker date="1505191463441" expanded="true" signature="17037:17043" ph=" " />
+                <marker date="1505191463441" expanded="true" signature="18560:18572" ph="..." />
               </folding>
             </state>
           </provider>
@@ -107,34 +117,6 @@
             <state relative-caret-position="252">
               <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_password_update.handlebars" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/user_password_update.handlebars">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="29" column="68" lean-forward="false" selection-start-line="29" selection-start-column="47" selection-end-line="29" selection-end-column="68" />
-              <folding>
-                <element signature="n#style#0;n#input#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#2;n#form#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#div#2;n#form#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#div#2;n#form#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_edit_profile.handlebars" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/user_edit_profile.handlebars">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="87" column="64" lean-forward="false" selection-start-line="87" selection-start-column="64" selection-end-line="87" selection-end-column="64" />
-              <folding>
-                <element signature="n#style#0;n#input#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#1;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -152,6 +134,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="user_order_history.handlebars" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/user_order_history.handlebars">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="229">
+              <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -163,16 +155,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>returnYesNo</find>
-      <find>myInput3</find>
-      <find>post</find>
-      <find>req.session</find>
-      <find>admin</find>
-      <find>user</find>
-      <find>message</find>
       <find>pass</find>
       <find>link</find>
-      <find>/</find>
       <find>.get('/admin</find>
       <find>/admindash</find>
       <find>/admind</find>
@@ -181,18 +165,26 @@
       <find>/admin</find>
       <find>pdf</find>
       <find>print</find>
-      <find>pri</find>
       <find>sub_total</find>
       <find>add_quintity</find>
       <find>id</find>
       <find>already</find>
-      <find>.get</find>
       <find>Location</find>
       <find>console.log</find>
       <find>check_item_already_exist</find>
       <find>location</find>
       <find>isLocationAvaible</find>
       <find>loged_user</find>
+      <find>/</find>
+      <find>.get</find>
+      <find>submitform</find>
+      <find>pri</find>
+      <find>add_item_to_cart</find>
+      <find>user_edit_profile</find>
+      <find>.post</find>
+      <find>icon-remove-sign</find>
+      <find>reduce_quintity</find>
+      <find>removeItemFromCart</find>
     </findStrings>
     <replaceStrings>
       <replace>MealApp</replace>
@@ -229,16 +221,16 @@
         <option value="$PROJECT_DIR$/views/loginVerify.handlebars" />
         <option value="$PROJECT_DIR$/views/user_profile.handlebars" />
         <option value="$PROJECT_DIR$/views/payment.handlebars" />
-        <option value="$PROJECT_DIR$/views/user_order_history.handlebars" />
         <option value="$PROJECT_DIR$/views/contact.handlebars" />
         <option value="$PROJECT_DIR$/views/user_password_update.handlebars" />
         <option value="$PROJECT_DIR$/views/user_edit_profile.handlebars" />
         <option value="$PROJECT_DIR$/views/admin.handlebars" />
         <option value="$PROJECT_DIR$/views/layouts/layout.handlebars" />
         <option value="$PROJECT_DIR$/views/register.handlebars" />
+        <option value="$PROJECT_DIR$/views/user_order_history.handlebars" />
         <option value="$PROJECT_DIR$/views/adminDashboard.handlebars" />
-        <option value="$PROJECT_DIR$/views/index.handlebars" />
         <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/views/index.handlebars" />
       </list>
     </option>
   </component>
@@ -440,12 +432,12 @@
       <workItem from="1503417938857" duration="13157000" />
       <workItem from="1503570107501" duration="121847000" />
       <workItem from="1504594491031" duration="931000" />
-      <workItem from="1504608452615" duration="75565000" />
+      <workItem from="1504608452615" duration="80948000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="351459000" />
+    <option name="totallyTimeSpent" value="356842000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -650,14 +642,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="134" column="34" lean-forward="true" selection-start-line="134" selection-start-column="34" selection-end-line="134" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/order.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="597">
@@ -762,17 +746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/user_order_history.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="63" lean-forward="false" selection-start-line="8" selection-start-column="63" selection-end-line="8" selection-end-column="63" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#input#1;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/contact.handlebars">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
@@ -833,53 +806,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#1;n#form#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/layouts/layout.handlebars">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/adminDashboard.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.handlebars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="365" column="4" lean-forward="true" selection-start-line="365" selection-start-column="4" selection-end-line="365" selection-end-column="4" />
-          <folding>
-            <element signature="n#style#0;n#!!top" expanded="false" />
-            <element signature="n#style#1;n#!!top" expanded="false" />
-            <element signature="n#style#2;n#!!top" expanded="false" />
-            <element signature="n#style#3;n#!!top" expanded="false" />
-            <element signature="n#style#4;n#!!top" expanded="false" />
-            <element signature="e#4702#4709#1#HTML" expanded="true" />
-            <element signature="e#4922#4929#1#HTML" expanded="true" />
-            <element signature="n#div#1;n#!!top" expanded="false" />
-            <element signature="n#script#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#!!top" expanded="false" />
-            <marker date="1505138236952" expanded="true" signature="15551:15564" ph="..." />
-            <marker date="1505138236952" expanded="true" signature="16701:16707" ph=" " />
-            <marker date="1505138236952" expanded="true" signature="16708:16714" ph=" " />
-            <marker date="1505138236952" expanded="true" signature="18111:18123" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -891,11 +822,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/admin.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#1;n#form#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/user_order_history.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/adminDashboard.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="132" column="22" lean-forward="true" selection-start-line="132" selection-start-column="22" selection-end-line="132" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="53" column="16" lean-forward="false" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+        <state relative-caret-position="483">
+          <caret line="252" column="3" lean-forward="true" selection-start-line="252" selection-start-column="3" selection-end-line="252" selection-end-column="3" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="165" column="11" lean-forward="false" selection-start-line="165" selection-start-column="6" selection-end-line="165" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.handlebars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="489" column="71" lean-forward="false" selection-start-line="489" selection-start-column="71" selection-end-line="489" selection-end-column="71" />
+          <folding>
+            <element signature="n#style#0;n#!!top" expanded="false" />
+            <element signature="n#style#1;n#!!top" expanded="false" />
+            <element signature="n#style#2;n#!!top" expanded="false" />
+            <element signature="n#style#4;n#!!top" expanded="false" />
+            <element signature="e#4703#4710#1#HTML" expanded="true" />
+            <element signature="e#4923#4930#1#HTML" expanded="true" />
+            <element signature="n#div#1;n#!!top" expanded="false" />
+            <element signature="n#script#0;n#!!top" expanded="false" />
+            <marker date="1505191463441" expanded="true" signature="15835:15848" ph="..." />
+            <marker date="1505191463441" expanded="true" signature="17030:17036" ph=" " />
+            <marker date="1505191463441" expanded="true" signature="17037:17043" ph=" " />
+            <marker date="1505191463441" expanded="true" signature="18560:18572" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -44,8 +44,10 @@
 
 <script>
     function submitform(rcpt_number) {
-        document.getElementById('rcptnumber').value = rcpt_number;
-        document.getElementById("order_history_tbl").submit();
+        if(confirm("Do you want to cancle this order?")){
+            document.getElementById('rcptnumber').value = rcpt_number;
+            document.getElementById("order_history_tbl").submit();
+        }
     }
 </script>
 <script>

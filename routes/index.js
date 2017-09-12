@@ -44,9 +44,6 @@ router.get('/user_profile',function(req, res){
 
 // Get Homepage
 router.get('/', function(req, res){
-   // res.locals.success_msg = req.flash('success_msg');
-   // res.locals.success_msg = req.flash('error_msg');
-
     Item.find(function(err, results){
         if (err) return res.sendStatus(500);
         if(req.session.user)
@@ -597,12 +594,9 @@ router.post('/payment', function(req, res){
         if(err) throw err;
     });
 
+    req.flash('success_msg','You have Succesfully Placed Order, Please note Down Order number for future Refrence : '+req.session.order_rcpt_number);
     res.redirect('/');
-    /*Item.find(function(err, results){
-        if (err) return res.sendStatus(500);
-        res.render('index',{i: 1,itemList: results,user:req.session.user,message : 'You have Scussfully Placed Order, Please note down your Order' +
-        'Number : '+req.session.order_rcpt_number});
-    });*/
+
 });
 
 function ensureAuthenticated(req, res, next){

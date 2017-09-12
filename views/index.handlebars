@@ -125,7 +125,7 @@
         position: fixed;
         right: 8%;
         top: 27%;
-        width: 14em;
+        width: 15em;
         margin-top: 0em;
         background-color:  #ffffb3;
         padding-top: 0em;
@@ -209,6 +209,7 @@
     }
 </style>
 
+
 <br /><br /><br />
 <!--Flash Message-->
 <div class="container" >
@@ -261,8 +262,8 @@
                                 </div>
                                 <div class="panel-footer" style="background-color: white">
                                     <i class="fa fa-inr"></i>&nbsp;{{price}}&nbsp;
-                                    <br />Available Quantity: {{avaible_qty}}
-                                    <br />{{description}}
+                                    <br>Available Quantity: <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span><br />
+                                    {{description}}
                                     <br /><br />
                                     {{#checkAvableQty avaible_qty}}
                                         <span class="glyphicon glyphicon-shopping-cart"></span>
@@ -298,7 +299,7 @@
                                 </div>
                                 <div class="panel-footer" style="background-color: white">
                                     <i class="fa fa-inr"></i>&nbsp;{{price}}
-                                    <br />Available Quantity: {{avaible_qty}}
+                                    <br />Available Quantity: <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
                                     <br />{{description}}
                                     <br /><br />
                                     {{#checkAvableQty avaible_qty}}
@@ -424,7 +425,10 @@
                 add_quintity(temp, avaible_qty,price);
              else
                 addItemToOrder(newItemobject);
-         }
+            avlb_qty_value = document.getElementById("AVBLQTYSPAN"+String(id));
+            if(parseInt(avlb_qty_value.innerHTML)>0)
+                avlb_qty_value.innerHTML = parseInt(avlb_qty_value.innerHTML)-1;
+        }
          else {
              alert("You can place order upto 250rs");
          }
@@ -469,11 +473,13 @@
                  "</tr></table>";
 
          for(i=0;i<=order_object.length-1;i++){
+
              var table = document.getElementById("order_cart_table");
              var row = table.insertRow(i+1);
              var cell1 = row.insertCell(0);
              var cell2 = row.insertCell(1);
              var cell3 = row.insertCell(2);
+             var cell4 = row.insertCell(3);
              cell1.innerHTML = order_object[i].Name+"<input type='hidden' value='"+order_object[i].Name+"' name='itemName' />"+
                      "<br /><a href='#' onclick='add_quintity("+i+","+order_object[i].avaible_qty+","+order_object[i].Price+")'><span class='icon-2x blackColorIcon icon-plus-sign'></span></a>" +
                      "<a href='#' onclick='reduce_quintity("+i+")'><span class='icon-2x blackColorIcon icon-minus-sign'></span></a>" +
@@ -481,6 +487,7 @@
              cell2.innerHTML = order_object[i].Qty+"<input type='hidden' value='"+order_object[i].Qty+"' name='itemQty' />&nbsp;X&nbsp;" +
                      order_object[i].Price+"<input type='hidden' value='"+order_object[i].Price+"' name='itemPrice' />";
              cell3.innerHTML = parseInt(order_object[i].Price)*parseInt(order_object[i].Qty);
+             cell4.innerHTML = "<a href='#' onclick='removeItemFromCart("+i+")'><i class='icon-remove fa-3x'></i></a>";
              sub_total += parseInt(cell3.innerHTML);
          }
 
@@ -553,6 +560,13 @@
         if(order_object[index].Qty==0) {
             order_object.splice(index, 1);
         }
+        if(order_object.length==0)
+            document.getElementById("order_cart_value").innerHTML = " <div>Please add items to your order</div>";
+        else
+            add_item_to_cart();
+    }
+    function removeItemFromCart(index) {
+        order_object.splice(index, 1);
         if(order_object.length==0)
             document.getElementById("order_cart_value").innerHTML = " <div>Please add items to your order</div>";
         else
