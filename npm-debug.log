@@ -1,26 +1,54 @@
 0 info it worked if it ends with ok
 1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
 1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
-1 verbose cli   'start' ]
+1 verbose cli   'bugs',
+1 verbose cli   'mealapp' ]
 2 info using npm@3.10.10
 3 info using node@v6.11.0
-4 verbose stack Error: missing script: start
-4 verbose stack     at run (C:\Program Files\nodejs\node_modules\npm\lib\run-script.js:151:19)
-4 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\run-script.js:61:5
-4 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:356:5
-4 verbose stack     at checkBinReferences_ (C:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:320:45)
-4 verbose stack     at final (C:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:354:3)
-4 verbose stack     at then (C:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:124:5)
-4 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:311:12
-4 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\graceful-fs.js:78:16
-4 verbose stack     at tryToString (fs.js:456:3)
-4 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:443:12)
-5 verbose cwd C:\nodeJSApplication\mealApp
-6 error Windows_NT 10.0.14393
-7 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
-8 error node v6.11.0
-9 error npm  v3.10.10
-10 error missing script: start
-11 error If you need help, you may report this error at:
-11 error     <https://github.com/npm/npm/issues>
-12 verbose exit [ 1, true ]
+4 silly fetchPackageMetaData mealapp
+5 silly fetchOtherPackageData mealapp
+6 silly cache add args [ 'mealapp', null ]
+7 verbose cache add spec mealapp
+8 silly cache add parsed spec Result {
+8 silly cache add   raw: 'mealapp',
+8 silly cache add   scope: null,
+8 silly cache add   escapedName: 'mealapp',
+8 silly cache add   name: null,
+8 silly cache add   rawSpec: 'mealapp',
+8 silly cache add   spec: 'C:\\nodeJSApplication\\mealApp\\mealapp',
+8 silly cache add   type: 'local' }
+9 silly addLocalTarball shasum (computed) b991828b4656d8fe5cc7ac25171a4d33245056d5
+10 verbose addTmpTarball C:\nodeJSApplication\mealApp\mealapp not in flight; adding
+11 verbose correctMkdir C:\Users\NS045665\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+12 verbose addTmpTarball validating metadata from C:\nodeJSApplication\mealApp\mealapp
+13 verbose tar unpack C:\nodeJSApplication\mealApp\mealapp
+14 verbose tar unpacking to C:\Users\NS045665\AppData\Local\Temp\npm-3048-2a623483\unpack-162c7b31
+15 silly gentlyRm C:\Users\NS045665\AppData\Local\Temp\npm-3048-2a623483\unpack-162c7b31 is being purged
+16 verbose gentlyRm don't care about contents; nuking C:\Users\NS045665\AppData\Local\Temp\npm-3048-2a623483\unpack-162c7b31
+17 silly gunzTarPerm modes [ '777', '666' ]
+18 error not a package C:\nodeJSApplication\mealApp\mealapp
+19 error addLocal Could not install C:\nodeJSApplication\mealApp\mealapp
+20 silly fetchPackageMetaData Error: ENOENT: no such file or directory, open 'C:\Users\NS045665\AppData\Local\Temp\npm-3048-2a623483\unpack-162c7b31\package.json'
+20 silly fetchPackageMetaData     at Error (native)
+20 silly fetchPackageMetaData  error for mealapp { Error: ENOENT: no such file or directory, open 'C:\Users\NS045665\AppData\Local\Temp\npm-3048-2a623483\unpack-162c7b31\package.json'
+20 silly fetchPackageMetaData     at Error (native)
+20 silly fetchPackageMetaData   errno: -4058,
+20 silly fetchPackageMetaData   code: 'ENOENT',
+20 silly fetchPackageMetaData   syscall: 'open',
+20 silly fetchPackageMetaData   path: 'C:\\Users\\NS045665\\AppData\\Local\\Temp\\npm-3048-2a623483\\unpack-162c7b31\\package.json' }
+21 verbose stack Error: ENOENT: no such file or directory, open 'C:\Users\NS045665\AppData\Local\Temp\npm-3048-2a623483\unpack-162c7b31\package.json'
+21 verbose stack     at Error (native)
+22 verbose cwd C:\nodeJSApplication\mealApp
+23 error Windows_NT 10.0.14393
+24 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "bugs" "mealapp"
+25 error node v6.11.0
+26 error npm  v3.10.10
+27 error path C:\Users\NS045665\AppData\Local\Temp\npm-3048-2a623483\unpack-162c7b31\package.json
+28 error code ENOENT
+29 error errno -4058
+30 error syscall open
+31 error enoent ENOENT: no such file or directory, open 'C:\Users\NS045665\AppData\Local\Temp\npm-3048-2a623483\unpack-162c7b31\package.json'
+32 error enoent ENOENT: no such file or directory, open 'C:\Users\NS045665\AppData\Local\Temp\npm-3048-2a623483\unpack-162c7b31\package.json'
+32 error enoent This is most likely not a problem with npm itself
+32 error enoent and is related to npm not being able to find a file.
+33 verbose exit [ -4058, true ]

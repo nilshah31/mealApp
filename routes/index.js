@@ -48,17 +48,17 @@ router.get('/', function(req, res){
         if (err) return res.sendStatus(500);
         if(req.session.user)
             if(req.session.user.firstname) {
+                var temp=false;
                 Location.find(function (err, location_results) {
-                    var temp=false;
                     if(location_results.length>0){
                         location_results.forEach(function (item) {
                             if(item['company']==req.session.user.location){
                                 res.render('index', {i: 1, user: req.session.user, itemList: results,isLocationAvaible:true});
                                 temp=true;
                             }
-                            if(temp==false)
-                                res.render('index', {i: 1, user: req.session.user, itemList: results,isLocationAvaible:false});
                         });
+                        if(temp==false)
+                            res.render('index', {i: 1, user: req.session.user, itemList: results,isLocationAvaible:false});
                     }
                     else{
                         res.render('index', {i: 1, user: req.session.user, itemList: results,isLocationAvaible:false});
