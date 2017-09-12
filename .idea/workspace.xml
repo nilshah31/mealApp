@@ -10,6 +10,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/adminDashboard.handlebars" afterPath="$PROJECT_DIR$/views/adminDashboard.handlebars" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.handlebars" afterPath="$PROJECT_DIR$/views/index.handlebars" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/adminItems.handlebars" afterPath="$PROJECT_DIR$/views/partials/adminItems.handlebars" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/adminLocation.handlebars" afterPath="$PROJECT_DIR$/views/partials/adminLocation.handlebars" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/adminOrders.handlebars" afterPath="$PROJECT_DIR$/views/partials/adminOrders.handlebars" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -121,7 +122,7 @@
       <file leaf-file-name="adminLocation.handlebars" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/partials/adminLocation.handlebars">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
+            <state relative-caret-position="403">
               <caret line="154" column="75" lean-forward="false" selection-start-line="154" selection-start-column="75" selection-end-line="154" selection-end-column="75" />
               <folding />
             </state>
@@ -262,7 +263,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="231" />
     <option name="y" value="214" />
     <option name="width" value="1536" />
@@ -442,15 +443,15 @@
       <workItem from="1503417938857" duration="13157000" />
       <workItem from="1503570107501" duration="121847000" />
       <workItem from="1504594491031" duration="931000" />
-      <workItem from="1504608452615" duration="83459000" />
+      <workItem from="1504608452615" duration="84059000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="359353000" />
+    <option name="totallyTimeSpent" value="359953000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18125" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
@@ -903,7 +904,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/partials/adminLocation.handlebars">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
+        <state relative-caret-position="403">
           <caret line="154" column="75" lean-forward="false" selection-start-line="154" selection-start-column="75" selection-end-line="154" selection-end-column="75" />
           <folding />
         </state>
