@@ -13,16 +13,16 @@ var mongoose = require('mongoose');
 var fileUpload = require('express-fileupload');
 
 var mongoURI="mongodb://localhost/mealapp";
-var MONGOLAB_URI = "mongodb://nilshah32:NVD420nvd@ds123614.mlab.com:23614/mealapp";
+//var MONGOLAB_URI = "mongodb://nilshah32:NVD420nvd@ds123614.mlab.com:23614/mealapp";
 
-if (process.env.NODE_ENV == "production")
+/*if (process.env.NODE_ENV == "production")
 {
     mongoose.connect(MONGOLAB_URI);
 }
 else if ((process.env.NODE_ENV == "development"))
-{
+{*/
     mongoose.connect(mongoURI);
-}
+//}
 
 var db = mongoose.connection;
 
@@ -108,5 +108,3 @@ app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function(){
 	console.log('Server started on port '+app.get('port'));
 });
-
-

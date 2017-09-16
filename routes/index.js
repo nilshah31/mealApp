@@ -1,5 +1,5 @@
 var express = require('express');
-var Handlebars = require('handlebars'); 
+var Handlebars = require('handlebars');
 var router = express.Router();
 var Location = require('../models/location');
 var Item = require('../models/item');
@@ -234,7 +234,7 @@ router.get('/user_order_history',function(req, res){
                 else
                     status = 'Cancled';
                 var order_date = new Date(String(results[i].order_date_time));
-                var ordr_dt = String(order_date.getDate()) + '/' + String(order_date.getMonth()) + '/' + String(order_date.getFullYear());
+                var ordr_dt = String(order_date.getDate()) + '/' + String(order_date.getMonth()+1) + '/' + String(order_date.getFullYear());
                 object_item_hash.push({
                     order_itemName: results[i].item_name,
                     receipt_number: results[i].receipt_number,
@@ -464,7 +464,7 @@ router.post('/newItem', function(req, res){
     });
 	var nameValue = req.body.itemNameTxtBox;
 	var descriptionValue = req.body.descTxtBox;
-	var initial_qtyValue = req.body.inititalQtyTxtBox; 
+	var initial_qtyValue = req.body.inititalQtyTxtBox;
 	var priceValue = req.body.priceTxtBox;
 	var item_image_pathValue = '/images//'+itemImage.name;
 	var category = req.body.category;
@@ -492,7 +492,7 @@ router.post('/newLocation', function(req, res){
 	var locationTxtBox = req.body.locationTxtBox;
 	var newLocation = new Location({
 		city : cityTxtBox,
-		company : locationTxtBox  
+		company : locationTxtBox
 	});
 	Location.createLocation(newLocation, function(err, Location){
 		if(err) throw err;

@@ -13,12 +13,13 @@
             <input type="hidden" id="myInput3" value="">
             <input type="hidden" id="myInput4" value="">
             <input type="hidden" id="myInput5" value="">
+            <input type="hidden" id="myInput6" value="">
             <form id="downloadpdf_form" action="/print_del_report">
                 <a onclick="downloadpdf()">Download Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="#" onclick="myFunction(0,'myInput5')">All Order's</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </form>
             <br />
-            <a href="#" onclick="myFunction(0,'myInput3')">Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#" onclick="searchTodaysOrder(6,'myInput6','myInput3')">Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="#" id="viewAllItemOrderTable" >Item Wise Order(Today)</a>
             &nbsp;&nbsp;<a href="#" onclick="searchTodaysOrder(6,'myInput4','myInput3')">Today's Cancel Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="" ></a>
@@ -230,12 +231,5 @@
     d = n.getDate();
     document.getElementById("myInput3").value = d + "/" + m + "/" + y;
     document.getElementById("myInput4").value = "Cancled";
+    document.getElementById("myInput6").value = "Ordered";
 </script>
-
-
-
-
-
-
-
-

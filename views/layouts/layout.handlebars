@@ -62,7 +62,7 @@
                         <li>
                             <div class="dropdown accountdropdown">
                                 <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-user" /> {{user.lastname}} <span class="caret"></span>
+                                    <span class="glyphicon glyphicon-user" /> {{user.firstname}} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/user_order_history">Order History</a></li>
@@ -135,5 +135,10 @@
     .closebtn:hover {
         color: black;
     }
-    type[input]
 </style>
+
+<script>
+  $(".alert").fadeTo(6000, 500).slideUp(500, function(){
+      $(".alert").alert('close');
+  });
+</script>
