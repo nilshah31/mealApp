@@ -90,15 +90,19 @@
             <fieldset>
                 <input type="hidden" name="editItemId" id="editItemId" />
                 <label for="name">Name : </label>
-                <input type="text" name="edititemNameTxtBox" id="edititemNameTxtBox" require>
+                <input type="text" name="edititemNameTxtBox" id="edititemNameTxtBox" required>
                 <label for="descript ion">Description : </label>
-                <input type="text" name="editdescTxtBox" id="editdescTxtBox" require>
+                <input type="text" name="editdescTxtBox" id="editdescTxtBox" required>
                 <label for="price">Price : </label>
-                <input type="text" name="editpriceTxtBox" id="editpriceTxtBox" require>
+                <input type="text" name="editpriceTxtBox" id="editpriceTxtBox" required>
                 <label for="initial_qty">Initial Quantity : </label>
-                <input type="text" name="editinititalQtyTxtBox" id="editinititalQtyTxtBox" require>
+                <input type="text" name="editinititalQtyTxtBox" id="editinititalQtyTxtBox" required>
+                <select name="category" id="category" class="form-control input-md" required>
+                    <option>Veg</option>
+                    <option>Non-Veg</option>
+                </select>
                 <label for="item_img">Image : </label>
-                <input type="file" accept="image/*" name="edit_item_img">
+                <input type="file" accept="image/*" name="edit_item_img" required>
                 <br />
                 <input type="submit" class="item-modal-content-submit bg-green newItem">
             </fieldset>
@@ -114,7 +118,7 @@
             document.getElementById("item_list_form").submit();
         }
     }
-    
+
     function deleteitemsAll() {
         if(confirm("Do you want to delete all this Item ?")) {
             getCheckedBoxes('checkAllItems');
