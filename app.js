@@ -13,16 +13,19 @@ var mongoose = require('mongoose');
 var fileUpload = require('express-fileupload');
 
 var mongoURI="mongodb://localhost/mealapp";
-//var MONGOLAB_URI = "mongodb://nilshah32:NVD420nvd@ds123614.mlab.com:23614/mealapp";
+var MONGOLAB_URI = "mongodb://nilshah32:NVD420nvd@ds123614.mlab.com:23614/mealapp";
 
-/*if (process.env.NODE_ENV == "production")
+
+if (process.env.NODE_ENV == "production")
 {
     mongoose.connect(MONGOLAB_URI);
 }
-else if ((process.env.NODE_ENV == "development"))
-{*/
+else
+{
     mongoose.connect(mongoURI);
-//}
+}
+
+// if ((process.env.NODE_ENV == "development"))
 
 var db = mongoose.connection;
 
