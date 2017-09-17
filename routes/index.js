@@ -12,24 +12,24 @@ module.exports = router;
 var schedule = require('node-schedule');
 
 var con_job_update_qty_noon = schedule.scheduleJob('00 12 * * *', function(){
-    Item.updateItemQtyAll('neel',function (err,results) {
+    Item.updateItemQtyAll(function (err,results) {
         console.log(results);
     });
 });
 
 var con_job_update_qty_noon = schedule.scheduleJob('00 21 * * *', function(){
-    Item.updateItemQtyAll('neel',function (err,results) {
+    Item.updateItemQtyAll(function (err,results) {
         console.log(results);
     });
 });
 
-var con_job_update_order_status = schedule.scheduleJob('00 13 * * *', function(){
+var con_job_update_order_status = schedule.scheduleJob('00 12 * * *', function(){
     Order.updateOrderStatusAlltoCompleted(function (err,results) {
         console.log(results);
     });
 });
 
-var con_job_update_order_status = schedule.scheduleJob('00 20 * * *', function(){
+var con_job_update_order_status = schedule.scheduleJob('00 21 * * *', function(){
     Order.updateOrderStatusAlltoCompleted(function (err,results) {
         console.log(results);
     });
@@ -261,6 +261,22 @@ router.post('/user_order_history', function(req, res) {
     res.redirect('/user_order_history');
 });
 
+router.post('/update_item_status_active', function(req, res) {
+    var myquery = { _id: req.body.item_status_id_active };
+    Item.updateOne(myquery, {$set:{active:false}}, function(err, res) {
+        if (err) throw err;
+    });
+    res.redirect('/adminDashboard');
+});
+
+
+router.post('/update_item_status_inactive', function(req, res) {
+    var myquery = { _id: req.body.item_status_id_inactive };
+    Item.updateOne(myquery, {$set:{active:true}}, function(err, res) {
+        if (err) throw err;
+    });
+    res.redirect('/adminDashboard');
+});
 
 router.post('/user_password_update', function(req, res) {
     User.comparePassword(req.body.cur_pass, req.session.user.password, function(err, isMatch){
@@ -413,6 +429,7 @@ router.post('/editItem', function(req, res) {
     var descriptionValue = req.body.editdescTxtBox;
     var initial_qtyValue = req.body.editinititalQtyTxtBox;
     var priceValue = req.body.editpriceTxtBox;
+    var category = req.body.editcategory;
     var item_image_pathValue = '/images//'+itemImage.name;
     var newItem = new Item({
         name : nameValue,
@@ -420,7 +437,8 @@ router.post('/editItem', function(req, res) {
         initial_qty : initial_qtyValue,
         price : priceValue,
         item_image_path : item_image_pathValue,
-        avaible_qty : initial_qtyValue
+        avaible_qty : initial_qtyValue,
+        category : category
     });
     Item.updateItemDetails(item_id,newItem, function(err, Item){
         if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
@@ -669,6 +687,13 @@ Handlebars.registerHelper('checkUserIsAdmin', function(user,options) {
 
 Handlebars.registerHelper('checkFoodCatVeg', function(foodCat,options) {
     if(foodCat=='Veg')
+        return options.fn(this);
+    else
+        return options.inverse(this);
+});
+
+Handlebars.registerHelper('checkItemActive', function(itemStatus,options) {
+    if(itemStatus)
         return options.fn(this);
     else
         return options.inverse(this);

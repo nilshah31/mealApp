@@ -283,6 +283,7 @@
         <div class="row">
             {{#if itemList}}
                 {{#each itemList}}
+                {{#checkItemActive active}}
                     {{#ifCustomize @index}}
                         <div class="col-sm-2 column" style="width:20%;margin-left:1%;margin-right:-7%;">
                             <div class="panel panel-success" style="background-color: white">
@@ -298,10 +299,10 @@
                                 </div>
                                 <div class="panel-footer" style="background-color: white">
                                     {{name}}<br />
-                                    <i class="fa fa-inr"></i>&nbsp;{{price}}
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{#checkAvableQty avaible_qty}}
                                         <input type="submit"
+                                        <i class="fa fa-inr"></i>&nbsp;{{price}}
                                                class="add_to_cart_btn add_to_cart btn btn-success"
                                                value="+"
                                                style="text-align:center;padding:2px 12px 12px 12px;font-size:20px;"
@@ -357,6 +358,7 @@
                       </div>
                       {{resetCounterVariable}}
                     {{/ifCustomize}}
+                    {{/checkItemActive}}
                 {{/each}}
             {{else}}
                 <h1>OOPS! We don't have anything added!</h1>

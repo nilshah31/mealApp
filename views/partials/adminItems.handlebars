@@ -1,5 +1,12 @@
 <!--Item DIV -->
 <div id="itemDIV">
+    <form method="post" action="/update_item_status_active" style="margin:0px" id="update_item_status_active" name="update_item_status_active" return>
+      <input type="hidden" name="item_status_id_active" id="item_status_id_active" />
+    </form>
+    <form method="post" action="/update_item_status_inactive" style="margin:0px" id="update_item_status_inactive" name="update_item_status_inactive" return>
+      <input type="hidden" name="item_status_id_inactive" id="item_status_id_inactive" />
+    </form>
+
     <form method="post" action="/delete_multiple_items" style="margin:0px" id="delete_multiple_item" name="delete_multiple_item">
     <a class="btn btn-success toright" href="#" id="addItem">
         <i class="fa fa-plus" aria-hidden="true"></i>Add Item to Catalog
@@ -21,12 +28,13 @@
         <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
             <tr>
                 <th><input type="checkbox" id="checkAllItems" name="checkAllItems" /></th>
-                <th>Menu Item's</th>
                 <th width="50%" class="hidden-phone hidden-tablet">Name</th>
                 <th width="50%" class="hidden-phone hidden-tablet">Description</th>
                 <th>Price</th>
                 <th>Initial Qty</th>
                 <th>Image</th>
+                <th>Category</th>
+                <th>Available?</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -34,14 +42,27 @@
                 <tr valign="top" >
                     <input type="hidden" value="{{_id}}" name="itemIDS" />
                     <td><input type="checkbox" value="{{_id}}" id="checkAllItems" class="checkAllItemsSingle" name="checkAllItems"></td>
-                    <td><input type="checkbox" id="menuItems" value="{{_id}}" name="menuItems"></td>
                     <td>{{name}}</td>
                     <td>{{description}}</td>
                     <td>{{price}}</td>
                     <td>{{initial_qty}}</td>
                     <td><img src='{{item_image_path}}' alt="Menu Item" height="42" width="42"></td>
-                    <td><div class="link_edit"><a class="btnEdit" href="#" id="editItem" onclick="edit_item('{{_id}}',
-                            '{{name}}','{{description}}','{{price}}','{{initial_qty}}')">Edit</a></div></td>
+                    <td>{{category}}</td>
+                    <td>
+                      {{#checkItemActive active}}
+                          <a class="btnEdit" href='#' onclick="edit_item_status_inactive('{{_id}}')">Inactive</a>
+                      {{else}}
+                          <a class="btnEdit" href='#' onclick="edit_item_status_active('{{_id}}')">Active</a>
+                      {{/checkItemActive}}
+                    </td>
+                    <td>
+                      <div class="link_edit">
+                        <a class="btnEdit" href="#" id="editItem" onclick="edit_item('
+                              {{_id}}','{{name}}','{{description}}','{{price}}','{{initial_qty}}
+                              ')">Edit
+                        </a>
+                      </div>
+                    </td>
                     <td><div class="link_delete"><a href="#" onclick="delete_item('{{_id}}')">Delete</a></div></td>
                 </tr>
             {{/each}}
@@ -97,7 +118,7 @@
                 <input type="text" name="editpriceTxtBox" id="editpriceTxtBox" required>
                 <label for="initial_qty">Initial Quantity : </label>
                 <input type="text" name="editinititalQtyTxtBox" id="editinititalQtyTxtBox" required>
-                <select name="category" id="category" class="form-control input-md" required>
+                <select name="editcategory" id="editcategory" class="form-control input-md" required>
                     <option>Veg</option>
                     <option>Non-Veg</option>
                 </select>
@@ -172,27 +193,29 @@
 
 
 <script>
-
+    function edit_item_status_inactive(item_id){
+      document.getElementById('item_status_id_active').value=item_id;
+      document.getElementById("update_item_status_active").submit();
+    }
+    function edit_item_status_active(item_id){
+      document.getElementById('item_status_id_inactive').value=item_id;
+      document.getElementById("update_item_status_inactive").submit();
+    }
     function edit_item(item_id, item_name, desc, price, init_qty) {
         document.getElementById('edititemNameTxtBox').value=item_name;
         document.getElementById('editdescTxtBox').value=desc;
         document.getElementById('editpriceTxtBox').value=price;
         document.getElementById('editinititalQtyTxtBox').value=init_qty;
         document.getElementById('editItemId').value=item_id;
-
         // Get the modal
         var modal6 = document.getElementById('editItemModal');
-
         // Get the <span> element that closes the modal
         var span6 = document.getElementsByClassName("close")[3];
-
         modal6.style.display = "block";
-
         // When the user clicks on <span> (x), close the modal
         span6.onclick = function () {
             modal6.style.display = "none";
         }
-
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             if (event.target == modal6) {
