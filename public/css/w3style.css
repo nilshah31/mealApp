@@ -217,8 +217,8 @@ button.w3view-cart:focus{
 .w3ls_logo_products_left {
     float: left;
     text-align: center;
-    width: 33.33%;
-    margin-left: 0em;
+    width: 58%;
+    margin-left: 9em;
 }
 .w3ls_logo_products_left h1 a{
     font-size: 40px;
