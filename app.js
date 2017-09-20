@@ -1,5 +1,5 @@
-var express = require('express');
 var path = require('path');
+var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
@@ -11,10 +11,10 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var fileUpload = require('express-fileupload');
+var nodemailer = require('nodemailer');
 
 var mongoURI="mongodb://localhost/mealapp";
 var MONGOLAB_URI = "mongodb://nilshah32:NVD420nvd@ds123614.mlab.com:23614/mealapp";
-
 
 if (process.env.NODE_ENV == "production")
 {

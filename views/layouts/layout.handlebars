@@ -15,11 +15,12 @@
 <body>
 
 <div class="logo_products">
-        <div class="w3ls_logo_products_left1">
-            <ul class="phone_email">
-                <li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
-            </ul>
-        </div>
+
+  <div class="w3ls_logo_products_left1" style="margin-right:0%">
+    <ul class="phone_email">
+      <li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
+    </ul>
+  </div>
         <div class="w3ls_logo_products_left">
             <h1><a href="index.html">SOUTHMEAL'S</a></h1>
             <br />
@@ -52,15 +53,26 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-center">
                 <li class="active"><a href="/">Home</a></li>
+                {{#checkUserIsAdmin user}}
+                {{else}}
                 <li><a href="../howWeWork">How we Work?</a></li>
-                <li><a href="../contact">Contact</a></li>
+                <li><a href="../contact">Feedback</a></li>
+                <li>TESTTESTETSTESTES</li>
+                {{/checkUserIsAdmin}}
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="margin-right:12em;">
+              <li>
+                <div id="timer">
+                  <div id="timeing"></div>
+                </div>
+              </li>
             </ul>
             {{#if user}}
                 {{#checkUserIsAdmin user}}
                 {{else}}
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right" >
                         <li>
-                            <div class="dropdown accountdropdown">
+                            <div class="dropdown accountdropdown"  style="margin-top:-10px;">
                                 <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                                     <span class="glyphicon glyphicon-user" /> {{user.firstname}} <span class="caret"></span>
                                 </a>
@@ -75,6 +87,7 @@
                         </ul>
                 {{/checkUserIsAdmin}}
             {{/if}}
+
         </div>
     </div>
 </nav>
@@ -86,10 +99,20 @@
         &copy; 2017 South Meal,Bangalore.
     </p></center>
 </footer>
+
 </body>
 </html>
 
 <style>
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
      #site-footer {
         height: 50px;
         background: Black;
@@ -138,7 +161,26 @@
 </style>
 
 <script>
-  $(".alert").fadeTo(6000, 500).slideUp(500, function(){
+  $(".alert").fadeTo(2000, 500).slideUp(500, function(){
       $(".alert").alert('close');
   });
+</script>
+
+<script>
+startTime();
+function startTime() {
+    var today=new Date();
+    var h=today.getHours();
+    var m=today.getMinutes();
+    var s=today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('timeing').innerHTML = h+":"+m+":"+s;
+    var t = setTimeout(function(){startTime()},500);
+}
+
+function checkTime(i) {
+    if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
 </script>

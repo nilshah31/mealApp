@@ -2,7 +2,7 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 <style>
-
+#timeing{font-family: "Lato",verdana,sans-serif; font-size: 14px;font-weight: bold; padding: 9px 0;color: white;}
   .topright {
     position: relative;
     top: 8px;
@@ -282,11 +282,12 @@
         <div>
         <div class="row">
             {{#if itemList}}
+                {{#startItemLayoutCounter}}{{/startItemLayoutCounter}}
                 {{#each itemList}}
                 {{#checkItemActive active}}
-                    {{#ifCustomize @index}}
+                    {{#ifCustomize}}
                         <div class="col-sm-2 column" style="width:20%;margin-left:1%;margin-right:-7%;">
-                            <div class="panel panel-success" style="background-color: white">
+                            <div class="panel panel-success" style="background-color: white;height:auto;min-height:15.5em;">
                               <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
                                   <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
                               </div>
@@ -299,10 +300,10 @@
                                 </div>
                                 <div class="panel-footer" style="background-color: white">
                                     {{name}}<br />
+                                    <i class="fa fa-inr"></i>&nbsp;{{price}}
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{#checkAvableQty avaible_qty}}
                                         <input type="submit"
-                                        <i class="fa fa-inr"></i>&nbsp;{{price}}
                                                class="add_to_cart_btn add_to_cart btn btn-success"
                                                value="+"
                                                style="text-align:center;padding:2px 12px 12px 12px;font-size:20px;"
@@ -311,19 +312,18 @@
                                     {{else}}
                                         <input type="submit"
                                                class="btn"
+                                               value="SOLD OUT"
                                                onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
                                                disabled
                                         />
                                     {{/checkAvableQty}}
-
                                 </div>
                             </div>
                         </div>
-                        {{incrementCounterVariable}}
                     {{else}}
                     </div>
                     <div class="row">
-                      <div class="col-sm-2 column" style="width:20%;margin-left:1%;margin-right:-7%;">
+                      <div class="col-sm-2 column" style="width:20%;margin-left:1%;margin-right:-7%;height:40%;">
                           <div class="panel panel-success" style="background-color: white">
                             <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
                                 <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
@@ -350,6 +350,7 @@
                                     <input type="submit"
                                            class="btn"
                                            onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
+                                           value="SOLD OUT"
                                            disabled
                                     />
                                 {{/checkAvableQty}}
@@ -358,6 +359,7 @@
                       </div>
                       {{resetCounterVariable}}
                     {{/ifCustomize}}
+                    {{#incrementCounterVariable}}{{/incrementCounterVariable}}
                     {{/checkItemActive}}
                 {{/each}}
             {{else}}
@@ -446,8 +448,8 @@
                             $('.customAlert').css('display', 'none');
                             $('.customAlert').css('animation', 'none');
                             }, 300);
-                        currentCallback();
                     })
+                    currentCallback();
                     alert("We are Closed now, but still you can place your order in advance for your next Meal!", function(){
                          console.log("Callback executed");
                     })

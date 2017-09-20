@@ -10,6 +10,7 @@ var sinchAuth = require('sinch-auth');
 var User = require('../models/user');
 module.exports = router;
 var schedule = require('node-schedule');
+var item_counter;
 
 var con_job_update_qty_noon = schedule.scheduleJob('00 12 * * *', function(){
     Item.updateItemQtyAll(function (err,results) {
@@ -146,7 +147,7 @@ router.get('/adminDashboard', function(req, res){
                         else
                             status='Cancled';
                         var order_date=new Date(String(results[i].order_date_time));
-                        var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
+                        var ordr_dt = String(order_date.getDate()+1)+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
                         object_item_hash.push({
                             order_itemName:results[i].item_name,
                             receipt_number:results[i].receipt_number,
@@ -234,7 +235,7 @@ router.get('/user_order_history',function(req, res){
                 else
                     status = 'Cancled';
                 var order_date = new Date(String(results[i].order_date_time));
-                var ordr_dt = String(order_date.getDate()) + '/' + String(order_date.getMonth()+1) + '/' + String(order_date.getFullYear());
+                var ordr_dt = String(order_date.getDate()+1) + '/' + String(order_date.getMonth()+1) + '/' + String(order_date.getFullYear());
                 object_item_hash.push({
                     order_itemName: results[i].item_name,
                     receipt_number: results[i].receipt_number,
@@ -498,8 +499,8 @@ router.post('/newItem', function(req, res){
 	Item.createItem(newItem, function(err, Item){
 	if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
 	});
-	Item.find(function(err, results){
 		if (err) return res.sendStatus(500);
+    Item.find(function(err, results){
         req.flash('success_msg','Item Added Successfully');
         res.redirect('adminDashboard');
 	});
@@ -615,6 +616,31 @@ router.post('/payment', function(req, res){
     });
 
     req.flash('success_msg','You have Succesfully Placed Order, Please note Down Order number for future Refrence : '+req.session.order_rcpt_number);
+
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'nilshah.31@gmail.com',
+        pass: 'NVD421nvd'
+      }
+    });
+
+    var mailOptions = {
+      from: 'nilshah.31@gmail.com',
+      to: 'nilshah.31@gmail.com',
+      subject: 'Payment Receipt -' + req.session.order_rcpt_number + '-Team SouthMeal',
+      html: '<h1>Payment Receipt</h1><br />'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
+
     res.redirect('/');
 
 });
@@ -629,11 +655,11 @@ function ensureAuthenticated(req, res, next){
 }
 
 Handlebars.registerHelper('incrementCounterVariable', function(options) {
-    i = i + 1;
+      item_counter = item_counter + 1;
 });
 
-Handlebars.registerHelper('ifCustomize', function(conditional, options) {
-    if(conditional%4) {
+Handlebars.registerHelper('ifCustomize', function(options) {
+  if(item_counter%5) {
         return options.fn(this);
     } else {
         return options.inverse(this);
@@ -641,7 +667,7 @@ Handlebars.registerHelper('ifCustomize', function(conditional, options) {
 });
 
 Handlebars.registerHelper('resetCounterVariable', function(options) {
-    i = 1;
+    item_counter = 1;
 });
 
 Handlebars.registerHelper('checkIfUserSession', function(userSession, options) {
@@ -697,4 +723,8 @@ Handlebars.registerHelper('checkItemActive', function(itemStatus,options) {
         return options.fn(this);
     else
         return options.inverse(this);
+});
+
+Handlebars.registerHelper('startItemLayoutCounter', function(options) {
+    item_counter = 0;
 });

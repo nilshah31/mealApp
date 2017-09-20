@@ -32,7 +32,8 @@
     "passport-http": "*",
     "passport-local": "*",
     "textmagic-rest-client": "*",
-    "twilio": "^2.0.0"
+    "twilio": "^2.0.0",
+    "nodemailer": "*"
   },
   "devDependencies": {}
 }

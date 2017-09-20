@@ -57,9 +57,7 @@
                     </td>
                     <td>
                       <div class="link_edit">
-                        <a class="btnEdit" href="#" id="editItem" onclick="edit_item('
-                              {{_id}}','{{name}}','{{description}}','{{price}}','{{initial_qty}}
-                              ')">Edit
+                        <a class="btnEdit" href="#" id="editItem" onclick="edit_item('{{_id}}','{{name}}','{{description}}','{{price}}','{{initial_qty}}')">Edit
                         </a>
                       </div>
                     </td>
@@ -77,6 +75,10 @@
         <h1>New Item</h1>
         <form method="post" name="itemForm" action="/newItem" class="newItem" enctype="multipart/form-data">
             <fieldset>
+                <label for="category">Select Category : </label>
+                <input name="category" type="radio" id="category" value="Veg" required>Veg
+                <input name="category" type="radio" id="category" value="Non-Veg" required>Non-Veg
+                <br />
                 <label for="name">Name : </label>
                 <input type="text" name="itemNameTxtBox" id="itemNameTxtBox" required>
                 <label for="descript ion">Description : </label>
@@ -85,12 +87,6 @@
                 <input type="text" name="priceTxtBox"  pattern="\d*" id="priceTxtBox" required>
                 <label for="initial_qty">Initial Quantity : </label>
                 <input type="text" name="inititalQtyTxtBox"  pattern="\d*" id="inititalQtyTxtBox" required>
-
-                <label for="category">Select Category : </label>
-                <select name="category" id="category" class="form-control input-md" required>
-                    <option>Veg</option>
-                    <option>Non-Veg</option>
-                </select>
                 <br />
                 <label for="item_img">Image : </label>
                 <input type="file" accept="image/*" name="item_img" required>
@@ -141,9 +137,14 @@
     }
 
     function deleteitemsAll() {
-        if(confirm("Do you want to delete all this Item ?")) {
-            getCheckedBoxes('checkAllItems');
+        counter_temp = getCheckedBoxes('checkAllItems');
+        if(counter_temp>0){
+          if(confirm("Do you want to delete all this Item ?")) {
             document.getElementById("delete_multiple_item").submit();
+          }
+        }
+        else {
+          alert("Please Select items to delete");
         }
     }
 
@@ -153,13 +154,16 @@
         var checkboxes = document.getElementsByName(chkboxName);
         var checkboxesChecked = [];
         var id_hidden_ob = document.getElementById('delete_all_items_ids');
+        var counter_temp=0;
         // loop over them all
         for (var i=1; i<checkboxes.length; i++) {
             // And stick the checked ones onto an array...
             if (checkboxes[i].checked) {
                 id_hidden_ob.value+=","+checkboxes[i].value;
+                counter_temp+=1;
             }
         }
+        return counter_temp;
     }
 
     $(document).ready(function() {
