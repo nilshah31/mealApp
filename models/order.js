@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
 var app = require('../app');
 
-// LocationSchema
+// OrderSchema
 var OrderSchema = mongoose.Schema({
 	user_id: {
 		type: String
@@ -14,10 +13,10 @@ var OrderSchema = mongoose.Schema({
 		type: String
 	},
 	qty: {
-		type: String	
+		type: String
 	},
 	price: {
-		type: String	
+		type: String
 	},
 	sub_total: {
 		type: String

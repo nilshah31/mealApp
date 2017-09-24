@@ -1,236 +1,65 @@
 <!--Item DIV -->
 <div id="OrderDiv">
-    <div class="box box-primary" id="box_orders">
-        <div class="box-header with-border">
-            <h3 class="box-title"><i class="fa fa-history" aria-hidden="true"></i> ORDER HISTORY<br /></h3>
-        </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <i class="fa fa-history" aria-hidden="true"></i> ORDER HISTORY
     </div>
-    {{#if object_item_hash}}
-        <div class="row">
-            <input type="text" id="myInput1" onkeyup="myFunction(0,'myInput1')" placeholder="Search by Order Date" title="Type in a name">
-            <input type="text" id="myInput2" onkeyup="myFunction(1,'myInput2')" placeholder="Search by Order Number" title="Type in a name">
-            <br />
-            <input type="hidden" id="myInput3" value="">
-            <input type="hidden" id="myInput4" value="">
-            <input type="hidden" id="myInput5" value="">
-            <input type="hidden" id="myInput6" value="">
-            <form id="downloadpdf_form" action="/print_del_report">
-                <a onclick="downloadpdf()">Download Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#" onclick="myFunction(0,'myInput5')">All Order's</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </form>
-            <br />
-            <a href="#" onclick="searchTodaysOrder(6,'myInput6','myInput3')">Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#" id="viewAllItemOrderTable" >Item Wise Order(Today)</a>
-            &nbsp;&nbsp;<a href="#" onclick="searchTodaysOrder(6,'myInput4','myInput3')">Today's Cancel Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="" ></a>
-            <div class="table-responsive">
-                <table id="myTable">
-                    <tr class="header">
-                        <th onclick="sortTable(0)">Order Date <span class="glyphicon glyphicon-sort"></span></th>
-                        <th onclick="sortTable(1)">Order Number <span class="glyphicon glyphicon-sort"></span></th>
-                        <th>Item</th>
-                        <th onclick="sortTable(3)"># <span class="glyphicon glyphicon-sort"></span></th>
-                        <th onclick="sortTable(4)">Price <span class="glyphicon glyphicon-sort"></span></th>
-                        <th onclick="sortTable(5)">Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
-                        <th onclick="sortTable(6)">Status <span class="glyphicon glyphicon-sort"></span></th>
-                    </tr>
-                    {{#each object_item_hash}}
-                        <tr>
-                            <td>{{order_date}}</td>
-                            <td>{{receipt_number}}</td>
-                            <td>{{order_itemName}}</td>
-                            <td>{{order_itemQty}}</td>
-                            <td>{{order_itemPrice}}</td>
-                            <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
-                            <td style="width: 25%;"><span class="label label-info">{{status}}</span>
-                            </td>
-                        </tr>
-                    {{/each}}
-                </table>
-                <br />
+    <div class="panel-body" style="padding-left:5em;">
+
+  {{#if object_item_hash}}
+    <div class="row">
+      <input type="text" id="myInput1" onkeyup="myFunction(0,'myInput1')" placeholder="Search by Order Date" title="Type in a name">
+      <input type="text" id="myInput2" onkeyup="myFunction(1,'myInput2')" placeholder="Search by Order Number" title="Type in a name">
+      <br />
+      <input type="hidden" id="myInput3" value="">
+      <input type="hidden" id="myInput4" value="">
+      <input type="hidden" id="myInput5" value="">
+      <input type="hidden" id="myInput6" value="">
+      <form id="downloadpdf_form" action="/print_del_report">
+        <a onclick="downloadpdf()">Download Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="#" onclick="myFunction(0,'myInput5')">All Order's</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </form>
+      <br />
+      <a href="#" onclick="searchTodaysOrder(6,'myInput6','myInput3')">Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="#" id="viewAllItemOrderTable" >Item Wise Order(Today)</a>&nbsp;&nbsp;
+      <a href="#" onclick="searchTodaysOrder(6,'myInput4','myInput3')">Today's Cancel Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div class="table-responsive">
+        <table id="myTable" style="width:70%">
+          <tr class="header">
+            <th onclick="sortTable(0)">Order Date <span class="glyphicon glyphicon-sort"></span></th>
+            <th onclick="sortTable(1)">Order Number <span class="glyphicon glyphicon-sort"></span></th>
+            <th>Item</th>
+            <th onclick="sortTable(3)"># <span class="glyphicon glyphicon-sort"></span></th>
+            <th onclick="sortTable(4)">Price <span class="glyphicon glyphicon-sort"></span></th>
+            <th onclick="sortTable(5)">Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
+            <th onclick="sortTable(6)">Status <span class="glyphicon glyphicon-sort"></span></th>
+            <th></th>
+          </tr>
+          {{#each object_item_hash}}
+          <tr>
+            <td>{{order_date}}</td>
+            <td>{{receipt_number}}</td>
+            <td>{{order_itemName}}</td>
+            <td>{{order_itemQty}}</td>
+            <td>{{order_itemPrice}}</td>
+            <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
+            <td><span class="label label-info">{{status}}</span></td>
+<td>
+            <div class="link_edit">
+              <a class="btnEdit" href="#" id="editOrderStatus">
+                <i class="fa fa-edit" title="Change Status"></i>
+               </a>
             </div>
-        </div>
+</td>
+          </tr>
+          {{/each}}
+        </table>
+        <br />
+      </div>
+    </div>
     {{else}}
-        <h1><span class="glyphicon glyphicon-star-empty"> No Order Placed Yet</span></h1>
-    {{/if}}
+      <h1><span class="glyphicon glyphicon-star-empty"> No Order Placed Yet</span></h1>
+  {{/if}}
 </div>
-
-<br />
-<div class="container">
 </div>
-
-
-<script>
-    function downloadpdf() {
-        document.getElementById("downloadpdf_form").submit();
-    }
-</script>
-
-
-    <script>
-        function myFunction(index,id) {
-            var input, filter, table, tr, td, i;
-            input = document.getElementById(id);
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[index];
-                if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-
-        function searchTodaysOrder(index,id,id2) {
-            var input, filter, table, tr, td, i,td1;
-            input = document.getElementById(id);
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-
-            var input1 = document.getElementById(id2);
-            var filter1 = input1.value.toUpperCase();
-
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[index];
-                td1 = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        if(td1.innerHTML.toUpperCase().indexOf(filter1) > -1){
-                            tr[i].style.display = "";
-                        }
-                        else{
-                            tr[i].style.display = "none";
-                        }
-                    }else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-
-        }
-
-    </script>
-
-    <script>
-        sortTable(0);
-        function sortTable(n) {
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.getElementById("myTable");
-            switching = true;
-            //Set the sorting direction to ascending:
-            dir = "asc";
-            /*Make a loop that will continue until
-            no switching has been done:*/
-            while (switching) {
-                //start by saying: no switching is done:
-                switching = false;
-                rows = table.getElementsByTagName("TR");
-                /*Loop through all table rows (except the
-                first, which contains table headers):*/
-                for (i = 1; i < (rows.length - 1); i++) {
-                    //start by saying there should be no switching:
-                    shouldSwitch = false;
-                    /*Get the two elements you want to compare,
-                    one from current row and one from the next:*/
-                    x = rows[i].getElementsByTagName("TD")[n];
-                    y = rows[i + 1].getElementsByTagName("TD")[n];
-                    /*check if the two rows should switch place,
-                    based on the direction, asc or desc:*/
-                    if (dir == "asc") {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            //if so, mark as a switch and break the loop:
-                            shouldSwitch= true;
-                            break;
-                        }
-                    } else if (dir == "desc") {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            //if so, mark as a switch and break the loop:
-                            shouldSwitch= true;
-                            break;
-                        }
-                    }
-                }
-                if (shouldSwitch) {
-                    /*If a switch has been marked, make the switch
-                    and mark that a switch has been done:*/
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    //Each time a switch is done, increase this count by 1:
-                    switchcount ++;
-                } else {
-                    /*If no switching has been done AND the direction is "asc",
-                    set the direction to "desc" and run the while loop again.*/
-                    if (switchcount == 0 && dir == "asc") {
-                        dir = "desc";
-                        switching = true;
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        #myInput1 {
-            background-image: url('/css/searchicon.png');
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            width: 40%;
-            font-size: 16px;
-            padding: 12px 20px 12px 40px;
-            border: 1px solid #ddd;
-            margin-bottom: 12px;
-        }
-
-        #myInput2 {
-            background-image: url('/css/searchicon.png');
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            width: 40%;
-            font-size: 16px;
-            padding: 12px 20px 12px 40px;
-            border: 1px solid #ddd;
-            margin-bottom: 12px;
-        }
-
-        #myTable {
-            border-collapse: collapse;
-            border: 1px solid #ddd;
-        }
-
-        #myTable th, #myTable td {
-            text-align: left;
-            padding: 10px;
-        }
-
-        #myTable tr {
-            border-bottom: 1px solid #ddd;
-        }
-
-        #myTable tr.header, #myTable tr:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
-
-
 </div>
-
-
-<script>
-    n =  new Date();
-    y = n.getFullYear();
-    m = n.getMonth() + 1;
-    d = n.getDate();
-    document.getElementById("myInput3").value = d + "/" + m + "/" + y;
-    document.getElementById("myInput4").value = "Cancled";
-    document.getElementById("myInput6").value = "Ordered";
-</script>

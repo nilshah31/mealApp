@@ -279,6 +279,13 @@ router.post('/update_item_status_inactive', function(req, res) {
     res.redirect('/adminDashboard');
 });
 
+router.post('/logoutAdmin', function(req, res) {
+  delete req.session.user;
+  req.logout();
+  res.redirect('/admin');
+});
+
+
 router.post('/user_password_update', function(req, res) {
     User.comparePassword(req.body.cur_pass, req.session.user.password, function(err, isMatch){
         if(err) throw err;

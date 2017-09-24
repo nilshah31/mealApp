@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -21,24 +22,27 @@
       <li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
     </ul>
   </div>-->
+  {{#checkUserIsAdmin user}}
+  {{else}}
         <div class="w3ls_logo_products_left">
-            <h1><a href="index.html">SOUTHMEAL'S</a></h1>
+            <h1><a href="/">SOUTHMEAL'S</a></h1>
             <br />
         </div>
+  {{/checkUserIsAdmin}}
         {{#if user}}
         {{else}}
             <div>
                 <form id="loginform" class="form-horizontal" role="form" method="post" action="/users/login">
-                    <span><i class="glyphicon glyphicon-user"></i></span>
+                    <span><i class="glyphicon glyphicon-user" style="margin-top: 0.1em;margin-bottom:0em;margin-left:5em;"></i></span>
                     <input type="search" name="username"  class="custmInputBox" placeholder="Mobile Number" pattern="[789][0-9]{9}" required>
                     <span>
                             <br />
-                            <i class="glyphicon glyphicon-lock"></i></span>
-                    <input type="password" style="width: 11%;height: 5%;margin-top: 0.2em;margin-bottom: 0.2em;" name="password" class="custmInputBox" placeholder="Password" required>
+                            <i class="glyphicon glyphicon-lock" style="margin-top:0.6em;margin-left:5em;"></i></span>
+                    <input type="password" style="width: 11%;height: 5%;margin-left:0em;" name="password" class="custmInputBox" placeholder="Password" required>
 
-                    <button type="submit" class="btn btn-default search">Login</button>
+                    <button type="submit" class="btn btn-default search" style="float: right;margin-top:0.3em;margin-right: 13%">Login</button>
                     <br />
-                    <a href="/users/register" style="float: right;margin-top:10px;margin-right: 18%">Forget Password?</a>
+                    <a href="/users/register" style="float: right;margin-top:10px;margin-right: 13%">Forget Password?</a>
                     <a href="/users/register" style="float: right;margin-top:10px;margin-right: 1%">Sign Up Here</a>
                 </form>
             </div>
@@ -47,18 +51,17 @@
     <div class="clearfix"> </div>
 </div>
 
+{{#checkUserIsAdmin user}}
+{{else}}
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-center">
                 <li class="active"><a href="/">Home</a></li>
-                {{#checkUserIsAdmin user}}
-                {{else}}
                 <li><a href="../howWeWork">How we Work?</a></li>
                 <li><a href="../contact">Feedback</a></li>
                 <li>TESTTESTETSTESTES</li>
-                {{/checkUserIsAdmin}}
             </ul>
             <ul class="nav navbar-nav navbar-right" style="margin-right:12em;">
               <li>
@@ -68,8 +71,6 @@
               </li>
             </ul>
             {{#if user}}
-                {{#checkUserIsAdmin user}}
-                {{else}}
                         <ul class="nav navbar-nav navbar-right" >
                         <li>
                             <div class="dropdown accountdropdown"  style="margin-top:-10px;">
@@ -85,20 +86,26 @@
                         </li>
                         <li><a href="/users/logout"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
                         </ul>
-                {{/checkUserIsAdmin}}
+
             {{/if}}
 
         </div>
     </div>
 </nav>
 
+{{/checkUserIsAdmin}}
+
 {{{body}}}
+
+{{#checkUserIsAdmin user}}
+{{else}}
 
 <footer id="site-footer">
     <center><p>
         &copy; 2017 South Meal,Bangalore.
     </p></center>
 </footer>
+{{/checkUserIsAdmin}}
 
 </body>
 </html>
@@ -160,8 +167,8 @@
     }
 </style>
 
-$(".alert").fadeTo(2000, 500).slideUp(500, function(){
 <script>
+$(".alert").fadeTo(2000, 500).slideUp(500, function(){
       $(".alert").alert('close');
   });
 </script>

@@ -22,7 +22,6 @@
     "express-validator": "*",
     "mongodb": "*",
     "mongoose": "^4.10.8",
-    "nexmo": "*",
     "passport": "*",
     "msg91": "0.0.6",
     "sinch-auth": "*",
@@ -32,7 +31,6 @@
     "passport-http": "*",
     "passport-local": "*",
     "textmagic-rest-client": "*",
-    "twilio": "^2.0.0",
     "nodemailer": "*"
   },
   "devDependencies": {}

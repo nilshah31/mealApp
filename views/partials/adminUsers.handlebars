@@ -1,47 +1,42 @@
 <!--Users DIV -->
-<div class="container">
-<div id="userDIV">
+  <div id="userDIV">
+    <div class="panel panel-default">
+      <div class="panel-heading">Registered Users</div>
+      <div class="panel-body">
+
     <a class="btn btn-success toright" href="#" id="showActiveUsers">
-        <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Active Users
+      <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Active Users
     </a>
     <a class="btn btn-success toright" href="#" id="showAllUsers">
-        <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;All Users
+      <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;All Users
     </a>
     <a class="btn btn-success toright" href="#" id="showInactiveUsers">
-        <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;In-Active Users
+      <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;In-Active Users
     </a>
-
     <br /><br />
-
-    <div class="box box-primary" id="box_orders">
-        <div class="box-header with-border">
-            <h3 class="box-title">Registered Users</h3>
-        </div>
-    </div>
-
     <form method="post" action="/user_form" style="margin:0px" id="user_form" name="user_form">
-        <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
-            <input type='hidden' id='location_ID' name="location_ID" value='' />
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone No</th>
-                <th>Delievery Location</th>
-                <th>Mobile Number Verified?</th>
-            </tr>
-            {{#each userList}}
-                <tr valign="top" >
-                    <td>{{firstname}}</td>
-                    <td>{{lastname}}</td>
-                    <td>{{email}}</td>
-                    <td>{{phone}}</td>
-                    <td>{{location}},{{city}}</td>
-                    <td>{{#returnYesNo verified}}{{/returnYesNo}}</td>
-                </tr>
-            {{/each}}
-
-        </table>
+      <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
+        <input type='hidden' id='location_ID' name="location_ID" value='' />
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone No</th>
+          <th>Delievery Location</th>
+          <th>Mobile Number Verified?</th>
+        </tr>
+        {{#each userList}}
+        <tr valign="top" >
+          <td>{{firstname}}</td>
+          <td>{{lastname}}</td>
+          <td>{{email}}</td>
+          <td>{{phone}}</td>
+          <td>{{location}},{{city}}</td>
+          <td>{{#returnYesNo verified}}{{/returnYesNo}}</td>
+        </tr>
+        {{/each}}
+      </table>
     </form>
+  </div>
 </div>
 </div>

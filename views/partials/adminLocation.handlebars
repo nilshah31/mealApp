@@ -1,171 +1,91 @@
 <!--Location DIV -->
 <div id="locationDIV">
-    <form method="post" action="/delete_multiple_location" style="margin:0px" id="delete_multiple_location" name="delete_multiple_location">
-        <a class="btn btn-success toright" href="#" id="addLocation">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            &nbsp;Add Location to Catalog
-        </a>
-        <input type="hidden" name="delete_all_location_ids" id="delete_all_location_ids"/>
+  <div class="panel panel-default">
+    <div class="panel-heading">Avaible Location</div>
+    <div class="panel-body" style="padding-left:20%;">
+  <form method="post" action="/delete_multiple_location" style="margin:0px" id="delete_multiple_location" name="delete_multiple_location">
+    <a class="btn btn-success toright" href="#" id="addLocation">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      &nbsp;Add Location to Catalog
+    </a>
+    <input type="hidden" name="delete_all_location_ids" id="delete_all_location_ids"/>
+    <a href="#" class="btn btn-success toright" onclick="deletelocationAll()">
+      <i class="fa fa-times" aria-hidden="true"></i>Remove Selected
+    </a>
+  </form>
 
-        <a href="#" class="btn btn-success toright" onclick="deletelocationAll()">
-            <i class="fa fa-times" aria-hidden="true"></i>Remove Selected
-        </a>
-    </form>
-    <br /><br />
-    <div class="box box-primary" id="box_orders">
-        <div class="box-header with-border">
-            <h3 class="box-title">Available Locations</h3>
-        </div>
-    </div>
+  <br />
 
-    <form method="post" action="/location_form" style="margin:0px" id="location_form" name="location_form">
-        <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:100%">
-            <input type='hidden' id='location_ID' name="location_ID" value='' />
-            <tr>
-                <th><input type="checkbox" id="checkAllLocation" name="checkAllLocation"></th>
-                <th width="50%" class="hidden-phone hidden-tablet">City</th>
-                <th width="50%" class="hidden-phone hidden-tablet">Company/Insititute/Location</th>
-                <th></th>
-                <th></th>
-            </tr>
-            {{#each locationList}}
-                <tr valign="top" >
-                    <input type="hidden" value="{{_id}}" name="locationIDS" />
-                    <td><input type="checkbox" value="{{_id}}" id="checkAllLocation" class="checkAllLocationSingle" name="checkAllLocation"></td>
-                    <td>{{city}}</td>
-                    <td class="hidden-phone hidden-tablet">{{company}}</td>
-                    <td><div class="link_edit"><a class="btnEdit" href="#" id="editItem" onclick="edit_location('{{_id}}',
-                            '{{city}}','{{company}}')">Edit</a></div></td>
-                    <td><div class="link_delete"><a href="#" onclick="delete_location('{{_id}}')">Delete</a></div></td>
-                </tr>
-            {{/each}}
-        </table>
-    </form>
+  <form method="post" action="/location_form" style="margin:0px" id="location_form" name="location_form">
+    <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:70%">
+      <input type='hidden' id='location_ID' name="location_ID" value='' />
+      <tr>
+        <th><input type="checkbox" id="checkAllLocation" name="checkAllLocation"></th>
+        <th width="50%" class="hidden-phone hidden-tablet">City</th>
+        <th width="50%" class="hidden-phone hidden-tablet">Company/Insititute/Location</th>
+        <th></th>
+        <th></th>
+      </tr>
+      {{#each locationList}}
+      <tr valign="top" >
+        <input type="hidden" value="{{_id}}" name="locationIDS" />
+        <td><input type="checkbox" value="{{_id}}" id="checkAllLocation" class="checkAllLocationSingle" name="checkAllLocation"></td>
+        <td>{{city}}</td>
+        <td class="hidden-phone hidden-tablet">{{company}}</td>
+        <td>
+          <div class="link_edit">
+            <a class="btnEdit" href="#" id="editItem" onclick="edit_location('{{_id}}','{{city}}','{{company}}')">
+                <i class="fa fa-edit" title="Edit Item Detail"></i>
+            </a>
+          </div>
+        </td>
+        <td>
+          <div class="link_delete">
+            <a href="#" onclick="delete_location('{{_id}}')">
+                <i class="fa fa-remove" title="Delete Menu Item"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+      {{/each}}
+    </table>
+  </form>
+</div>
+</div>
 </div>
 
 <!-- New Location Form -->
 <div id="locationModal" class="modal">
-    <div class="location-modal-content">
-        <span class="close">&times;</span>
-        <h1>New Location</h1>
-        <input type="hidden" name="editLocationId" id="editLocationId" />
-        <form method="post" action="/newLocation" class="newLocation">
-            <fieldset>
-                <label for="city">City : </label>
-                <input type="text" name="cityTxtBox" id="cityTxtBox" required>
-                <label for="location">Location : </label>
-                <input type="text" name="locationTxtBox" id="locationTxtBox" required>
-                <input type="submit" class="location-modal-content-submit bg-green newLocation">
-            </fieldset>
-        </form>
-    </div>
+  <div class="location-modal-content">
+    <span class="close">&times;</span>
+    <h1>New Location</h1>
+    <input type="hidden" name="editLocationId" id="editLocationId" />
+    <form method="post" action="/newLocation" class="newLocation">
+      <fieldset>
+        <label for="city">City : </label>
+        <input type="text" name="cityTxtBox" id="cityTxtBox" required>
+        <label for="location">Location : </label>
+        <input type="text" name="locationTxtBox" id="locationTxtBox" required>
+      </fieldset>
+    </form>
+    <input type="submit" class="location-modal-content-submit bg-green newLocation">
+  </div>
 </div>
-
 
 <!-- Edit Location Form -->
 <div id="editLocationModal" class="modal">
-    <div class="location-modal-content">
-        <span class="close">&times;</span>
-        <h1>Edit Location</h1>
-        <form method="post" action="/editLocation" class="newLocation">
-            <fieldset>
-                <input type="hidden" name="locationItemId" id="locationItemId" />
-                <label for="city">City : </label>
-                <input type="text" name="cityeditTxtBox" id="cityeditTxtBox" value="" required>
-                <label for="location">Location : </label>
-                <input type="text" name="locationeditTxtBox" id="locationeditTxtBox" value="" required>
-                <input type="submit" class="location-modal-content-submit bg-green newLocation">
-            </fieldset>
-        </form>
-    </div>
+  <div class="location-modal-content">
+    <span class="close">&times;</span>
+    <h1>Edit Location</h1>
+    <form method="post" action="/editLocation" class="newLocation">
+      <fieldset>
+        <input type="hidden" name="locationItemId" id="locationItemId" />
+        <label for="city">City : </label>
+        <input type="text" name="cityeditTxtBox" id="cityeditTxtBox" value="" required>
+        <label for="location">Location : </label>
+        <input type="text" name="locationeditTxtBox" id="locationeditTxtBox" value="" required>
+        <input type="submit" class="location-modal-content-submit bg-green newLocation">
+      </fieldset>
+    </form>
+  </div>
 </div>
-
-
-<script>
-    function delete_location(location_id) {
-        if(confirm("Do you want to delete selected Location ?")) {
-            document.getElementById('location_ID').value = location_id;
-            document.getElementById("location_form").submit();
-        }
-    }
-</script>
-
-
-
-<script>
-    function deletelocationAll() {
-        if(confirm("Do you want to delete all selected Location ?")) {
-            getCheckedBoxesLocation('checkAllLocation');
-            document.getElementById("delete_multiple_location").submit();
-        }
-    }
-
-    // Pass the checkbox name to the function
-    function getCheckedBoxesLocation(chkboxName) {
-        var checkboxes = document.getElementsByName(chkboxName);
-        var checkboxesChecked = [];
-        var id_hidden_ob = document.getElementById('delete_all_location_ids');
-        // loop over them all
-        for (var i=1; i<checkboxes.length; i++) {
-            // And stick the checked ones onto an array...
-            if (checkboxes[i].checked) {
-                id_hidden_ob.value+=","+checkboxes[i].value;
-            }
-        }
-    }
-
-    $(document).ready(function() {
-        $("#checkAllLocation").change(function(){
-            if(this.checked){
-                $(".checkAllLocationSingle").each(function(){
-                    this.checked=true;
-                })
-            }else{
-                $(".checkAllLocationSingle").each(function(){
-                    this.checked=false;
-                })
-            }
-        });
-
-        $(".checkAllLocationSingle").click(function () {
-            if ($(this).is(":checked")){
-                var isAllChecked = 0;
-                $(".checkAllLocationSingle").each(function(){
-                    if(!this.checked)
-                        isAllChecked = 1;
-                })
-                if(isAllChecked == 0){ $("#checkAllLocation").prop("checked", true); }
-            }else {
-                $("#checkAllLocation").prop("checked", false);
-            }
-        });
-    });
-</script>
-
-<script>
-    function edit_location(location_id, city, location) {
-        document.getElementById('locationeditTxtBox').value=location;
-        document.getElementById('cityeditTxtBox').value=city;
-        document.getElementById('locationItemId').value=location_id;
-
-        // Get the modal
-        var modal_edit_location = document.getElementById('editLocationModal');
-
-        // Get the <span> element that closes the modal
-        var span_edit_location = document.getElementsByClassName("close")[1];
-
-        modal_edit_location.style.display = "block";
-
-        // When the user clicks on <span> (x), close the modal
-        span_edit_location.onclick = function () {
-            modal_edit_location.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal_edit_location) {
-                modal_edit_location.style.display = "none";
-            }
-        }
-    }
-</script>

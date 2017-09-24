@@ -3,7 +3,6 @@ var bcrypt = require('bcryptjs');
 var sinchAuth = require('sinch-auth');
 var sinchSms = require('sinch-messaging');
 
-
 // User Schema
 var UserSchema = mongoose.Schema({
 	firstname: {
@@ -13,37 +12,37 @@ var UserSchema = mongoose.Schema({
 	lastname: {
 		type: String,
 		required: true,
-	},	
+	},
 	password: {
 		type: String,
 		required: true,
 	},
 	email: {
 		type: String,
-		unique: true,
 	},
 	phone: {
 		type: String,
 		required: true,
+		unique: true,
 	},
 	city: {
-        type: String,
+    type: String,
 	},
 	location: {
 		type: String
 	},
 	verified: {
-        type: Boolean,
-        default: false,
-    },
-    token: {
-        type: String,
-        default: '',
-    },
-    token_exp: {
-        type: Date,
-        default: '',
-    }
+    type: Boolean,
+    default: false,
+	},
+  token: {
+      type: String,
+      default: '',
+  },
+  token_exp: {
+      type: Date,
+			default: '',
+  }
 });
 
 //User Modal Handler

@@ -1,369 +1,121 @@
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<aside class="sidebar-left">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid" style="padding-right:0px;">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Admin Dashboard</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="sidebar-menu">
+          <li class="header">MAIN NAVIGATION</li>
+          <li>
+            <a href="#" id="viewAllOrders">
+              <i class="fa fa-shopping-cart"></i> <span>ORDERS</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="viewAllItem">
+              <i class="fa fa-book"></i> <span>Menu Items</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="viewAllLocation">
+              <i class="fa fa-location-arrow"></i><span>Location</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" id="viewAllUser">
+              <i class="fa fa-user"></i> <span>Users</span>
+            </a>
+          </li>
+          <li>
+              <a href="#" onclick="log_out()">
+                <form id="logoutAdmin" action="/logoutAdmin" method="post">
+                  <i class="fa fa-sign-out"></i>&nbsp;&nbsp;&nbsp;<span>Logout</span>
+                </form>
+              </a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+</aside>
+
+<div class='content container-fluid' style="background-color:#fafafa;">
+  <div class="col-sm-12">
+  {{#if success_msg}}
+  <div class="alert alert-success">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    {{success_msg}}
+  </div>
+  {{/if}}
+
+  {{#if error_msg}}
+    <div class="alert alert-danger">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      {{error_msg}}
+    </div>
+  {{/if}}
+</div>
 <!--ProgressBar-->
-<div id="work-in-progress">
-    <div class="work-spinner"></div>
+  <div class="col-sm-12">
+    <div id="work-in-progress">
+      <div class="work-spinner"></div>
+    </div>
+    <script>
+        $(window).bind("load", function () {
+            $('#work-in-progress').fadeOut(100);
+          });
+    </script>
+  </div>
+  <!--ProgressBar-->
+
+  <div class="col-sm-12">
+    {{> adminOrders }}
+  </div>
+  <div class="col-sm-12">
+    {{> adminLocation }}
+  </div>
+  <div class="col-sm-12">
+    {{> adminItems }}
+  </div>
+  <div class="col-sm-12">
+    {{> adminUsers }}
+  </div>
+
+  <div class="col-sm-12">
+    <footer>
+      <p>Made width <i class='fa fa-heart text-danger'></i> By Nil Shah</p>
+    </footer>
+  </div>
 </div>
 
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src='js/SidebarNav.min.js' type='text/javascript'></script>
 <script>
-    $(window).bind("load", function () {
-        $('#work-in-progress').fadeOut(100);
-    });
+  $('.sidebar-menu').SidebarNav()
 </script>
 
 <style>
-    #work-in-progress {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        font-size: 150px;
-        text-align: center;
-        vertical-align: middle;
-        color: #000000;
-        z-index: 200000;
-        background-color: #FFFFFF;
-    }
-
-    .work-spinner {
-        background-color: rgba(0,0,0,0);
-        border: 9px solid rgba(27,61,226,0.9);
-        opacity: .9;
-        border-left: 5px solid rgba(0,0,0,0);
-        border-radius: 120px;
-        -webkit-box-shadow: 0 0 35px #1B3DE2;
-        box-shadow: 0 0 35px #1B3DE2;
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-        -moz-animation: spin .5s infinite linear;
-        -webkit-animation: spin .5s infinite linear;
-        -o-animation: spin .5s infinite linear;
-        animation: spin .5s infinite linear;
-    }
-    @-moz-keyframes spin {
-        from {
-            -moz-transform: rotate(0deg);
-        }
-        to {
-            -moz-transform: rotate(360deg);
-        }
-    }
-
-    @-webkit-keyframes spin {
-        from {
-            -webkit-transform: rotate(0deg);
-        }
-        to {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
-    @-o-keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
+.wrapper{position:relative}.sidebar-left{background-color:#222d32;margin:0;border:none;border-radius:0}.sidebar-menu{list-style:none;margin:0;padding:0}.sidebar-menu a{color:#b8c7ce;text-decoration:none}.sidebar-menu > li{position:relative;margin:0;padding:0}.sidebar-menu > li > a{padding:12px 5px 12px 15px;display:block;border-left:3px solid transparent}.sidebar-menu > li > a > .fa{width:20px}.sidebar-menu > li:hover > a,.sidebar-menu > li.active > a{color:#fff;background:#1e282c;border-left-color:#3c8dbc}.sidebar-menu > li > .treeview-menu{margin:0 1px;background:#2c3b41}.sidebar-menu > li .label,.sidebar-menu > li .badge{margin-top:3px;margin-right:5px}.sidebar-menu li.header{padding:10px 25px 10px 15px;font-size:12px;color:#4b646f;background:#1a2226}.sidebar-menu li > a > .fa-angle-left{width:auto;height:auto;padding:0;margin-right:10px;margin-top:3px}.sidebar-menu li.active > a > .fa-angle-left{transform:rotate(-90deg)}.sidebar-menu li.active > .treeview-menu{display:block}.sidebar-menu .treeview-menu{display:none;list-style:none;padding:0;margin:0;padding-left:5px}.sidebar-menu .treeview-menu .treeview-menu{padding-left:20px}.sidebar-menu .treeview-menu > li{margin:0}.sidebar-menu .treeview-menu > li > a{padding:5px 5px 5px 15px;display:block;font-size:14px;color:#8aa4af}.sidebar-menu .treeview-menu > li > a > .fa{width:20px}.sidebar-menu .treeview-menu > li > a > .fa-angle-left,.sidebar-menu .treeview-menu > li > a > .fa-angle-down{width:auto}.sidebar-menu .treeview-menu > li.active > a,.sidebar-menu .treeview-menu > li > a:hover{color:#fff}@media (min-width:768px){.sidebar-left{position:absolute;top:0;left:0;bottom:0;width:200px;height:100%;z-index:2016}.sidebar-left .navbar-header{float:none}.sidebar-left .navbar-collapse{padding:0}.content{position:relative;margin-left:200px;height:100%;min-height:100%}}
 </style>
-<!--ProgressBar-->
-
-{{#if message}}
-        <div class="alert alert-success alert-dismissable">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-          {{message}}
-        </div>
-{{/if}}
-
-<div class="container">
-    {{#if success_msg}}
-        <div class="alert alert-success">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            {{success_msg}}
-        </div>
-    {{/if}}
-
-    {{#if error_msg}}
-        <div class="alert alert-danger">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            {{error_msg}}
-        </div>
-    {{/if}}
-
-    <!--Header of the Page -->
-    <div class="box box-primary" id="box_orders">
-      <div class="box-header with-border">
-        <h3 class="box-title">Admin - Dashboard</h3>
-      </div>
-    </div>
-
-<!-- Main content -->
-<!--Icon Bar for Items, Orders, Location's usesrs -->
-<section class="content">
-    <div class="row">
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-yellow">
-                <div class="inner">
-                    <h3>{{itemList.length}}</h3>
-                    <p>Menu Item</p>
-                </div>
-                <div class="icon">
-                    <i class="ion-ios-keypad-outline"></i>
-                </div>
-                <a id="viewAllItem" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div><!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-            <div class="small-box bg-green">
-                <div class="inner">
-                    <h3>{{object_item_hash.length}}</h3>
-                    <p>Orders</p>
-                </div>
-                <div class="icon">
-                    <i class="ion-bag"></i>
-                </div>
-                <a id="viewAllOrders" class="small-box-footer"> View All <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div><!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-yellow">
-                <div class="inner">
-                    <h3>{{locationList.length}}</h3>
-                    <p>Location's</p>
-                </div>
-                <div class="icon">
-                    <i class="ion-ios-keypad-outline"></i>
-                </div>
-                <a id="viewAllLocation" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div><!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-red">
-                <div class="inner">
-                    <h3>{{userList.length}}</h3>
-                    <p>Users</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-ios-people-outline"></i>
-                </div>
-                <a id="viewAllUser" class="small-box-footer">View All <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div><!-- ./col -->
-    </div><!-- /.row -->
-    {{#if msg_err}}
-        <div class="alert alert-danger">{{msg_err}}</div>
-    {{/if}}
-
-    {{#if msg_success}}
-        <div class="alert alert-success">{{msg_success}}</div>
-    {{/if}}
-
-    <div class="row">
-        {{> adminLocation }}
-    </div>
-    <div class="row">
-        {{> adminItems }}
-    </div>
-    <div class="row">
-        {{> adminOrders }}
-        {{> adminItemWiseOrders}}
-    </div>
 
 
-    <div class="row">
-        {{> adminUsers }}
-    </div>
 
-</section>
 
-</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/adminLocation.js"></script>
-
-<!-- Location JS -->
-
-<script>
-$("#userDIV").toggle();
-$(document).ready(function(){
-    $("#viewAllUser").click(function(){
-        if ( $('#itemDIV').is(':visible')){
-            $("#itemDIV").toggle();
-        }
-        if ( $('#OrderDiv').is(':visible')){
-            $("#OrderDiv").toggle();
-        }
-        if ( $('#ItemOrderDiv').is(':visible')){
-            $("#ItemOrderDiv").toggle();
-        }
-        if ( $('#locationDIV').is(':visible')){
-            $("#locationDIV").toggle();
-        }
-        $("#userDIV").toggle();
-    });
-
-});
-</script>
-
-<script>
-    $("#locationDIV").toggle();
-    $(document).ready(function(){
-        $("#viewAllLocation").click(function(){
-            if ( $('#itemDIV').is(':visible')){
-                $("#itemDIV").toggle();
-            }
-            if ( $('#OrderDiv').is(':visible')){
-                $("#OrderDiv").toggle();
-            }
-            if ( $('#ItemOrderDiv').is(':visible')){
-                $("#ItemOrderDiv").toggle();
-            }
-            if ( $('#userDIV').is(':visible')){
-                $("#userDIV").toggle();
-            }
-            $("#locationDIV").toggle();
-        });
-
-    });
-</script>
-
-<script>
-$("#ItemOrderDiv").toggle();
-$("#viewAllItemOrderTable").click(function(){
-    if ( $('#itemDIV').is(':visible')){
-        $("#itemDIV").toggle();
-    }
-    if ( $('#OrderDiv').is(':visible')){
-        $("#OrderDiv").toggle();
-    }
-    if ( $('#userDIV').is(':visible')){
-        $("#userDIV").toggle();
-    }
-    $("#ItemOrderDiv").toggle();
-});
-
-</script>
-
-
-<script>
-// Get the modal
-var modal = document.getElementById('locationModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("addLocation");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-
-
-
-<!-- Item JS-->
-<script>
-$("#itemDIV").toggle();
-$(document).ready(function(){
-    $("#viewAllItem").click(function(){
-        if ( $('#locationDIV').is(':visible')){
-            $("#locationDIV").toggle();
-        }
-        if ( $('#OrderDiv').is(':visible')){
-            $("#OrderDiv").toggle();
-        }
-        if ( $('#ItemOrderDiv').is(':visible')){
-            $("#ItemOrderDiv").toggle();
-        }
-        if ( $('#userDIV').is(':visible')){
-            $("#userDIV").toggle();
-        }
-        $("#itemDIV").toggle();
-    });
-});
-</script>
-
-<script>
-// Get the modal
-var modal1 = document.getElementById('itemModal');
-
-// Get the button that opens the modal
-var btn1 = document.getElementById("addItem");
-
-// Get the <span> element that closes the modal
-var span1 = document.getElementsByClassName("close")[2];
-
-// When the user clicks the button, open the modal
-btn1.onclick = function() {
-    modal1.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span1.onclick = function() {
-    modal1.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal1) {
-        modal1.style.display = "none";
-    }
-}
-
-$('button.newLocation').click( function() {
-      $('form.newLocation').submit();
-   });
-$('button.newItem').click( function() {
-      $('form.newItem').submit();
-   });
-
-</script>
-
-<!-- Location JS -->
-
-<script>
-    $("#OrderDiv").toggle();
-    $(document).ready(function(){
-        $("#viewAllOrders").click(function(){
-            if ( $('#itemDIV').is(':visible')){
-                $("#itemDIV").toggle();
-            }
-            if ( $('#locationDIV').is(':visible')){
-                $("#locationDIV").toggle();
-            }
-            if ( $('#ItemOrderDiv').is(':visible')){
-                $("#ItemOrderDiv").toggle();
-            }
-            $("#OrderDiv").toggle();
-        });
-    });
-</script>
-
-
+<script src="/js/admin.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

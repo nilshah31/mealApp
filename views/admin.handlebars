@@ -1,52 +1,75 @@
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+<style>
+body {
+  background: #eee !important;
+}
+
+.wrapper {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 30px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+</style>
 
 <div class="container" >
 
+  <div class="wrapper">
+    {{#if error_msg}}
+      <div class="alert alert-danger">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          {{error_msg}}
+      </div>
+    {{/if}}
 
+  <form class="form-signin" method="post">
+    <h2 class="form-signin-heading">Admin Login Panel</h2>
+    <input type="text" class="form-control" name="userName" required class="form-control" placeholder="User Name" autofocus=""/>
+    <input type="password" name="password" required class="form-control" placeholder="Password"/>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+  </form>
 </div>
-
-<body class="login-page">
-    <div class="login-box">
-      <div class="login-logo">
-        <b>Admin</b>Panel
-      </div>
-      <div class="login-box-body">
-        <p class="login-box-msg">Authorization</p>
-          {{#if success_msg}}
-              <div class="alert alert-success">
-                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                  {{success_msg}}
-              </div>
-          {{/if}}
-
-          {{#if error_msg}}
-              <div class="alert alert-danger">
-                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                  {{error_msg}}
-              </div>
-          {{/if}}
-
-          <form method="post">
-          <div class="form-group has-feedback">
-            <input type="text" style="height: 30px;"  name="userName" required class="form-control" placeholder="User Name" />
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-          </div>
-          <div class="form-group has-feedback">
-            <input type="password" style="height: 30px;" name="password" required class="form-control" placeholder="Password" />
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-          </div>
-          <div class="row">
-            <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  </body>
+</div>
+<!--External Javascriipt's-->

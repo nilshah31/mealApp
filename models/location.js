@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
 var app = require('../app');
 
 // LocationSchema
