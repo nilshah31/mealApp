@@ -19,6 +19,7 @@
                         <th onclick="sortTable(4)">Price <span class="glyphicon glyphicon-sort"></span></th>
                         <th onclick="sortTable(5)">Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
                         <th onclick="sortTable(6)">Status <span class="glyphicon glyphicon-sort"></span></th>
+                        <th>Action</th>
                     </tr>
                     {{#each object_item_hash}}
                         <tr>
@@ -28,10 +29,12 @@
                             <td>{{order_itemQty}}</td>
                             <td>{{order_itemPrice}}</td>
                             <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
-                            <td style="width: 23%;">
-                                <span class="label label-info">{{status}}</span>
+                            <td>
+                              <span class="label label-info">{{status}}</span>
+                            </td>
+                            <td>
                                 {{#checkOrderStatus status}}
-                                    <a href='#' onclick="submitform('{{receipt_number}}')">Cancel Order</a>
+                                    <a href='#' onclick="submitform('{{receipt_number}}')">Cancel</a>
                                 {{/checkOrderStatus}}
                             </td>
                         </tr>

@@ -155,7 +155,7 @@
         position: fixed;
         right: 13%;
         top: 27%;
-        width: 15em;
+        width: 19em;
         margin-top: 0em;
         background-color:  #ffffb3;
         padding-top: 0em;
@@ -172,7 +172,7 @@
     }
     .itemPanel{
         margin-top: -50px;
-        margin-left: 27%;
+        margin-left: 13%;
     }
 </style>
 
@@ -286,7 +286,7 @@
                 {{#each itemList}}
                 {{#checkItemActive active}}
                     {{#ifCustomize}}
-                        <div class="col-sm-2 column" style="width:20%;margin-left:1%;margin-right:-7%;">
+                        <div class="col-sm-2 column" style="width:17%;margin-left:2%;margin-right:-7%;">
                             <div class="panel panel-success" style="background-color: white;height:auto;min-height:15.5em;">
                               <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
                                   <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
@@ -323,8 +323,8 @@
                     {{else}}
                     </div>
                     <div class="row">
-                      <div class="col-sm-2 column" style="width:20%;margin-left:1%;margin-right:-7%;height:40%;">
-                          <div class="panel panel-success" style="background-color: white">
+                      <div class="col-sm-2 column" style="width:17%;margin-left:2%;margin-right:-7%;">
+                          <div class="panel panel-success" style="background-color: white;min-height:15.5em;">
                             <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
                                 <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
                             </div>
@@ -390,7 +390,6 @@
     var loged_user = '{{user}}';
     var sub_total=0;
     var isLocationAvaible = {{isLocationAvaible}};
-
     if(checkTime()) {
         document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Ordering starts from <br />LUNCH --- 9:00 AM to 11:30 AM <br />DINNER --- 5:00 PM to 7:00 PM</div>";
         var all_btns = document.getElementsByClassName("add_to_cart_btn")
@@ -559,10 +558,9 @@
          cell2.innerHTML = "Grand Total";
          cell3.innerHTML = sub_total;
 
-         document.getElementById("order_cart_value").innerHTML +="<br />" +
+         document.getElementById("order_cart_value").innerHTML +="" +
                  "<input type='button' class='btn btn-success' style='height: 3em;' onclick='submitform()' " +
                  "value='Process to Checkout' />";
-
      }
 </script>
 

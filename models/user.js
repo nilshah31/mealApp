@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-var sinchAuth = require('sinch-auth');
-var sinchSms = require('sinch-messaging');
+//var sinchAuth = require('sinch-auth');
+//var sinchSms = require('sinch-messaging');
+var msg91=require('msg91-sms');
 
 // User Schema
 var UserSchema = mongoose.Schema({
@@ -63,6 +64,11 @@ module.exports.getUserBymobNumber = function(mobileNumber, callback){
 	User.findOne(query, callback);
 }
 
+module.exports.getUserByemailId = function(emailId, callback){
+	var query = {email: emailId};
+	User.findOne(query, callback);
+}
+
 module.exports.getUserByIdCustom = function(id, callback){
 	var query = {_id: id};
 	User.findOne(query, callback);
@@ -88,11 +94,10 @@ module.exports.updateuserTokan = function(id, callback){
 }
 
 module.exports.updateuserPassword = function(id,newPassword, callback){
-	console.log("ID is :"+id);
-	console.log("newPasswrd: "+newPassword);
-    bcrypt.genSalt(10, function(err, salt) {
+	newPassword = String(newPassword);
+	bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(newPassword, salt, function(err, hash) {
-            User.update({_id:id}, {$set:{password:hash}}, function(err, result) {
+					  User.update({_id:id}, {$set:{password:hash}}, function(err, result) {
                 if(err) throw err;
                 callback(null,result);
             });
@@ -124,9 +129,21 @@ function generateRandomNumber(){
 }
 
 module.exports.sendMessage = function(lastname,phone,token, callback){
-	const toNumber = '91'+phone;
-	message = "Use "+token+" as one time password(OTP) to verify your mobile Number, Team MealAPP";
-    var auth = sinchAuth("680458d3-6111-46c1-bcf9-7e009dc8da10", "v2xihZABnUS8dP92RuMvEA==");
-    sinchSms.sendMessage(toNumber, message);
- 	callback(null,"Success");
+	const toNumber = phone;
+	message = "Use "+token+" as one time password(OTP) to verify your mobile Number, Team SouthMeal";
+	//Authentication Key
+	var authkey='172686AFa99wwG459a99ac6';
+	//for single number
+	var number='7204572637';
+	//Sender ID
+	var senderid='MSGIND';
+	//Route
+	var route='';
+	//Country dial code
+	var dialcode='91';
+	//send to single number
+	msg91.sendOne(authkey,number,message,senderid,route,dialcode,function(response){
+		//Returns Message ID, If Sent Successfully or the appropriate Error Message
+		console.log(response);
+	});
 }

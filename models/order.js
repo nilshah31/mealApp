@@ -24,11 +24,11 @@ var OrderSchema = mongoose.Schema({
 	total:{
 		type: Number
 	},
-    delivery_date_time: {
+  delivery_date_time: {
 		type: Date
 	},
 	order_date_time: {
-        type: Date
+    type: Date
 	},
 	status:{
 		type: String,

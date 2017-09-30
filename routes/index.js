@@ -11,6 +11,7 @@ var User = require('../models/user');
 module.exports = router;
 var schedule = require('node-schedule');
 var item_counter;
+var nodemailer = require('nodemailer');
 
 var con_job_update_qty_noon = schedule.scheduleJob('00 12 * * *', function(){
     Item.updateItemQtyAll(function (err,results) {
@@ -54,8 +55,42 @@ router.get('/', function(req, res){
                     if(location_results.length>0){
                         location_results.forEach(function (item) {
                             if(item['company']==req.session.user.location){
-                                res.render('index', {i: 1, user: req.session.user, itemList: results,isLocationAvaible:true});
+                              if(req.session.order_itemID){
+                                order_itemID = req.session.order_itemID;
+                                order_itemName = req.session.order_itemName;
+                                order_itemPrice = req.session.order_itemPrice;
+                                order_itemQty = req.session.order_itemQty;
+                                object_item_hash = [];
+                                if(order_itemQty.length==1) {
+                                    sub_Total = parseInt(order_itemQty) * parseInt(order_itemPrice);
+                                    object_item_hash.push({
+                                        order_itemID: order_itemID,
+                                        order_itemName: order_itemName,
+                                        order_itemPrice: order_itemPrice,
+                                        order_itemQty: order_itemQty,
+                                        sub_Total: sub_Total
+                                    });
+                                    total += sub_Total;
+                                    req.session.sub_Total = sub_Total;
+                                }
+                                res.render('index', {
+                                  i: 1,
+                                  user: req.session.user,
+                                  itemList: results,
+                                  isLocationAvaible:true,
+                                  object_item_hash:object_item_hash
+                                });
                                 temp=true;
+                              }
+                            else{
+                              res.render('index', {
+                                i: 1,
+                                user: req.session.user,
+                                itemList: results,
+                                isLocationAvaible:true
+                              });
+                              temp=true;
+                              }
                             }
                         });
                         if(temp==false)
@@ -78,6 +113,10 @@ router.get('/', function(req, res){
 
 router.get('/admin', function(req, res){
     res.render('admin',{user: 'ADMIN'});
+});
+
+router.get('/forget_password', function(req, res){
+    res.render('forget_password');
 });
 
 router.get('/user_password_update', function(req, res){
@@ -254,6 +293,37 @@ router.get('/user_order_history',function(req, res){
         res.redirect('/');
 });
 
+router.post('/contact', function(req, res){
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+        user: 'nilshah.31@gmail.com',
+        pass: 'NVD421nvd'
+        }
+    });
+
+    var mailOptions = {
+      from: 'sanjeevinifoods@gmail.com',
+      to: String(req.body.email),
+      subject: 'FeedBack-'+req.body.email+' - '+req.body.subject,
+      html: '<p>Name : '+req.body.name+'<br />Mobile : '+req.body.mobile+'<br />Message : <br />'+req.body.message
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
+    if(req.session.user) {
+        res.render('contact',{user: req.session.user});
+    }
+    else
+        res.redirect('/');
+});
+
 router.post('/user_order_history', function(req, res) {
     var myquery = { receipt_number: req.body.rcptnumber };
     Order.updateOne(myquery, {$set:{status:'2'}}, function(err, res) {
@@ -302,6 +372,36 @@ router.post('/user_password_update', function(req, res) {
             res.render('user_password_update',{msg_err:"Enter Correct Password!"});
         }
     });
+});
+
+router.post('/forget_password', function(req, res) {
+  User.getUserBymobNumber(req.body.cur_mob_no,function(err,isMatch){
+    if(isMatch){
+      User.getUserByemailId(req.body.cur_email_id,function(err,isMatch){
+        if(isMatch){
+            console.log("Found User : "+isMatch.firstname);
+            var number = generateRandomNumber();
+            console.log(number);
+            User.sendMessage(isMatch.lastname,isMatch.phone,number,function (err,result){
+            });
+            User.updateuserPassword(isMatch._id,number,function (err,result) {
+                if(err){
+                    res.render('forget_password',{msg_err:"Something went wrong Please try agains"});
+                }
+                else{
+
+                    res.render('forget_password',{msg_success:"Please use New Password to login"});
+                }
+            });
+        }
+        else{
+          res.render('forget_password',{msg_err:"User does not exist with this Mobilenumber/Emailid"});
+        }
+      });
+    } else {
+        res.render('forget_password',{msg_err:"User does not exist with this Mobilenumber/Emailid"});
+    }
+  });
 });
 
 router.post('/location_form', function(req, res) {
@@ -506,7 +606,6 @@ router.post('/newItem', function(req, res){
 	Item.createItem(newItem, function(err, Item){
 	if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
 	});
-		if (err) return res.sendStatus(500);
     Item.find(function(err, results){
         req.flash('success_msg','Item Added Successfully');
         res.redirect('adminDashboard');
@@ -535,7 +634,8 @@ router.post('/', function(req, res){
     req.session.order_itemName =  req.body.itemName;
     req.session.order_itemQty =  req.body.itemQty;
     req.session.order_itemPrice =  req.body.itemPrice;
-    req.session.order_rcpt_number = ("MEAL"+stringGen(5)).replace(/ /g,'');
+    //req.session.order_rcpt_number = ("MEAL"+stringGen(5)).replace(/ /g,'');
+    req.session.order_rcpt_number = ("MEAL"+generateRandomNumber());
     res.redirect('payment');
 });
 
@@ -666,7 +766,7 @@ Handlebars.registerHelper('incrementCounterVariable', function(options) {
 });
 
 Handlebars.registerHelper('ifCustomize', function(options) {
-  if(item_counter%5) {
+  if(item_counter%6) {
         return options.fn(this);
     } else {
         return options.inverse(this);
@@ -735,3 +835,11 @@ Handlebars.registerHelper('checkItemActive', function(itemStatus,options) {
 Handlebars.registerHelper('startItemLayoutCounter', function(options) {
     item_counter = 0;
 });
+
+function generateRandomNumber(){
+	var number = Math.floor((Math.random()*10000));
+	 if(number.length < 4 || number.length > 4){
+    	generateRandomNumber();
+    }
+	return number;
+}

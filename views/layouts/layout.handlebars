@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 <head>
     <title>MealApp</title>
     <meta charset="utf-8">
@@ -42,7 +44,7 @@
 
                     <button type="submit" class="btn btn-default search" style="float: right;margin-top:0.3em;margin-right: 13%">Login</button>
                     <br />
-                    <a href="/users/register" style="float: right;margin-top:10px;margin-right: 13%">Forget Password?</a>
+                    <a href="/forget_password" style="float: right;margin-top:10px;margin-right: 13%">Forget Password?</a>
                     <a href="/users/register" style="float: right;margin-top:10px;margin-right: 1%">Sign Up Here</a>
                 </form>
             </div>
@@ -61,7 +63,7 @@
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="../howWeWork">How we Work?</a></li>
                 <li><a href="../contact">Feedback</a></li>
-                <li>TESTTESTETSTESTES</li>
+                <li style="color:#222;">TESTTESTETSTESTES</li>
             </ul>
             <ul class="nav navbar-nav navbar-right" style="margin-right:12em;">
               <li>
@@ -100,7 +102,7 @@
 {{#checkUserIsAdmin user}}
 {{else}}
 
-<footer id="site-footer">
+<footer id="site-footer" class="footer">
     <center><p>
         &copy; 2017 South Meal,Bangalore.
     </p></center>
@@ -110,15 +112,16 @@
 </body>
 </html>
 
+
+
 <style>
 .footer {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  background-color: #efefef;
-  text-align: center;
+   right: 0;
+   left: 0;
+   padding: 1rem;
+   background-color: #efefef;
+   text-align: center;
 }
      #site-footer {
         height: 50px;

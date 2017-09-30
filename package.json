@@ -20,18 +20,21 @@
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
+    "html-pdf": "*",
     "mongodb": "*",
     "mongoose": "^4.10.8",
-    "passport": "*",
     "msg91": "0.0.6",
-    "sinch-auth": "*",
-    "sinch-messaging":"*",
+    "msg91-sms": "^1.0.1",
     "multer": "1.1.0",
-    "html-pdf": "*",
+    "nodemailer": "*",
+    "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
-    "textmagic-rest-client": "*",
-    "nodemailer": "*"
+    "sendotp": "^1.2.8",
+    "sinch-auth": "*",
+    "sinch-messaging": "*",
+    "sinch-sms": "*",
+    "textmagic-rest-client": "*"
   },
   "devDependencies": {}
 }

@@ -26,7 +26,7 @@ router.get('/register', function(req, res){
 // Login
 router.get('/login', function(req, res){
 	if(req.session.user){
-		res.redirect("/");	
+		res.redirect("/");
 	}
 	else {
 		res.render('login');
@@ -35,7 +35,7 @@ router.get('/login', function(req, res){
 
 // Login
 router.get('/loginVerify', function(req, res){
-    var query = {phone: req.query.phone};
+	  var query = {phone: req.query.username};
     User.findOne(query, function(err,results){
         User.updateuserTokan(results.id,function(err, results) {
             if (err) throw err;
@@ -87,7 +87,7 @@ router.post('/register', function(req, res){
 			phone: phone,
             city: city,
 			location: location,
-			password: password  
+			password: password
 		});
 		User.createUser(newUser, function(err, user){
 			if(err){
