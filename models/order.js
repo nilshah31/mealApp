@@ -27,6 +27,12 @@ var OrderSchema = mongoose.Schema({
   delivery_date_time: {
 		type: Date
 	},
+	delivery_address:{
+		type: String
+	},
+	order_location:{
+		type: String
+	},
 	order_date_time: {
     type: Date
 	},

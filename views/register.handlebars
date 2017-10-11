@@ -1,181 +1,147 @@
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
-<style>
-    #site-footer {
-        height: 50px;
-        background: Black;
-        color: white;
-    }
-    #footer1{
-        margin-left:2%;
-        float:left;
-
-    }
-    #footer2{
-        margin-right:2%;
-        float:right;
-    }
-</style>
-
-<style>
-    @media (min-width: 768px) {
-        .navbar-nav.navbar-center {
-            position: absolute;
-            left: 50%;
-            transform: translatex(-50%);
-        }
-    }
-</style>
-<br />
-
-
-<script>
-    city_arry = [];
-    city_unique_list = [];
-
-    {{#each cityList}}
-        city_arry.push('{{this}}');
-    {{/each}}
-
-    function addOption() {
-        removeAllOptions();
-        temp = document.getElementById("city");
-        temp = temp.options[temp.selectedIndex].value;
-        var selectobject=document.getElementById("location");
-
-        opt = document.createElement("option");
-        opt.value = "Please Select Location";
-        opt.text = "Please Select Location";
-        selectobject.add(opt, null);
-
-        for (i = 0; i < city_unique_list.length; i++) {
-            if(city_unique_list[i].city==temp){
-                opt = document.createElement("option");
-                opt.value = city_unique_list[i].company;
-                opt.text = city_unique_list[i].company;
-                selectobject.add(opt, null);
-            }
-        }
-    }
-    for(i=0;i<city_arry.length;i++) {
-        {{#each locationList}}
-            temp = '{{city}}';
-            if (temp == city_arry[i]) {
-                city_unique_list.push({city: city_arry[i],company: '{{company}}'} );
-            }
-        {{/each}}
-    }
-    function removeAllOptions() {
-        document.getElementById("location").options.length = 0;
-    }
-</script>
-
 <style href='http://www.authy.com/form.authy.min.css'></style>
 <script href='http://www.authy.com/form.authy.min.js'></script>
+<script href='/js/register.js'></script>
 
 <form class="form-horizontal" method="post">
-{{#if errors}}
-      {{#each errors}}
-        <div class="alert alert-danger">{{msg}}</div>
-      {{/each}}
-{{/if}}
+  {{#if errors}}
+    {{#each errors}}
+      <div class="alert alert-danger">{{msg}}</div>
+    {{/each}}
+  {{/if}}
+  <div class="container">
+  <fieldset>
+    <legend>Register to mealApp</legend>
+    <!-- First Name-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="fn">First name</label>
+      <div class="col-md-4">
+        <input id="fn" style="height: 40px;width:300px;" name="fn" type="text" placeholder="first name" class="form-control input-md" required>
+      </div>
+    </div>
 
-    <div class="container">
+    <!-- Last Name-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="ln">Last name</label>
+      <div class="col-md-4">
+        <input id="ln" style="height: 40px;width:300px;" name="ln" type="text" placeholder="last name" class="form-control input-md" required>
+      </div>
+    </div>
 
-<fieldset>
-<legend>Register to mealApp</legend>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="email">Email</label>
+      <div class="col-md-4">
+        <input id="email" style="height: 40px;width:300px;" name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="email" class="form-control input-md" required>
+      </div>
+    </div>
 
-<!-- First Name-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="fn">First name</label>
-  <div class="col-md-4">
-  <input id="fn" style="height: 40px;width:300px;" name="fn" type="text" placeholder="first name" class="form-control input-md" required>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="phone">Mobile No</label>
+      <div class="col-md-4">
+        <input id="phone" style="height: 40px;width:300px;" name="phone" type="text" pattern="[789][0-9]{9}" placeholder="mobile number" class="form-control input-md" required="">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="password">Password</label>
+      <div class="col-md-4">
+        <input id="password" style="height: 40px;width:300px;" name="password" type="password" pattern=".{4,}" title="Minimum 8 Charactor" placeholder="password" class="form-control input-md" required="">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="password">Confirm Password</label>
+      <div class="col-md-4">
+        <input id="cnfpassword" style="height: 40px;width:300px;" name="cnfpassword" type="password" oninput="check(this)" placeholder="confirm password" class="form-control input-md" required="">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="select city">Select City</label>
+      <div class="col-md-4">
+        <select id="city" onchange="addOption()" style="height: 40px;width:300px;" name="city" class="form-control input-md" required>
+          <option>Please Select City</option>
+          {{#each cityList}}
+            <option>{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="select company">Select Location</label>
+      <div class="col-md-4">
+        <select id="location" name="location" style="height: 40px;width:300px;" class="form-control input-md" required>
+          <option disabled selected>Please Select Location</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="submit"></label>
+      <div class="col-md-4">
+        <button id="submit" style="height: 40px;width:150px;" name="submit" class="btn btn-primary">SUBMIT</button>
+      </div>
+    </div>
+  </fieldset>
   </div>
-</div>
-
-<!-- Last Name-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="ln">Last name</label>
-  <div class="col-md-4">
-  <input id="ln" style="height: 40px;width:300px;" name="ln" type="text" placeholder="last name" class="form-control input-md" required>
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="email">Email</label>
-  <div class="col-md-4">
-  <input id="email" style="height: 40px;width:300px;" name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="email" class="form-control input-md" required>
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="phone">Mobile No</label>
-  <div class="col-md-4">
-  <input id="phone" style="height: 40px;width:300px;" name="phone" type="text" pattern="[789][0-9]{9}" placeholder="mobile number" class="form-control input-md" required="">
-
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="password">Password</label>
-  <div class="col-md-4">
-  <input id="password" style="height: 40px;width:300px;" name="password" type="password" pattern=".{4,}" title="Minimum 8 Charactor" placeholder="password" class="form-control input-md" required="">
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="password">Confirm Password</label>
-  <div class="col-md-4">
-
-    <input id="cnfpassword" style="height: 40px;width:300px;" name="cnfpassword" type="password" oninput="check(this)" placeholder="confirm password" class="form-control input-md" required="">
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="select city">Select City</label>
-  <div class="col-md-4">
-    <select id="city" onchange="addOption()" style="height: 40px;width:300px;" name="city" class="form-control input-md" required>
-      <option>Please Select City</option>
-      {{#each cityList}}
-        <option>{{this}}</option>
-      {{/each}}
-    </select>
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="select company">Select Location</label>
-  <div class="col-md-4">
-    <select id="location" name="location" style="height: 40px;width:300px;" class="form-control input-md" required>
-          <option disabled selected>Please Select City</option>
-    </select>
-  </div>
-</div>
-
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="submit"></label>
-  <div class="col-md-4">
-    <button id="submit" style="height: 40px;width:150px;" name="submit" class="btn btn-primary">SUBMIT</button>
-  </div>
-</div>
-
-</fieldset>
-        </div>
 </form>
 
 <script>
-    function check(input) {
-        if (input.value != document.getElementById('password').value) {
-            input.setCustomValidity('Password Must be Matching.');
-        } else {
-            // input is valid -- reset the error message
-            input.setCustomValidity('');
+city_arry = [];
+city_unique_list = [];
+
+{{#each cityList}}
+    city_arry.push('{{this}}');
+{{/each}}
+
+
+function addOption() {
+    removeAllOptions();
+    temp = document.getElementById("city");
+    temp = temp.options[temp.selectedIndex].value;
+    var selectobject=document.getElementById("location");
+
+    opt = document.createElement("option");
+    opt.value = "Please Select Location";
+    opt.text = "Please Select Location";
+    selectobject.add(opt, null);
+
+    for (i = 0; i < city_unique_list.length; i++) {
+        if(city_unique_list[i].city==temp){
+            opt = document.createElement("option");
+            opt.value = city_unique_list[i].company;
+            opt.text = city_unique_list[i].company;
+            selectobject.add(opt, null);
         }
     }
+}
+for(i=0;i<city_arry.length;i++) {
+    {{#each locationList}}
+        temp = '{{city}}';
+        if (temp == city_arry[i]) {
+            city_unique_list.push({city: city_arry[i],company: '{{company}}'} );
+        }
+    {{/each}}
+}
+function removeAllOptions() {
+    document.getElementById("location").options.length = 0;
+}
+
+function check(input) {
+    if (input.value != document.getElementById('password').value) {
+        input.setCustomValidity('Password Must be Matching.');
+    } else {
+        // input is valid -- reset the error message
+        input.setCustomValidity('');
+    }
+}
+
 </script>

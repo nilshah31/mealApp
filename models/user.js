@@ -43,7 +43,11 @@ var UserSchema = mongoose.Schema({
   token_exp: {
       type: Date,
 			default: '',
-  }
+  },
+	avaible_limit: {
+		type: Number,
+		default: 200
+	}
 });
 
 //User Modal Handler
@@ -88,9 +92,24 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 module.exports.updateuserTokan = function(id, callback){
 	var number = generateRandomNumber();
 	User.update({_id:id}, {$set:{token:number,token_exp:new Date()}}, function(err, result) {
+    	if(err) callback(err,result);
+    	callback(null,result);
+    });
+}
+
+module.exports.updateUserAmountLimit = function(id,user_current_avble_limit,order_value, callback){
+	User.update({_id:id}, {$set:{avaible_limit:(user_current_avble_limit-order_value)}}, function(err, result) {
     	if(err) throw err;
     	callback(null,result);
     });
+}
+
+module.exports.updateAvaibleLimitAll = function(callback){
+	User.find({},function(err,results){
+		for(i=0;i<results.length;i++){
+			User.update({_id:results[i].id}, {$set:{avaible_limit:200}}, callback);
+		}
+	});
 }
 
 module.exports.updateuserPassword = function(id,newPassword, callback){

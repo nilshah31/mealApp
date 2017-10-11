@@ -4,6 +4,7 @@ var router = express.Router();
 var Location = require('../models/location');
 var Item = require('../models/item');
 var Order = require('../models/order');
+var ItemLocation = require('../models/item_location');
 var pdf = require('html-pdf');
 var fs = require('fs');
 var sinchAuth = require('sinch-auth');
@@ -12,9 +13,16 @@ module.exports = router;
 var schedule = require('node-schedule');
 var item_counter;
 var nodemailer = require('nodemailer');
+var mongoose = require('mongoose');
 
 var con_job_update_qty_noon = schedule.scheduleJob('00 12 * * *', function(){
     Item.updateItemQtyAll(function (err,results) {
+        console.log(results);
+    });
+});
+
+var con_job_update_qty_noon = schedule.scheduleJob('00 12 * * *', function(){
+    User.updateAvaibleLimitAll(function (err,results) {
         console.log(results);
     });
 });
@@ -44,71 +52,45 @@ router.get('/user_profile',function(req, res){
         res.redirect('/');
 });
 
-// Get Homepage
+//  Get Homepage
 router.get('/', function(req, res){
-    Item.find(function(err, results){
-        if (err) return res.sendStatus(500);
-        if(req.session.user)
-            if(req.session.user.firstname) {
-                var temp=false;
-                Location.find(function (err, location_results) {
-                    if(location_results.length>0){
-                        location_results.forEach(function (item) {
-                            if(item['company']==req.session.user.location){
-                              if(req.session.order_itemID){
-                                order_itemID = req.session.order_itemID;
-                                order_itemName = req.session.order_itemName;
-                                order_itemPrice = req.session.order_itemPrice;
-                                order_itemQty = req.session.order_itemQty;
-                                object_item_hash = [];
-                                if(order_itemQty.length==1) {
-                                    sub_Total = parseInt(order_itemQty) * parseInt(order_itemPrice);
-                                    object_item_hash.push({
-                                        order_itemID: order_itemID,
-                                        order_itemName: order_itemName,
-                                        order_itemPrice: order_itemPrice,
-                                        order_itemQty: order_itemQty,
-                                        sub_Total: sub_Total
-                                    });
-                                    total += sub_Total;
-                                    req.session.sub_Total = sub_Total;
-                                }
-                                res.render('index', {
-                                  i: 1,
-                                  user: req.session.user,
-                                  itemList: results,
-                                  isLocationAvaible:true,
-                                  object_item_hash:object_item_hash
-                                });
-                                temp=true;
-                              }
-                            else{
-                              res.render('index', {
-                                i: 1,
-                                user: req.session.user,
-                                itemList: results,
-                                isLocationAvaible:true
-                              });
-                              temp=true;
-                              }
-                            }
-                        });
-                        if(temp==false)
-                            res.render('index', {i: 1, user: req.session.user, itemList: results,isLocationAvaible:false});
-                    }
-                    else{
-                        res.render('index', {i: 1, user: req.session.user, itemList: results,isLocationAvaible:false});
-                    }
-                });
-            }
-            else{
-                req.session.user = null;
-                res.render('index',{i: 1,user: null,itemList: results,isLocationAvaible:false});}
-        else{
-            req.session.user = null;
-            res.render('index',{i: 1,user: null,itemList: results,isLocationAvaible:false});
-		    }
-	});
+  if(req.session.user){
+    if(req.session.user.firstname) {
+      var query = {phone: req.session.user.phone};
+      User.findOne(query, function(err,user_result){
+        Location.findOne({company:user_result.location},function(err,location_results){
+          if(location_results){
+            ItemLocation.find({location_id:location_results._id},function(err,itemLocationResult){
+              var item_location_ids = [];
+              itemLocationResult.forEach(function (item_id){
+                item_location_ids.push(new mongoose.Types.ObjectId(item_id.item_id));
+              });
+              Item.find( { _id : { $in : item_location_ids }},function(err, item_results){
+                res.render('index', {i: 1, user: req.session.user, itemList: item_results,isLocationAvaible:true});
+              });
+            });
+          }
+          else{
+            Item.find(function(err, item_results){
+              res.render('index',{i: 1,user: req.session.user,itemList: item_results,isLocationAvaible:false});
+            });
+          }
+        });
+      });
+    }
+    else{
+      Item.find(function(err, item_results){
+        req.session.user = null;
+        res.render('index',{i: 1,user: null,itemList: item_results,isLocationAvaible:false});
+      });
+    }
+  }
+  else {
+    Item.find(function(err, item_results){
+      req.session.user = null;
+      res.render('index',{i: 1,user: null,itemList: item_results,isLocationAvaible:false});
+    });
+  }
 });
 
 router.get('/admin', function(req, res){
@@ -186,8 +168,9 @@ router.get('/adminDashboard', function(req, res){
                         else
                             status='Cancled';
                         var order_date=new Date(String(results[i].order_date_time));
-                        var ordr_dt = String(order_date.getDate()+1)+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
+                        var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
                         object_item_hash.push({
+                            user_id:results[i].user_id,
                             order_itemName:results[i].item_name,
                             receipt_number:results[i].receipt_number,
                             order_itemPrice:results[i].price,
@@ -195,11 +178,21 @@ router.get('/adminDashboard', function(req, res){
                             sub_Total:results[i].sub_Total,
                             order_date: ordr_dt,
                             status:status,
-                            total:results[i].total
+                            total:results[i].total,
+                            order_from_location:results[i].order_location,
+                            delivery_address:results[i].delivery_address
                         });
                     }
                     User.find(function(err, Userresults) {
                         if (err) return res.sendStatus(500);
+                        for(i=0;i<object_item_hash.length;i++){
+                          for(j=0;j<Userresults.length;j++){
+                            if(String(object_item_hash[i].user_id)==String(Userresults[j]._id)){
+                              object_item_hash[i].user_firstName = Userresults[j].firstname;
+                              object_item_hash[i].phone_number = Userresults[j].phone;
+                            }
+                          }
+                        }
                         res.render('adminDashboard', { user: req.session.user,userList : Userresults,locationList : Locationresults,itemList : Itemresults,object_item_hash:object_item_hash });
                     });
                 });
@@ -272,9 +265,9 @@ router.get('/user_order_history',function(req, res){
                 else if (results[i].status == 1)
                     status = 'Completed';
                 else
-                    status = 'Cancled';
+                    status = 'Canceled';
                 var order_date = new Date(String(results[i].order_date_time));
-                var ordr_dt = String(order_date.getDate()+1) + '/' + String(order_date.getMonth()+1) + '/' + String(order_date.getFullYear());
+                var ordr_dt = String(order_date.getDate()) + '/' + String(order_date.getMonth()+1) + '/' + String(order_date.getFullYear());
                 object_item_hash.push({
                     order_itemName: results[i].item_name,
                     receipt_number: results[i].receipt_number,
@@ -326,11 +319,22 @@ router.post('/contact', function(req, res){
 
 router.post('/user_order_history', function(req, res) {
     var myquery = { receipt_number: req.body.rcptnumber };
+    Order.find(myquery,function(err,result){
+      result = result;
+      for(i=0;i<result.length;i++){
+        var qurry_find_order = { name: result[i].item_name };
+        Item.find(qurry_find_order,function(err,res){
+          Item.updateItemQtyAfterCancle(res[0]._id,parseInt(res[0].avaible_qty)+parseInt(result[i-1].qty));
+        });
+      }
+    });
     Order.updateOne(myquery, {$set:{status:'2'}}, function(err, res) {
         if (err) throw err;
     });
     res.redirect('/user_order_history');
 });
+
+
 
 router.post('/update_item_status_active', function(req, res) {
     var myquery = { _id: req.body.item_status_id_active };
@@ -404,24 +408,69 @@ router.post('/forget_password', function(req, res) {
   });
 });
 
-router.post('/location_form', function(req, res) {
-    var loc_id = req.body.location_ID;
-    var myquery = { _id: loc_id };
-    Location.remove(myquery, function(err, obj) {
-        if (err) throw err;
-        req.flash('success_msg','Removed Successfully');
-        res.redirect('adminDashboard');
-    });
+router.post('/dbs/addLocationtoMenu',function (req, res){
+  var item_id = req.body.item_id;
+  var location_id = req.body.location_id;
+  var myquery = { item_id : item_id, location_id: location_id };
+  ItemLocation.find(myquery,function(err, results){
+    if(err) res.send(err);
+    if(results.length==0){
+      var newItemLocation = new ItemLocation({
+    		item_id : item_id,
+    		location_id : location_id
+    	});
+    	ItemLocation.createItemLocation(newItemLocation, function(err, ItemLocation){
+        if (err) res.send(err) ;
+        res.sendStatus(200);
+    	});
+    }
+  });
 });
 
-router.post('/item_list_form', function(req, res) {
-    var item_id = req.body.item_ID;
-    var myquery = { _id: item_id };
-    Item.remove(myquery, function(err, obj) {
-        if (err) throw err;
-        req.flash('success_msg','Removed Successfully');
-        res.redirect('adminDashboard');
-    });
+router.post('/dbs/removeLocationtoMenu',function (req, res){
+  var item_id = req.body.item_id;
+  var location_id = req.body.location_id;
+  var myquery = { item_id : item_id, location_id: location_id };
+  ItemLocation.find(myquery,function(err, results){
+    if(err) res.send(err);
+    if(results.length>0){
+    	ItemLocation.remove(myquery, function(err, ItemLocation){
+        if (err) res.send(err) ;
+        res.sendStatus(200);
+    	});
+    }
+  });
+});
+
+router.post('/dbs/removeItem/:id',function (req, res){
+  var item_id = req.params.id;
+  var myquery = { _id: item_id };
+  Item.remove(myquery, function(err, obj) {
+      if (err) res.send(err) ;
+      res.sendStatus(200);
+  });
+});
+
+router.post('/dbs/removeLocation/:id',function (req, res){
+  var loc_id = req.params.id;
+  var myquery = { _id: loc_id };
+  Location.remove(myquery, function(err, obj) {
+      if (err) res.send(err) ;
+      res.sendStatus(200);
+  });
+});
+
+router.post('/dbs/addLocation',function (req, res){
+  var cityTxtBox = req.body.city;
+	var locationTxtBox = req.body.company;
+  var newLocation = new Location({
+		city : cityTxtBox,
+		company : locationTxtBox
+	});
+	Location.createLocation(newLocation, function(err, Location){
+    if (err) res.send(err) ;
+    res.send(Location._id);
+	});
 });
 
 router.post('/admin',function(req,res){
@@ -612,22 +661,7 @@ router.post('/newItem', function(req, res){
 	});
 });
 
-router.post('/newLocation', function(req, res){
-	var cityTxtBox = req.body.cityTxtBox;
-	var locationTxtBox = req.body.locationTxtBox;
-	var newLocation = new Location({
-		city : cityTxtBox,
-		company : locationTxtBox
-	});
-	Location.createLocation(newLocation, function(err, Location){
-		if(err) throw err;
-	});
-	Location.find(function(err, results){
-		if (err) return res.sendStatus(500);
-        req.flash('success_msg','Added New Location');
-        res.redirect('adminDashboard');
-	});
-});
+
 
 router.post('/', function(req, res){
     req.session.order_itemID =  req.body.itemID;
@@ -635,7 +669,7 @@ router.post('/', function(req, res){
     req.session.order_itemQty =  req.body.itemQty;
     req.session.order_itemPrice =  req.body.itemPrice;
     //req.session.order_rcpt_number = ("MEAL"+stringGen(5)).replace(/ /g,'');
-    req.session.order_rcpt_number = ("MEAL"+generateRandomNumber());
+    req.session.order_rcpt_number = (generateRandomNumber());
     res.redirect('payment');
 });
 
@@ -687,15 +721,14 @@ function stringGen(len)
 }
 
 router.post('/payment', function(req, res){
-
-	//Creating Order
+	  //Creating Order
     order_itemID = req.session.order_itemID;
     order_itemName = req.session.order_itemName;
     order_itemPrice = req.session.order_itemPrice;
     order_itemQty = req.session.order_itemQty;
-
+    del_location = req.session.user.location+','+req.session.user.city;
+    order_location = req.body.user_location;
     total=0;
-
     itemIDArray = String(req.session.order_itemID).split(',');
     itemPriceArray = String(req.session.order_itemPrice).split(',');
     itemQtyArray = String(req.session.order_itemQty).split(',');
@@ -705,7 +738,7 @@ router.post('/payment', function(req, res){
         Item.updateItemQty(itemIDArray[i],itemQtyArray[i],function(err, result){
             if(err) throw err;
         });
-	}
+	  }
 
     var newOrder = new Order({
         user_id  : req.session.user._id,
@@ -713,17 +746,20 @@ router.post('/payment', function(req, res){
         item_name : order_itemName,
         qty : order_itemQty,
         price : order_itemPrice,
-		sub_total:total,
-		total:total,
+		    sub_total:total,
+		    total:total,
         delivery_date_time:new Date(),
+        delivery_address:del_location,
+        order_location:order_location,
         order_date_time:new Date()
     });
     Order.createOrder(newOrder, function(err, OrderResult){
-        if(err) throw err;
+        if(err) res.send(err);
     });
-
+    User.updateUserAmountLimit(req.session.user._id,parseInt(req.session.user.avaible_limit),parseInt(total),function(err,result){
+      if(err) res.send(err);
+    });
     req.flash('success_msg','You have Succesfully Placed Order, Please note Down Order number for future Refrence : '+req.session.order_rcpt_number);
-
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -734,7 +770,7 @@ router.post('/payment', function(req, res){
 
     var mailOptions = {
       from: 'nilshah.31@gmail.com',
-      to: 'nilshah.31@gmail.com',
+      to: req.session.user.email,
       subject: 'Payment Receipt -' + req.session.order_rcpt_number + '-Team SouthMeal',
       html: '<h1>Payment Receipt</h1><br />'
     };
@@ -746,10 +782,7 @@ router.post('/payment', function(req, res){
         console.log('Email sent: ' + info.response);
       }
     });
-
-
     res.redirect('/');
-
 });
 
 function ensureAuthenticated(req, res, next){

@@ -35,22 +35,23 @@ router.get('/login', function(req, res){
 
 // Login
 router.get('/loginVerify', function(req, res){
-	  var query = {phone: req.query.username};
+	  var query = {phone: req.query.phone};
     User.findOne(query, function(err,results){
-        User.updateuserTokan(results.id,function(err, results) {
+        User.updateuserTokan(results._id,function(err, results) {
             if (err) throw err;
+						User.findOne(query, function(err,results){
+							User.sendMessage(results.lastname, req.query.phone, results.token, function (err, result) {
+							});
+							if (results.verified == false) {
+	            	user = results;
+	            	res.render('loginVerify', {Current_User_Id: user._id});
+	            }
+	            else {
+	            	res.redirect('/');
+	            }
+						});
         });
-        User.sendMessage(results.lastname, results.phone, results.token, function (err, result) {
-            if (results.verified == false) {
-            	req.session.user = result; //Check this line
-            	user = results;
-            	res.render('loginVerify', {Current_User_Id: user._id});
-            }
-            else {
-            	res.redirect('/');
-            }
-        });
-    });
+		});
 });
 
 // Register User
@@ -85,7 +86,7 @@ router.post('/register', function(req, res){
 			password: password,
 			email: email,
 			phone: phone,
-            city: city,
+      city: city,
 			location: location,
 			password: password
 		});
@@ -130,37 +131,34 @@ passport.deserializeUser(function(id, done) {
 router.post('/login',function(req, res) {
 	User.getUserBymobNumber(req.body.username, function(err, user){
 		if(err) throw err;
-		if(user){
-			User.comparePassword(req.body.password, user.password, function(err, isMatch){
-				if(err) throw err;
-				if(isMatch){
-					User.updateuserTokan(user.id,function(err, result) {
-						if(err) throw err;
-						User.getUserBymobNumber(req.body.username, function(err, user){
-							if(user.verified==true) {
-								req.session.user = user;
-                                req.flash('success_msg','Welcome to SouthMeal');
-                                res.redirect('/');
-							}
-							else{
-								User.sendMessage(user.lastname,user.phone,user.token,function(err,result){
-                                    req.flash('success_msg','Please Verify Your Mobile Number');
-                                    res.redirect("/users/loginVerify?phone=" + req.body.username);
-								});
-							}
-                        });
-                    });
-                } else {
-                    req.flash('error_msg','Username/Password not match');
-                    res.redirect('/');
-                }
+			if(user){
+				User.comparePassword(req.body.password, user.password, function(err, isMatch){
+					if(err) throw err;
+					if(isMatch){
+						User.updateuserTokan(user.id,function(err, result) {
+							if(err) throw err;
+							User.getUserBymobNumber(req.body.username, function(err, user){
+								if(user.verified==true) {
+									req.session.user = user;
+                	req.flash('success_msg','Welcome To SouthMeal');
+                	res.redirect('/');
+								}
+								else{
+								res.redirect("/users/loginVerify?phone=" + req.body.username);
+								}
+              });
             });
-		}
-		else{
-            req.flash('error_msg','Username/Password not match');
+          } else {
+          	req.flash('error_msg','Username/Password not match');
             res.redirect('/');
-		}
-	});
+          }
+        });
+			}
+			else{
+        req.flash('error_msg','Username/Password not match');
+        res.redirect('/');
+			}
+		});
 });
 
 router.post('/loginVerify',function(req, res) {
@@ -182,6 +180,13 @@ router.post('/loginVerify',function(req, res) {
 
 router.get('/logout', function(req, res){
 	delete req.session.user;
+	delete req.session.order_itemID;
+	delete req.session.order_itemName;
+	delete req.session.order_itemQty;
+	delete req.session.order_itemPrice;
+	delete req.session.order_rcpt_number;
+	delete req.session.order_rcpt_number;
+	delete req.session.sub_Total;
 	req.logout();
 	res.redirect('/');
 });

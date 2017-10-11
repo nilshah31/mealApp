@@ -1,162 +1,87 @@
-
 <br />
 <div class="container">
-    <form method="post" onsubmit="return confirm('Please Note that we have only Cash on Deleivery Option, Confirming this will place the order and we will' +
-     'deliever it to your location');">
-     <input type="hidden" id="user_location" name="user_location" />
-<div class="row">
+  <form method="post" onsubmit="return confirm('Please Note that we have only Cash on Deleivery Option, Confirming this will place the order and we will' +
+    'deliever it to your location');">
+  <input type="hidden" id="user_location" name="user_location" />
+  <div class="row">
     <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
-        <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                <address>
-                    <strong>{{user.lastname}},{{user.firstname}}</strong>
-                    <br>
-                    {{user.location}}
-                    <br>
-                    {{user.city}}
-                    <br>
-                    <abbr title="Phone">P:</abbr> {{user.phone}}
-                </address>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 text-right">
-                <p>
-                    <em>Date:
-                    <script>
-                        var today = new Date();
-                        var dd = today.getDate();
-                        var mm = today.getMonth()+1;
-                        var yyyy = today.getFullYear();
-
-                        if(dd<10) {
-                            dd = '0'+dd
-                        }
-
-                        if(mm<10) {
-                            mm = '0'+mm
-                        }
-
-                        today = mm + '/' + dd + '/' + yyyy;
-                        document.write(today);
-                    </script>
-                    </em>
-                </p>
-                <p>
-                    <em>Order #: {{order_rcpt_number}}
-                    </em>
-                </p>
-            </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <address>
+            <strong>{{user.lastname}},{{user.firstname}}</strong>
+            <br>{{user.location}}<br>{{user.city}}<br>
+            <abbr title="Phone">P:</abbr> {{user.phone}}
+          </address>
         </div>
-        <div class="row">
-            <div class="text-center">
-                <h1>Receipt</h1>
-            </div>
-            </span>
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>#</th>
-                    <th class="text-center">Price</th>
-                    <th class="text-center">Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                {{#each object_item_hash}}
-                <tr>
-                    <td class="col-md-9"><em>{{order_itemName}}</em></td>
-                    <td class="col-md-1" style="text-align: center">{{order_itemQty}}</td>
-                    <td class="col-md-1 text-center">{{order_itemPrice}}</td>
-                    <td class="col-md-1 text-center">{{sub_Total}}</td>
-                </tr>
-                {{/each}}
-                <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td class="text-right">
-                        <p>
-                            <strong>Subtotal: </strong>
-                        </p>
-                        <p>
-                            <strong>Tax: </strong>
-                        </p></td>
-                    <td class="text-center">
-                        <p>
-                            <strong>{{bill_total}}</strong>
-                        </p>
-                        <p>
-                            <strong>0</strong>
-                        </p></td>
-                </tr>
-                <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                    <td class="text-center text-danger"><h4><strong>{{bill_total}}</strong></h4></td>
-                </tr>
-                </tbody>
-            </table>
-            <button type="submit" class="btn btn-success btn-lg btn-block">
-                Place Your Order   <span class="glyphicon glyphicon-chevron-right"></span>
-            </button></td>
+        <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+          <p><em>Date:
+          <script>
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1;
+            var yyyy = today.getFullYear();
+            if(dd<10) {
+              dd = '0'+dd
+            }
+            if(mm<10) {
+              mm = '0'+mm
+            }
+            today = mm + '/' + dd + '/' + yyyy;
+            document.write(today);
+          </script>
+          </em></p>
+          <p><em>Order #: {{order_rcpt_number}}</em></p>
         </div>
+      </div>
+      <div class="row">
+        <div class="text-center">
+          <h1>Receipt</h1>
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>#</th>
+              <th class="text-center">Price</th>
+              <th class="text-center">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each object_item_hash}}
+            <tr>
+              <td class="col-md-9"><em>{{order_itemName}}</em></td>
+              <td class="col-md-1" style="text-align: center">{{order_itemQty}}</td>
+              <td class="col-md-1 text-center">{{order_itemPrice}}</td>
+              <td class="col-md-1 text-center">{{sub_Total}}</td>
+            </tr>
+            {{/each}}
+            <tr>
+              <td>   </td>
+              <td>   </td>
+              <td class="text-right">
+                <p><strong>Subtotal: </strong></p>
+                <p><strong>Tax: </strong></p>
+              </td>
+              <td class="text-center">
+                <p><strong>{{bill_total}}</strong></p>
+                <p><strong>0</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td>   </td>
+              <td>   </td>
+              <td class="text-right"><h4><strong>Total: </strong></h4></td>
+              <td class="text-center text-danger">
+                <h4><strong>{{bill_total}}</strong></h4>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-success btn-lg btn-block">
+          Place Your Order   <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+      </div>
     </div>
+  </div>
+  </form>
 </div>
-</form>
-</div>
-
-<script>
-$(document).ready(function() {
-    var currgeocoder;
-
-    //Set geo location lat and long
-
-    navigator.geolocation.getCurrentPosition(function(position, html5Error) {
-
-        geo_loc = processGeolocationResult(position);
-        currLatLong = geo_loc.split(",");
-        initializeCurrent(currLatLong[0], currLatLong[1]);
-
-   });
-
-   //Get geo location result
-
-  function processGeolocationResult(position) {
-        html5Lat = position.coords.latitude; //Get latitude
-        html5Lon = position.coords.longitude; //Get longitude
-        html5TimeStamp = position.timestamp; //Get timestamp
-        html5Accuracy = position.coords.accuracy; //Get accuracy in meters
-        return (html5Lat).toFixed(8) + ", " + (html5Lon).toFixed(8);
-  }
-
-   //Check value is present or not & call google api function
-
-   function initializeCurrent(latcurr, longcurr) {
-        currgeocoder = new google.maps.Geocoder();
-        console.log(latcurr + "-- ######## --" + longcurr);
-
-        if (latcurr != '' && longcurr != '') {
-            var myLatlng = new google.maps.LatLng(latcurr, longcurr);
-            return getCurrentAddress(myLatlng);
-        }
-  }
-
-   //Get current address
-
-    function getCurrentAddress(location) {
-         currgeocoder.geocode({
-             'location': location
-
-       }, function(results, status) {
-
-           if (status == google.maps.GeocoderStatus.OK) {
-               console.log(results[0]);
-               //$("#address").html(results[0].formatted_address);
-               $("#user_location").val(results[0].formatted_address);
-           } else {
-               $("#user_location").val('Geocode was not successful for the following reason: ' + status);
-           }
-       });
-    }
-});
-
-</script>

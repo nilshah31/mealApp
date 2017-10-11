@@ -186,21 +186,43 @@ function edit_location(location_id, city, location) {
 
 //adminOrders
 
+function filterLocation()
+	{
+		var rex = new RegExp($('#filterLocation').val());
+		if(rex =="/all/"){clearFilter()}else{
+			$('.content').hide();
+			$('.content').filter(function() {
+			return rex.test($(this).text());
+			}).show();
+	}
+	}
+
+function clearFilter()
+	{
+		$('.filterLocation').val('');
+		$('.content').show();
+	}
+
 function downloadpdf() {
     document.getElementById("downloadpdf_form").submit();
 }
 
-function myFunction(index,id) {
+//Filter Table Data
+function filterOrderTableData(index,id,location) {
     var input, filter, table, tr, td, i;
     input = document.getElementById(id);
     filter = input.value.toUpperCase();
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
+    for (i = 1; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[index];
+        td1 = tr[i].getElementsByTagName("td")[4];
+
         if (td) {
             if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+              if(td1.innerHTML.toUpperCase().indexOf(location.toUpperCase()) > -1){
                 tr[i].style.display = "";
+              }
             } else {
                 tr[i].style.display = "none";
             }
@@ -208,7 +230,8 @@ function myFunction(index,id) {
     }
 }
 
-function searchTodaysOrder(index,id,id2) {
+//Filter Order Table Data
+function searchTodaysOrder(index,id,id2,location) {
     var input, filter, table, tr, td, i,td1;
     input = document.getElementById(id);
     filter = input.value.toUpperCase();
@@ -218,13 +241,22 @@ function searchTodaysOrder(index,id,id2) {
     var input1 = document.getElementById(id2);
     var filter1 = input1.value.toUpperCase();
 
-    for (i = 0; i < tr.length; i++) {
+    for (i = 1; i < tr.length; i++) {
+        var Cells = tr[i].getElementsByTagName("td");
+
         td = tr[i].getElementsByTagName("td")[index];
         td1 = tr[i].getElementsByTagName("td")[0];
+        td2 = tr[i].getElementsByTagName("td")[4];
+
         if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                if(td1.innerHTML.toUpperCase().indexOf(filter1) > -1){
+            if (td.innerText.toUpperCase().indexOf(filter) > -1) {
+                if(td1.innerText.toUpperCase().indexOf(filter1) > -1){
+                  if(td2.innerText.toUpperCase().indexOf(location.toUpperCase()) > -1){
                     tr[i].style.display = "";
+                  }
+                  else{
+                    tr[i].style.display = "none";
+                  }
                 }
                 else{
                     tr[i].style.display = "none";
@@ -454,3 +486,8 @@ $('button.newItem').click( function() {
            $("#OrderDiv").toggle();
        });
    });
+
+
+
+
+//Export to PDF Admin Order

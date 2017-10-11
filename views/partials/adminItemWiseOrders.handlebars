@@ -12,11 +12,13 @@
           <tr class="header">
             <th>Item</th>
             <th>Ordered Item</th>
+            <th>Location</th>
           </tr>
           {{#each itemList}}
           <tr>
             <td>{{name}}</td>
             <td>{{#getOrderedQnty avaible_qty initial_qty}}{{/getOrderedQnty}}</td>
+            <td>Location</td>
           </tr>
           {{/each}}
         </table>

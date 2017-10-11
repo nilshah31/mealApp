@@ -25,7 +25,7 @@ var ItemSchema = mongoose.Schema({
 		type:String
 	},
 	active:{
-		default:false,
+		default:true,
 		type:Boolean
 	}
 });
@@ -60,6 +60,13 @@ module.exports.updateItemQtyAll = function(callback){
 				Item.update({_id:results[i].id}, {$set:{avaible_qty:results[i].initial_qty}}, callback);
 			}
 		});
+}
+
+module.exports.updateItemQtyAfterCancle = function(id,newQty,callback){
+		Item.update({_id:id}, {$set:{avaible_qty:newQty}},function(err, result) {
+				if(err) throw err;
+				console.log(result);
+		},callback);
 }
 
 module.exports.updateItemDetails = function(id,item_detail,callback){

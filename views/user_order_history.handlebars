@@ -1,12 +1,23 @@
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+alert(sessionStorage.getItem( "total" ));
+</script>
+
+<div id="dialog-confirm" title="Cancle Order">
+  <p  style="float:left; margin:12px 12px 20px 0;"><span class="ui-icon ui-icon-alert"></span>  Do you want to cancle this order?</p>
+</div>
 
 <br />
 <div class="container">
     <div class="row">
-        <h1><i class="fa fa-history" aria-hidden="true"></i> ORDER HISTORY</h1><br />
-        <input type="text" id="myInput1" style="height: 30px;" onkeyup="myFunction(0,'myInput1')" placeholder="Search by Order Date" title="Type in a name">
-        <input type="text" id="myInput2" style="height: 30px;" onkeyup="myFunction(1,'myInput2')" placeholder="Search by Order Number" title="Type in a name">
+        <h2><i class="fa fa-history" aria-hidden="true"></i> ORDER HISTORY</h2>
+        <input type="text" id="myInput1" style="height: 40px;" onkeyup="myFunction(0,'myInput1')" placeholder="Search by Order Date" title="Type in a name">
+        <input type="text" id="myInput2" style="height: 40px;" onkeyup="myFunction(1,'myInput2')" placeholder="Search by Order Number" title="Type in a name">
         <form id="order_history_tbl" method="post">
             <input type='hidden' id= 'rcptnumber' name='rcptnumber' value='' />
             <div class="table-responsive">
@@ -15,19 +26,15 @@
                         <th onclick="sortTable(0)">Order Date <span class="glyphicon glyphicon-sort"></span></th>
                         <th onclick="sortTable(1)">Order Number <span class="glyphicon glyphicon-sort"></span></th>
                         <th>Item</th>
-                        <th onclick="sortTable(3)"># <span class="glyphicon glyphicon-sort"></span></th>
-                        <th onclick="sortTable(4)">Price <span class="glyphicon glyphicon-sort"></span></th>
-                        <th onclick="sortTable(5)">Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
-                        <th onclick="sortTable(6)">Status <span class="glyphicon glyphicon-sort"></span></th>
+                        <th onclick="sortTable(3)">Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
+                        <th onclick="sortTable(4)">Status <span class="glyphicon glyphicon-sort"></span></th>
                         <th>Action</th>
                     </tr>
                     {{#each object_item_hash}}
                         <tr>
                             <td>{{order_date}}</td>
                             <td>{{receipt_number}}</td>
-                            <td>{{order_itemName}}</td>
-                            <td>{{order_itemQty}}</td>
-                            <td>{{order_itemPrice}}</td>
+                            <td>{{order_itemName}}-{{order_itemQty}}</td>
                             <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
                             <td>
                               <span class="label label-info">{{status}}</span>
@@ -47,10 +54,23 @@
 
 <script>
     function submitform(rcpt_number) {
-        if(confirm("Do you want to cancle this order?")){
-            document.getElementById('rcptnumber').value = rcpt_number;
-            document.getElementById("order_history_tbl").submit();
-        }
+      $( function() {
+        $( "#dialog-confirm" ).dialog({
+          resizable: false,
+          height: "auto",
+          width: 400,
+          modal: true,
+          buttons: {
+            "Yes": function() {
+              document.getElementById('rcptnumber').value = rcpt_number;
+              document.getElementById("order_history_tbl").submit();
+            },
+            Cancel: function() {
+              $( this ).dialog( "close" );
+            }
+          }
+        });
+      } );
     }
 </script>
 <script>
@@ -175,4 +195,5 @@
     #myTable tr.header, #myTable tr:hover {
         background-color: #f1f1f1;
     }
+    #dialog-confirm { display: none }
 </style>

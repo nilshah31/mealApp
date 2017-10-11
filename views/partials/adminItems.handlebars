@@ -1,27 +1,26 @@
-<!--Item DIV -->
+
+<!--Item List DIV -->
 <div id="itemDIV">
   <div class="panel panel-default">
     <div class="panel-heading">Menu Item's</div>
     <div class="panel-body">
-
-  <form method="post" action="/update_item_status_active" style="margin:0px" id="update_item_status_active" name="update_item_status_active" return>
-    <input type="hidden" name="item_status_id_active" id="item_status_id_active" />
-  </form>
-  <form method="post" action="/update_item_status_inactive" style="margin:0px" id="update_item_status_inactive" name="update_item_status_inactive" return>
-    <input type="hidden" name="item_status_id_inactive" id="item_status_id_inactive" />
-  </form>
-  <form method="post" action="/delete_multiple_items" style="margin:0px" id="delete_multiple_item" name="delete_multiple_item">
-    <a class="btn btn-success toright" href="#" id="addItem">
-      <i class="fa fa-plus" aria-hidden="true"></i>Add Item to Catalog
-    </a>
-    <input type="hidden" name="delete_all_items_ids" id="delete_all_items_ids"/>
-    <a href="#" class="btn btn-success toright" onclick="deleteitemsAll()">
-      <i class="fa fa-times" aria-hidden="true"></i>Remove Selected
-    </a>
-  </form>
- <br />
-  <form method="post" action="/item_list_form" style="margin:0px" id="item_list_form" name="item_list_form" return>
-    <input type='hidden' id='item_ID' name="item_ID" value='' />
+      <form method="post" action="/update_item_status_active" style="margin:0px" id="update_item_status_active" name="update_item_status_active" return>
+        <input type="hidden" name="item_status_id_active" id="item_status_id_active" />
+      </form>
+      <form method="post" action="/update_item_status_inactive" style="margin:0px" id="update_item_status_inactive" name="update_item_status_inactive" return>
+        <input type="hidden" name="item_status_id_inactive" id="item_status_id_inactive" />
+      </form>
+      <form method="post" action="/delete_multiple_items" style="margin:0px" id="delete_multiple_item" name="delete_multiple_item">
+        <a class="btn btn-success toright" href="#" id="addItem">
+          <i class="fa fa-plus" aria-hidden="true"></i>Add Item to Catalog
+        </a>
+        <input type="hidden" name="delete_all_items_ids" id="delete_all_items_ids"/>
+        <a href="#" class="btn btn-success toright" onclick="deleteitemsAll()">
+          <i class="fa fa-times" aria-hidden="true"></i>Remove Selected
+        </a>
+      </form>
+      <br />
+      <input type='hidden' id='item_ID' name="item_ID" value='' />
       <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:90%">
         <tr>
           <th><input type="checkbox" id="checkAllItems" name="checkAllItems" /></th>
@@ -46,87 +45,84 @@
           <td><img src='{{item_image_path}}' alt="Menu Item" height="42" width="42"></td>
           <td>{{category}}</td>
           <td>
-            {{#checkItemActive active}}
-              <a class="btnEdit" href='#' onclick="edit_item_status_inactive('{{_id}}')">Inactive</a>
-            {{else}}
-              <a class="btnEdit" href='#' onclick="edit_item_status_active('{{_id}}')">Active</a>
-            {{/checkItemActive}}
+          <select width="50%" id="multicheckboxLocation" value={{_id}} name="{{_id}}" multiple="multiple" class="4colactive">
+          </select>
+          </td>
+          <td style="text-align:center;">
+            <a class="btnEdit" href="#" id="editItem"
+               onclick="edit_item('{{_id}}','{{name}}','{{description}}','{{price}}','{{initial_qty}}','{{item_image_path}}')">
+            <i class="fa fa-edit fa-2x" title="Edit Item Detail"></i>
+            </a>
           </td>
           <td>
-            <div class="link_edit">
-              <a class="btnEdit" href="#" id="editItem"
-                 onclick="edit_item('{{_id}}','{{name}}','{{description}}','{{price}}','{{initial_qty}}','{{item_image_path}}')">
-                <i class="fa fa-edit" title="Edit Item Detail"></i>
-               </a>
-            </div>
-          </td>
-          <td>
-            <div class="link_delete"><a href="#" onclick="delete_item('{{_id}}')">
-              <i class="fa fa-remove" title="Delete Menu Item"></i>
-            </a></div>
+            <a class="btnEdit" href="#" onclick="deleteItem(this,'{{_id}}')"><i  class="fa fa-times fa-2x"></i></a>
           </td>
         </tr>
         {{/each}}
-        </table>
-    </form>
+      </table>
+    </div>
+  </div>
 </div>
-</div>
-</div>
+
 <!-- New Item Form -->
 <div id="itemModal" class="modal">
-    <div class="item-modal-content">
-        <span class="close">&times;</span>
-        <h1>New Item</h1>
-        <form method="post" name="itemForm" action="/newItem" class="newItem" enctype="multipart/form-data">
-            <fieldset>
-                <label for="category">Select Category : </label>
-                <input name="category" type="radio" id="category" value="Veg" required>Veg
-                <input name="category" type="radio" id="category" value="Non-Veg" required>Non-Veg
-                <br />
-                <label for="name">Name : </label>
-                <input type="text" name="itemNameTxtBox" id="itemNameTxtBox" required>
-                <label for="descript ion">Description : </label>
-                <input type="text" name="descTxtBox" id="descTxtBox" required>
-                <label for="price">Price : </label>
-                <input type="text" name="priceTxtBox"  pattern="\d*" id="priceTxtBox" required>
-                <label for="initial_qty">Initial Quantity : </label>
-                <input type="text" name="inititalQtyTxtBox"  pattern="\d*" id="inititalQtyTxtBox" required>
-                <br />
-                <label for="item_img">Image : </label>
-                <input type="file" accept="image/*" name="item_img" required>
-                <br />
-                <input type="submit" class="item-modal-content-submit bg-green newItem">
-            </fieldset>
-        </form>
-    </div>
+  <div class="item-modal-content">
+    <span class="close">&times;</span>
+    <h1>New Item</h1>
+    <form method="post" name="itemForm" action="/newItem" class="newItem" enctype="multipart/form-data">
+      <fieldset>
+        <label class="radio-inline">
+          <input class="radio-inline" name="category" type="radio" id="category" value="Veg" required>
+          Veg
+        </label>
+        <label class="radio-inline">
+          <input class="radio-inline" name="category" type="radio" id="category" value="Non-Veg" required>
+          Non-Veg
+        </label>
+        <br /><br />
+        <label for="name">Name : </label>
+        <input type="text" name="itemNameTxtBox" id="itemNameTxtBox" required>
+        <label for="descript ion">Description : </label>
+        <input type="text" name="descTxtBox" id="descTxtBox" required>
+        <label for="price">Price : </label>
+        <input type="text" name="priceTxtBox"  pattern="\d*" id="priceTxtBox" required>
+        <label for="initial_qty">Initial Quantity : </label>
+        <input type="text" name="inititalQtyTxtBox"  pattern="\d*" id="inititalQtyTxtBox" required>
+        <br />
+        <label for="item_img">Image : </label>
+        <input type="file" accept="image/*" name="item_img" required>
+        <br />
+        <input type="submit" class="item-modal-content-submit bg-green newItem">
+      </fieldset>
+    </form>
+  </div>
 </div>
 
 <!-- Edit Item Form -->
 <div id="editItemModal" class="modal">
-    <div class="item-modal-content">
-        <span class="close">&times;</span>
-        <h1>Edit Item</h1>
-        <form method="post" name="edititemForm" action="/editItem" class="newItem" enctype="multipart/form-data">
-            <fieldset>
-                <input type="hidden" name="editItemId" id="editItemId" />
-                <label for="editcategory">Select Category : </label>
-                <input name="editcategory" type="radio" id="editcategory" value="Veg" required>Veg
-                <input name="editcategory" type="radio" id="editcategory" value="Non-Veg" required>Non-Veg
-                <br />
-                <label for="name">Name : </label>
-                <input type="text" name="edititemNameTxtBox" id="edititemNameTxtBox" required>
-                <label for="descript ion">Description : </label>
-                <input type="text" name="editdescTxtBox" id="editdescTxtBox" required>
-                <label for="price">Price : </label>
-                <input type="text" name="editpriceTxtBox" id="editpriceTxtBox" required>
-                <label for="initial_qty">Initial Quantity : </label>
-                <input type="text" name="editinititalQtyTxtBox" id="editinititalQtyTxtBox" required>
-
-                <label for="item_img">Image : </label>
-                <input type="file" accept="image/*" name="edit_item_img" required>
-                <br />
-                <input type="submit" class="item-modal-content-submit newItem">
-            </fieldset>
-        </form>
-    </div>
+  <div class="item-modal-content">
+    <span class="close">&times;</span>
+    <h1>Edit Item</h1>
+    <form method="post" name="edititemForm" action="/editItem" class="newItem" enctype="multipart/form-data">
+      <fieldset>
+        <input type="hidden" name="editItemId" id="editItemId" />
+        <label for="editcategory">Select Category : </label>
+        <input name="editcategory" type="radio" id="editcategory" value="Veg" required>Veg
+        <input name="editcategory" type="radio" id="editcategory" value="Non-Veg" required>Non-Veg
+        <br />
+        <label for="name">Name : </label>
+        <input type="text" name="edititemNameTxtBox" id="edititemNameTxtBox" required>
+        <label for="descript ion">Description : </label>
+        <input type="text" name="editdescTxtBox" id="editdescTxtBox" required>
+        <label for="price">Price : </label>
+        <input type="text" name="editpriceTxtBox" id="editpriceTxtBox" required>
+        <label for="initial_qty">Initial Quantity : </label>
+        <input type="text" name="editinititalQtyTxtBox" id="editinititalQtyTxtBox" required>
+        <label for="item_img">Image : </label>
+        <!--<input type="file" accept="image/*" name="edit_item_img" required>-->
+        <br />
+        <input type="submit" class="item-modal-content-submit newItem">
+      </fieldset>
+    </form>
+  </div>
 </div>

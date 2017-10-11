@@ -17,13 +17,10 @@
 </head>
 <body>
 
-<div class="logo_products">
+<script>
 
-<!--  <div class="w3ls_logo_products_left1" style="margin-right:0%">
-    <ul class="phone_email">
-      <li><i class="fa fa-phone" aria-hidden="true"></i>Order online or call us : (+0123) 234 567</li>
-    </ul>
-  </div>-->
+</script>
+<div class="logo_products">
   {{#checkUserIsAdmin user}}
   {{else}}
         <div class="w3ls_logo_products_left">
@@ -48,8 +45,8 @@
                     <a href="/users/register" style="float: right;margin-top:10px;margin-right: 1%">Sign Up Here</a>
                 </form>
             </div>
+            <br />
         {{/if}}
-        <br />
     <div class="clearfix"> </div>
 </div>
 
@@ -175,6 +172,8 @@ $(".alert").fadeTo(2000, 500).slideUp(500, function(){
       $(".alert").alert('close');
   });
 </script>
+
+
 
 <script>
 startTime();

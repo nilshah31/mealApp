@@ -1,65 +1,68 @@
-<!--Item DIV -->
+<!--Admin Order DIV -->
 <div id="OrderDiv">
   <div class="panel panel-default">
     <div class="panel-heading">
       <i class="fa fa-history" aria-hidden="true"></i> ORDER HISTORY
     </div>
     <div class="panel-body" style="padding-left:5em;">
-
-  {{#if object_item_hash}}
-    <div class="row">
-      <input type="text" id="myInput1" onkeyup="myFunction(0,'myInput1')" placeholder="Search by Order Date" title="Type in a name">
-      <input type="text" id="myInput2" onkeyup="myFunction(1,'myInput2')" placeholder="Search by Order Number" title="Type in a name">
-      <br />
-      <input type="hidden" id="myInput3" value="">
-      <input type="hidden" id="myInput4" value="">
-      <input type="hidden" id="myInput5" value="">
-      <input type="hidden" id="myInput6" value="">
-      <form id="downloadpdf_form" action="/print_del_report">
-        <a onclick="downloadpdf()">Download Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="#" onclick="myFunction(0,'myInput5')">All Order's</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      </form>
-      <br />
-      <a href="#" onclick="searchTodaysOrder(6,'myInput6','myInput3')">Today's Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <a href="#" id="viewAllItemOrderTable" >Item Wise Order(Today)</a>&nbsp;&nbsp;
-      <a href="#" onclick="searchTodaysOrder(6,'myInput4','myInput3')">Today's Cancel Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <div class="table-responsive">
-        <table id="myTable" style="width:70%">
-          <tr class="header">
-            <th onclick="sortTable(0)">Order Date <span class="glyphicon glyphicon-sort"></span></th>
-            <th onclick="sortTable(1)">Order Number <span class="glyphicon glyphicon-sort"></span></th>
-            <th>Item</th>
-            <th onclick="sortTable(3)"># <span class="glyphicon glyphicon-sort"></span></th>
-            <th onclick="sortTable(4)">Price <span class="glyphicon glyphicon-sort"></span></th>
-            <th onclick="sortTable(5)">Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
-            <th onclick="sortTable(6)">Status <span class="glyphicon glyphicon-sort"></span></th>
-            <th></th>
-          </tr>
-          {{#each object_item_hash}}
-          <tr>
-            <td>{{order_date}}</td>
-            <td>{{receipt_number}}</td>
-            <td>{{order_itemName}}</td>
-            <td>{{order_itemQty}}</td>
-            <td>{{order_itemPrice}}</td>
-            <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
-            <td><span class="label label-info">{{status}}</span></td>
-<td>
-            <div class="link_edit">
-              <a class="btnEdit" href="#" id="editOrderStatus">
-                <i class="fa fa-edit" title="Change Status"></i>
-               </a>
-            </div>
-</td>
-          </tr>
+      {{#if object_item_hash}}
+      <!-- Order List Table -->
+      <div class="row">
+        <input type="text" id="myInput1" style='width:20%;' placeholder="Search by Order Date">
+        <input type="text" id="myInput2" style='width:20%;' placeholder="Search by Order Number">
+        <select id='filterLocation' name='filterLocation' style='width:30%;height:46px;' onchange='filterLocation()'>
+          {{#each locationList}}
+            <option value='{{company}},{{city}}'>{{company}},{{city}}</option>
           {{/each}}
-        </table>
-        <br />
+        </select>
+        <select style='width:20%;height:46px;' id='filterOrderTableWithOption'>
+          <option selected value="0">All Order's</option>
+          <option value="1">Today's Order</option>
+          <option value="2">Today's Cancel Order</option>
+          <option value="3">Item Wise Order(Today)</option>
+        </select>
+        <input type="hidden" id="myInput3" value="">
+        <input type="hidden" id="myInput4" value="">
+        <input type="hidden" id="myInput5" value="">
+        <input type="hidden" id="myInput6" value="">
+        <a  href="#" id='exportButton' class='exportButton btn btn-success btn-lg' name='exportButton'>
+          <span class="glyphicon glyphicon-download-alt" style="color:white"></span>
+        </a>
+        <div class="table-responsive">
+          <table title="My Table" id="myTable" name="myTable" style="width:70%" class="table table-bordered table-hover">
+            <tr class="header">
+              <th onclick="sortTable(0)" data-tableexport-display="none">Order Date <span class="glyphicon glyphicon-sort"></span></th>
+              <th onclick="sortTable(1)" style="width:20%;">Order Number <span class="glyphicon glyphicon-sort"></span></th>
+              <th style="width:15%;">Name</th>
+              <th style="width:20%;">Menu</th>
+              <th onclick="sortTable(4)" style="width:20%;">Address</th>
+              <th style="display:none;" data-tableexport-display="always">Order Location</th>
+              <th>Phone Number</th>
+              <th style="width:15%;" onclick="sortTable(7)">Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
+              <th onclick="sortTable(8)" data-tableexport-display="none">Status <span class="glyphicon glyphicon-sort"></span></th>
+            </tr>
+            {{#each object_item_hash}}
+            <tr class="content">
+              <td data-tableexport-display="none">{{order_date}}</td>
+              <td>{{receipt_number}}</td>
+              <td>{{user_firstName}}</td>
+              <td>{{order_itemName}}-{{order_itemQty}}</td>
+              <td>{{delivery_address}}</td>
+              <td style="display:none;" data-tableexport-display="always">{{order_from_location}}</td>
+              <td>{{phone_number}}</td>
+              <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
+              <td data-tableexport-display="none"><span class="label label-info">{{status}}</span></td>
+            </tr>
+            {{/each}}
+          </table>
+          <br />
+        </div>
       </div>
+      <!--/Orderlist Table-->
+      {{else}}
+        <h1><span class="glyphicon glyphicon-star-empty">No Order Placed Yet</span></h1>
+      {{/if}}
     </div>
-    {{else}}
-      <h1><span class="glyphicon glyphicon-star-empty"> No Order Placed Yet</span></h1>
-  {{/if}}
+  </div>
 </div>
-</div>
-</div>
+<!--/Closing Admin Order DIV-->

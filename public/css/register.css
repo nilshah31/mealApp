@@ -1,0 +1,21 @@
+#site-footer {
+    height: 50px;
+    background: Black;
+    color: white;
+}
+#footer1{
+    margin-left:2%;
+    float:left;
+
+}
+#footer2{
+    margin-right:2%;
+    float:right;
+}
+@media (min-width: 768px) {
+    .navbar-nav.navbar-center {
+        position: absolute;
+        left: 50%;
+        transform: translatex(-50%);
+    }
+}

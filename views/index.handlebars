@@ -1,265 +1,20 @@
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
-<style>
-#timeing{font-family: "Lato",verdana,sans-serif; font-size: 14px;font-weight: bold; padding: 9px 0;color: white;}
-  .topright {
-    position: relative;
-    top: 8px;
-    right: 0px;
-    background-color: green;
-    width: 20%;
-    color: white;
-    border-radius: 0px 5px 10px 0px;
-    padding-left: 3px;
-  }
-  .panel{
-    margin-top: 1px;
-    width: 68%;
-  }
-</style>
-
-<style>
-    th, td {
-        text-align: justify;
-        padding: 0px;
-    }
-    tr:nth-child(odd){}
-    tr:nth-child(even){}
-
-    th {
-        background-color: #4CAF50;
-        color: white;
-    }
-</style>
-<style>
-    .customAlert {
-        display: none;
-        position: fixed;
-        max-width: 25%;
-        min-width: 250px !important;
-        min-height: 20%;
-        height: 200px;
-        left: 50%;
-        top: 50%;
-        padding: 10px;
-        box-sizing: border-box;
-        margin-left: -12.5%;
-        margin-top: -5.2%;
-        background: #088A68;
-    }
-    @media all and (max-width: 1300px){
-        .message{
-            font-size: 14px !important;
-        }
-        input[type='button']{
-            height: 15% !important;
-        }
-    }
-
-    .message{
-        padding: 5px;
-        color: white;
-        font-size: 14px;
-        line-height: 20px;
-        text-align: justify;
-    }
-
-    .custmMessageClassButton{
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        width: 50%;
-        height: 36px;
-        margin-top: -45px;
-        margin-left: -25%;
-        outline: 0;
-        border: 0;
-        background: #04B486;
-        color: white;
-    }
-    /*  &:hover{
-           transition: 0.3s;
-           cursor: pointer;
-           background: lighten(#04B486, 5%);
-       }
-  */
-
-    .rab{
-        width: 200px;
-        height: 30px;
-        outline: 0;
-        border: 0;
-        color: white;
-        background: #04B486;
-    }
-
-    @keyframes fadeOut{
-        from{
-            opacity: 1;
-        }
-        to{
-            opacity: 0;
-        }
-    }
-
-    @keyframes fadeIn{
-        from{
-            opacity: 0;
-        }
-        to{
-            opacity: 1;
-        }
-    }
-</style>
-<style>
-    .productbox {
-        background-color:#ffffff;
-        padding:10px;
-        margin-bottom:10px;
-        -webkit-box-shadow: 0 8px 6px -6px  #999;
-        -moz-box-shadow: 0 8px 6px -6px  #999;
-        box-shadow: 0 8px 6px -6px #999;
-    }
-
-    .producttitle {
-        font-weight:bold;
-        padding:5px 0 5px 0;
-    }
-
-    .productprice {
-        border-top:1px solid #dadada;
-        padding-top:5px;
-    }
-
-    .pricetext {
-        font-weight:bold;
-        font-size:1.4em;
-    }
-</style>
-<style>
-    .addvertise_div{
-      position: fixed;
-      top: 27%;
-      width: 15em;
-      height: 40%;
-      margin-top: 0em;
-      margin-left: 5%;
-      padding-top: 0em;
-      padding-left: 0.5em;
-      padding-bottom: 0.5em;
-      border-right-color: #0f0f0f;
-      border-style:solid;
-    }
-    #cart_order_div {
-        position: fixed;
-        right: 13%;
-        top: 27%;
-        width: 19em;
-        margin-top: 0em;
-        background-color:  #ffffb3;
-        padding-top: 0em;
-        padding-left: 0.5em;
-        padding-bottom: 0.5em;
-        border-right-color: #0f0f0f;
-        border-right-style:solid;
-    }
-    #order_cart_value {
-        background-color:  #ffffb3;
-    }
-    .blackColorIcon {
-        color: #727272;
-    }
-    .itemPanel{
-        margin-top: -50px;
-        margin-left: 13%;
-    }
-</style>
-
-<style>
-    #work-in-progress {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        font-size: 150px;
-        text-align: center;
-        vertical-align: middle;
-        color: #000000;
-        z-index: 200000;
-        background-color: #FFFFFF;
-    }
-
-    .work-spinner {
-        background-color: rgba(0,0,0,0);
-        border: 9px solid rgba(27,61,226,0.9);
-        opacity: .9;
-        border-left: 5px solid rgba(0,0,0,0);
-        border-radius: 120px;
-        -webkit-box-shadow: 0 0 35px #1B3DE2;
-        box-shadow: 0 0 35px #1B3DE2;
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-        -moz-animation: spin .5s infinite linear;
-        -webkit-animation: spin .5s infinite linear;
-        -o-animation: spin .5s infinite linear;
-        animation: spin .5s infinite linear;
-    }
-    @-moz-keyframes spin {
-        from {
-            -moz-transform: rotate(0deg);
-        }
-        to {
-            -moz-transform: rotate(360deg);
-        }
-    }
-
-    @-webkit-keyframes spin {
-        from {
-            -webkit-transform: rotate(0deg);
-        }
-        to {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
-    @-o-keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
-</style>
-
 
 <!--ProgressBar-->
 <div id="work-in-progress">
     <div class="work-spinner"></div>
 </div>
-
 <script>
-    $(window).bind("load", function () {
+  $(window).bind("load", function () {
         $('#work-in-progress').fadeOut(100);
-    });
+  });
 </script>
 <!--ProgressBar-->
 <br /><br /><br />
 <div class="container" >
-
-
 </div>
-
-
 
 <div class="itemPanel">
   <!--Flash Message-->
@@ -278,341 +33,131 @@
   {{/if}}
 
 
-    <form action="" onsubmit="return false">
-        <div>
-        <div class="row">
-            {{#if itemList}}
-                {{#startItemLayoutCounter}}{{/startItemLayoutCounter}}
-                {{#each itemList}}
-                {{#checkItemActive active}}
-                    {{#ifCustomize}}
-                        <div class="col-sm-2 column" style="width:17%;margin-left:2%;margin-right:-7%;">
-                            <div class="panel panel-success" style="background-color: white;height:auto;min-height:15.5em;">
-                              <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
-                                  <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
-                              </div>
-                                <input type="hidden" name="item_name" value='{{name}}'>
-                                <input type="hidden" name="item_price" value='{{price}}'>
-                                <input type="hidden" name="item_id" value='{{id}}'>
-                                <input type="hidden" name="avble_qty" value='{{avaible_qty}}'>
-                                <div class="panel-body" style="padding:5px;5px;">
-                                    <img src="{{item_image_path}}" style="border-radius:50%;box-shadow:0 0 2px 2px #bec0bf;height:100px;width:124px" alt="Image">
-                                </div>
-                                <div class="panel-footer" style="background-color: white">
-                                    {{name}}<br />
-                                    <i class="fa fa-inr"></i>&nbsp;{{price}}
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    {{#checkAvableQty avaible_qty}}
-                                        <input type="submit"
-                                               class="add_to_cart_btn add_to_cart btn btn-success"
-                                               value="+"
-                                               style="text-align:center;padding:2px 12px 12px 12px;font-size:20px;"
-                                               onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1',{{avaible_qty}})"
-                                        />
-                                    {{else}}
-                                        <input type="submit"
-                                               class="btn"
-                                               value="SOLD OUT"
-                                               onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
-                                               disabled
-                                        />
-                                    {{/checkAvableQty}}
-                                </div>
-                            </div>
-                        </div>
-                    {{else}}
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-2 column" style="width:17%;margin-left:2%;margin-right:-7%;">
-                          <div class="panel panel-success" style="background-color: white;min-height:15.5em;">
-                            <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
-                                <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
-                            </div>
-                              <input type="hidden" name="item_name" value='{{name}}'>
-                              <input type="hidden" name="item_price" value='{{price}}'>
-                              <input type="hidden" name="item_id" value='{{id}}'>
-                              <input type="hidden" name="avble_qty" value='{{avaible_qty}}'>
-                              <div class="panel-body" style="padding:5px;5px;">
-                                  <img src="{{item_image_path}}" style="border-radius:50%;box-shadow:0 0 2px 2px #bec0bf;height:100px;width:124px" alt="Image">
-                              </div>
-                              <div class="panel-footer" style="background-color: white">
-                                {{name}}<br />
-                                <i class="fa fa-inr"></i>&nbsp;{{price}}
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                {{#checkAvableQty avaible_qty}}
-                                    <input type="submit"
-                                           class="add_to_cart_btn add_to_cart btn btn-success"
-                                           value="+"
-                                           style="text-align:center;padding:2px 12px 12px 12px;font-size:20px;"
-                                           onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1',{{avaible_qty}})"
-                                    />
-                                {{else}}
-                                    <input type="submit"
-                                           class="btn"
-                                           onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
-                                           value="SOLD OUT"
-                                           disabled
-                                    />
-                                {{/checkAvableQty}}
-                              </div>
-                          </div>
-                      </div>
-                      {{resetCounterVariable}}
-                    {{/ifCustomize}}
-                    {{#incrementCounterVariable}}{{/incrementCounterVariable}}
-                    {{/checkItemActive}}
-                {{/each}}
-            {{else}}
-                <h1>OOPS! We don't have anything added!</h1>
-                <br /><br /><br /><br /><br />
-            {{/if}}
-        </div>
-            {{resetCounterVariable}}
-        </div>
-    </form>
-    <form id="order_cart_form" class="order_place" method="post">
-        <div id="cart_order_div" class="cart_order_div">
-            <h5><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;YOUR ORDER</h5>
-            <div id="order_cart_value">
-                <!--cart contents-->
+  <form action="" onsubmit="return false">
+    <div>
+      <div class="row">
+      {{#if itemList}}
+        {{#startItemLayoutCounter}}{{/startItemLayoutCounter}}
+          {{#each itemList}}
+            {{#checkItemActive active}}
+              {{#ifCustomize}}
+              <div class="col-sm-2 column" style="width:17%;margin-left:2%;margin-right:-7%;">
+                <div class="panel panel-success" style="background-color: white;height:auto;min-height:15.5em;">
+                  <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
+                    <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
+                  </div>
+
+                  <input type="hidden" name="item_name" value='{{name}}'>
+                  <input type="hidden" name="item_price" value='{{price}}'>
+                  <input type="hidden" name="item_id" value='{{id}}'>
+                  <input type="hidden" name="avble_qty" value='{{avaible_qty}}'>
+                  <div class="panel-body" style="padding:5px;5px;">
+                    <img src="{{item_image_path}}" style="border-radius:50%;box-shadow:0 0 2px 2px #bec0bf;height:100px;width:124px" alt="Image">
+                  </div>
+                  <div class="panel-footer" style="background-color: white">
+                    {{name}}<br />
+                  <i class="fa fa-inr"></i>&nbsp;{{price}}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  {{#checkAvableQty avaible_qty}}
+                    <input type="submit"
+                      class="add_to_cart_btn add_to_cart btn btn-success"
+                      value="+"
+                      style="text-align:center;padding:2px 12px 12px 12px;font-size:20px;"
+                      onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1',{{avaible_qty}})"
+                    />
+                  {{else}}
+                    <input type="submit"
+                      class="btn"
+                      value="SOLD OUT"
+                      onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
+                      disabled
+                    />
+                  {{/checkAvableQty}}
+                </div>
+              </div>
             </div>
-        </div>
-    </form>
-    <div class='customAlert'>
-        <p class='message'></p>
-        <input type='button' class='confirmButton custmMessageClassButton' value='Ok'>
+            {{else}}
+              </div>
+              <div class="row">
+              <div class="col-sm-2 column" style="width:17%;margin-left:2%;margin-right:-7%;">
+                <div class="panel panel-success" style="background-color: white;min-height:15.5em;">
+                  <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
+                    <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
+                  </div>
+                  <input type="hidden" name="item_name" value='{{name}}'>
+                  <input type="hidden" name="item_price" value='{{price}}'>
+                  <input type="hidden" name="item_id" value='{{id}}'>
+                  <input type="hidden" name="avble_qty" value='{{avaible_qty}}'>
+                  <div class="panel-body" style="padding:5px;5px;">
+                    <img src="{{item_image_path}}" style="border-radius:50%;box-shadow:0 0 2px 2px #bec0bf;height:100px;width:124px" alt="Image">
+                  </div>
+                  <div class="panel-footer" style="background-color: white">
+                    {{name}}<br />
+                  <i class="fa fa-inr"></i>&nbsp;{{price}}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  {{#checkAvableQty avaible_qty}}
+                    <input type="submit"
+                      class="add_to_cart_btn add_to_cart btn btn-success"
+                      value="+"
+                      style="text-align:center;padding:2px 12px 12px 12px;font-size:20px;"
+                      onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1',{{avaible_qty}})"
+                    />
+                  {{else}}
+                    <input type="submit"
+                      class="btn"
+                      onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
+                      value="SOLD OUT"
+                      disabled
+                    />
+                  {{/checkAvableQty}}
+                </div>
+              </div>
+            </div>
+            {{resetCounterVariable}}
+          {{/ifCustomize}}
+          {{#incrementCounterVariable}}{{/incrementCounterVariable}}
+        {{/checkItemActive}}
+      {{/each}}
+      {{else}}
+        <h1>OOPS! We don't have anything added!</h1>
+        <br /><br /><br /><br /><br />
+      {{/if}}
     </div>
+    {{resetCounterVariable}}
+  </div>
+  </form>
+
+<form id="order_cart_form" class="order_place" method="post">
+  <div id="cart_order_div" class="cart_order_div">
+    <h5><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;YOUR ORDER</h5>
+    <div id="order_cart_value">
+      <!--cart contents-->
+    </div>
+  </div>
+</form>
+
+<div class='customAlert'>
+  <p class='message'></p>
+  <input type='button' class='confirmButton custmMessageClassButton' value='Ok'>
 </div>
 
-<script>
-    var order_object = [];
-    var total = 0;
-    var loged_user = '{{user}}';
-    var sub_total=0;
-    var isLocationAvaible = {{isLocationAvaible}};
-    if(checkTime()) {
-        document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Ordering starts from <br />LUNCH --- 9:00 AM to 11:30 AM <br />DINNER --- 5:00 PM to 7:00 PM</div>";
-        var all_btns = document.getElementsByClassName("add_to_cart_btn")
-        for(var i=0, len=all_btns.length; i<len; i++){
-            all_btns[i].disabled=true;
-        }
-    }
-    else{
-        if(order_object.length==0){
-            document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Please add items to your order</div>";
-        }
-    }
-    if(isLocationAvaible==false){
-        document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>We have stopped delevery at your location, Kindly update your profile" +
-                 "</div>";
-        var all_btns = document.getElementsByClassName("add_to_cart_btn")
-        for(var i=0, len=all_btns.length; i<len; i++)
-        {
-            all_btns[i].disabled=true;
-        }
-    }
-    if(loged_user==''){
-        document.getElementById("order_cart_value").innerHTML = " <div class=\'panel-body\'>Please Log in To start placing order</div>";
-        var all_btns = document.getElementsByClassName("add_to_cart_btn")
-        for(var i=0, len=all_btns.length; i<len; i++)
-        {
-            all_btns[i].disabled=true;
-        }
-    }
-    function check_cart_value(price) {
-        if((parseInt(price)+parseInt(sub_total))<=250){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+</div> <!--/Item Div-->
 
-    function addItemtoCart(id,name,price,qty,avaible_qty) {
-        if(check_cart_value(price)){
-            if(checkTime()){
-                var currentCallback;
-                // override default browser alert
-                window.alert = function(msg, callback){
-                    $('.message').text(msg);
-                    $('.customAlert').css('animation', 'fadeIn 0.3s linear');
-                    $('.customAlert').css('display', 'inline');
-                    currentCallback = callback;
-                }
-                $(function(){
-                    // add listener for when our confirmation button is clicked
-                    $('.confirmButton').click(function(){
-                        $('.customAlert').css('animation', 'fadeOut 0.3s linear');
-                        setTimeout(function(){
-                            $('.customAlert').css('display', 'none');
-                            $('.customAlert').css('animation', 'none');
-                            }, 300);
-                    })
-                    currentCallback();
-                    alert("We are Closed now, but still you can place your order in advance for your next Meal!", function(){
-                         console.log("Callback executed");
-                    })
-                    // our custom alert box
-                    setTimeout(function() {
-                    });
-                });
-             }
-             newItemobject = { "ID": id, "Name": name, "Price": price,"Qty": qty,"SubTotal": parseInt(price)*parseInt(qty),"avaible_qty":parseInt(avaible_qty) };
-             temp = check_item_already_exist(id)
-             if(temp!=-1)
-                add_quintity(temp, avaible_qty,price);
-             else
-                addItemToOrder(newItemobject);
-            avlb_qty_value = document.getElementById("AVBLQTYSPAN"+String(id));
-            if(parseInt(avlb_qty_value.innerHTML)>0)
-                avlb_qty_value.innerHTML = parseInt(avlb_qty_value.innerHTML)-1;
-        }
-         else {
-             alert("You can place order upto 250rs");
-         }
-     }
-
-     function checkTime() {
-         var today=new Date();
-         var h=today.getHours();
-         if(((h>= 9) && (h<=12)) || ((h>= 17) && (h<=19))){
-            return false;
-         }
-         else{
-             return false;
-         }
-     }
-
-     function  addItemToOrder(newItemobject) {
-         order_object.push(newItemobject);
-         add_item_to_cart();
-     }
-
-     function check_item_already_exist(id){
-         for(i=0;i<order_object.length;i++){
-            if(order_object[i].ID==id){
-                return i;
-            }
-         }
-         return -1;
-     }
-
-     function add_item_to_cart() {
-         sub_total=0;
-         sessionStorage.order_object = order_object;
-         document.getElementById("order_cart_value").innerHTML="";
-
-         document.getElementById("order_cart_value").innerHTML += ""+
-                 "<table id='order_cart_table' class='table' style='font-size:75%'>" +
-                 "<tr>" +
-                    "<th></th>" +
-                    "<th></th>" +
-                    "<th></th>" +
-                 "</tr></table>";
-
-         for(i=0;i<=order_object.length-1;i++){
-
-             var table = document.getElementById("order_cart_table");
-             var row = table.insertRow(i+1);
-             var cell1 = row.insertCell(0);
-             var cell2 = row.insertCell(1);
-             var cell3 = row.insertCell(2);
-             var cell4 = row.insertCell(3);
-             cell1.innerHTML = order_object[i].Name+"<input type='hidden' value='"+order_object[i].Name+"' name='itemName' />"+
-                     "<br /><a href='#' onclick='add_quintity("+i+","+order_object[i].avaible_qty+","+order_object[i].Price+")'><span class='icon-2x blackColorIcon icon-plus-sign'></span></a>" +
-                     "<a href='#' onclick='reduce_quintity("+i+")'><span class='icon-2x blackColorIcon icon-minus-sign'></span></a>" +
-                     "<input type='hidden' value='"+order_object[i].ID+"' name='itemID' />";
-             cell2.innerHTML = order_object[i].Qty+"<input type='hidden' value='"+order_object[i].Qty+"' name='itemQty' />&nbsp;X&nbsp;" +
-                     order_object[i].Price+"<input type='hidden' value='"+order_object[i].Price+"' name='itemPrice' />";
-             cell3.innerHTML = parseInt(order_object[i].Price)*parseInt(order_object[i].Qty);
-             cell4.innerHTML = "<a href='#' onclick='removeItemFromCart("+i+")'><i class='icon-remove fa-3x'></i></a>";
-             sub_total += parseInt(cell3.innerHTML);
-         }
-
-         var table = document.getElementById("order_cart_table");
-         var row = table.insertRow(order_object.length+1);
-         var cell1 = row.insertCell(0);
-         var cell2 = row.insertCell(1);
-         var cell3 = row.insertCell(2);
-
-         cell2.innerHTML = "Sub Total";
-         cell3.innerHTML = sub_total;
-
-         var table = document.getElementById("order_cart_table");
-
-         var row = table.insertRow(order_object.length+2);
-         var cell1 = row.insertCell(0);
-         var cell2 = row.insertCell(1);
-         var cell3 = row.insertCell(2);
-
-         cell2.innerHTML = "Tax";
-         cell3.innerHTML = '0';
-
-         var table = document.getElementById("order_cart_table");
-
-         var row = table.insertRow(order_object.length+3);
-         var cell1 = row.insertCell(0);
-         var cell2 = row.insertCell(1);
-         var cell3 = row.insertCell(2);
-
-         cell2.innerHTML = "Grand Total";
-         cell3.innerHTML = sub_total;
-
-         document.getElementById("order_cart_value").innerHTML +="" +
-                 "<input type='button' class='btn btn-success' style='height: 3em;' onclick='submitform()' " +
-                 "value='Process to Checkout' />";
-     }
-</script>
-
+<br /><br /><br /><br /><br /><br /><br />
 
 <script>
-    function submitform() {
-        sessionStorage.myvar = document.getElementsByName("itemName[]");
-        document.getElementById("order_cart_form").submit();
-    }
+order_object = [];
+total = 0;
+{{#if user}}
+  loged_user = '{{user.firstname}}';
+  user_limit = {{user.avaible_limit}};
+{{else}}
+  logged_user = false;
+  user_limit = 0;
+{{/if}}
+sub_total= 0;
+isLocationAvaible = {{isLocationAvaible}};
 </script>
 
-<script>
-    function check_order_location(){
-        if(order_location_avbl)
-            return true;
-        else
-            return false;
-    }
-
-    function add_quintity(index,avbl_qnty,price){
-        if((parseInt(price)+parseInt(sub_total))<=250){
-            order_object[index].Qty = parseInt(order_object[index].Qty);
-            if (order_object[index].Qty < avbl_qnty)
-                order_object[index].Qty += 1;
-            add_item_to_cart();
-        }
-        else{
-            alert("You can order upto 250rs")
-        }
-    }
-    function reduce_quintity(index){
-        order_object[index].Qty = parseInt(order_object[index].Qty);
-        order_object[index].Qty-=1;
-        if(order_object[index].Qty==0) {
-            sub_total = parseInt(sub_total)-(parseInt(order_object[index].Price)*parseInt(order_object[index].Qty));
-            order_object.splice(index, 1);
-        }
-        if(order_object.length==0){
-            sub_total = 0;
-            document.getElementById("order_cart_value").innerHTML = " <div>Please add items to your order</div>";
-          }
-        else{
-          sub_total = parseInt(sub_total)-(parseInt(order_object[index].Price));
-          add_item_to_cart();
-          }
-    }
-    function removeItemFromCart(index) {
-        sub_total = parseInt(sub_total)-(parseInt(order_object[index].Price)*parseInt(order_object[index].Qty));
-        order_object.splice(index, 1);
-        if(order_object.length==0)
-            document.getElementById("order_cart_value").innerHTML = " <div>Please add items to your order</div>";
-        else
-            add_item_to_cart();
-    }
-</script>
+<script src="/js/index.js"></script>
+<link href="css/index.css" rel="stylesheet" />

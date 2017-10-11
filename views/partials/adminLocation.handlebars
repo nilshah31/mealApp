@@ -3,55 +3,49 @@
   <div class="panel panel-default">
     <div class="panel-heading">Avaible Location</div>
     <div class="panel-body" style="padding-left:20%;">
-  <form method="post" action="/delete_multiple_location" style="margin:0px" id="delete_multiple_location" name="delete_multiple_location">
-    <a class="btn btn-success toright" href="#" id="addLocation">
-      <i class="fa fa-plus" aria-hidden="true"></i>
-      &nbsp;Add Location to Catalog
-    </a>
-    <input type="hidden" name="delete_all_location_ids" id="delete_all_location_ids"/>
-    <a href="#" class="btn btn-success toright" onclick="deletelocationAll()">
-      <i class="fa fa-times" aria-hidden="true"></i>Remove Selected
-    </a>
-  </form>
+      <form method="post" action="/delete_multiple_location" style="margin:0px" id="delete_multiple_location" name="delete_multiple_location">
+        <a class="btn btn-success toright" href="#" id="addLocation">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          &nbsp;Add Location to Catalog
+        </a>
+        <input type="hidden" name="delete_all_location_ids" id="delete_all_location_ids"/>
+        <a href="#" class="btn btn-success toright" onclick="deletelocationAll()">
+          <i class="fa fa-times" aria-hidden="true"></i>Remove Selected
+        </a>
+      </form>
+      <br />
 
-  <br />
-
-  <form method="post" action="/location_form" style="margin:0px" id="location_form" name="location_form">
-    <table border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:70%">
-      <input type='hidden' id='location_ID' name="location_ID" value='' />
-      <tr>
-        <th><input type="checkbox" id="checkAllLocation" name="checkAllLocation"></th>
-        <th width="50%" class="hidden-phone hidden-tablet">City</th>
-        <th width="50%" class="hidden-phone hidden-tablet">Company/Insititute/Location</th>
-        <th></th>
-        <th></th>
-      </tr>
-      {{#each locationList}}
-      <tr valign="top" >
-        <input type="hidden" value="{{_id}}" name="locationIDS" />
-        <td><input type="checkbox" value="{{_id}}" id="checkAllLocation" class="checkAllLocationSingle" name="checkAllLocation"></td>
-        <td>{{city}}</td>
-        <td class="hidden-phone hidden-tablet">{{company}}</td>
-        <td>
-          <div class="link_edit">
-            <a class="btnEdit" href="#" id="editItem" onclick="edit_location('{{_id}}','{{city}}','{{company}}')">
+      <!-- Location List -->
+      <table id='locationListTable' border="0" cellpadding="0" cellspacing="1" class="table_admin table table-striped table-hover" style="width:70%">
+        <input type='hidden' id='location_ID' name="location_ID" value='' />
+        <tr>
+          <th><input type="checkbox" id="checkAllLocation" name="checkAllLocation"></th>
+          <th width="50%" class="hidden-phone hidden-tablet">City</th>
+          <th width="50%" class="hidden-phone hidden-tablet">Company/Insititute/Location</th>
+          <th></th>
+          <th></th>
+        </tr>
+        {{#each locationList}}
+        <tr valign="top" >
+          <input type="hidden" value="{{_id}}" name="locationIDS" />
+          <td><input type="checkbox" value="{{_id}}" id="checkAllLocation" class="checkAllLocationSingle" name="checkAllLocation"></td>
+          <td>{{city}}</td>
+          <td class="hidden-phone hidden-tablet">{{company}}</td>
+          <td>
+            <div class="link_edit">
+              <a class="btnEdit" href="#" id="editItem" onclick="edit_location('{{_id}}','{{city}}','{{company}}')">
                 <i class="fa fa-edit" title="Edit Item Detail"></i>
-            </a>
-          </div>
-        </td>
-        <td>
-          <div class="link_delete">
-            <a href="#" onclick="delete_location('{{_id}}')">
-                <i class="fa fa-remove" title="Delete Menu Item"></i>
-            </a>
-          </div>
-        </td>
-      </tr>
-      {{/each}}
-    </table>
-  </form>
-</div>
-</div>
+              </a>
+            </div>
+          </td>
+          <td>
+            <a class="btnEdit" href="#" onclick="deleteLocation(this,'{{_id}}')"><i  class="fa fa-times fa-1x"></i></a>
+          </td>
+        </tr>
+        {{/each}}
+      </table>
+    </div>
+  </div>
 </div>
 
 <!-- New Location Form -->
@@ -60,15 +54,13 @@
     <span class="close">&times;</span>
     <h1>New Location</h1>
     <input type="hidden" name="editLocationId" id="editLocationId" />
-    <form method="post" action="/newLocation" class="newLocation">
       <fieldset>
         <label for="city">City : </label>
         <input type="text" name="cityTxtBox" id="cityTxtBox" required>
         <label for="location">Location : </label>
         <input type="text" name="locationTxtBox" id="locationTxtBox" required>
       </fieldset>
-    </form>
-    <input type="submit" class="location-modal-content-submit bg-green newLocation">
+      <button onclick="addLocation()">Submit</button>
   </div>
 </div>
 
