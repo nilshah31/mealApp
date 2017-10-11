@@ -14,6 +14,7 @@ var schedule = require('node-schedule');
 var item_counter;
 var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
+var ItemOrdered = require('../models/item_ordered');
 
 var con_job_update_qty_noon = schedule.scheduleJob('00 12 * * *', function(){
     Item.updateItemQtyAll(function (err,results) {
@@ -193,7 +194,14 @@ router.get('/adminDashboard', function(req, res){
                             }
                           }
                         }
-                        res.render('adminDashboard', { user: req.session.user,userList : Userresults,locationList : Locationresults,itemList : Itemresults,object_item_hash:object_item_hash });
+                        ItemOrdered.find({},function(err,item_ordered_result){
+                              res.render('adminDashboard', { user: req.session.user,
+                                                       userList : Userresults,
+                                                       locationList : Locationresults,
+                                                       itemList : Itemresults,
+                                                       object_item_hash:object_item_hash,
+                                                       item_ordered_list:item_ordered_result  });
+                       });
                     });
                 });
             });
@@ -734,9 +742,34 @@ router.post('/payment', function(req, res){
     itemQtyArray = String(req.session.order_itemQty).split(',');
 
     for(var i=0;i<itemPriceArray.length;i++){
- 		total+=parseInt(itemPriceArray[i])*parseInt(itemQtyArray[i]);
-        Item.updateItemQty(itemIDArray[i],itemQtyArray[i],function(err, result){
+ 		   total+=parseInt(itemPriceArray[i])*parseInt(itemQtyArray[i]);
+        Item.updateItemQty(itemIDArray[i],itemQtyArray[i],function(err, updated_qty_result){
             if(err) throw err;
+            console.log(itemIDArray[i]);
+        });
+        var query = {_id: itemIDArray[i]};
+        Item.findOne(query,function(err,item_result){
+          location_name = req.session.user.location+','+req.session.user.city;
+          new_item_qty = (parseInt(item_result.initial_qty)-parseInt(item_result.avaible_qty))+parseInt(order_itemQty)
+
+          ItemOrdered.find({item_name:item_result.name,location: location_name},function(err,item_ordered_result){
+            if(item_ordered_result.length>0){
+              ItemOrdered.updateOne({item_name:item_result.name,location: location_name}, {$set:{total_ordered_placed: new_item_qty}}, function(err, res) {
+                  if (err) throw err;
+                  console.log(res);
+              });
+            }
+            else{
+              var newItemOrder = new ItemOrdered({
+              item_name  : item_result.name,
+              location: location_name,
+              total_ordered_placed: new_item_qty
+              });
+              ItemOrdered.createItemOrdered(newItemOrder,function(err,newItemOrderResult){
+                if(err) console.log(err);
+              });
+            }
+          });
         });
 	  }
 
@@ -759,7 +792,6 @@ router.post('/payment', function(req, res){
     User.updateUserAmountLimit(req.session.user._id,parseInt(req.session.user.avaible_limit),parseInt(total),function(err,result){
       if(err) res.send(err);
     });
-    req.flash('success_msg','You have Succesfully Placed Order, Please note Down Order number for future Refrence : '+req.session.order_rcpt_number);
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -767,6 +799,8 @@ router.post('/payment', function(req, res){
         pass: 'NVD421nvd'
       }
     });
+
+
 
     var mailOptions = {
       from: 'nilshah.31@gmail.com',
@@ -782,6 +816,7 @@ router.post('/payment', function(req, res){
         console.log('Email sent: ' + info.response);
       }
     });
+    req.flash('success_msg','You have Succesfully Placed Order, Please note Down Order number for future Refrence : '+req.session.order_rcpt_number);
     res.redirect('/');
 });
 

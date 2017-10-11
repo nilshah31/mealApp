@@ -188,14 +188,23 @@ function edit_location(location_id, city, location) {
 
 function filterLocation()
 	{
-		var rex = new RegExp($('#filterLocation').val());
-		if(rex =="/all/"){clearFilter()}else{
-			$('.content').hide();
-			$('.content').filter(function() {
-			return rex.test($(this).text());
-			}).show();
-	}
-	}
+    if($('#filterLocation').val()!=0){
+		    var rex = new RegExp($('#filterLocation').val());
+		      if(rex =="/all/")
+          {
+            clearFilter()
+          }
+          else{
+            $('.content').hide();
+			      $('.content').filter(function() {
+			           return rex.test($(this).text());
+			      }).show();
+	       }
+    }
+    else{
+      removeFilterData();
+    }
+}
 
 function clearFilter()
 	{
@@ -207,20 +216,33 @@ function downloadpdf() {
     document.getElementById("downloadpdf_form").submit();
 }
 
-//Filter Table Data
-function filterOrderTableData(index,id,location) {
+//Remove Order Table Data
+function removeFilterData() {
     var input, filter, table, tr, td, i;
-    input = document.getElementById(id);
-    filter = input.value.toUpperCase();
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
     for (i = 1; i < tr.length; i++) {
+          tr[i].style.display = "";
+        }
+    }
+
+
+
+//Filter Table Data
+function filterOrderTableData(table_id,index,id,location,index2) {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById(id);
+    filter = input.value.toUpperCase();
+    table = document.getElementById(table_id);
+    tr = table.getElementsByTagName("tr");
+    for (i = 1; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[index];
-        td1 = tr[i].getElementsByTagName("td")[4];
+        td1 = tr[i].getElementsByTagName("td")[index2];
+
 
         if (td) {
             if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-              if(td1.innerHTML.toUpperCase().indexOf(location.toUpperCase()) > -1){
+              if((td1.innerHTML.toUpperCase().indexOf(location.toUpperCase())) > -1){
                 tr[i].style.display = "";
               }
             } else {

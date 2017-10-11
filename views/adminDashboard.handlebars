@@ -21,6 +21,11 @@
             </a>
           </li>
           <li>
+            <a href="#" id="viewAllItemOrderTable">
+              <i class="fa fa-shopping-cart"></i> <span>Item Wise Order</span>
+            </a>
+          </li>
+          <li>
             <a href="#" id="viewAllItem">
               <i class="fa fa-book"></i> <span>Menu Items</span>
             </a>
@@ -78,7 +83,9 @@
     </script>
   </div>
   <!--ProgressBar-->
-
+  <div class="col-sm-12">
+    {{> adminItemWiseOrders }}
+  </div>
   <div class="col-sm-12">
     {{> adminOrders }}
   </div>
@@ -118,6 +125,13 @@
 </style>
 
 
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link href="http://www.jquery-az.com/jquery/css/jquery.multiselect.css" rel="stylesheet" type="text/css">
+
+
 <!--Export PDF -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="/js/FileSaver.min.js"></script>
@@ -129,52 +143,76 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<script src="http://www.jquery-az.com/jquery/js/multiselect-checkbox/jquery.multiselect.js"></script>
+<script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
 
 <script>
 function DoCellData(cell, row, col, data) {}
 function DoBeforeAutotable(table, headers, rows, AutotableSettings) {}
+
+function downloadPDF(PDFtableName,headerTitle) {
+  var pdfsize = 'a4';
+  var pdf = new jsPDF('l', 'pt', pdfsize);
+  var res = pdf.autoTableHtmlToJson(document.getElementById(PDFtableName));
+  var header = function(data) {
+   pdf.setFontSize(18);
+   pdf.setTextColor(40);
+   pdf.setFontStyle('normal');
+   //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+   pdf.text(headerTitle, data.settings.margin.left, 50);
+  }
+  pdf.autoTable(res.columns, res.data, {
+   beforePageContent: header,
+   startY: 60,
+   drawHeaderRow: function(row, data) {
+     row.height = 46;
+   },
+   drawHeaderCell: function(cell, data) {
+     pdf.rect(cell.x, cell.y, cell.width, cell.height, cell.styles.fillStyle);
+     pdf.setFillColor(230);
+     pdf.rect(cell.x, cell.y + (cell.height / 2), cell.width, cell.height / 2, cell.styles.fillStyle);
+     pdf.autoTableText(cell.text, cell.textPos.x, cell.textPos.y, {
+       halign: cell.styles.halign,
+       valign: cell.styles.valign
+     });
+     pdf.setTextColor(100);
+     var text = data.table.rows[0].cells[data.column.dataKey].text;
+     pdf.autoTableText(text, cell.textPos.x, cell.textPos.y + (cell.height / 2), {
+       halign: cell.styles.halign,
+       valign: cell.styles.valign
+     });
+     return false;
+   },
+   drawRow: function(row, data) {
+     if (row.index === 0) return false;
+   },
+   margin: {
+     top: 60
+   },
+   styles: {
+     overflow: 'linebreak',
+     fontSize: 10,
+     tableWidth: 'auto',
+     columnWidth: 'auto',
+   },
+   columnStyles: {
+     1: {
+       columnWidth: 'auto'
+     }
+   },
+ });
+ pdf.save("Report" + ".pdf");
+}
+
+
 $(".exportButton").on("click", function() {
-  $('#myTable').tableExport({type:'pdf',
-  drawHeaderRow: function (row, data) {},
-  jspdf: {
-    theme: 'striped',
-    orientation: 'p',
-    format: 'a4',
-    margins: {left:10, right:10, top:20, bottom:20},
-    autotable: {
-      styles: {
-	       cellPadding: 5, // a number, array or object (see margin below)
-         fontSize: 10,
-         font: "helvetica", // helvetica, times, courier
-         lineColor: 0,
-         lineWidth: 0,
-         fontStyle: 'normal', // normal, bold, italic, bolditalic
-         overflow: 'ellipsize', // visible, hidden, ellipsize or linebreak
-         fillColor: 255, // false for transparent or a color as described below
-         textColor: 50,
-         halign: 'left', // left, center, right
-         valign: 'middle', // top, middle, bottom
-         columnWidth: 'auto' // 'auto', 'wrap' or a number
-      },
-      tableWidth: 'auto',
-      headerStyles: {
-        textColor: 255,
-        fontStyle: 'bold',
-        halign: 'center'
-      },
-      showHeader: 'everyPage'
-    },
-  },
-  tableName: 'Report',
-  fileName: 'Deleivery Report',
-  displayTableName: true
-  });
+  downloadPDF('myTable',$('#filterLocation').val());
 });
+
+$(".exportButtonItemWise").on("click", function() {
+  downloadPDF('itemWiseOrdered',$('#search_by_location_item').val());
+});
+
 </script>
 
 <script>
@@ -243,24 +281,44 @@ function addLocation() {
 $('#filterOrderTableWithOption').on('change', function(){
     selectedOption = $(this).val();
     selectedLocation = $('#filterLocation').val();
-    if(selectedOption==0)filterOrderTableData(0,'myInput5',selectedLocation);
-    if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3',selectedLocation);
-    if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3',selectedLocation);
+    if(selectedLocation!=0){
+      if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
+      if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3',selectedLocation);
+      if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3',selectedLocation);
+    }
+    else{
+      if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
+      if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3','');
+      if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3','');
+    }
 });
+
 $('#myInput1').keyup(function() {
     selectedLocation = $('#filterLocation').val();
-    filterOrderTableData(0,'myInput1',selectedLocation)
+    if(selectedLocation!=0)
+    {
+      filterOrderTableData('myTable',0,'myInput1',selectedLocation,4);
+    }
+    else{
+      filterOrderTableData('myTable',0,'myInput1','',4);
+    }
 });
 $('#myInput2').keyup(function() {
     selectedLocation = $('#filterLocation').val();
-    filterOrderTableData(0,'myInput2',selectedLocation)
+    if(selectedLocation!=0){
+      filterOrderTableData('myTable',1,'myInput2',selectedLocation,4);
+    }
+    else{
+      filterOrderTableData('myTable',1,'myInput2','',4);
+    }
 });
+$('#search_by_location_item').keyup(function() {
+    selectedLocation = $('#search_by_location_item').val();
+    filterOrderTableData('itemWiseOrdered',2,'search_by_location_item',selectedLocation,2);
+});
+
 </script>
 
-<link href="http://www.jquery-az.com/jquery/css/jquery.multiselect.css" rel="stylesheet" type="text/css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://www.jquery-az.com/jquery/js/multiselect-checkbox/jquery.multiselect.js"></script>
-<script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
 
 {{#each locationList}}
   <script>

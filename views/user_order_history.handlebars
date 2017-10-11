@@ -4,9 +4,6 @@
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script>
-alert(sessionStorage.getItem( "total" ));
-</script>
 
 <div id="dialog-confirm" title="Cancle Order">
   <p  style="float:left; margin:12px 12px 20px 0;"><span class="ui-icon ui-icon-alert"></span>  Do you want to cancle this order?</p>
@@ -21,7 +18,7 @@ alert(sessionStorage.getItem( "total" ));
         <form id="order_history_tbl" method="post">
             <input type='hidden' id= 'rcptnumber' name='rcptnumber' value='' />
             <div class="table-responsive">
-                <table id="myTable">
+                <table id="myTable" style="width:90%">
                     <tr class="header">
                         <th onclick="sortTable(0)">Order Date <span class="glyphicon glyphicon-sort"></span></th>
                         <th onclick="sortTable(1)">Order Number <span class="glyphicon glyphicon-sort"></span></th>
