@@ -8,8 +8,18 @@
       {{#if object_item_hash}}
       <!-- Order List Table -->
       <div class="row">
-        <input type="text" id="myInput1" style='width:20%;' placeholder="Search by Order Date">
-        <input type="text" id="myInput2" style='width:20%;' placeholder="Search by Order Number">
+        <select name="state" id="maxRows" style="height:46px;width:4%;">
+          <option value="5000">Show ALL Rows</option>
+          <option value="5">5</option>
+          <option selected value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="70">70</option>
+          <option value="100">100</option>
+        </select>
+        <input type="text" id="myInput1" style='width:18%;' placeholder="Search by Order Date">
+        <input type="text" id="myInput2" style='width:18%;' placeholder="Search by Order Number">
         <select id='filterLocation' name='filterLocation' style='width:30%;height:46px;' onchange='filterLocation()'>
           <option selected value="0">All Order's</option>
           {{#each locationList}}
@@ -29,7 +39,7 @@
           <span class="glyphicon glyphicon-download-alt" style="color:white"></span>
         </a>
         <div class="table-responsive">
-          <table title="My Table" id="myTable" name="myTable" style="width:70%" class="table table-bordered table-hover">
+          <table title="My Table" id="myTable" name="myTable" style="width:95%" class="table table-bordered table-hover">
             <tr class="header">
               <th onclick="sortTable(0)" data-tableexport-display="none">Order Date <span class="glyphicon glyphicon-sort"></span></th>
               <th onclick="sortTable(1)" style="width:20%;">Order Number <span class="glyphicon glyphicon-sort"></span></th>
@@ -55,6 +65,13 @@
             </tr>
             {{/each}}
           </table>
+          <div class='pagination-container' style="margin-top:-30px;">
+				     <nav>
+				       <ul class="pagination">
+				       <!--	Here the JS Function Will Add the Rows -->
+				       </ul>
+				    </nav>
+			    </div>
           <br />
         </div>
       </div>

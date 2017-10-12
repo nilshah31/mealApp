@@ -47,10 +47,11 @@ module.exports.getItemByIdCustom = function(id, callback){
 module.exports.updateItemQty = function(id,orderedQty,callback){
 	var query = {_id: id};
 	Item.findOne(query, function(err,results){
-		Item.update({_id:id}, {$set:{avaible_qty:String(parseInt(results.avaible_qty)-parseInt(orderedQty))}}, function(err, result) {
-			if(err) throw err;
-			callback(null,result);
-		});
+		Item.update({_id:id}, {$set:{avaible_qty:String(parseInt(results.avaible_qty)-parseInt(orderedQty))}},
+				function(err, result) {
+						if(err) throw err;
+						callback(null,result);
+				});
 	});
 }
 

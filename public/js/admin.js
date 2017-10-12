@@ -1,8 +1,10 @@
+//Admin LogOut Button from Menu
 function log_out() {
     if(confirm("Do you want to Log Out ?")) {
         document.getElementById("logoutAdmin").submit();
     }
 }
+
 //Admin Item's
 function delete_item(item_id) {
     if(confirm("Do you want to delete this Item ?")) {
@@ -11,6 +13,7 @@ function delete_item(item_id) {
     }
 }
 
+//Delete Multiple checked Items
 function deleteitemsAll() {
     counter_temp = getCheckedBoxes('checkAllItems');
     if(counter_temp>0){
@@ -67,16 +70,19 @@ $(document).ready(function() {
     });
 });
 
+//No Longer Needed
 function edit_item_status_inactive(item_id){
   document.getElementById('item_status_id_active').value=item_id;
   document.getElementById("update_item_status_active").submit();
 }
 
+//No Longer Needed
 function edit_item_status_active(item_id){
   document.getElementById('item_status_id_inactive').value=item_id;
   document.getElementById("update_item_status_inactive").submit();
 }
 
+//Edit the Item, Check for edit Image path
 function edit_item(item_id, item_name, desc, price, init_qty, edit_item_img_path) {
     document.getElementById('edititemNameTxtBox').value=item_name;
     document.getElementById('editdescTxtBox').value=desc;
@@ -110,10 +116,16 @@ function delete_location(location_id) {
     }
 }
 
+
 function deletelocationAll() {
-    if(confirm("Do you want to delete all selected Location ?")) {
-        getCheckedBoxesLocation('checkAllLocation');
+    counter_temp = getCheckedBoxesLocation('checkAllLocation');
+    if(counter_temp>0){
+      if(confirm("Do you want to delete all selected Location ?")) {
         document.getElementById("delete_multiple_location").submit();
+      }
+    }
+    else{
+      alert('Please Select Location\'s to Remove');
     }
 }
 
@@ -225,8 +237,6 @@ function removeFilterData() {
           tr[i].style.display = "";
         }
     }
-
-
 
 //Filter Table Data
 function filterOrderTableData(table_id,index,id,location,index2) {
@@ -509,7 +519,195 @@ $('button.newItem').click( function() {
        });
    });
 
-
-
-
 //Export to PDF Admin Order
+function DoCellData(cell, row, col, data) {}
+function DoBeforeAutotable(table, headers, rows, AutotableSettings) {}
+
+function downloadPDF(PDFtableName,headerTitle) {
+  var pdfsize = 'a4';
+  var pdf = new jsPDF('l', 'pt', pdfsize);
+  var res = pdf.autoTableHtmlToJson(document.getElementById(PDFtableName));
+  var header = function(data) {
+   pdf.setFontSize(18);
+   pdf.setTextColor(40);
+   pdf.setFontStyle('normal');
+   //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+   pdf.text(headerTitle, data.settings.margin.left, 50);
+  }
+  pdf.autoTable(res.columns, res.data, {
+   beforePageContent: header,
+   startY: 60,
+   drawHeaderRow: function(row, data) {
+     row.height = 46;
+   },
+   drawHeaderCell: function(cell, data) {
+     pdf.rect(cell.x, cell.y, cell.width, cell.height, cell.styles.fillStyle);
+     pdf.setFillColor(230);
+     pdf.rect(cell.x, cell.y + (cell.height / 2), cell.width, cell.height / 2, cell.styles.fillStyle);
+     pdf.autoTableText(cell.text, cell.textPos.x, cell.textPos.y, {
+       halign: cell.styles.halign,
+       valign: cell.styles.valign
+     });
+     pdf.setTextColor(100);
+     var text = data.table.rows[0].cells[data.column.dataKey].text;
+     pdf.autoTableText(text, cell.textPos.x, cell.textPos.y + (cell.height / 2), {
+       halign: cell.styles.halign,
+       valign: cell.styles.valign
+     });
+     return false;
+   },
+   drawRow: function(row, data) {
+     if (row.index === 0) return false;
+   },
+   margin: {
+     top: 60
+   },
+   styles: {
+     overflow: 'linebreak',
+     fontSize: 10,
+     tableWidth: 'auto',
+     columnWidth: 'auto',
+   },
+   columnStyles: {
+     1: {
+       columnWidth: 'auto'
+     }
+   },
+ });
+ pdf.save("Report" + ".pdf");
+}
+
+
+$(".exportButton").on("click", function() {
+  downloadPDF('myTable',$('#filterLocation').val());
+});
+
+$(".exportButtonItemWise").on("click", function() {
+  downloadPDF('itemWiseOrdered',$('#search_by_location_item').val());
+});
+
+function deleteItem(obj, id) {
+  if(confirm('Are you sure you want to delete this?')){
+    $.ajax({
+      url: "/dbs/removeItem/"+id,
+      type: "POST",
+      data: { 'id': id },
+      success: function(data){
+        $(obj).closest('tr').fadeOut(300,function(){
+            $(obj).closest('tr').remove();
+        });
+        $.notify("Item Removed", "success");
+      },
+    });
+  }
+}
+
+function deleteLocation(obj, id) {
+  if(confirm('Are you sure you want to delete this?')){
+    $.ajax({
+      url: "/dbs/removeLocation/"+id,
+      type: "POST",
+      data: { 'id': id },
+      success: function(data){
+        $(obj).closest('tr').fadeOut(300,function(){
+            $(obj).closest('tr').remove();
+        });
+        $.notify("Item Removed", "success");
+      },
+    });
+  }
+}
+
+function addLocation() {
+  $.ajax({
+      url: "/dbs/addLocation",
+      type: "POST",
+      data: { 'city': $('#cityTxtBox').val(), 'company': $('#locationTxtBox').val() },
+      success: function(data){
+        $('#locationListTable').append('<tr>' +
+          '<td><input type="checkbox" checked/></td>' +
+          '<td>'+ $('#cityTxtBox').val()+'</td>' +
+          '<td>'+ $('#locationTxtBox').val()+'</td>' +
+          '<td>'+
+            '<div class="link_edit">'+
+              '<a class="btnEdit" href="#" id="editItem" onclick="edit_location(\''+data+'\',\''+$('#cityTxtBox').val()+'\',\''+$('#locationTxtBox').val()+'\')">'+
+                  '<i class="fa fa-edit" title="Edit Item Detail"></i>'+
+              '</a>'+
+            '</div>'+
+          '</td>'+
+          '<td>'+
+            '<button onclick="deleteLocation(this,\''+data+'\')">Remove</button>'+
+          '</td>'+
+          '</tr>');
+        $('#locationModal').hide();
+        $.notify("Location Added", "success");
+      }
+  });
+}
+$('#filterOrderTableWithOption').on('change', function(){
+    selectedOption = $(this).val();
+    selectedLocation = $('#filterLocation').val();
+    if(selectedLocation!=0){
+      if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
+      if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3',selectedLocation);
+      if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3',selectedLocation);
+    }
+    else{
+      if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
+      if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3','');
+      if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3','');
+    }
+});
+
+$('#myInput1').keyup(function() {
+    selectedLocation = $('#filterLocation').val();
+    if(selectedLocation!=0)
+    {
+      filterOrderTableData('myTable',0,'myInput1',selectedLocation,4);
+    }
+    else{
+      filterOrderTableData('myTable',0,'myInput1','',4);
+    }
+});
+$('#myInput2').keyup(function() {
+    selectedLocation = $('#filterLocation').val();
+    if(selectedLocation!=0){
+      filterOrderTableData('myTable',1,'myInput2',selectedLocation,4);
+    }
+    else{
+      filterOrderTableData('myTable',1,'myInput2','',4);
+    }
+});
+$('#search_by_location_item').keyup(function() {
+    selectedLocation = $('#search_by_location_item').val();
+    filterOrderTableData('itemWiseOrdered',2,'search_by_location_item',selectedLocation,2);
+});
+
+$('select[multiple]').multiselect({
+    columns: 1
+});
+
+$('#multicheckboxLocation').on('change', function() {
+  item_id = $('#multicheckboxLocation').attr("name");;
+  $("#multicheckboxLocation option:selected").each(function(){
+    location_id = $(this).val();
+    $.ajax({
+        url: "/dbs/addLocationtoMenu",
+        type: "POST",
+        data: { 'item_id': item_id, 'location_id': location_id },
+        success: function(data){
+          $.notify("Location Added Successfully", "success");
+        },
+    });
+  });
+  $("#multicheckboxLocation option:not(:selected)").each(function(){
+    location_id = $(this).val();
+    $.ajax({
+        url: "/dbs/removeLocationtoMenu",
+        type: "POST",
+        data: { 'item_id': item_id, 'location_id': location_id },
+        success: function(data){
+        },
+    });
+  });
+})

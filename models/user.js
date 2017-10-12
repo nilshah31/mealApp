@@ -91,10 +91,11 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 
 module.exports.updateuserTokan = function(id, callback){
 	var number = generateRandomNumber();
-	User.update({_id:id}, {$set:{token:number,token_exp:new Date()}}, function(err, result) {
-    	if(err) callback(err,result);
-    	callback(null,result);
-    });
+	User.update({_id:id}, {$set:{token:number,token_exp:new Date()}},
+			function(err, result) {
+    		if(err) callback(err,result);
+    		callback(null,result);
+    	});
 }
 
 module.exports.updateUserAmountLimit = function(id,user_current_avble_limit,order_value, callback){
@@ -125,9 +126,17 @@ module.exports.updateuserPassword = function(id,newPassword, callback){
 }
 
 module.exports.updateuserProfile = function(id,firstname,lastname,email,city,location, callback) {
-    User.update({_id:id}, {$set:{firstname:firstname,lastname:lastname,email:email,city:city,location:location}}, function(err, result) {
-        if (err) throw err;
-        callback(null,result);
+    User.update({_id:id}, {$set:
+				{
+					firstname:firstname,
+					lastname:lastname,
+					email:email,
+					city:city,
+					location:location}
+				},
+				function(err, result) {
+        	if (err) throw err;
+        	callback(null,result);
     });
 }
 
@@ -153,7 +162,7 @@ module.exports.sendMessage = function(lastname,phone,token, callback){
 	//Authentication Key
 	var authkey='172686AFa99wwG459a99ac6';
 	//for single number
-	var number='7204572637';
+	var number=toNumber;
 	//Sender ID
 	var senderid='MSGIND';
 	//Route
