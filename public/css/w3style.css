@@ -108,6 +108,11 @@ input[type="submit"],#PPMiniCart .minicart-submit,.w3ls_vegetables ul li a,input
     -moz-transition: 0.5s all;
 }
 
+.custmInputBox_pw{
+  -webkit-text-security: disc;
+  -moz-text-security: disc;
+}
+
 .w3l_search input[type="text"] {
     font-size: 14px;
     color: #999;

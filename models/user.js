@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-//var sinchAuth = require('sinch-auth');
-//var sinchSms = require('sinch-messaging');
 var msg91=require('msg91-sms');
 
 // User Schema

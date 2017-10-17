@@ -2,6 +2,7 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 
+
 <!--ProgressBar-->
 <div id="work-in-progress">
     <div class="work-spinner"></div>
@@ -34,15 +35,15 @@
 
 
   <form action="" onsubmit="return false">
-    <div>
+    <div class="item_contianer">
       <div class="row">
       {{#if itemList}}
         {{#startItemLayoutCounter}}{{/startItemLayoutCounter}}
           {{#each itemList}}
             {{#checkItemActive active}}
               {{#ifCustomize}}
-              <div class="col-sm-2 column" style="width:17%;margin-left:2%;margin-right:-7%;">
-                <div class="panel panel-success" style="background-color: white;height:auto;min-height:15.5em;">
+              <div class="col-sm-2 column item_col2_class">
+                <div class="panel panel-success panel_item_class">
                   <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
                     <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
                   </div>
@@ -79,8 +80,8 @@
             {{else}}
               </div>
               <div class="row">
-              <div class="col-sm-2 column" style="width:17%;margin-left:2%;margin-right:-7%;">
-                <div class="panel panel-success" style="background-color: white;min-height:15.5em;">
+              <div class="col-sm-2 column item_col2_class">
+                <div class="panel panel-success panel_item_class">
                   <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
                     <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
                   </div>
@@ -127,6 +128,14 @@
   </div>
   </form>
 
+
+<div class='customAlert'>
+  <p class='message'></p>
+  <input type='button' class='confirmButton custmMessageClassButton' value='Ok'>
+</div>
+
+</div> <!--/Item Div-->
+
 <form id="order_cart_form" class="order_place" method="post">
   <div id="cart_order_div" class="cart_order_div">
     <h5><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;YOUR ORDER</h5>
@@ -136,15 +145,10 @@
   </div>
 </form>
 
-<div class='customAlert'>
-  <p class='message'></p>
-  <input type='button' class='confirmButton custmMessageClassButton' value='Ok'>
-</div>
 
-</div> <!--/Item Div-->
-
+<div class="br_not_display_if_mobile">
 <br /><br /><br /><br /><br /><br /><br />
-
+</div>
 <script>
 order_object = [];
 total = 0;

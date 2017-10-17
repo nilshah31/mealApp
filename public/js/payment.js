@@ -39,3 +39,14 @@ $(document).ready(function() {
     });
   }
 });
+
+
+function submit_form() {
+  if(confirm('Please Note that we have only Cash on Deleivery Option, '+
+             'Confirming this will place the order and we will deliever it to your location'))
+             {
+               sessionStorage.clear();
+               return true;
+             }
+  return false;
+}

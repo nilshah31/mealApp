@@ -16,30 +16,32 @@ var nodemailer = require('nodemailer');
 var mongoURI="mongodb://localhost/mealapp";
 var MONGOLAB_URI = "mongodb://nilshah32:NVD420nvd@ds123614.mlab.com:23614/mealapp";
 
-if (process.env.NODE_ENV == "production")
-{
+if (process.env.NODE_ENV == "production"){
     mongoose.connect(MONGOLAB_URI);
 }
-else
-{
+else{
     mongoose.connect(mongoURI);
 }
 
-// if ((process.env.NODE_ENV == "development"))
-
 var db = mongoose.connection;
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+//get all controller
+var index_controller = require('./controller/index');
+var users_controller = require('./controller/users');
+var admin_controller = require('./controller/admin');
+var user_order_history_controller = require('./controller/user_order_history');
+var payment_controller = require('./controller/payment');
+var user_edit_profile_controller = require('./controller/user_edit_profile');
+var forget_password_controller = require('./controller/forget_password');
+var contact_controller = require('./controller/contact');
 
-// Init App
+// Init App (with nodejs+express+handlebars)
 var app = express();
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout',partialsDir: __dirname + '/views/partials/'}));
 app.set('view engine', 'handlebars');
-
 
 // BodyParser Middleware
 app.use(bodyParser.json());
@@ -51,7 +53,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //fileupload
 app.use(fileUpload());
-
 
 // Express Session
 app.use(session({
@@ -94,10 +95,15 @@ app.use(function (req, res, next) {
   next();
 });
 
-
-
-app.use('/', routes);
-app.use('/users', users);
+app.use('/', index_controller);
+app.use('/users', users_controller);
+app.use('/',admin_controller);
+app.use('/',admin_controller);
+app.use('/',user_order_history_controller);
+app.use('/',payment_controller);
+app.use('/',user_edit_profile_controller);
+app.use('/',forget_password_controller);
+app.use('/',contact_controller);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));

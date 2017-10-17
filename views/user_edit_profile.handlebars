@@ -4,129 +4,118 @@
 <script>
     city_arry = [];
     city_unique_list = [];
-
-        {{#each cityList}}
-        city_arry.push('{{this}}');
-        {{/each}}
-
+    {{#each cityList}}
+      city_arry.push('{{this}}');
+    {{/each}}
     function addOption() {
-        removeAllOptions();
-        temp = document.getElementById("city");
-        temp = temp.options[temp.selectedIndex].value;
-        var selectobject=document.getElementById("location");
-        for (i = 0; i < city_unique_list.length; i++) {
-            if(city_unique_list[i].city==temp){
-                opt = document.createElement("option");
-                opt.value = city_unique_list[i].company;
-                opt.text = city_unique_list[i].company;
-                selectobject.add(opt, null);
-            }
+      removeAllOptions();
+      temp = document.getElementById("city");
+      temp = temp.options[temp.selectedIndex].value;
+      var selectobject=document.getElementById("location");
+      for (i = 0; i < city_unique_list.length; i++) {
+        if(city_unique_list[i].city==temp){
+          opt = document.createElement("option");
+          opt.value = city_unique_list[i].company;
+          opt.text = city_unique_list[i].company;
+          selectobject.add(opt, null);
         }
+      }
     }
     for(i=0;i<city_arry.length;i++) {
-        {{#each locationList}}
-            temp = '{{city}}';
-            if (temp == city_arry[i]) {
-                city_unique_list.push({city: city_arry[i],company: '{{company}}'} );
-            }
-        {{/each}}
+      {{#each locationList}}
+        temp = '{{city}}';
+        if (temp == city_arry[i]) {
+          city_unique_list.push({city: city_arry[i],company: '{{company}}'} );
+        }
+      {{/each}}
     }
     function removeAllOptions() {
         document.getElementById("location").options.length = 0;
     }
-
-
 </script>
 
 <form id="user_edit_profile_form" method="post">
-<br />
-<div class="row">
+  <br />
+  <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{user.lastname}} {{user.firstname}}</h3>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-3 col-lg-3 " align="center">
-                        <img alt="User Pic" src="\images\user_pic.png" class="img-circle img-responsive"> </div>
-
-                    <div class=" col-md-9 col-lg-9 ">
-                        <table class="table table-user-information">
-                            <tbody>
-                            <tr>
-                                <td>First Name</td>
-                                <td><input style="height: 30px;" name="fname" type="text" value="{{user.firstname}}" /></td>
-                            </tr>
-                            <tr>
-                                <td>Last Name</td>
-                                <td><input style="height: 30px;" name="lname" type="text" value="{{user.lastname}}" /></td>
-                            </tr>
-                            <tr>
-                                <td>City</td>
-                                <td>
-                                    <select id="city" onchange="addOption()" name="city" class="form-control input-md">
-                                        <option>Please Select City</option>
-                                        {{#each cityList}}
-                                            <option>{{this}}</option>
-                                        {{/each}}
-                                    </select>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Location</td>
-                                <td>
-                                    <select id="location" name="location" class="form-control input-md">
-                                        <option>Please Select City</option>
-                                    </select>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Email</td>
-                                <td><input style="height: 30px;" name="email" type="text" value="{{user.email}}" /></td>
-                            </tr>
-                            <td>Phone Number</td>
-                            <td>{{user.phone}}</td>
-
-                            </tr>
-
-                            </tbody>
-                        </table>
-
-                        <center>
-                            <a href="/user_profile" class="btn btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Go Back</a>
-                            <button type="submit" class="btn btn-primary">Update Your Profile</button>
-                        </center>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="panel-footer">
-                    <span class="pull-right">
-                    </span>
-            </div>
-
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{user.lastname}} {{user.firstname}}</h3>
         </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center">
+              <img alt="User Pic" src="\images\user_pic.png" class="img-circle img-responsive">
+            </div>
+            <div class=" col-md-9 col-lg-9 ">
+              <table class="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td>First Name</td>
+                    <td><input style="height: 30px;" name="fname" type="text" value="{{user.firstname}}" /></td>
+                  </tr>
+                  <tr>
+                    <td>Last Name</td>
+                    <td><input style="height: 30px;" name="lname" type="text" value="{{user.lastname}}" /></td>
+                  </tr>
+                  <tr>
+                    <td>City</td>
+                    <td>
+                      <select id="city" onchange="addOption()" name="city" class="form-control input-md">
+                        <option>Please Select City</option>
+                        {{#each cityList}}
+                          <option>{{this}}</option>
+                        {{/each}}
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Location</td>
+                    <td>
+                      <select id="location" name="location" class="form-control input-md">
+                        <option>Please Select City</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td><input style="height: 30px;" name="email" type="text" value="{{user.email}}" /></td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number</td>
+                    <td>{{user.phone}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <center>
+                <a href="/user_profile" class="btn btn-primary">
+                  <i class="fa fa-arrow-left" aria-hidden="true"></i>  Go Back
+                </a>
+                <button type="submit" class="btn btn-primary">Update Your Profile</button>
+              </center>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <span class="pull-right">
+          </span>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 </form>
 
 
-
-
 <script>
-    setSelectedIndex();
-    function setSelectedIndex() {
-        var selectObject = document.getElementById("city")
-        for ( var i = 0; i < selectObject.options.length; i++ ) {
-            if ( selectObject.options[i].value == '{{user.city}}' ) {
-                selectObject.options[i].selected = true;
-                addOption();
-                return;
-            }
-        }
+setSelectedIndex();
+function setSelectedIndex() {
+  var selectObject = document.getElementById("city");
+  for ( var i = 0; i < selectObject.options.length; i++ ) {
+    if ( selectObject.options[i].value == '{{user.city}}' ) {
+      selectObject.options[i].selected = true;
+      addOption();
+      return;
     }
+  }
+}
 </script>

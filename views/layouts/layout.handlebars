@@ -14,40 +14,91 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+.login_button{
+  float: right;
+  margin-top:0.3em;
+  margin-right: 13%;
+}
+
+.forget_pw_link{
+  float: right;
+  margin-top:10px;
+  margin-right: 13%;
+}
+
+.signUp_link{
+  float: right;
+  margin-top:10px;
+  margin-right: 1%;
+}
+
+/* Mobile CSS */
+@media only screen and (max-width: 768px) {
+  .custmInputBox{
+    width: 50%;
+    height: 5%;
+    margin-left:0em;
+  }
+  .custmInputBox {
+    width: 50%;
+  }
+  .login_button{
+    float: right;
+    margin-top:0.3em;
+    margin-right: 4%;
+  }
+
+  .forget_pw_link{
+    float: right;
+    margin-top:10px;
+    margin-right: 12%;
+  }
+
+  .signUp_link{
+    float: right;
+    margin-top:10px;
+    margin-right: 6%;
+  }
+
+}
+</style>
 </head>
+
 <body>
-
-<script>
-
-</script>
 <div class="logo_products">
   {{#checkUserIsAdmin user}}
   {{else}}
-        <div class="w3ls_logo_products_left">
-            <h1><a href="/">SOUTHMEAL'S</a></h1>
-            <br />
-        </div>
+    <div class="w3ls_logo_products_left">
+      <h1>
+        <a href="/">SOUTHMEAL'S</a>
+      </h1>
+      <br />
+    </div>
   {{/checkUserIsAdmin}}
-        {{#if user}}
-        {{else}}
-            <div>
-                <form id="loginform" class="form-horizontal" role="form" method="post" action="/users/login">
-                    <span><i class="glyphicon glyphicon-user" style="margin-top: 0.1em;margin-bottom:0em;margin-left:5em;"></i></span>
-                    <input type="search" name="username"  class="custmInputBox" placeholder="Mobile Number" pattern="[789][0-9]{9}" required>
-                    <span>
-                            <br />
-                            <i class="glyphicon glyphicon-lock" style="margin-top:0.6em;margin-left:5em;"></i></span>
-                    <input type="password" style="width: 11%;height: 5%;margin-left:0em;" name="password" class="custmInputBox" placeholder="Password" required>
-
-                    <button type="submit" class="btn btn-default search" style="float: right;margin-top:0.3em;margin-right: 13%">Login</button>
-                    <br />
-                    <a href="/forget_password" style="float: right;margin-top:10px;margin-right: 13%">Forget Password?</a>
-                    <a href="/users/register" style="float: right;margin-top:10px;margin-right: 1%">Sign Up Here</a>
-                </form>
-            </div>
-            <br />
-        {{/if}}
-    <div class="clearfix"> </div>
+  {{#if user}}
+  {{else}}
+    <div>
+      <form id="loginform" class="form-horizontal" role="form" method="post" action="/users/login">
+        <span>
+          <i class="glyphicon glyphicon-user" style="margin-top: 0.1em;margin-bottom:0em;margin-left:5em;"></i>
+        </span>
+        <input type="search" name="username" class="custmInputBox" placeholder="Mobile Number" pattern="[789][0-9]{9}" required>
+        <span>
+          <br />
+          <i class="glyphicon glyphicon-lock" style="margin-top:0.6em;margin-left:5em;"></i>
+        </span>
+        <input type="search" name="password" class="custmInputBox custmInputBox_pw" placeholder="Password" required>
+        <button type="submit" class="btn btn-default search login_button">Login</button>
+        <br />
+        <a href="/forget_password" class="forget_pw_link">Forget Password?</a>
+        <a href="/users/register" class="signUp_link">Sign Up Here</a>
+      </form>
+    </div>
+    <br />
+  {{/if}}
+  <div class="clearfix"> </div>
 </div>
 
 {{#checkUserIsAdmin user}}
@@ -91,7 +142,6 @@
         </div>
     </div>
 </nav>
-
 {{/checkUserIsAdmin}}
 
 {{{body}}}
@@ -107,8 +157,16 @@
 {{/checkUserIsAdmin}}
 
 </body>
-</html>
-
+<script>
+function chengeMenuClass() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+</script></html>
 
 
 <style>

@@ -1,7 +1,7 @@
 {
   "name": "mealapp",
   "version": "1.0.0",
-  "description": "An Ordering System",
+  "description": "A meal Ordering System",
   "main": "app.js",
   "private": true,
   "scripts": {
@@ -31,9 +31,6 @@
     "passport-http": "*",
     "passport-local": "*",
     "sendotp": "^1.2.8",
-    "sinch-auth": "*",
-    "sinch-messaging": "*",
-    "sinch-sms": "*",
     "textmagic-rest-client": "*"
   },
   "devDependencies": {}
