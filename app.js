@@ -16,6 +16,14 @@ var nodemailer = require('nodemailer');
 var mongoURI="mongodb://localhost/mealapp";
 var MONGOLAB_URI = "mongodb://nilshah32:NVD420nvd@ds123614.mlab.com:23614/mealapp";
 
+global.base_dir = __dirname;
+global.abs_path = function(path) {
+  return base_dir + path;
+}
+global.include = function(file) {
+  return require(abs_path('/' + file));
+}
+
 if (process.env.NODE_ENV == "production"){
     mongoose.connect(MONGOLAB_URI);
 }
@@ -26,14 +34,14 @@ else{
 var db = mongoose.connection;
 
 //get all controller
-var index_controller = require('./controller/index');
-var users_controller = require('./controller/users');
-var admin_controller = require('./controller/admin');
-var user_order_history_controller = require('./controller/user_order_history');
-var payment_controller = require('./controller/payment');
-var user_edit_profile_controller = require('./controller/user_edit_profile');
-var forget_password_controller = require('./controller/forget_password');
-var contact_controller = require('./controller/contact');
+var index_controller = include('controller/index');
+var users_controller = include('controller/users');
+var admin_controller = include('controller/admin');
+var user_order_history_controller = include('controller/user_order_history');
+var payment_controller = include('controller/payment');
+var user_edit_profile_controller = include('controller/user_edit_profile');
+var forget_password_controller = include('controller/forget_password');
+var contact_controller = include('controller/contact');
 
 // Init App (with nodejs+express+handlebars)
 var app = express();
@@ -106,7 +114,7 @@ app.use('/',forget_password_controller);
 app.use('/',contact_controller);
 
 // Set Port
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 8080));
 
 app.listen(app.get('port'), function(){
 	console.log('Server started on port '+app.get('port'));
