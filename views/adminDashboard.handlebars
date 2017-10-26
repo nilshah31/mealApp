@@ -114,32 +114,33 @@
 <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.4.min.js"></script>-->
 <!--<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-<!--Export PDF -->
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
-<script type="text/javascript" src="/js/FileSaver.min.js"></script>
-<script type="text/javascript" src="/js/jspdf.min.js"></script>
-<script type="text/javascript" src="/js/jspdf.plugin.autotable.js"></script>
-<script type="text/javascript" src="/js/tableExport.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
-<!--MultiSelect Jquerry-->
-<script src="http://www.jquery-az.com/jquery/js/multiselect-checkbox/jquery.multiselect.js"></script>
-
-<!--notify uesr flash-->
-<script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
-
-<script type="text/javascript" src="/js/admin.js"></script>
-<!--Paginationa-->
-<script type="text/javascript" src="/js/js.js"></script>
-
-
 {{#each locationList}}
   <script>
     $('<option value="{{_id}}">{{company}}</option>').appendTo('#multicheckboxLocation');
   </script>
 {{/each}}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://www.jquery-az.com/jquery/js/multiselect-checkbox/jquery.multiselect.js"></script>
+<script type="text/javascript" src="/js/admin.js"></script>
+
+<!--Export PDF -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/FileSaver.min.js"></script>
+<script type="text/javascript" src="/js/jspdf.min.js"></script>
+<script type="text/javascript" src="/js/jspdf.plugin.autotable.js"></script>
+<script type="text/javascript" src="/js/tableExport.min.js"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+<!--Paginationa-->
+<script type="text/javascript" src="/js/js.js"></script>
+
+<!--MultiSelect Jquerry-->
+
+<!--notify uesr flash-->
+<script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+
+
 
 <script>
 getPagination('#myTable');
