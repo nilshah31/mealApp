@@ -212,33 +212,35 @@ router.post('/newItem', function(req, res){
 	});
 });
 
+//convert this to ajax call
 router.post('/delete_multiple_items', function(req, res) {
     var id_array = String(req.body.delete_all_items_ids).split(',');
     for(var i = 1; i < id_array.length; i++) {
         var myquery = { _id: id_array[i] };
         Item.remove(myquery, function(err, obj) {
-            if (err) throw err;
+            if (err) res.sendStatus(500);
         });
     }
     req.flash('success_msg','Deleted All the Item\'s');
     res.redirect('adminDashboard');
 });
 
+//convert this to ajax call
 router.post('/delete_multiple_location', function(req, res) {
     var id_array = String(req.body.delete_all_location_ids).split(',');
     for(var i = 1; i < id_array.length; i++) {
         console.log(id_array[i]);
         var myquery = { _id: id_array[i] };
         Location.remove(myquery, function(err, obj) {
-            if (err) throw err;
+            if (err) res.sendStatus(500);
         });
     }
     req.flash('success_msg','Deleted All the Location\'s');
     res.redirect('adminDashboard');
 });
 
-
 //Handle all ajax callback
+//can't we handle error using http status code?
 router.post('/dbs/addLocationtoMenu',function (req, res){
   var item_id = req.body.item_id;
   var location_id = req.body.location_id;

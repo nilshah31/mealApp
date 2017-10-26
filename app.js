@@ -13,8 +13,9 @@ var mongoose = require('mongoose');
 var fileUpload = require('express-fileupload');
 var nodemailer = require('nodemailer');
 
-var mongoURI="mongodb://localhost/mealapp";
-var MONGOLAB_URI = "mongodb://nilshah32:NVD420nvd@ds123614.mlab.com:23614/mealapp";
+//put all the credetionals in the envreiunement variablea and don't store on the github
+var mongoURI="mongodb://localhost/mealapp"; //check this line
+var MONGOLAB_URI = "mongodb://nilshah32:NVD420nvd@ds123614.mlab.com:23614/mealapp"; //check this line
 
 global.base_dir = __dirname;
 global.abs_path = function(path) {
@@ -24,6 +25,7 @@ global.include = function(file) {
   return require(abs_path('/' + file));
 }
 
+//are we really using prodcution variable like this?
 if (process.env.NODE_ENV == "production"){
     mongoose.connect(MONGOLAB_URI);
 }
@@ -114,7 +116,7 @@ app.use('/',forget_password_controller);
 app.use('/',contact_controller);
 
 // Set Port
-app.set('port', (process.env.PORT || 8080));
+app.set('port', (process.env.PORT || 8081));
 
 app.listen(app.get('port'), function(){
 	console.log('Server started on port '+app.get('port'));

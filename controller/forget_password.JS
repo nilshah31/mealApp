@@ -8,12 +8,7 @@ var Order = require('../models/order');
 var ItemLocation = require('../models/item_location');
 var User = require('../models/user');
 var ItemOrdered = require('../models/item_ordered');
-var pdf = require('html-pdf');
-var fs = require('fs');
 module.exports = router;
-var schedule = require('node-schedule');
-var item_counter;
-var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 
 router.get('/forget_password', function(req, res){

@@ -1,3 +1,4 @@
+//Delete all the unwanted handler's
 var Handlebars = require('handlebars');
 
 Handlebars.registerHelper('incrementCounterVariable', function(options) {
