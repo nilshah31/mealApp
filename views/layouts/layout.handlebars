@@ -6,7 +6,6 @@
     <title>MealApp</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/css/skdslider.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link href="/css/w3style.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -229,25 +228,4 @@ function chengeMenuClass() {
 $(".alert").fadeTo(2000, 500).slideUp(500, function(){
       $(".alert").alert('close');
   });
-</script>
-
-
-
-<script>
-startTime();
-function startTime() {
-    var today=new Date();
-    var h=today.getHours();
-    var m=today.getMinutes();
-    var s=today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('timeing').innerHTML = h+":"+m+":"+s;
-    var t = setTimeout(function(){startTime()},500);
-}
-
-function checkTime(i) {
-    if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
-    return i;
-}
 </script>
