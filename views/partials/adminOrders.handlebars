@@ -5,7 +5,6 @@
       <i class="fa fa-history" aria-hidden="true"></i> ORDER HISTORY
     </div>
     <div class="panel-body" style="padding-left:5em;">
-      {{#if object_item_hash}}
       <!-- Order List Table -->
       <div class="row">
         <select name="state" id="maxRows" style="height:46px;width:4%;">
@@ -76,9 +75,6 @@
         </div>
       </div>
       <!--/Orderlist Table-->
-      {{else}}
-        <h1><span class="glyphicon glyphicon-star-empty">No Order Placed Yet</span></h1>
-      {{/if}}
     </div>
   </div>
 </div>
