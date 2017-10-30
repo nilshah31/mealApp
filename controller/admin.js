@@ -268,8 +268,9 @@ router.post('/dbs/removeLocationtoMenu',function (req, res){
   var location_id = req.body.location_id;
   var myquery = { item_id : item_id, location_id: location_id };
   ItemLocation.find(myquery,function(err, results){
+    console.log(results.length);
     if(err) res.send(err);
-    if(results.length>0){
+    if(results){
     	ItemLocation.remove(myquery, function(err, ItemLocation){
         if (err) res.send(err) ;
         res.sendStatus(200);

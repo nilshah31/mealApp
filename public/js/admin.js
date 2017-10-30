@@ -710,6 +710,7 @@ $('.multicheckboxLocation').on('change', function() {
         type: "POST",
         data: { 'item_id': item_id, 'location_id': location_id },
         success: function(data){
+            $.notify("Location Removed Successfully", "success");
         },
     });
   });

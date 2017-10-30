@@ -15,6 +15,15 @@ router.get('/forget_password', function(req, res){
     res.render('forget_password');
 });
 
+
+function generateRandomNumber(){
+	var number = Math.floor((Math.random()*10000));
+	 if(number.length < 4 || number.length > 4){
+    	generateRandomNumber();
+    }
+	return number;
+}
+
 router.post('/forget_password', function(req, res) {
   User.getUserBymobNumber(req.body.cur_mob_no,function(err,isMatch){
     if(isMatch){
