@@ -691,8 +691,8 @@ $('select[multiple]').multiselect({
 });
 
 $('.multicheckboxLocation').on('change', function() {
-  item_id = $('.multicheckboxLocation').attr("name");;
-  $(".multicheckboxLocation option:selected").each(function(){
+  item_id = this.name;
+  $("#"+this.id+" option:selected").each(function(){
     location_id = $(this).val();
     $.ajax({
         url: "/dbs/addLocationtoMenu",
@@ -703,7 +703,7 @@ $('.multicheckboxLocation').on('change', function() {
         },
     });
   });
-  $(".multicheckboxLocation option:not(:selected)").each(function(){
+  $("#"+this.id+" option:not(:selected)").each(function(){
     location_id = $(this).val();
     $.ajax({
         url: "/dbs/removeLocationtoMenu",

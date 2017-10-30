@@ -122,7 +122,7 @@
       {{#checkIfTwoIdEqueal ../_id location_id}}
         {{#checkIfTwoIdEqueal ../../_id item_id}}
           <script>
-            $('<option selected value="{{../../id}}">{{../company}}</option>').appendTo('#multicheckboxLocation{{../../id}}');
+            $('<option selected value="{{../id}}">{{../company}}</option>').appendTo('#multicheckboxLocation{{../../id}}');
             temp = true;
           </script>
         {{/checkIfTwoIdEqueal}}
@@ -130,7 +130,7 @@
     {{/each}}
     <script>
       if(temp==false){
-        $('<option value="{{../id}}">{{company}}</option>').appendTo('#multicheckboxLocation{{../id}}');
+        $('<option value="{{id}}">{{company}}</option>').appendTo('#multicheckboxLocation{{../id}}');
       }
     </script>
   {{/each}}
