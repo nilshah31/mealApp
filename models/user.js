@@ -154,6 +154,27 @@ function generateRandomNumber(){
 	return number;
 }
 
+module.exports.sendForgetPasswordMessage = function(lastname,phone,token, callback){
+	const toNumber = phone;
+	message = "Use "+token+" as a Password to Login, Please Change your password after Login,Team SouthMeal";
+	//Authentication Key
+	var authkey='172686AFa99wwG459a99ac6';
+	//for single number
+	var number=toNumber;
+	//Sender ID
+	var senderid='MSGIND';
+	//Route
+	var route='';
+	//Country dial code
+	var dialcode='91';
+	//send to single number
+	msg91.sendOne(authkey,number,message,senderid,route,dialcode,function(response){
+		//Returns Message ID, If Sent Successfully or the appropriate Error Message
+		console.log(response);
+	});
+}
+
+
 module.exports.sendMessage = function(lastname,phone,token, callback){
 	const toNumber = phone;
 	message = "Use "+token+" as one time password(OTP) to verify your mobile Number, Team SouthMeal";

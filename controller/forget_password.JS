@@ -29,10 +29,8 @@ router.post('/forget_password', function(req, res) {
     if(isMatch){
       User.getUserByemailId(req.body.cur_email_id,function(err,isMatch){
         if(isMatch){
-            console.log("Found User : "+isMatch.firstname);
             var number = generateRandomNumber();
-            console.log(number);
-            User.sendMessage(isMatch.lastname,isMatch.phone,number,function (err,result){
+            User.sendForgetPasswordMessage(isMatch.lastname,isMatch.phone,number,function (err,result){
             });
             User.updateuserPassword(isMatch._id,number,function (err,result) {
                 if(err){
