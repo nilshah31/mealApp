@@ -114,11 +114,28 @@
 <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.4.min.js"></script>-->
 <!--<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-{{#each locationList}}
-  <script>
-    $('<option value="{{_id}}">{{company}}</option>').appendTo('#multicheckboxLocation');
-  </script>
+
+{{#each itemList}}
+  {{#each ../locationList}}
+    <script>temp=false;</script>
+    {{#each ../../item_location_result}}
+      {{#checkIfTwoIdEqueal ../_id location_id}}
+        {{#checkIfTwoIdEqueal ../../_id item_id}}
+          <script>
+            $('<option selected value="{{../../id}}">{{../company}}</option>').appendTo('#multicheckboxLocation{{../../id}}');
+            temp = true;
+          </script>
+        {{/checkIfTwoIdEqueal}}
+      {{/checkIfTwoIdEqueal}}
+    {{/each}}
+    <script>
+      if(temp==false){
+        $('<option value="{{../id}}">{{company}}</option>').appendTo('#multicheckboxLocation{{../id}}');
+      }
+    </script>
+  {{/each}}
 {{/each}}
+
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://www.jquery-az.com/jquery/js/multiselect-checkbox/jquery.multiselect.js"></script>

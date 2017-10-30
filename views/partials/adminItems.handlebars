@@ -45,7 +45,7 @@
           <td><img src='{{item_image_path}}' alt="Menu Item" height="42" width="42"></td>
           <td>{{category}}</td>
           <td style="width:20em">
-          <select id="multicheckboxLocation" value={{_id}} name="{{_id}}" multiple="multiple" class="4colactive">
+          <select id="multicheckboxLocation{{_id}}" value={{_id}} name="{{_id}}" multiple="multiple" class="4colactive multicheckboxLocation">
           </select>
           </td>
           <td style="text-align:center;">
@@ -92,7 +92,7 @@
         <label for="item_img">Image : </label>
         <input type="file" accept="image/*" name="item_img" required>
         <br />
-        <input type="submit" class="item-modal-content-submit bg-green newItem">
+        <input type="submit" class="btn-success item-modal-content-submit bg-green newItem">
       </fieldset>
     </form>
   </div>
@@ -121,7 +121,7 @@
         <label for="item_img">Image : </label>
         <!--<input type="file" accept="image/*" name="edit_item_img" required>-->
         <br />
-        <input type="submit" class="item-modal-content-submit newItem">
+        <input type="submit" class="btn-success item-modal-content-submit newItem">
       </fieldset>
     </form>
   </div>

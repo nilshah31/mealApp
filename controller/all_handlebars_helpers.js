@@ -1,5 +1,6 @@
 //Delete all the unwanted handler's
 var Handlebars = require('handlebars');
+var ItemLocation = require('../models/item_location');
 
 Handlebars.registerHelper('incrementCounterVariable', function(options) {
       item_counter = item_counter + 1;
@@ -11,6 +12,18 @@ Handlebars.registerHelper('ifCustomize', function(options) {
     } else {
         return options.inverse(this);
     }
+});
+
+
+Handlebars.registerHelper('checkIfTwoIdEqueal', function(id1,id2,options) {
+  if(id1==id2){
+    return options.fn(this);
+  }
+  else {
+    return options.inverse(this);
+  }
+
+
 });
 
 Handlebars.registerHelper('resetCounterVariable', function(options) {

@@ -50,7 +50,7 @@
     <div class="form-group">
       <label class="col-md-4 control-label" for="password">Password</label>
       <div class="col-md-4">
-        <input id="password" style="height: 40px;width:300px;" name="password" type="password" pattern=".{4,}" title="Minimum 8 Charactor" placeholder="password" class="form-control input-md" required="">
+        <input id="password" style="height: 40px;width:300px;" name="password" type="password" pattern=".{4,}" title="Minimum 4 Charactor" placeholder="password" class="form-control input-md" required="">
       </div>
     </div>
 
@@ -66,7 +66,7 @@
       <label class="col-md-4 control-label" for="select city">Select City</label>
       <div class="col-md-4">
         <select id="city" onchange="addOption()" style="height: 40px;width:300px;" name="city" class="form-control input-md" required>
-          <option>Please Select City</option>
+          <option value="">Please Select City</option>
           {{#each cityList}}
             <option>{{this}}</option>
           {{/each}}
@@ -78,7 +78,7 @@
       <label class="col-md-4 control-label" for="select company">Select Location</label>
       <div class="col-md-4">
         <select id="location" name="location" style="height: 40px;width:300px;" class="form-control input-md" required>
-          <option disabled selected>Please Select Location</option>
+          <option value="" disabled selected>Please Select Location</option>
         </select>
       </div>
     </div>
@@ -144,4 +144,22 @@ function check(input) {
     }
 }
 
+</script>
+<script>
+startTime();
+function startTime() {
+    var today=new Date();
+    var h=today.getHours();
+    var m=today.getMinutes();
+    var s=today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('timeing').innerHTML = h+":"+m+":"+s;
+    var t = setTimeout(function(){startTime()},500);
+}
+
+function checkTime(i) {
+    if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
 </script>

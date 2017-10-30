@@ -419,6 +419,9 @@ $("#viewAllItemOrderTable").click(function(){
     if ( $('#userDIV').is(':visible')){
         $("#userDIV").toggle();
     }
+    if ( $('#locationDIV').is(':visible')){
+        $("#locationDIV").toggle();
+    }
     $("#ItemOrderDiv").toggle();
 });
 
@@ -687,9 +690,9 @@ $('select[multiple]').multiselect({
     columns: 1
 });
 
-$('#multicheckboxLocation').on('change', function() {
-  item_id = $('#multicheckboxLocation').attr("name");;
-  $("#multicheckboxLocation option:selected").each(function(){
+$('.multicheckboxLocation').on('change', function() {
+  item_id = $('.multicheckboxLocation').attr("name");;
+  $(".multicheckboxLocation option:selected").each(function(){
     location_id = $(this).val();
     $.ajax({
         url: "/dbs/addLocationtoMenu",
@@ -700,7 +703,7 @@ $('#multicheckboxLocation').on('change', function() {
         },
     });
   });
-  $("#multicheckboxLocation option:not(:selected)").each(function(){
+  $(".multicheckboxLocation option:not(:selected)").each(function(){
     location_id = $(this).val();
     $.ajax({
         url: "/dbs/removeLocationtoMenu",

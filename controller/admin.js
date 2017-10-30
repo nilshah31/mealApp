@@ -65,12 +65,15 @@ router.get('/adminDashboard', function(req, res){
                           }
                         }
                         ItemOrdered.find({},function(err,item_ordered_result){
+                          ItemLocation.find({},function(err,item_location_result){
                               res.render('adminDashboard', { user: req.session.user,
                                                        userList : Userresults,
                                                        locationList : Locationresults,
                                                        itemList : Itemresults,
                                                        object_item_hash:object_item_hash,
-                                                       item_ordered_list:item_ordered_result  });
+                                                       item_ordered_list:item_ordered_result,
+                                                       item_location_result:item_location_result  });
+                              });
                        });
                     });
                 });

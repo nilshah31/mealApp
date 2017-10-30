@@ -72,6 +72,7 @@ router.post('/payment', function(req, res){
     del_location = req.session.user.location+','+req.session.user.city;
     order_location = req.body.user_location;
     total=0;
+    itemNameArray = String(order_itemName).split(',');
     itemIDArray = String(req.session.order_itemID).split(',');
     itemPriceArray = String(req.session.order_itemPrice).split(',');
     itemQtyArray = String(req.session.order_itemQty).split(',');
@@ -135,11 +136,84 @@ router.post('/payment', function(req, res){
       }
     });
 
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+      dd = '0'+dd
+    }
+    if(mm<10) {
+      mm = '0'+mm
+    }
+    today = mm + '/' + dd + '/' + yyyy;
+
+
+    var htmlMailFormate = "<h1>SouthMeals Pyament Receipt</h1><br />"+
+                          "<div class='row'>"+
+                            "<div class='well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3'>"+
+                              "<div class='row'>"+
+                                "<div class='col-xs-6 col-sm-6 col-md-6'>"+
+                                  "<address>"+
+                                    "<strong>"+req.session.user.lastname+","+req.session.user.firstname+"</strong>"
+                                    "<br>"+req.session.user.location+"<br>"+user.city+"<br>"+
+                                    "<abbr title='Phone'>P:</abbr>"+req.session.user.phone+
+                                  "</address>"+
+                                "</div>"+
+                                "<div class='col-xs-6 col-sm-6 col-md-6 text-right'>"+
+                                  "<p><em>Date:"+today+"</em></p>"+
+                                  "<p><em>Order #:"+req.session.order_rcpt_number+"</em></p>"+
+                                "</div>"+
+                              "</div>"+
+                              "<div class='row'>"+
+                                "<div class='text-center'>"+
+                                  "<h1>Receipt</h1>"+
+                                "</div>"+
+                                "<table class='table table-hover'>"+
+                                  "<thead>"+
+                                    "<tr>"+
+                                      "<th>Item</th>"+
+                                      "<th>#</th>"+
+                                      "<th class='text-center'>Price</th>"+
+                                      "<th class='text-center'>Total</th>"+
+                                    "</tr>"+
+                                  "</thead>"+
+                                  "<tbody>";
+                                  for(var i=0;i<itemPriceArray.length;i++){
+                                    htmlMailFormate+="<tr>"+
+                                      "<td class='col-md-9'><em>"+itemNameArray[i]+"</em></td>"+
+                                      "<td class='col-md-1' style='text-align: center'>"+itemQtyArray[i]+"</td>"+
+                                      "<td class='col-md-1 text-center'>"+itemPriceArray[i]+"</td>"+
+                                      "<td class='col-md-1 text-center'>"+itemQtyArray[i]*itemPriceArray[i]+"</td>"
+                                    "</tr>";
+                                  }
+                                    htmlMailFormate+="<tr>"+
+                                      "<td>   </td>"+
+                                      "<td>   </td>"+
+                                      "<td class='text-right'>"+
+                                        "<p><strong>Subtotal: </strong></p>"+
+                                        "<p><strong>Tax: </strong></p>"+
+                                      "</td>"+
+                                      "<td class='text-center'>"+
+                                        "<p><strong>"+total+"</strong></p>"+
+                                        "<p><strong>0</strong></p>"+
+                                      "</td>"+
+                                    "</tr>"+
+                                    "<tr>"+
+                                      "<td>   </td>"+
+                                      "<td>   </td>"+
+                                      "<td class='text-right'><h4><strong>Total: </strong></h4></td>"+
+                                      "<td class='text-center text-danger'>"+
+                                        "<h4><strong>"+total+"</strong></h4>"+
+                                      "</td>"+
+                                    "</tr>"+
+                                  "</tbody>"+
+                                "</table>";
     var mailOptions = {
       from: 'nilshah.31@gmail.com',
       to: req.session.user.email,
       subject: 'Payment Receipt -' + req.session.order_rcpt_number + '-Team SouthMeal',
-      html: '<h1>Payment Receipt</h1><br />'
+      html: htmlMailFormate
     };
 
     transporter.sendMail(mailOptions, function(error, info){
