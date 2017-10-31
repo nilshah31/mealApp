@@ -26,6 +26,9 @@ router.post('/user_order_history', function(req, res) {
           Item.updateItemQtyAfterCancle(res[0]._id,parseInt(res[0].avaible_qty)+parseInt(result[i-1].qty));
         });
       }
+      User.addUserAmountLimit(req.session.user._id,parseInt(req.session.user.avaible_limit),parseInt(result[0].total),function(err,result){
+        if(err) res.send(err);
+      });
     });
     Order.updateOne(myquery, {$set:{status:'2'}}, function(err, res) {
         if (err) throw err;

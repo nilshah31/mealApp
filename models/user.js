@@ -103,6 +103,13 @@ module.exports.updateUserAmountLimit = function(id,user_current_avble_limit,orde
     });
 }
 
+module.exports.addUserAmountLimit = function(id,user_current_avble_limit,order_value, callback){
+	User.update({_id:id}, {$set:{avaible_limit:(user_current_avble_limit+order_value)}}, function(err, result) {
+    	if(err) throw err;
+    	callback(null,result);
+    });
+}
+
 module.exports.updateAvaibleLimitAll = function(callback){
 	User.find({},function(err,results){
 		for(i=0;i<results.length;i++){
