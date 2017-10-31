@@ -17,6 +17,17 @@
 <div class="container" >
 </div>
 
+
+<form id="order_cart_form" class="order_place" method="post">
+  <div id="cart_order_div" class="cart_order_div">
+    <h5><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;YOUR ORDER</h5>
+    <div id="order_cart_value">
+      <!--cart contents-->
+    </div>
+  </div>
+</form>
+
+
 <div class="itemPanel">
   <!--Flash Message-->
   {{#if success_msg}}
@@ -136,14 +147,6 @@
 
 </div> <!--/Item Div-->
 
-<form id="order_cart_form" class="order_place" method="post">
-  <div id="cart_order_div" class="cart_order_div">
-    <h5><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;YOUR ORDER</h5>
-    <div id="order_cart_value">
-      <!--cart contents-->
-    </div>
-  </div>
-</form>
 
 
 <div class="br_not_display_if_mobile">
@@ -152,13 +155,19 @@
 <script>
 order_object = [];
 total = 0;
+</script>
 {{#if user}}
-  loged_user = '{{user.firstname}}';
+  <script>
+  logged_user = '{{user.firstname}}';
   user_limit = {{user.avaible_limit}};
+  </script>
 {{else}}
+  <script>
   logged_user = false;
   user_limit = 0;
+  </script>
 {{/if}}
+<script>
 sub_total= 0;
 isLocationAvaible = {{isLocationAvaible}};
 </script>

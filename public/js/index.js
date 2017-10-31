@@ -156,6 +156,9 @@ function add_item_to_cart() {
     document.getElementById("order_cart_value").innerHTML +="" +
         "<input type='button' class='btn btn-success' style='height: 3em;' onclick='submitform()' " +
         "value='Process to Checkout' />";
+
+    var jsonStr = JSON.stringify( order_object );
+    sessionStorage.setItem( "cart", jsonStr );
 }
 
 function addItemtoCart(id,name,price,qty,avaible_qty) {
@@ -187,8 +190,6 @@ function addItemtoCart(id,name,price,qty,avaible_qty) {
 }
 
 function submitform() {
-  var jsonStr = JSON.stringify( order_object );
-  sessionStorage.setItem( "cart", jsonStr );
   document.getElementById("order_cart_form").submit();
 }
 
@@ -243,6 +244,8 @@ function removeItemFromCart(index) {
   else{
     add_item_to_cart();
   }
+  var jsonStr = JSON.stringify( order_object );
+  sessionStorage.setItem( "cart", jsonStr );
 }
 
 //Few General Function's

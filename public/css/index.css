@@ -185,7 +185,9 @@ th {
       padding-left: 0.5em;
       padding-bottom: 0.5em;
       border-right-color: #0f0f0f;
-      border-right-style:solid;
+      border-bottom-style:solid;
+      margin-bottom: 75px;
+      margin-top: -75px;
     }
     .item_col2_class{
       width:100%;

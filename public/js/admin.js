@@ -134,13 +134,16 @@ function getCheckedBoxesLocation(chkboxName) {
     var checkboxes = document.getElementsByName(chkboxName);
     var checkboxesChecked = [];
     var id_hidden_ob = document.getElementById('delete_all_location_ids');
+    var count = 0;
     // loop over them all
     for (var i=1; i<checkboxes.length; i++) {
         // And stick the checked ones onto an array...
         if (checkboxes[i].checked) {
             id_hidden_ob.value+=","+checkboxes[i].value;
+            count=count+1;
         }
     }
+    return count;
 }
 
 $(document).ready(function() {
@@ -628,7 +631,7 @@ function addLocation() {
       data: { 'city': $('#cityTxtBox').val(), 'company': $('#locationTxtBox').val() },
       success: function(data){
         $('#locationListTable').append('<tr>' +
-          '<td><input type="checkbox" checked/></td>' +
+          '<td><input value="\''+data+'\'" id="checkAllLocation" type="checkbox" class="checkAllLocationSingle" name="checkAllLocation"></td>' +
           '<td>'+ $('#cityTxtBox').val()+'</td>' +
           '<td>'+ $('#locationTxtBox').val()+'</td>' +
           '<td>'+
@@ -639,7 +642,7 @@ function addLocation() {
             '</div>'+
           '</td>'+
           '<td>'+
-            '<button onclick="deleteLocation(this,\''+data+'\')">Remove</button>'+
+            '<a class="btnEdit" href="#" onclick="deleteLocation(this,\''+data+'\')"><i class="fa fa-times fa-1x"></i></a>'+
           '</td>'+
           '</tr>');
         $('#locationModal').hide();
