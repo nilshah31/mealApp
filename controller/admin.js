@@ -86,7 +86,7 @@ router.get('/adminDashboard', function(req, res){
     }
 });
 
-/*Check if this functions require anymore
+/*Check if these functions require anymore
 router.post('/update_item_status_active', function(req, res) {
     var myquery = { _id: req.body.item_status_id_active };
     Item.updateOne(myquery, {$set:{active:false}}, function(err, res) {
@@ -95,7 +95,6 @@ router.post('/update_item_status_active', function(req, res) {
     res.redirect('/adminDashboard');
 });
 
-
 router.post('/update_item_status_inactive', function(req, res) {
     var myquery = { _id: req.body.item_status_id_inactive };
     Item.updateOne(myquery, {$set:{active:true}}, function(err, res) {
@@ -103,7 +102,6 @@ router.post('/update_item_status_inactive', function(req, res) {
     });
     res.redirect('/adminDashboard');
 });
-
 */
 
 router.post('/logoutAdmin', function(req, res) {
@@ -268,7 +266,6 @@ router.post('/dbs/removeLocationtoMenu',function (req, res){
   var location_id = req.body.location_id;
   var myquery = { item_id : item_id, location_id: location_id };
   ItemLocation.find(myquery,function(err, results){
-    console.log(results.length);
     if(err) res.send(err);
     if(results){
     	ItemLocation.remove(myquery, function(err, ItemLocation){

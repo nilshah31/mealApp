@@ -156,7 +156,7 @@ router.post('/payment', function(req, res){
                                 "<div class='col-xs-6 col-sm-6 col-md-6'>"+
                                   "<address>"+
                                     "<strong>"+req.session.user.lastname+","+req.session.user.firstname+"</strong>"
-                                    "<br>"+req.session.user.location+"<br>"+user.city+"<br>"+
+                                    "<br>"+req.session.user.location+"<br>"+req.session.user.city+"<br>"+
                                     "<abbr title='Phone'>P:</abbr>"+req.session.user.phone+
                                   "</address>"+
                                 "</div>"+
