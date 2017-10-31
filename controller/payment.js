@@ -149,13 +149,13 @@ router.post('/payment', function(req, res){
     today = mm + '/' + dd + '/' + yyyy;
 
 
-    var htmlMailFormate = "<h1>SouthMeals Pyament Receipt</h1><br />"+
+    var htmlMailFormate = "<h3>SouthMeals Pyament Receipt</h3><hr /><br />"+
                           "<div class='row'>"+
                             "<div class='well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3'>"+
                               "<div class='row'>"+
                                 "<div class='col-xs-6 col-sm-6 col-md-6'>"+
                                   "<address>"+
-                                    "<strong>"+req.session.user.lastname+","+req.session.user.firstname+"</strong>"
+                                    "<strong>"+req.session.user.lastname+","+req.session.user.firstname+"</strong>"+
                                     "<br>"+req.session.user.location+"<br>"+req.session.user.city+"<br>"+
                                     "<abbr title='Phone'>P:</abbr>"+req.session.user.phone+
                                   "</address>"+
