@@ -156,7 +156,7 @@ function add_item_to_cart() {
     document.getElementById("order_cart_value").innerHTML +="" +
         "<input type='button' class='btn btn-success' style='height: 3em;' onclick='submitform()' " +
         "value='Process to Checkout' />";
-
+    sessionStorage.clear();
     var jsonStr = JSON.stringify( order_object );
     sessionStorage.setItem( "cart", jsonStr );
 }
@@ -172,13 +172,18 @@ function addItemtoCart(id,name,price,qty,avaible_qty) {
                         "avaible_qty":parseInt(avaible_qty)
                       };
       temp = check_item_already_exist(id)
-      if(temp!=-1)
+      if(temp!=-1){
+        avlb_qty_value = document.getElementById("AVBLQTYSPAN"+String(id));
+        if(parseInt(avlb_qty_value.innerHTML)>0)
+            avlb_qty_value.innerHTML = parseInt(avlb_qty_value.innerHTML)-1;
         add_quintity(temp, avaible_qty,price);
-      else
+      }
+      else{
         addItemToOrder(newItemobject);
-      avlb_qty_value = document.getElementById("AVBLQTYSPAN"+String(id));
-      if(parseInt(avlb_qty_value.innerHTML)>0)
-        avlb_qty_value.innerHTML = parseInt(avlb_qty_value.innerHTML)-1;
+        avlb_qty_value = document.getElementById("AVBLQTYSPAN"+String(id));
+          if(parseInt(avlb_qty_value.innerHTML)>0)
+            avlb_qty_value.innerHTML = parseInt(avlb_qty_value.innerHTML)-1;
+      }
     }
     else {
        alert("Sorry We Are Close Now");
@@ -220,6 +225,9 @@ function reduce_quintity(index){
     avlb_qty_value.innerHTML = parseInt(avlb_qty_value.innerHTML)+1;
     sub_total = parseInt(sub_total)-(parseInt(order_object[index].Price)*parseInt(order_object[index].Qty));
     order_object.splice(index, 1);
+    sessionStorage.clear();
+    var jsonStr = JSON.stringify( order_object );
+    sessionStorage.setItem( "cart", jsonStr );
   }
   if(order_object.length==0){
     sub_total = 0;

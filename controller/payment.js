@@ -82,31 +82,31 @@ router.post('/payment', function(req, res){
         Item.updateItemQty(itemIDArray[i],itemQtyArray[i],function(err, updated_qty_result){
             if(err) throw err;
             console.log(itemIDArray[i]);
-        });
-        var query = {_id: itemIDArray[i]};
-        Item.findOne(query,function(err,item_result){
-          location_name = req.session.user.location+','+req.session.user.city;
-          new_item_qty = (parseInt(item_result.initial_qty)-parseInt(item_result.avaible_qty))+parseInt(order_itemQty)
+            });
+            var query = {_id: itemIDArray[i]};
+            Item.findOne(query,function(err,item_result){
+              location_name = req.session.user.location+','+req.session.user.city;
+              new_item_qty = (parseInt(item_result.initial_qty)-parseInt(item_result.avaible_qty))+parseInt(order_itemQty)
 
-          ItemOrdered.find({item_name:item_result.name,location: location_name},function(err,item_ordered_result){
-            if(item_ordered_result.length>0){
-              ItemOrdered.updateOne({item_name:item_result.name,location: location_name}, {$set:{total_ordered_placed: new_item_qty}}, function(err, res) {
-                  if (err) throw err;
-                  console.log(res);
+              ItemOrdered.find({item_name:item_result.name,location: location_name},function(err,item_ordered_result){
+                if(item_ordered_result.length>0){
+                  ItemOrdered.updateOne({item_name:item_result.name,location: location_name}, {$set:{total_ordered_placed: new_item_qty}}, function(err, res) {
+                    if (err) throw err;
+                    console.log(res);
+                  });
+                }
+                else{
+                  var newItemOrder = new ItemOrdered({
+                    item_name  : item_result.name,
+                    location: location_name,
+                    total_ordered_placed: new_item_qty
+                  });
+                  ItemOrdered.createItemOrdered(newItemOrder,function(err,newItemOrderResult){
+                    if(err) console.log(err);
+                  });
+                }
               });
-            }
-            else{
-              var newItemOrder = new ItemOrdered({
-              item_name  : item_result.name,
-              location: location_name,
-              total_ordered_placed: new_item_qty
-              });
-              ItemOrdered.createItemOrdered(newItemOrder,function(err,newItemOrderResult){
-                if(err) console.log(err);
-              });
-            }
-          });
-        });
+            });
 	  }
 
     var newOrder = new Order({
@@ -125,7 +125,7 @@ router.post('/payment', function(req, res){
     Order.createOrder(newOrder, function(err, OrderResult){
         if(err) res.send(err);
     });
-    User.updateUserAmountLimit(req.session.user._id,parseInt(req.session.user.avaible_limit),parseInt(total),function(err,result){
+    User.updateUserAmountLimit(req.session.user._id,(parseInt(req.session.user.avaible_limit)-parseInt(total)),function(err,result){
       if(err) res.send(err);
     });
     var transporter = nodemailer.createTransport({
@@ -223,6 +223,6 @@ router.post('/payment', function(req, res){
         console.log('Email sent: ' + info.response);
       }
     });
-    req.flash('success_msg','You have Succesfully Placed Order, Please note Down Order number for future Refrence : '+req.session.order_rcpt_number);
+    req.flash('success_msg','You have Succesfully Placed Order, Please note Down Order number for future Reference : '+req.session.order_rcpt_number);
     res.redirect('/');
 });

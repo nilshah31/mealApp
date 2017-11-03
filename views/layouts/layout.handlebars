@@ -3,7 +3,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 <head>
-    <title>MealApp</title>
+    <title>SouthMeal</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -91,7 +91,7 @@
         <input type="search" name="password" class="custmInputBox custmInputBox_pw" placeholder="Password" required>
         <button type="submit" class="btn btn-default search login_button">Login</button>
         <br />
-        <a href="/forget_password" class="forget_pw_link">Forget Password?</a>
+        <a href="/forget_password" class="forget_pw_link">Forgot Password?</a>
         <a href="/users/register" class="signUp_link">Sign Up Here</a>
       </form>
     </div>
@@ -164,6 +164,11 @@ function chengeMenuClass() {
         x.className = "topnav";
     }
 }
+
+setTimeout(function() {
+            $('.alert').fadeOut('slow');
+          }, 2000);
+
 </script></html>
 
 
@@ -206,6 +211,7 @@ function chengeMenuClass() {
 <style>
     .alert {
         padding: 20px;
+        text-align: center;
     }
 
     .closebtn {

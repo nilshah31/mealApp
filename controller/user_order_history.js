@@ -26,7 +26,7 @@ router.post('/user_order_history', function(req, res) {
           Item.updateItemQtyAfterCancle(res[0]._id,parseInt(res[0].avaible_qty)+parseInt(result[i-1].qty));
         });
       }
-      User.addUserAmountLimit(req.session.user._id,parseInt(req.session.user.avaible_limit),parseInt(result[0].total),function(err,result){
+      User.addUserAmountLimit(req.session.user._id,(parseInt(req.session.user.avaible_limit)+parseInt(result[0].total)),function(err,result){
         if(err) res.send(err);
       });
     });
@@ -52,7 +52,7 @@ router.get('/user_order_history',function(req, res){
                 else
                     status = 'Canceled';
                 var order_date = new Date(String(results[i].order_date_time));
-                var ordr_dt = String(order_date.getDate()) + '/' + String(order_date.getMonth()+1) + '/' + String(order_date.getFullYear());
+                var ordr_dt = String(order_date.getDate()+1) + '/' + String(order_date.getMonth()+1) + '/' + String(order_date.getFullYear());
                 object_item_hash.push({
                     order_itemName: results[i].item_name,
                     receipt_number: results[i].receipt_number,

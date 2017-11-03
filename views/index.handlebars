@@ -131,7 +131,7 @@
         {{/checkItemActive}}
       {{/each}}
       {{else}}
-        <h1>OOPS! We don't have anything added!</h1>
+        <h1>We are closed today!</h1>
         <br /><br /><br /><br /><br />
       {{/if}}
     </div>
@@ -160,6 +160,7 @@ total = 0;
   <script>
   logged_user = '{{user.firstname}}';
   user_limit = {{user.avaible_limit}};
+  alert(user_limit);
   </script>
 {{else}}
   <script>

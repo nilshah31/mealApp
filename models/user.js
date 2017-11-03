@@ -96,15 +96,15 @@ module.exports.updateuserTokan = function(id, callback){
     	});
 }
 
-module.exports.updateUserAmountLimit = function(id,user_current_avble_limit,order_value, callback){
-	User.update({_id:id}, {$set:{avaible_limit:(user_current_avble_limit-order_value)}}, function(err, result) {
+module.exports.updateUserAmountLimit = function(id,new_limit, callback){
+	User.update({_id:id}, {$set:{avaible_limit:new_limit}}, function(err, result) {
     	if(err) throw err;
     	callback(null,result);
     });
 }
 
-module.exports.addUserAmountLimit = function(id,user_current_avble_limit,order_value, callback){
-	User.update({_id:id}, {$set:{avaible_limit:(user_current_avble_limit+order_value)}}, function(err, result) {
+module.exports.addUserAmountLimit = function(id,new_limit, callback){
+	User.update({_id:id}, {$set:{avaible_limit:new_limit}}, function(err, result) {
     	if(err) throw err;
     	callback(null,result);
     });
