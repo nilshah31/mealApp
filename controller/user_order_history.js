@@ -24,6 +24,7 @@ router.post('/user_order_history', function(req, res) {
         var qurry_find_order = { name: result[i].item_name };
         Item.find(qurry_find_order,function(err,res){
           Item.updateItemQtyAfterCancle(res[0]._id,parseInt(res[0].avaible_qty)+parseInt(result[i-1].qty));
+          ItemOrdered.updateItemQtyAfterCancle(res[0].name,parseInt(res[0].avaible_qty)-parseInt(result[i-1].qty));
         });
       }
       User.addUserAmountLimit(req.session.user._id,(parseInt(req.session.user.avaible_limit)+parseInt(result[0].total)),function(err,result){

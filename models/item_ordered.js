@@ -22,3 +22,10 @@ var ItemOrdered = module.exports = mongoose.model('ItemOrdered', ItemOrderedSche
 module.exports.createItemOrdered = function(newItemOrdered, callback){
 	newItemOrdered.save(callback);
 }
+
+module.exports.updateItemQtyAfterCancle = function(name,newQty,callback){
+		ItemOrdered.update({item_name:name}, {$set:{total_ordered_placed:newQty}},function(err, result) {
+				if(err) throw err;
+				console.log(result);
+		},callback);
+}
