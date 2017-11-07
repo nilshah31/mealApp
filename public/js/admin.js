@@ -241,6 +241,7 @@ function removeFilterData() {
         }
     }
 
+
 //Filter Table Data
 function filterOrderTableData(table_id,index,id,location,index2) {
     var input, filter, table, tr, td, i;
@@ -251,8 +252,6 @@ function filterOrderTableData(table_id,index,id,location,index2) {
     for (i = 1; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[index];
         td1 = tr[i].getElementsByTagName("td")[index2];
-
-
         if (td) {
             if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
               if((td1.innerHTML.toUpperCase().indexOf(location.toUpperCase())) > -1){
@@ -264,6 +263,40 @@ function filterOrderTableData(table_id,index,id,location,index2) {
         }
     }
 }
+
+//Filter Table Data
+function filterItemWiseTableData(table_id,index,id) {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById(id);
+    filter = input.value.toUpperCase();
+    if(filter!=0){
+      table = document.getElementById(table_id);
+      tr = table.getElementsByTagName("tr");
+      for (i = 1; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[index];
+        if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              }
+             else {
+                tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+      else{
+        table = document.getElementById(table_id);
+        tr = table.getElementsByTagName("tr");
+        for (i = 1; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[index];
+          if (td) {
+            tr[i].style.display = "";
+          }
+        }
+      }
+
+    }
+
 
 //Filter Order Table Data
 function searchTodaysOrder(index,id,id2,location) {
@@ -280,9 +313,8 @@ function searchTodaysOrder(index,id,id2,location) {
         var Cells = tr[i].getElementsByTagName("td");
 
         td = tr[i].getElementsByTagName("td")[index];
-        td1 = tr[i].getElementsByTagName("td")[0];
-        td2 = tr[i].getElementsByTagName("td")[4];
-
+        td1 = tr[i].getElementsByTagName("td")[1];
+        td2 = tr[i].getElementsByTagName("td")[5];
         if (td) {
             if (td.innerText.toUpperCase().indexOf(filter) > -1) {
                 if(td1.innerText.toUpperCase().indexOf(filter1) > -1){
@@ -506,7 +538,7 @@ $('button.newItem').click( function() {
       $('form.newItem').submit();
    });
 
-   $("#OrderDiv").toggle();
+   //$("#OrderDiv").toggle();
    $(document).ready(function(){
        $("#viewAllOrders").click(function(){
            if ( $('#itemDIV').is(':visible')){
@@ -654,14 +686,14 @@ $('#filterOrderTableWithOption').on('change', function(){
     selectedOption = $(this).val();
     selectedLocation = $('#filterLocation').val();
     if(selectedLocation!=0){
-      if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
-      if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3',selectedLocation);
-      if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3',selectedLocation);
+      if(selectedOption==0)searchTodaysOrder(1,'myInput5','myInput3','');
+      if(selectedOption==1)searchTodaysOrder(9,'myInput6','myInput3',selectedLocation);
+      if(selectedOption==2)searchTodaysOrder(9,'myInput4','myInput3',selectedLocation);
     }
     else{
-      if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
-      if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3','');
-      if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3','');
+      if(selectedOption==0)searchTodaysOrder(1,'myInput5','myInput3','');
+      if(selectedOption==1)searchTodaysOrder(9,'myInput6','myInput3','');
+      if(selectedOption==2)searchTodaysOrder(9,'myInput4','myInput3','');
     }
 });
 
@@ -718,3 +750,9 @@ $('.multicheckboxLocation').on('change', function() {
     });
   });
 })
+
+
+
+$('#search_by_location_item').on('change', function() {
+    filterItemWiseTableData('itemWiseOrdered',3,'search_by_location_item');
+});

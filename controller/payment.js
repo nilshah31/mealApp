@@ -18,6 +18,7 @@ var mongoose = require('mongoose');
 
 router.get('/payment',function(req, res){
     if(req.session.user) {
+      if(req.session.user.firstname){
         order_itemID = req.session.order_itemID;
         order_itemName = req.session.order_itemName;
         order_itemPrice = req.session.order_itemPrice;
@@ -57,6 +58,10 @@ router.get('/payment',function(req, res){
                 bill_total: total,
                 order_rcpt_number: req.session.order_rcpt_number
             });
+      }
+      else{
+        res.redirect('/');
+      }
     }
     else
         res.redirect('/');

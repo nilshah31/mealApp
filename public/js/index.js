@@ -57,7 +57,7 @@ if(logged_user===false){
 }
 
 function check_cart_value(price) {
-  if(user_limit-(parseInt(sub_total))<=0)
+  if(user_limit-(parseInt(sub_total)+parseInt(price))<=0)
     return false;
   else
     return true;
@@ -228,16 +228,17 @@ function reduce_quintity(index){
     sessionStorage.clear();
     var jsonStr = JSON.stringify( order_object );
     sessionStorage.setItem( "cart", jsonStr );
-  }
-  if(order_object.length==0){
-    sub_total = 0;
-    document.getElementById("order_cart_value").innerHTML = " <div>Please add items to your order</div>";
+    add_item_to_cart();
   }
   else{
     avlb_qty_value = document.getElementById("AVBLQTYSPAN"+String(order_object[index].ID));
     avlb_qty_value.innerHTML = parseInt(avlb_qty_value.innerHTML)+1;
-    sub_total = parseInt(sub_total)-(parseInt(order_object[index].Price));
+    sub_total = parseInt(sub_total)-(parseInt(order_object[index].Price)*parseInt(order_object[index].Qty));
     add_item_to_cart();
+  }
+  if(order_object.length==0){
+    sub_total = 0;
+    document.getElementById("order_cart_value").innerHTML = " <div>Please add items to your order</div>";
   }
 }
 

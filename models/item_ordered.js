@@ -29,3 +29,11 @@ module.exports.updateItemQtyAfterCancle = function(name,newQty,callback){
 				console.log(result);
 		},callback);
 }
+
+module.exports.resetItemPlaced = function(callback){
+    ItemOrdered.find({},function(err,results){
+			for(i=0;i<results.length;i++){
+				ItemOrdered.update({_id:results[i].id}, {$set:{total_ordered_placed:0}}, callback);
+			}
+		});
+}

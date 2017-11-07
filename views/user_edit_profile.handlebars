@@ -17,6 +17,10 @@
           opt = document.createElement("option");
           opt.value = city_unique_list[i].company;
           opt.text = city_unique_list[i].company;
+          var user_location = '{{user.location}}'
+          if(user_location==city_unique_list[i].company){
+            opt.setAttribute('selected', true);  
+          }
           selectobject.add(opt, null);
         }
       }
@@ -64,7 +68,11 @@
                       <select id="city" onchange="addOption()" name="city" class="form-control input-md">
                         <option>Please Select City</option>
                         {{#each cityList}}
-                          <option>{{this}}</option>
+                          {{#checkIfTwoIdEqueal this user.city}}
+                            <option selected>{{this}}</option>
+                          {{else}}
+                            <option>{{this}}</option>
+                          {{/checkIfTwoIdEqueal}}
                         {{/each}}
                       </select>
                     </td>

@@ -77,6 +77,8 @@
     </div>
   {{/checkUserIsAdmin}}
   {{#if user}}
+    <br />
+    <div class="clearfix"></div>
   {{else}}
     <div>
       <form id="loginform" class="form-horizontal" role="form" method="post" action="/users/login">
@@ -88,7 +90,7 @@
           <br />
           <i class="glyphicon glyphicon-lock" style="margin-top:0.6em;margin-left:5em;"></i>
         </span>
-        <input type="search" name="password" class="custmInputBox custmInputBox_pw" placeholder="Password" required>
+        <input type="password" name="password" style="width:11%;height:5%;" class="custmInputBox custmInputBox_pw" placeholder="Password" required>
         <button type="submit" class="btn btn-default search login_button">Login</button>
         <br />
         <a href="/forget_password" class="forget_pw_link">Forgot Password?</a>
@@ -96,46 +98,43 @@
       </form>
     </div>
     <br />
+    <div class="clearfix"> </div>
   {{/if}}
-  <div class="clearfix"> </div>
 </div>
 
 {{#checkUserIsAdmin user}}
 {{else}}
-
-<nav class="navbar navbar-inverse">
+  <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-center">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="../howWeWork">How we Work?</a></li>
-                <li><a href="../contact">Feedback</a></li>
-                <li style="color:#222;">TESTTESTETSTESTES</li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right" style="margin-right:12em;">
-              <li>
-                <div id="timer">
-                  <div id="timeing"></div>
-                </div>
-              </li>
-            </ul>
-            {{#if user}}
-                        <ul class="nav navbar-nav navbar-right" >
-                        <li>
-                            <div class="dropdown accountdropdown"  style="margin-top:-10px;">
-                                <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-user" /> {{user.firstname}} <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/user_order_history">Order History</a></li>
-                                    <li><a href="/user_profile">View Profile</a></li>
-                                    <li><a href="#">Support</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a href="/users/logout"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
-                        </ul>
-            {{/if}}
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-center">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="../howWeWork">How we Work?</a></li>
+          <li><a href="../contact">Feedback</a></li>
+          <li style="color:#222;">TESTTESTETSTESTES</li>
+          <li>
+          <div id="timer">
+            <div id="timeing" style="color:white;font-size:15px;"></div>
+          </div>
+          </li>
+        </ul>
+        {{#if user}}
+          <ul class="nav navbar-nav navbar-right" style="margin-right:12em;">
+            <li>
+              <div class="dropdown accountdropdown"  style="margin-top:0px;">
+                <a class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                  <span class="glyphicon glyphicon-user" /> {{user.firstname}} <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="/user_order_history">Order History</a></li>
+                  <li><a href="/user_profile">View Profile</a></li>
+                  <li><a href="#">Support</a></li>
+                </ul>
+              </div>
+            </li>
+            <li><a href="/users/logout"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
+          </ul>
+          {{/if}}
 
         </div>
     </div>

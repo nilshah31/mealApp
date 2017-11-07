@@ -52,6 +52,13 @@ Handlebars.registerHelper('checkOrderStatus', function(orderStatus,options) {
         return options.inverse(this);
 });
 
+Handlebars.registerHelper('checkOrderStatusCompleted', function(orderStatus,options) {
+    if(String(orderStatus)=='Completed' || String(orderStatus)=='Ordered')
+        return options.fn(this);
+    else
+        return options.inverse(this);
+});
+
 Handlebars.registerHelper('getOrderedQnty', function(avaible_qty,initial_qty,options) {
     return parseInt(initial_qty)-parseInt(avaible_qty);
 });

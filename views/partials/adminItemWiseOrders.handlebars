@@ -7,13 +7,20 @@
         <center>
           <div class="row">
             <div class="table-responsive">
-              <input type="text" id="search_by_location_item" style="width:20%;height:25%" class="input-lg" placeholder="Search by Location" />&nbsp;&nbsp;&nbsp;
+              <!--<input type="text" id="search_by_location_item" style="width:20%;height:25%" class="input-lg" placeholder="Search by Location" />-->&nbsp;&nbsp;&nbsp;
+              <select id='search_by_location_item' name='search_by_location_item' style='width:30%;height:46px;'>
+                <option selected value="0">All Order's</option>
+                {{#each locationList}}
+                  <option value='{{company}},{{city}}'>{{company}},{{city}}</option>
+                {{/each}}
+              </select>
               <a  href="#" id='exportButtonItemWise' class='exportButtonItemWise btn btn-success btn-lg' name='exportButtonItemWise'>
                 <span class="glyphicon glyphicon-download-alt" style="color:white"></span>
               </a>
               <br /><br />
               <table id="itemWiseOrdered">
                 <caption>Item Wise Order</caption>
+                <tbody id="fbody">
                 <tr class="header">
                   <th>Item</th>
                   <th style="text-align:center">Total Item Placed</th>
@@ -26,6 +33,7 @@
                   <td>{{location}}</td>
                 </tr>
                 {{/each}}
+              </tbody>
               </table>
             </div>
           </div>

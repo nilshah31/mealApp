@@ -71,6 +71,7 @@ app.use(session({
     resave: true
 }));
 
+
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
@@ -118,6 +119,6 @@ app.use('/',contact_controller);
 // Set Port
 app.set('port', (process.env.PORT || 8081));
 
-app.listen(app.get('port'), function(){
+var server = app.listen(app.get('port'), function(){
 	console.log('Server started on port '+app.get('port'));
 });

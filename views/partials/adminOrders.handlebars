@@ -60,7 +60,13 @@
               <td style="display:none;" data-tableexport-display="always">{{order_from_location}}</td>
               <td>{{phone_number}}</td>
               <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
-              <td data-tableexport-display="none"><span class="label label-info">{{status}}</span></td>
+              <td data-tableexport-display="none">
+                  {{#checkOrderStatusCompleted status}}
+                    <span class="label label-info" style="background-color:#4F8A10">{{status}}</span>
+                  {{else}}
+                    <span class="label label-info" style="background-color:#b32d00">{{status}}</span>
+                  {{/checkOrderStatusCompleted}}
+              </td>
             </tr>
             {{/each}}
           </table>
