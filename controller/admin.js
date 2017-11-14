@@ -22,7 +22,7 @@ router.get('/admin', function(req, res){
 });
 
 router.get('/adminDashboard', function(req, res){
-    if(req.session.user=='ADMIN'){
+    if(req.session.userAdmin=='ADMIN'){
         Location.find(function(err, Locationresults){
             if (err) return res.sendStatus(500);
             Item.find(function(err, Itemresults){
@@ -66,7 +66,7 @@ router.get('/adminDashboard', function(req, res){
                         }
                         ItemOrdered.find({},function(err,item_ordered_result){
                           ItemLocation.find({},function(err,item_location_result){
-                              res.render('adminDashboard', { user: req.session.user,
+                              res.render('adminDashboard', { user: req.session.userAdmin,
                                                        userList : Userresults,
                                                        locationList : Locationresults,
                                                        itemList : Itemresults,
@@ -105,7 +105,7 @@ router.post('/update_item_status_inactive', function(req, res) {
 */
 
 router.post('/logoutAdmin', function(req, res) {
-  delete req.session.user;
+  delete req.session.userAdmin;
   req.logout();
   res.redirect('/admin');
 });
@@ -115,7 +115,7 @@ router.post('/admin',function(req,res){
     var uname = req.body.userName;
     var pw = req.body.password;
     if(uname=='admin' && pw=='admin'){
-        req.session.user = 'ADMIN';
+        req.session.userAdmin = 'ADMIN';
         res.redirect('/adminDashboard');
     }
     else{
