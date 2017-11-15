@@ -753,13 +753,10 @@ $('.multicheckboxLocation').on('change', function() {
         type: "POST",
         data: { 'item_id': item_id, 'location_id': location_id },
         success: function(data){
-            $.notify("Location Removed Successfully", "success");
         },
     });
   });
 })
-
-
 
 $('#search_by_location_item').on('change', function() {
     filterItemWiseTableData('itemWiseOrdered',3,'search_by_location_item');
