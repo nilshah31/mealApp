@@ -83,13 +83,21 @@ function edit_item_status_active(item_id){
 }
 
 //Edit the Item, Check for edit Image path
-function edit_item(item_id, item_name, desc, price, init_qty, edit_item_img_path) {
+function edit_item(item_id, item_name, desc, price, init_qty, edit_item_img_path,edit_item_cat) {
     document.getElementById('edititemNameTxtBox').value=item_name;
     document.getElementById('editdescTxtBox').value=desc;
     document.getElementById('editpriceTxtBox').value=price;
     document.getElementById('editinititalQtyTxtBox').value=init_qty;
     document.getElementById('editItemId').value=item_id;
-    //document.getElementById('edit_item_img').src=edit_item_img_path;
+    if(edit_item_cat=='Veg'){
+      document.getElementById("editcategoryVeg").checked = true;
+      document.getElementById("editcategorynonVeg").checked = false;
+    }
+    else{
+      document.getElementById("editcategorynonVeg").checked = true;
+      document.getElementById("editcategoryVeg").checked = false;
+    }
+    document.getElementById('edit_item_img_disp').src=edit_item_img_path;
 
     // Get the modal
     var modal6 = document.getElementById('editItemModal');
@@ -686,14 +694,14 @@ $('#filterOrderTableWithOption').on('change', function(){
     selectedOption = $(this).val();
     selectedLocation = $('#filterLocation').val();
     if(selectedLocation!=0){
-      if(selectedOption==0)searchTodaysOrder(1,'myInput5','myInput3','');
-      if(selectedOption==1)searchTodaysOrder(9,'myInput6','myInput3',selectedLocation);
-      if(selectedOption==2)searchTodaysOrder(9,'myInput4','myInput3',selectedLocation);
+      if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
+      if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3',selectedLocation);
+      if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3',selectedLocation);
     }
     else{
-      if(selectedOption==0)searchTodaysOrder(1,'myInput5','myInput3','');
-      if(selectedOption==1)searchTodaysOrder(9,'myInput6','myInput3','');
-      if(selectedOption==2)searchTodaysOrder(9,'myInput4','myInput3','');
+      if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
+      if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3','');
+      if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3','');
     }
 });
 
@@ -756,3 +764,20 @@ $('.multicheckboxLocation').on('change', function() {
 $('#search_by_location_item').on('change', function() {
     filterItemWiseTableData('itemWiseOrdered',3,'search_by_location_item');
 });
+
+
+function changeImageWhenClick(input) {
+    var url = input.value;
+    var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+    if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#edit_item_img_disp').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }else{
+         $('#edit_item_img_disp').attr('src', '/assets/no_preview.png');
+    }
+}

@@ -50,7 +50,7 @@
           </td>
           <td style="text-align:center;">
             <a class="btnEdit" href="#" id="editItem"
-               onclick="edit_item('{{_id}}','{{name}}','{{description}}','{{price}}','{{initial_qty}}','{{item_image_path}}')">
+               onclick="edit_item('{{_id}}','{{name}}','{{description}}','{{price}}','{{initial_qty}}','{{item_image_path}}','{{category}}')">
             <i class="fa fa-edit fa-2x" title="Edit Item Detail"></i>
             </a>
           </td>
@@ -107,8 +107,8 @@
       <fieldset>
         <input type="hidden" name="editItemId" id="editItemId" />
         <label for="editcategory">Select Category : </label>
-        <input name="editcategory" type="radio" id="editcategory" value="Veg" required>Veg
-        <input name="editcategory" type="radio" id="editcategory" value="Non-Veg" required>Non-Veg
+        <input name="editcategory" type="radio" id="editcategoryVeg" value="Veg" required>Veg
+        <input name="editcategory" type="radio" id="editcategorynonVeg" value="Non-Veg" required>Non-Veg
         <br />
         <label for="name">Name : </label>
         <input type="text" name="edititemNameTxtBox" id="edititemNameTxtBox" required>
@@ -119,10 +119,43 @@
         <label for="initial_qty">Initial Quantity : </label>
         <input type="text" name="editinititalQtyTxtBox" id="editinititalQtyTxtBox" required>
         <label for="item_img">Image : </label>
-        <!--<input type="file" accept="image/*" name="edit_item_img" required>-->
+        <img src="" alt="Item Image" width="100px" height="50px" id="edit_item_img_disp">
+        <label class="editImageFile">
+          <input type="file" accept="image/*" name="edit_item_img" id="edit_item_img" onchange="changeImageWhenClick(this)"> 
+          <span>Edit Image</span>
+        </label>
         <br />
         <input type="submit" class="btn-success item-modal-content-submit newItem">
       </fieldset>
     </form>
   </div>
 </div>
+
+<style>
+label.editImageFile input[type="file"] {
+    position: fixed;
+    top: -1000px;
+}
+
+/***** Example custom styling *****/
+.editImageFile {
+    border: 2px solid #AAA;
+    border-radius: 4px;
+    padding: 2px 5px;
+    margin: 2px;
+    background: #DDD;
+    display: inline-block;
+}
+.editImageFile:hover {
+    background: #CCC;
+}
+.editImageFile:active {
+    background: #CCF;
+}
+.editImageFile :invalid + span {
+    color: #A44;
+}
+.editImageFile :valid + span {
+    color: #4A4;
+}
+</style>

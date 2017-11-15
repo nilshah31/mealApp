@@ -17,6 +17,10 @@ var item_counter;
 var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 
+var multer  = require('multer')
+var upload = multer({ dest: process.cwd()+'/public/images' })
+
+
 router.get('/admin', function(req, res){
     res.render('admin',{user: 'ADMIN'});
 });
@@ -129,34 +133,65 @@ router.post('/editItem', function(req, res) {
     var appDir = path.dirname(require.main.filename);
     var itemImage = req.files.edit_item_img;
     var item_id = req.body.editItemId;
-    //Move Images to Server
-    itemImage.mv(process.cwd()+'//public//images//'+itemImage.name, function(err) {
+    console.log("caome")
+    if(itemImage){
+      //Move Images to Server
+      itemImage.mv(process.cwd()+'//public//images//'+itemImage.name, function(err) {
         if (err)
             return res.status(500).send(err);
-    });
-    var nameValue = req.body.edititemNameTxtBox;
-    var descriptionValue = req.body.editdescTxtBox;
-    var initial_qtyValue = req.body.editinititalQtyTxtBox;
-    var priceValue = req.body.editpriceTxtBox;
-    var category = req.body.editcategory;
-    var item_image_pathValue = '/images//'+itemImage.name;
-    var newItem = new Item({
-        name : nameValue,
-        description : descriptionValue,
-        initial_qty : initial_qtyValue,
-        price : priceValue,
-        item_image_path : item_image_pathValue,
-        avaible_qty : initial_qtyValue,
-        category : category
-    });
-    Item.updateItemDetails(item_id,newItem, function(err, Item){
-        if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
-    });
-    Item.find(function(err, results){
-        if (err) return res.sendStatus(500);
-        req.flash('success_msg','Item Updated Successfully');
-        res.redirect('adminDashboard');
-    });
+        });
+        var nameValue = req.body.edititemNameTxtBox;
+        var descriptionValue = req.body.editdescTxtBox;
+        var initial_qtyValue = req.body.editinititalQtyTxtBox;
+        var priceValue = req.body.editpriceTxtBox;
+        var category = req.body.editcategory;
+        var item_image_pathValue = '/images//'+itemImage.name;
+        var newItem = new Item({
+            name : nameValue,
+            description : descriptionValue,
+            initial_qty : initial_qtyValue,
+            price : priceValue,
+            item_image_path : item_image_pathValue,
+            avaible_qty : initial_qtyValue,
+            category : category
+        });
+        Item.updateItemDetails(item_id,newItem, function(err, Item){
+            if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
+        });
+        Item.find(function(err, results){
+            if (err) return res.sendStatus(500);
+            req.flash('success_msg','Item Updated Successfully');
+            res.redirect('adminDashboard');
+        });
+    }
+    else{
+      Item.findOne({_id:item_id},function(err, results){
+        var nameValue = req.body.edititemNameTxtBox;
+        var descriptionValue = req.body.editdescTxtBox;
+        var initial_qtyValue = req.body.editinititalQtyTxtBox;
+        var priceValue = req.body.editpriceTxtBox;
+        var category = req.body.editcategory;
+        var item_image_pathValue = results.item_image_path;
+        var newItem = new Item({
+            name : nameValue,
+            description : descriptionValue,
+            initial_qty : initial_qtyValue,
+            price : priceValue,
+            item_image_path : item_image_pathValue,
+            avaible_qty : initial_qtyValue,
+            category : category
+        });
+        Item.updateItemDetails(item_id,newItem, function(err, Item){
+            if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
+        });
+        Item.find(function(err, results){
+            if (err) return res.sendStatus(500);
+            req.flash('success_msg','Item Updated Successfully');
+            res.redirect('adminDashboard');
+        });
+      });
+    }
+
 });
 
 router.post('/editLocation', function(req, res) {
