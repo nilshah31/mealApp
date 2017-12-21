@@ -22,9 +22,27 @@ router.post('/user_order_history', function(req, res) {
       result = result;
       for(i=0;i<result.length;i++){
         var qurry_find_order = { name: result[i].item_name };
-        Item.find(qurry_find_order,function(err,res){
-          Item.updateItemQtyAfterCancle(res[0]._id,parseInt(res[0].avaible_qty)+parseInt(result[i-1].qty));
-          ItemOrdered.updateItemQtyAfterCancle(res[0].name,parseInt(res[0].avaible_qty)-parseInt(result[i-1].qty));
+        Item.find(qurry_find_order,function(err,res) {
+            Item.updateItemQtyAfterCancle(res[0]._id, parseInt(res[0].avaible_qty) + parseInt(result[i - 1].qty));
+            Item.find(qurry_find_order,function(err,res){
+                today = new Date();
+                dd = today.getDate();
+                mm = today.getMonth();
+                yyyy = today.getFullYear();
+                if(dd<10){
+                    dd='0'+dd;
+                }
+                if(mm<10){
+                    mm='0'+mm;
+                }
+                hours = today.getHours();
+                session_time = 0;
+                if(hours>13)
+                    session_time = 1;
+                today_dt = yyyy +'-'+mm+'-'+dd;
+                newQty = parseInt(res[0].initial_qty)-parseInt(res[0].avaible_qty);
+                ItemOrdered.updateItemQtyAfterCancle(res[0].name,today_dt,newQty);
+            });
         });
       }
       User.addUserAmountLimit(req.session.user._id,(parseInt(req.session.user.avaible_limit)+parseInt(result[0].total)),function(err,result){

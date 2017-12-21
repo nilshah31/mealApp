@@ -163,3 +163,10 @@
 //getPagination('#myTable');
 //$('#maxRows').trigger("change");
 </script>
+
+
+{{#if load_div_name}}
+    <script>
+        onLoadSelectDiv({{load_div_name}});
+    </script>
+{{/if}}

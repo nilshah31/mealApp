@@ -1,45 +1,75 @@
 <!--Item DIV -->
-  <!--Item List DIV -->
-  <div id="ItemOrderDiv">
+<!--Item List DIV -->
+<div id="ItemOrderDiv">
     <div class="panel panel-default">
-      <div class="panel-heading">Item Avaible</div>
-      <div class="panel-body">
-        <center>
-          <div class="row">
-            <div class="table-responsive">
-              <!--<input type="text" id="search_by_location_item" style="width:20%;height:25%" class="input-lg" placeholder="Search by Location" />-->&nbsp;&nbsp;&nbsp;
-              <select id='search_by_location_item' name='search_by_location_item' style='width:30%;height:46px;'>
-                <option selected value="0">All Order's</option>
-                {{#each locationList}}
-                  <option value='{{company}},{{city}}'>{{company}},{{city}}</option>
-                {{/each}}
-              </select>
-              <a  href="#" id='exportButtonItemWise' class='exportButtonItemWise btn btn-success btn-lg' name='exportButtonItemWise'>
-                <span class="glyphicon glyphicon-download-alt" style="color:white"></span>
-              </a>
-              <br /><br />
-              <table id="itemWiseOrdered">
-                <caption>Item Wise Order</caption>
-                <tbody id="fbody">
-                <tr class="header">
-                  <th>Item</th>
-                  <th style="text-align:center">Total Item Placed</th>
-                  <th>Location</th>
-                </tr>
-                {{#each item_ordered_list}}
-                <tr>
-                  <td>{{item_name}}</td>
-                  <td style="text-align:center">{{total_ordered_placed}}</td>
-                  <td>{{location}}</td>
-                </tr>
-                {{/each}}
-              </tbody>
-              </table>
-            </div>
-          </div>
-        </center>
-      </div>
-    </div>
-  </div>
+        <div class="panel-heading">Item Avaible</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive"></div>
+                    <form method="post" action="/get_itemOrdered_data" style="margin:0px" id="get_itemOrdered_data" name="get_itemOrdered_data">
+                      <input type="date" style='width:25%;height:46px;' name="date_itemOrdered" id="date_itemOrdered" />
+                        <select id='search_by_location_item' name='search_by_location_item' style='width:25%;height:46px;'>
+                            <option selected value="0">All Order's</option>
+                            {{#each locationList}}
+                                <option value='{{company}},{{city}}'>{{company}},{{city}}</option>
+                            {{/each}}
+                        </select>
+                        <select id='search_by_location_item' name='search_by_location_item' style='width:25%;height:46px;'>
+                            <option selected value="0">Morning</option>
+                            <option value="1">Evening</option>
+                        </select>
+                        <a href="#" id='exportButtonItemWise' class='exportButtonItemWise btn btn-success btn-lg' name='exportButtonItemWise'>
+                            <span class="glyphicon glyphicon-download-alt" style="color:white"></span>
+                        </a>
+                    </form><br />
 
+                    <table class="table table-hover table-bordered" id="itemWiseOrderTable" width="100%">
+                        <thead>
+                        <tr>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Session</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each item_ordered_list}}
+                            <tr>
+                                <td scope="row">{{item_name}}</td>
+                                <td>{{total_ordered_placed}}</td>
+                                <td>{{location}}</td>
+                                <td>{{ordered_date}}</td>
+                                <td>{{session_time}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--//Item Div History-->
+
+<script>
+    today = new Date();
+    dd = today.getDate();
+    mm = (today.getMonth())+1;
+    yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd;
+    }
+    if(mm<10){
+        mm='0'+mm;
+    }
+    today_dt = yyyy +'-'+mm+'-'+dd;
+    document.getElementById('date_itemOrdered').value = today_dt;
+    $(function(){
+        $('#date_itemOrdered').change(function() {
+            filterItemWiseOrder('itemWiseOrderTable',3,'date_itemOrdered');
+        });
+    });
+</script>

@@ -252,21 +252,51 @@ function removeFilterData() {
 
 //Filter Table Data
 function filterOrderTableData(table_id,index,id,location,index2) {
-    var input, filter, table, tr, td, i;
+    var input, filter, table, tr, td, i,td1;
     input = document.getElementById(id);
+
     filter = input.value.toUpperCase();
     table = document.getElementById(table_id);
     tr = table.getElementsByTagName("tr");
+
     for (i = 1; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[index];
         td1 = tr[i].getElementsByTagName("td")[index2];
         if (td) {
             if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-              if((td1.innerHTML.toUpperCase().indexOf(location.toUpperCase())) > -1){
-                tr[i].style.display = "";
+                if((td1.innerHTML.toUpperCase().indexOf(location.toUpperCase())) > -1){
+                    tr[i].style.display = "";
               }
             } else {
                 tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+//Filter Table Data
+function filterItemWiseOrder(table_id,index,id) {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById(id);
+    filter = input.value.toUpperCase();
+    table = document.getElementById(table_id);
+    tr = table.getElementsByTagName("tr");
+    if(filter=="0"){
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[index];
+            if (td) {
+                tr[i].style.display = "";
+            }
+        }
+    }else{
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[index];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
         }
     }
@@ -321,8 +351,9 @@ function searchTodaysOrder(index,id,id2,location) {
         var Cells = tr[i].getElementsByTagName("td");
 
         td = tr[i].getElementsByTagName("td")[index];
-        td1 = tr[i].getElementsByTagName("td")[1];
-        td2 = tr[i].getElementsByTagName("td")[5];
+        td1 = tr[i].getElementsByTagName("td")[0];
+        td2 = tr[i].getElementsByTagName("td")[4];
+
         if (td) {
             if (td.innerText.toUpperCase().indexOf(filter) > -1) {
                 if(td1.innerText.toUpperCase().indexOf(filter1) > -1){
@@ -546,7 +577,7 @@ $('button.newItem').click( function() {
       $('form.newItem').submit();
    });
 
-   //$("#OrderDiv").toggle();
+   $("#OrderDiv").toggle();
    $(document).ready(function(){
        $("#viewAllOrders").click(function(){
            if ( $('#itemDIV').is(':visible')){
@@ -629,7 +660,7 @@ $(".exportButton").on("click", function() {
 });
 
 $(".exportButtonItemWise").on("click", function() {
-  downloadPDF('itemWiseOrdered',$('#search_by_location_item').val());
+  downloadPDF('itemWiseOrderTable',$('#search_by_location_item').val());
 });
 
 function deleteItem(obj, id) {
@@ -724,9 +755,8 @@ $('#myInput2').keyup(function() {
       filterOrderTableData('myTable',1,'myInput2','',4);
     }
 });
-$('#search_by_location_item').keyup(function() {
-    selectedLocation = $('#search_by_location_item').val();
-    filterOrderTableData('itemWiseOrdered',2,'search_by_location_item',selectedLocation,2);
+$('#search_by_location_item').change(function() {
+    filterItemWiseOrder('itemWiseOrderTable',2,'search_by_location_item');
 });
 
 $('select[multiple]').multiselect({
@@ -758,10 +788,6 @@ $('.multicheckboxLocation').on('change', function() {
   });
 })
 
-$('#search_by_location_item').on('change', function() {
-    filterItemWiseTableData('itemWiseOrdered',3,'search_by_location_item');
-});
-
 
 function changeImageWhenClick(input) {
     var url = input.value;
@@ -777,4 +803,11 @@ function changeImageWhenClick(input) {
     }else{
          $('#edit_item_img_disp').attr('src', '/assets/no_preview.png');
     }
+}
+
+function onLoadSelectDiv(id){
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var value = url.searchParams.get("load_div_name");
+    $("#"+value).toggle();
 }

@@ -18,50 +18,49 @@ var mongoose = require('mongoose');
 
 router.get('/payment',function(req, res){
     if(req.session.user) {
-      if(req.session.user.firstname){
-        order_itemID = req.session.order_itemID;
-        order_itemName = req.session.order_itemName;
-        order_itemPrice = req.session.order_itemPrice;
-        order_itemQty = req.session.order_itemQty;
-        total=0;
-        object_item_hash = [];
-        if(order_itemQty.length==1) {
-            sub_Total = parseInt(order_itemQty) * parseInt(order_itemPrice);
-            object_item_hash.push({
-                order_itemID: order_itemID,
-                order_itemName: order_itemName,
-                order_itemPrice: order_itemPrice,
-                order_itemQty: order_itemQty,
-                sub_Total: sub_Total
-            });
-            total += sub_Total;
-            req.session.sub_Total = sub_Total;
-        }
-        else{
-            for (i = 0; i < order_itemQty.length; i++) {
-                sub_Total = parseInt(order_itemQty[i]) * parseInt(order_itemPrice[i]);
+        if(req.session.user.firstname){
+            order_itemID = req.session.order_itemID;
+            order_itemName = req.session.order_itemName;
+            order_itemPrice = req.session.order_itemPrice;
+            order_itemQty = req.session.order_itemQty;
+            total=0;
+            object_item_hash = [];
+            if(order_itemQty.length==1) {
+                sub_Total = parseInt(order_itemQty) * parseInt(order_itemPrice);
                 object_item_hash.push({
-                    order_itemID: order_itemID[i],
-                    order_itemName: order_itemName[i],
-                    order_itemPrice: order_itemPrice[i],
-                    order_itemQty: order_itemQty[i],
+                    order_itemID: order_itemID,
+                    order_itemName: order_itemName,
+                    order_itemPrice: order_itemPrice,
+                    order_itemQty: order_itemQty,
                     sub_Total: sub_Total
                 });
                 total += sub_Total;
+                req.session.sub_Total = sub_Total;
+            } else{
+                for (i = 0; i < order_itemQty.length; i++) {
+                    sub_Total = parseInt(order_itemQty[i]) * parseInt(order_itemPrice[i]);
+                    object_item_hash.push({
+                        order_itemID: order_itemID[i],
+                        order_itemName: order_itemName[i],
+                        order_itemPrice: order_itemPrice[i],
+                        order_itemQty: order_itemQty[i],
+                        sub_Total: sub_Total
+                    });
+                    total += sub_Total;
+                }
+                req.session.sub_Total = sub_Total;
             }
-            req.session.sub_Total = sub_Total;
+            res.render('payment',
+                {
+                    user: req.session.user,
+                    object_item_hash: object_item_hash,
+                    bill_total: total,
+                    order_rcpt_number: req.session.order_rcpt_number
+                });
         }
-        res.render('payment',
-            {
-                user: req.session.user,
-                object_item_hash: object_item_hash,
-                bill_total: total,
-                order_rcpt_number: req.session.order_rcpt_number
-            });
-      }
-      else{
-        res.redirect('/');
-      }
+        else{
+            res.redirect('/');
+        }
     }
     else
         res.redirect('/');
@@ -69,7 +68,7 @@ router.get('/payment',function(req, res){
 
 
 router.post('/payment', function(req, res){
-	  //Creating Order
+    //Creating Order
     order_itemID = req.session.order_itemID;
     order_itemName = req.session.order_itemName;
     order_itemPrice = req.session.order_itemPrice;
@@ -81,38 +80,60 @@ router.post('/payment', function(req, res){
     itemIDArray = String(req.session.order_itemID).split(',');
     itemPriceArray = String(req.session.order_itemPrice).split(',');
     itemQtyArray = String(req.session.order_itemQty).split(',');
-
     for(var i=0;i<itemPriceArray.length;i++){
- 		   total+=parseInt(itemPriceArray[i])*parseInt(itemQtyArray[i]);
+        total+=parseInt(itemPriceArray[i])*parseInt(itemQtyArray[i]);
         Item.updateItemQty(itemIDArray[i],itemQtyArray[i],function(err, updated_qty_result){
             if(err) throw err;
             console.log(itemIDArray[i]);
-            });
-            var query = {_id: itemIDArray[i]};
-            Item.findOne(query,function(err,item_result){
-              location_name = req.session.user.location+','+req.session.user.city;
-              new_item_qty = (parseInt(item_result.initial_qty)-parseInt(item_result.avaible_qty))+parseInt(order_itemQty)
-
-              ItemOrdered.find({item_name:item_result.name,location: location_name},function(err,item_ordered_result){
+        });
+        var query = {_id: itemIDArray[i]};
+        Item.findOne(query,function(err,item_result){
+            location_name = req.session.user.location+','+req.session.user.city;
+            new_item_qty = (parseInt(item_result.initial_qty)-parseInt(item_result.avaible_qty))+parseInt(order_itemQty)
+            today = new Date();
+            dd = today.getDate();
+            mm = today.getMonth();
+            yyyy = today.getFullYear();
+            if(dd<10){
+                dd='0'+dd;
+            }
+            if(mm<10){
+                mm='0'+mm;
+            }
+            hours = today.getHours();
+            session_time = 0;
+            if(hours>13)
+                session_time = 1;
+            today_dt = yyyy +'-'+mm+'-'+dd;
+            console.log(today_dt);
+            console.log("\n\n\n\n");
+            ItemOrdered.find({item_name:item_result.name,location: location_name,ordered_date:today_dt,session_time:session_time},function(err,item_ordered_result){
                 if(item_ordered_result.length>0){
-                  ItemOrdered.updateOne({item_name:item_result.name,location: location_name}, {$set:{total_ordered_placed: new_item_qty}}, function(err, res) {
-                    if (err) throw err;
-                    console.log(res);
-                  });
+                    ItemOrdered.update({item_name:item_ordered_result[0].item_name,location: item_ordered_result[0].location,ordered_date:item_ordered_result[0].ordered_date,session_time:item_ordered_result[0].session_time}, {$set:{total_ordered_placed: new_item_qty}}, function(err, res) {
+                        if (err) throw err;
+                        console.log("Updating Item");
+                        console.log(res);
+                    });
                 }
                 else{
-                  var newItemOrder = new ItemOrdered({
-                    item_name  : item_result.name,
-                    location: location_name,
-                    total_ordered_placed: new_item_qty
-                  });
-                  ItemOrdered.createItemOrdered(newItemOrder,function(err,newItemOrderResult){
-                    if(err) console.log(err);
-                  });
+                    console.log("Creating")
+                    console.log(today);
+                    console.log("\n\n\n\n");
+                    today_date = today.toString();
+                    var newItemOrder = new ItemOrdered({
+                        item_name  : item_result.name,
+                        location: location_name,
+                        order_date:today,
+                        session_time:session_time,
+                        total_ordered_placed: new_item_qty,
+                    });
+                    ItemOrdered.createItemOrdered(newItemOrder,function(err,newItemOrderResult){
+                        if(err) console.log(err);
+                    });
                 }
-              });
             });
-	  }
+        });
+    }
 
     var newOrder = new Order({
         user_id  : req.session.user._id,
@@ -136,8 +157,8 @@ router.post('/payment', function(req, res){
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'nilshah.31@gmail.com',
-        pass: 'NVD421nvd'
+        user: 'sanjeevinifoods@gmail.com',
+        pass: 'Sanjeevini@0809'
       }
     });
 

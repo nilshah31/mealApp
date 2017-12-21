@@ -26,6 +26,7 @@ router.get('/admin', function(req, res){
 });
 
 router.get('/adminDashboard', function(req, res){
+    load_div_name =  req.query.load_div_name;
     if(req.session.userAdmin=='ADMIN'){
         Location.find(function(err, Locationresults){
             if (err) return res.sendStatus(500);
@@ -41,7 +42,7 @@ router.get('/adminDashboard', function(req, res){
                         else if(results[i].status==1)
                             status='Completed';
                         else
-                            status='Cancled';
+                            status='Canceled';
                         var order_date=new Date(String(results[i].order_date_time));
                         var ordr_dt = String(order_date.getDate())+'/'+String(order_date.getMonth()+1)+'/'+String(order_date.getFullYear());
                         object_item_hash.push({
@@ -68,15 +69,17 @@ router.get('/adminDashboard', function(req, res){
                             }
                           }
                         }
-                        ItemOrdered.find({},function(err,item_ordered_result){
+                        ItemOrdered.find(function(err,item_ordered_result){
                           ItemLocation.find({},function(err,item_location_result){
+                              console.log(item_ordered_result);
                               res.render('adminDashboard', { user: req.session.userAdmin,
                                                        userList : Userresults,
                                                        locationList : Locationresults,
                                                        itemList : Itemresults,
                                                        object_item_hash:object_item_hash,
                                                        item_ordered_list:item_ordered_result,
-                                                       item_location_result:item_location_result  });
+                                                       item_location_result:item_location_result,
+                                                       load_div_name:load_div_name });
                               });
                        });
                     });
@@ -244,7 +247,7 @@ router.post('/newItem', function(req, res){
 	});
     Item.find(function(err, results){
         req.flash('success_msg','Item Added Successfully');
-        res.redirect('adminDashboard');
+        res.redirect('adminDashboard?load_div_name=itemDIV');
 	});
 });
 
@@ -341,3 +344,6 @@ router.post('/dbs/addLocation',function (req, res){
     res.send(Location._id);
 	});
 });
+
+
+filterItemWiseOrder('itemWiseOrderTable',3,'date_itemOrdered');
