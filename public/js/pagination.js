@@ -7,7 +7,7 @@ $(function () {
 
     // Starting table state
     function initTable() {
-        $(myTableBody).attr("data-pageSize", 10);
+        $(myTableBody).attr("data-pageSize", 8);
         $(myTableBody).attr("data-firstRecord", 0);
         $('#previous').hide();
         $('#next').show();

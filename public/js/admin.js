@@ -577,7 +577,7 @@ $('button.newItem').click( function() {
       $('form.newItem').submit();
    });
 
-   $("#OrderDiv").toggle();
+   //$("#OrderDiv").toggle();
    $(document).ready(function(){
        $("#viewAllOrders").click(function(){
            if ( $('#itemDIV').is(':visible')){

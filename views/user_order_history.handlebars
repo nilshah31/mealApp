@@ -9,7 +9,6 @@
   <p  style="float:left; margin:12px 12px 20px 0;"><span class="ui-icon ui-icon-alert"></span>  Do you want to cancle this order?</p>
 </div>
 
-<br />
 <div class="container">
     <div class="row">
         <h2><i class="fa fa-history" aria-hidden="true"></i> ORDER HISTORY</h2>
@@ -18,7 +17,7 @@
         <form id="order_history_tbl" method="post">
             <input type='hidden' id= 'rcptnumber' name='rcptnumber' value='' />
             <div class="table-responsive">
-                <table id="myTable" style="width:90%">
+                <table id="myTable" style="width:100%">
                     <tr class="header">
                         <th onclick="sortTable(0)">Order Date <span class="glyphicon glyphicon-sort"></span></th>
                         <th onclick="sortTable(1)">Order Number <span class="glyphicon glyphicon-sort"></span></th>
@@ -48,6 +47,14 @@
                         </tr>
                     {{/each}}
                 </table>
+            </div>
+            <div>
+                <a href="#" class="paginate" id="previous">
+                    <span class="glyphicon btn-lg glyphicon-chevron-left"></span>
+                </a>
+                <a href="#" class="paginate" id="next">
+                    <span class="glyphicon btn-lg glyphicon-chevron-right"></span>
+                </a>
             </div>
         </form>
     </div>
