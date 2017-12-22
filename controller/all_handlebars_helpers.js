@@ -3,11 +3,11 @@ var Handlebars = require('handlebars');
 var ItemLocation = require('../models/item_location');
 
 Handlebars.registerHelper('incrementCounterVariable', function(options) {
-      item_counter = item_counter + 1;
+    item_counter = item_counter + 1;
 });
 
 Handlebars.registerHelper('ifCustomize', function(options) {
-  if(item_counter%6) {
+    if(item_counter%6) {
         return options.fn(this);
     } else {
         return options.inverse(this);
@@ -16,12 +16,12 @@ Handlebars.registerHelper('ifCustomize', function(options) {
 
 
 Handlebars.registerHelper('checkIfTwoIdEqueal', function(id1,id2,options) {
-  if(id1==id2){
-    return options.fn(this);
-  }
-  else {
-    return options.inverse(this);
-  }
+    if(id1==id2){
+        return options.fn(this);
+    }
+    else {
+        return options.inverse(this);
+    }
 
 
 });
@@ -97,9 +97,9 @@ Handlebars.registerHelper('startItemLayoutCounter', function(options) {
 });
 
 function generateRandomNumber(){
-	var number = Math.floor((Math.random()*10000));
-	 if(number.length < 4 || number.length > 4){
-    	generateRandomNumber();
+    var number = Math.floor((Math.random()*10000));
+    if(number.length < 4 || number.length > 4){
+        generateRandomNumber();
     }
-	return number;
+    return number;
 }

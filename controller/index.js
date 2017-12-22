@@ -17,11 +17,11 @@ var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 
 function generateRandomNumber(){
-	var number = Math.floor((Math.random()*10000));
-	 if(number.length < 4 || number.length > 4){
-    	generateRandomNumber();
+    var number = Math.floor((Math.random()*10000));
+    if(number.length < 4 || number.length > 4){
+        generateRandomNumber();
     }
-	return number;
+    return number;
 }
 
 //Mix Function's
@@ -46,45 +46,45 @@ function ensureAuthenticated(req, res, next){
 
 //  Get Homepage
 router.get('/', function(req, res){
-  if(req.session.user){
-    if(req.session.user.firstname) {
-      var query = {phone: req.session.user.phone};
-      User.findOne(query, function(err,user_result){
-				req.session.user = null;
-				req.session.user = user_result;
-        Location.findOne({company:user_result.location},function(err,location_results){
-          if(location_results){
-            ItemLocation.find({location_id:location_results._id},function(err,itemLocationResult){
-              var item_location_ids = [];
-              itemLocationResult.forEach(function (item_id){
-                item_location_ids.push(new mongoose.Types.ObjectId(item_id.item_id));
-              });
-              Item.find( { _id : { $in : item_location_ids }},function(err, item_results){
-                res.render('index', {i: 1, user: req.session.user, itemList: item_results,isLocationAvaible:true});
-              });
+    if(req.session.user){
+        if(req.session.user.firstname) {
+            var query = {phone: req.session.user.phone};
+            User.findOne(query, function(err,user_result){
+                req.session.user = null;
+                req.session.user = user_result;
+                Location.findOne({company:user_result.location},function(err,location_results){
+                    if(location_results){
+                        ItemLocation.find({location_id:location_results._id},function(err,itemLocationResult){
+                            var item_location_ids = [];
+                            itemLocationResult.forEach(function (item_id){
+                                item_location_ids.push(new mongoose.Types.ObjectId(item_id.item_id));
+                            });
+                            Item.find( { _id : { $in : item_location_ids }},function(err, item_results){
+                                res.render('index', {i: 1, user: req.session.user, itemList: item_results,isLocationAvaible:true});
+                            });
+                        });
+                    }
+                    else{
+                        Item.find(function(err, item_results){
+                            res.render('index',{i: 1,user: req.session.user,itemList: item_results,isLocationAvaible:false});
+                        });
+                    }
+                });
             });
-          }
-          else{
+        }
+        else{
             Item.find(function(err, item_results){
-              res.render('index',{i: 1,user: req.session.user,itemList: item_results,isLocationAvaible:false});
+                req.session.user = null;
+                res.render('index',{i: 1,user: null,itemList: item_results,isLocationAvaible:false});
             });
-          }
+        }
+    }
+    else {
+        Item.find(function(err, item_results){
+            req.session.user = null;
+            res.render('index',{i: 1,user: null,itemList: item_results,isLocationAvaible:false});
         });
-      });
     }
-    else{
-      Item.find(function(err, item_results){
-        req.session.user = null;
-        res.render('index',{i: 1,user: null,itemList: item_results,isLocationAvaible:false});
-      });
-    }
-  }
-  else {
-    Item.find(function(err, item_results){
-      req.session.user = null;
-      res.render('index',{i: 1,user: null,itemList: item_results,isLocationAvaible:false});
-    });
-  }
 });
 
 router.get('/user_profile',function(req, res){

@@ -7,19 +7,19 @@
 
 <!--Admin Login Page-->
 <div class="container" >
-  <div class="wrapper">
-    {{#if error_msg}}
-      <div class="alert alert-danger">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-          {{error_msg}}
-      </div>
-    {{/if}}
-    <form class="form-signin" method="post">
-      <h2 class="form-signin-heading">Admin Login Panel</h2>
-      <input type="text" class="form-control" name="userName" required class="form-control" placeholder="User Name" autofocus=""/>
-      <input type="password" name="password" required class="form-control" placeholder="Password"/>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-    </form>
-  </div>
+    <div class="wrapper">
+        {{#if error_msg}}
+            <div class="alert alert-danger">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {{error_msg}}
+            </div>
+        {{/if}}
+        <form class="form-signin" method="post">
+            <h2 class="form-signin-heading">Admin Login Panel</h2>
+            <input type="text" class="form-control" name="userName" required class="form-control" placeholder="User Name" autofocus=""/>
+            <input type="password" name="password" required class="form-control" placeholder="Password"/>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        </form>
+    </div>
 </div>
 <!--/Admin Login Page-->

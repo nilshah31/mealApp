@@ -28,24 +28,24 @@ router.post('/contact', function(req, res){
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-        user: 'nilshah.31@gmail.com',
-        pass: 'NVD421nvd'
+            user: 'nilshah.31@gmail.com',
+            pass: 'NVD421nvd'
         }
     });
 
     var mailOptions = {
-      from: 'sanjeevinifoods@gmail.com',
-      to: String(req.body.email),
-      subject: 'FeedBack-'+req.body.email+' - '+req.body.subject,
-      html: '<p>Name : '+req.body.name+'<br />Mobile : '+req.body.mobile+'<br />Message : <br />'+req.body.message
+        from: 'sanjeevinifoods@gmail.com',
+        to: String(req.body.email),
+        subject: 'FeedBack-'+req.body.email+' - '+req.body.subject,
+        html: '<p>Name : '+req.body.name+'<br />Mobile : '+req.body.mobile+'<br />Message : <br />'+req.body.message
     };
 
     transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
     });
 
     if(req.session.user) {

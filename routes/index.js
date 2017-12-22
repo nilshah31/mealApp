@@ -55,43 +55,43 @@ router.get('/user_profile',function(req, res){
 
 //  Get Homepage
 router.get('/', function(req, res){
-  if(req.session.user){
-    if(req.session.user.firstname) {
-      var query = {phone: req.session.user.phone};
-      User.findOne(query, function(err,user_result){
-        Location.findOne({company:user_result.location},function(err,location_results){
-          if(location_results){
-            ItemLocation.find({location_id:location_results._id},function(err,itemLocationResult){
-              var item_location_ids = [];
-              itemLocationResult.forEach(function (item_id){
-                item_location_ids.push(new mongoose.Types.ObjectId(item_id.item_id));
-              });
-              Item.find( { _id : { $in : item_location_ids }},function(err, item_results){
-                res.render('index', {i: 1, user: req.session.user, itemList: item_results,isLocationAvaible:true});
-              });
+    if(req.session.user){
+        if(req.session.user.firstname) {
+            var query = {phone: req.session.user.phone};
+            User.findOne(query, function(err,user_result){
+                Location.findOne({company:user_result.location},function(err,location_results){
+                    if(location_results){
+                        ItemLocation.find({location_id:location_results._id},function(err,itemLocationResult){
+                            var item_location_ids = [];
+                            itemLocationResult.forEach(function (item_id){
+                                item_location_ids.push(new mongoose.Types.ObjectId(item_id.item_id));
+                            });
+                            Item.find( { _id : { $in : item_location_ids }},function(err, item_results){
+                                res.render('index', {i: 1, user: req.session.user, itemList: item_results,isLocationAvaible:true});
+                            });
+                        });
+                    }
+                    else{
+                        Item.find(function(err, item_results){
+                            res.render('index',{i: 1,user: req.session.user,itemList: item_results,isLocationAvaible:false});
+                        });
+                    }
+                });
             });
-          }
-          else{
+        }
+        else{
             Item.find(function(err, item_results){
-              res.render('index',{i: 1,user: req.session.user,itemList: item_results,isLocationAvaible:false});
+                req.session.user = null;
+                res.render('index',{i: 1,user: null,itemList: item_results,isLocationAvaible:false});
             });
-          }
+        }
+    }
+    else {
+        Item.find(function(err, item_results){
+            req.session.user = null;
+            res.render('index',{i: 1,user: null,itemList: item_results,isLocationAvaible:false});
         });
-      });
     }
-    else{
-      Item.find(function(err, item_results){
-        req.session.user = null;
-        res.render('index',{i: 1,user: null,itemList: item_results,isLocationAvaible:false});
-      });
-    }
-  }
-  else {
-    Item.find(function(err, item_results){
-      req.session.user = null;
-      res.render('index',{i: 1,user: null,itemList: item_results,isLocationAvaible:false});
-    });
-  }
 });
 
 router.get('/admin', function(req, res){
@@ -187,26 +187,26 @@ router.get('/adminDashboard', function(req, res){
                     User.find(function(err, Userresults) {
                         if (err) return res.sendStatus(500);
                         for(i=0;i<object_item_hash.length;i++){
-                          for(j=0;j<Userresults.length;j++){
-                            if(String(object_item_hash[i].user_id)==String(Userresults[j]._id)){
-                              object_item_hash[i].user_firstName = Userresults[j].firstname;
-                              object_item_hash[i].phone_number = Userresults[j].phone;
+                            for(j=0;j<Userresults.length;j++){
+                                if(String(object_item_hash[i].user_id)==String(Userresults[j]._id)){
+                                    object_item_hash[i].user_firstName = Userresults[j].firstname;
+                                    object_item_hash[i].phone_number = Userresults[j].phone;
+                                }
                             }
-                          }
                         }
                         ItemOrdered.find({},function(err,item_ordered_result){
-                              res.render('adminDashboard', { user: req.session.user,
-                                                       userList : Userresults,
-                                                       locationList : Locationresults,
-                                                       itemList : Itemresults,
-                                                       object_item_hash:object_item_hash,
-                                                       item_ordered_list:item_ordered_result  });
-                       });
+                            res.render('adminDashboard', { user: req.session.user,
+                                userList : Userresults,
+                                locationList : Locationresults,
+                                itemList : Itemresults,
+                                object_item_hash:object_item_hash,
+                                item_ordered_list:item_ordered_result  });
+                        });
                     });
                 });
             });
         });
-        }
+    }
     else{
         req.flash('error_msg','You dont have Permission to access Admin Page');
         res.redirect('/');
@@ -298,24 +298,24 @@ router.post('/contact', function(req, res){
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-        user: 'nilshah.31@gmail.com',
-        pass: 'NVD421nvd'
+            user: 'nilshah.31@gmail.com',
+            pass: 'NVD421nvd'
         }
     });
 
     var mailOptions = {
-      from: 'sanjeevinifoods@gmail.com',
-      to: String(req.body.email),
-      subject: 'FeedBack-'+req.body.email+' - '+req.body.subject,
-      html: '<p>Name : '+req.body.name+'<br />Mobile : '+req.body.mobile+'<br />Message : <br />'+req.body.message
+        from: 'sanjeevinifoods@gmail.com',
+        to: String(req.body.email),
+        subject: 'FeedBack-'+req.body.email+' - '+req.body.subject,
+        html: '<p>Name : '+req.body.name+'<br />Mobile : '+req.body.mobile+'<br />Message : <br />'+req.body.message
     };
 
     transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
     });
 
     if(req.session.user) {
@@ -328,13 +328,13 @@ router.post('/contact', function(req, res){
 router.post('/user_order_history', function(req, res) {
     var myquery = { receipt_number: req.body.rcptnumber };
     Order.find(myquery,function(err,result){
-      result = result;
-      for(i=0;i<result.length;i++){
-        var qurry_find_order = { name: result[i].item_name };
-        Item.find(qurry_find_order,function(err,res){
-          Item.updateItemQtyAfterCancle(res[0]._id,parseInt(res[0].avaible_qty)+parseInt(result[i-1].qty));
-        });
-      }
+        result = result;
+        for(i=0;i<result.length;i++){
+            var qurry_find_order = { name: result[i].item_name };
+            Item.find(qurry_find_order,function(err,res){
+                Item.updateItemQtyAfterCancle(res[0]._id,parseInt(res[0].avaible_qty)+parseInt(result[i-1].qty));
+            });
+        }
     });
     Order.updateOne(myquery, {$set:{status:'2'}}, function(err, res) {
         if (err) throw err;
@@ -362,9 +362,9 @@ router.post('/update_item_status_inactive', function(req, res) {
 });
 
 router.post('/logoutAdmin', function(req, res) {
-  delete req.session.user;
-  req.logout();
-  res.redirect('/admin');
+    delete req.session.user;
+    req.logout();
+    res.redirect('/admin');
 });
 
 
@@ -387,98 +387,98 @@ router.post('/user_password_update', function(req, res) {
 });
 
 router.post('/forget_password', function(req, res) {
-  User.getUserBymobNumber(req.body.cur_mob_no,function(err,isMatch){
-    if(isMatch){
-      User.getUserByemailId(req.body.cur_email_id,function(err,isMatch){
+    User.getUserBymobNumber(req.body.cur_mob_no,function(err,isMatch){
         if(isMatch){
-            console.log("Found User : "+isMatch.firstname);
-            var number = generateRandomNumber();
-            console.log(number);
-            User.sendMessage(isMatch.lastname,isMatch.phone,number,function (err,result){
-            });
-            User.updateuserPassword(isMatch._id,number,function (err,result) {
-                if(err){
-                    res.render('forget_password',{msg_err:"Something went wrong Please try agains"});
+            User.getUserByemailId(req.body.cur_email_id,function(err,isMatch){
+                if(isMatch){
+                    console.log("Found User : "+isMatch.firstname);
+                    var number = generateRandomNumber();
+                    console.log(number);
+                    User.sendMessage(isMatch.lastname,isMatch.phone,number,function (err,result){
+                    });
+                    User.updateuserPassword(isMatch._id,number,function (err,result) {
+                        if(err){
+                            res.render('forget_password',{msg_err:"Something went wrong Please try agains"});
+                        }
+                        else{
+
+                            res.render('forget_password',{msg_success:"Please use New Password to login"});
+                        }
+                    });
                 }
                 else{
-
-                    res.render('forget_password',{msg_success:"Please use New Password to login"});
+                    res.render('forget_password',{msg_err:"User does not exist with this Mobilenumber/Emailid"});
                 }
             });
+        } else {
+            res.render('forget_password',{msg_err:"User does not exist with this Mobilenumber/Emailid"});
         }
-        else{
-          res.render('forget_password',{msg_err:"User does not exist with this Mobilenumber/Emailid"});
-        }
-      });
-    } else {
-        res.render('forget_password',{msg_err:"User does not exist with this Mobilenumber/Emailid"});
-    }
-  });
+    });
 });
 
 router.post('/dbs/addLocationtoMenu',function (req, res){
-  var item_id = req.body.item_id;
-  var location_id = req.body.location_id;
-  var myquery = { item_id : item_id, location_id: location_id };
-  ItemLocation.find(myquery,function(err, results){
-    if(err) res.send(err);
-    if(results.length==0){
-      var newItemLocation = new ItemLocation({
-    		item_id : item_id,
-    		location_id : location_id
-    	});
-    	ItemLocation.createItemLocation(newItemLocation, function(err, ItemLocation){
-        if (err) res.send(err) ;
-        res.sendStatus(200);
-    	});
-    }
-  });
+    var item_id = req.body.item_id;
+    var location_id = req.body.location_id;
+    var myquery = { item_id : item_id, location_id: location_id };
+    ItemLocation.find(myquery,function(err, results){
+        if(err) res.send(err);
+        if(results.length==0){
+            var newItemLocation = new ItemLocation({
+                item_id : item_id,
+                location_id : location_id
+            });
+            ItemLocation.createItemLocation(newItemLocation, function(err, ItemLocation){
+                if (err) res.send(err) ;
+                res.sendStatus(200);
+            });
+        }
+    });
 });
 
 router.post('/dbs/removeLocationtoMenu',function (req, res){
-  var item_id = req.body.item_id;
-  var location_id = req.body.location_id;
-  var myquery = { item_id : item_id, location_id: location_id };
-  ItemLocation.find(myquery,function(err, results){
-    if(err) res.send(err);
-    if(results.length>0){
-    	ItemLocation.remove(myquery, function(err, ItemLocation){
-        if (err) res.send(err) ;
-        res.sendStatus(200);
-    	});
-    }
-  });
+    var item_id = req.body.item_id;
+    var location_id = req.body.location_id;
+    var myquery = { item_id : item_id, location_id: location_id };
+    ItemLocation.find(myquery,function(err, results){
+        if(err) res.send(err);
+        if(results.length>0){
+            ItemLocation.remove(myquery, function(err, ItemLocation){
+                if (err) res.send(err) ;
+                res.sendStatus(200);
+            });
+        }
+    });
 });
 
 router.post('/dbs/removeItem/:id',function (req, res){
-  var item_id = req.params.id;
-  var myquery = { _id: item_id };
-  Item.remove(myquery, function(err, obj) {
-      if (err) res.send(err) ;
-      res.sendStatus(200);
-  });
+    var item_id = req.params.id;
+    var myquery = { _id: item_id };
+    Item.remove(myquery, function(err, obj) {
+        if (err) res.send(err) ;
+        res.sendStatus(200);
+    });
 });
 
 router.post('/dbs/removeLocation/:id',function (req, res){
-  var loc_id = req.params.id;
-  var myquery = { _id: loc_id };
-  Location.remove(myquery, function(err, obj) {
-      if (err) res.send(err) ;
-      res.sendStatus(200);
-  });
+    var loc_id = req.params.id;
+    var myquery = { _id: loc_id };
+    Location.remove(myquery, function(err, obj) {
+        if (err) res.send(err) ;
+        res.sendStatus(200);
+    });
 });
 
 router.post('/dbs/addLocation',function (req, res){
-  var cityTxtBox = req.body.city;
-	var locationTxtBox = req.body.company;
-  var newLocation = new Location({
-		city : cityTxtBox,
-		company : locationTxtBox
-	});
-	Location.createLocation(newLocation, function(err, Location){
-    if (err) res.send(err) ;
-    res.send(Location._id);
-	});
+    var cityTxtBox = req.body.city;
+    var locationTxtBox = req.body.company;
+    var newLocation = new Location({
+        city : cityTxtBox,
+        company : locationTxtBox
+    });
+    Location.createLocation(newLocation, function(err, Location){
+        if (err) res.send(err) ;
+        res.send(Location._id);
+    });
 });
 
 router.post('/admin',function(req,res){
@@ -636,37 +636,37 @@ router.post('/editLocation', function(req, res) {
 
 
 router.post('/newItem', function(req, res){
-	var path = require('path');
-	var appDir = path.dirname(require.main.filename);
-	var itemImage = req.files.item_img;
+    var path = require('path');
+    var appDir = path.dirname(require.main.filename);
+    var itemImage = req.files.item_img;
     //Move Images to Server
-	itemImage.mv(process.cwd()+'//public//images//'+itemImage.name, function(err) {
+    itemImage.mv(process.cwd()+'//public//images//'+itemImage.name, function(err) {
 
-    if (err)
-      return res.status(500).send(err);
+        if (err)
+            return res.status(500).send(err);
     });
-	var nameValue = req.body.itemNameTxtBox;
-	var descriptionValue = req.body.descTxtBox;
-	var initial_qtyValue = req.body.inititalQtyTxtBox;
-	var priceValue = req.body.priceTxtBox;
-	var item_image_pathValue = '/images//'+itemImage.name;
-	var category = req.body.category;
-	var newItem = new Item({
-	    	name : nameValue,
-			description : descriptionValue,
-			initial_qty : initial_qtyValue,
-			price : priceValue,
-			item_image_path : item_image_pathValue,
-            avaible_qty : initial_qtyValue,
-            category : category
-		});
-	Item.createItem(newItem, function(err, Item){
-	if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
-	});
+    var nameValue = req.body.itemNameTxtBox;
+    var descriptionValue = req.body.descTxtBox;
+    var initial_qtyValue = req.body.inititalQtyTxtBox;
+    var priceValue = req.body.priceTxtBox;
+    var item_image_pathValue = '/images//'+itemImage.name;
+    var category = req.body.category;
+    var newItem = new Item({
+        name : nameValue,
+        description : descriptionValue,
+        initial_qty : initial_qtyValue,
+        price : priceValue,
+        item_image_path : item_image_pathValue,
+        avaible_qty : initial_qtyValue,
+        category : category
+    });
+    Item.createItem(newItem, function(err, Item){
+        if(err) res.render('adminDashboard',{msg_err:"Something Went Wrong Please try again!"});
+    });
     Item.find(function(err, results){
         req.flash('success_msg','Item Added Successfully');
         res.redirect('adminDashboard');
-	});
+    });
 });
 
 
@@ -729,7 +729,7 @@ function stringGen(len)
 }
 
 router.post('/payment', function(req, res){
-	  //Creating Order
+    //Creating Order
     order_itemID = req.session.order_itemID;
     order_itemName = req.session.order_itemName;
     order_itemPrice = req.session.order_itemPrice;
@@ -742,36 +742,36 @@ router.post('/payment', function(req, res){
     itemQtyArray = String(req.session.order_itemQty).split(',');
 
     for(var i=0;i<itemPriceArray.length;i++){
- 		   total+=parseInt(itemPriceArray[i])*parseInt(itemQtyArray[i]);
+        total+=parseInt(itemPriceArray[i])*parseInt(itemQtyArray[i]);
         Item.updateItemQty(itemIDArray[i],itemQtyArray[i],function(err, updated_qty_result){
             if(err) throw err;
             console.log(itemIDArray[i]);
         });
         var query = {_id: itemIDArray[i]};
         Item.findOne(query,function(err,item_result){
-          location_name = req.session.user.location+','+req.session.user.city;
-          new_item_qty = (parseInt(item_result.initial_qty)-parseInt(item_result.avaible_qty))+parseInt(order_itemQty)
+            location_name = req.session.user.location+','+req.session.user.city;
+            new_item_qty = (parseInt(item_result.initial_qty)-parseInt(item_result.avaible_qty))+parseInt(order_itemQty)
 
-          ItemOrdered.find({item_name:item_result.name,location: location_name},function(err,item_ordered_result){
-            if(item_ordered_result.length>0){
-              ItemOrdered.updateOne({item_name:item_result.name,location: location_name}, {$set:{total_ordered_placed: new_item_qty}}, function(err, res) {
-                  if (err) throw err;
-                  console.log(res);
-              });
-            }
-            else{
-              var newItemOrder = new ItemOrdered({
-              item_name  : item_result.name,
-              location: location_name,
-              total_ordered_placed: new_item_qty
-              });
-              ItemOrdered.createItemOrdered(newItemOrder,function(err,newItemOrderResult){
-                if(err) console.log(err);
-              });
-            }
-          });
+            ItemOrdered.find({item_name:item_result.name,location: location_name},function(err,item_ordered_result){
+                if(item_ordered_result.length>0){
+                    ItemOrdered.updateOne({item_name:item_result.name,location: location_name}, {$set:{total_ordered_placed: new_item_qty}}, function(err, res) {
+                        if (err) throw err;
+                        console.log(res);
+                    });
+                }
+                else{
+                    var newItemOrder = new ItemOrdered({
+                        item_name  : item_result.name,
+                        location: location_name,
+                        total_ordered_placed: new_item_qty
+                    });
+                    ItemOrdered.createItemOrdered(newItemOrder,function(err,newItemOrderResult){
+                        if(err) console.log(err);
+                    });
+                }
+            });
         });
-	  }
+    }
 
     var newOrder = new Order({
         user_id  : req.session.user._id,
@@ -779,8 +779,8 @@ router.post('/payment', function(req, res){
         item_name : order_itemName,
         qty : order_itemQty,
         price : order_itemPrice,
-		    sub_total:total,
-		    total:total,
+        sub_total:total,
+        total:total,
         delivery_date_time:new Date(),
         delivery_address:del_location,
         order_location:order_location,
@@ -790,31 +790,31 @@ router.post('/payment', function(req, res){
         if(err) res.send(err);
     });
     User.updateUserAmountLimit(req.session.user._id,parseInt(req.session.user.avaible_limit),parseInt(total),function(err,result){
-      if(err) res.send(err);
+        if(err) res.send(err);
     });
     var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'nilshah.31@gmail.com',
-        pass: 'NVD421nvd'
-      }
+        service: 'gmail',
+        auth: {
+            user: 'nilshah.31@gmail.com',
+            pass: 'NVD421nvd'
+        }
     });
 
 
 
     var mailOptions = {
-      from: 'nilshah.31@gmail.com',
-      to: req.session.user.email,
-      subject: 'Payment Receipt -' + req.session.order_rcpt_number + '-Team SouthMeal',
-      html: '<h1>Payment Receipt</h1><br />'
+        from: 'nilshah.31@gmail.com',
+        to: req.session.user.email,
+        subject: 'Payment Receipt -' + req.session.order_rcpt_number + '-Team SouthMeal',
+        html: '<h1>Payment Receipt</h1><br />'
     };
 
     transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
     });
     req.flash('success_msg','You have Succesfully Placed Order, Please note Down Order number for future Refrence : '+req.session.order_rcpt_number);
     res.redirect('/');
@@ -830,11 +830,11 @@ function ensureAuthenticated(req, res, next){
 }
 
 Handlebars.registerHelper('incrementCounterVariable', function(options) {
-      item_counter = item_counter + 1;
+    item_counter = item_counter + 1;
 });
 
 Handlebars.registerHelper('ifCustomize', function(options) {
-  if(item_counter%6) {
+    if(item_counter%6) {
         return options.fn(this);
     } else {
         return options.inverse(this);
@@ -905,9 +905,9 @@ Handlebars.registerHelper('startItemLayoutCounter', function(options) {
 });
 
 function generateRandomNumber(){
-	var number = Math.floor((Math.random()*10000));
-	 if(number.length < 4 || number.length > 4){
-    	generateRandomNumber();
+    var number = Math.floor((Math.random()*10000));
+    if(number.length < 4 || number.length > 4){
+        generateRandomNumber();
     }
-	return number;
+    return number;
 }

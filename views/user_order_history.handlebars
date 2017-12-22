@@ -6,7 +6,7 @@
 
 
 <div id="dialog-confirm" title="Cancle Order">
-  <p  style="float:left; margin:12px 12px 20px 0;"><span class="ui-icon ui-icon-alert"></span>  Do you want to cancle this order?</p>
+    <p  style="float:left; margin:12px 12px 20px 0;"><span class="ui-icon ui-icon-alert"></span>  Do you want to cancle this order?</p>
 </div>
 
 <div class="container">
@@ -33,11 +33,11 @@
                             <td>{{order_itemName}}-{{order_itemQty}}</td>
                             <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
                             <td>
-                              {{#checkOrderStatusCompleted status}}
-                                <span class="label label-info" style="background-color:#4F8A10">{{status}}</span>
-                              {{else}}
-                                <span class="label label-info" style="background-color:#b32d00">{{status}}</span>
-                              {{/checkOrderStatusCompleted}}
+                                {{#checkOrderStatusCompleted status}}
+                                    <span class="label label-info" style="background-color:#4F8A10">{{status}}</span>
+                                {{else}}
+                                    <span class="label label-info" style="background-color:#b32d00">{{status}}</span>
+                                {{/checkOrderStatusCompleted}}
                             </td>
                             <td>
                                 {{#checkOrderStatus status}}
@@ -62,23 +62,23 @@
 
 <script>
     function submitform(rcpt_number) {
-      $( function() {
-        $( "#dialog-confirm" ).dialog({
-          resizable: false,
-          height: "auto",
-          width: 400,
-          modal: true,
-          buttons: {
-            "Yes": function() {
-              document.getElementById('rcptnumber').value = rcpt_number;
-              document.getElementById("order_history_tbl").submit();
-            },
-            Cancel: function() {
-              $( this ).dialog( "close" );
-            }
-          }
-        });
-      } );
+        $( function() {
+            $( "#dialog-confirm" ).dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: {
+                    "Yes": function() {
+                        document.getElementById('rcptnumber').value = rcpt_number;
+                        document.getElementById("order_history_tbl").submit();
+                    },
+                    Cancel: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
+        } );
     }
 </script>
 <script>
@@ -206,20 +206,20 @@
     #dialog-confirm { display: none }
 </style>
 <script>
-startTime();
-function startTime() {
-    var today=new Date();
-    var h=today.getHours();
-    var m=today.getMinutes();
-    var s=today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('timeing').innerHTML = h+":"+m+":"+s;
-    var t = setTimeout(function(){startTime()},500);
-}
+    startTime();
+    function startTime() {
+        var today=new Date();
+        var h=today.getHours();
+        var m=today.getMinutes();
+        var s=today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('timeing').innerHTML = h+":"+m+":"+s;
+        var t = setTimeout(function(){startTime()},500);
+    }
 
-function checkTime(i) {
-    if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
-    return i;
-}
+    function checkTime(i) {
+        if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+        return i;
+    }
 </script>

@@ -141,8 +141,8 @@ router.post('/payment', function(req, res){
         item_name : order_itemName,
         qty : order_itemQty,
         price : order_itemPrice,
-		    sub_total:total,
-		    total:total,
+        sub_total:total,
+        total:total,
         delivery_date_time:new Date(),
         delivery_address:del_location,
         order_location:order_location,
@@ -152,14 +152,14 @@ router.post('/payment', function(req, res){
         if(err) res.send(err);
     });
     User.updateUserAmountLimit(req.session.user._id,(parseInt(req.session.user.avaible_limit)-parseInt(total)),function(err,result){
-      if(err) res.send(err);
+        if(err) res.send(err);
     });
     var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'sanjeevinifoods@gmail.com',
-        pass: 'Sanjeevini@0809'
-      }
+        service: 'gmail',
+        auth: {
+            user: 'sanjeevinifoods@gmail.com',
+            pass: 'Sanjeevini@0809'
+        }
     });
 
     var today = new Date();
@@ -167,87 +167,87 @@ router.post('/payment', function(req, res){
     var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
     if(dd<10) {
-      dd = '0'+dd
+        dd = '0'+dd
     }
     if(mm<10) {
-      mm = '0'+mm
+        mm = '0'+mm
     }
     today = mm + '/' + dd + '/' + yyyy;
 
 
     var htmlMailFormate = "<h3>SouthMeals Pyament Receipt</h3><hr /><br />"+
-                          "<div class='row'>"+
-                            "<div class='well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3'>"+
-                              "<div class='row'>"+
-                                "<div class='col-xs-6 col-sm-6 col-md-6'>"+
-                                  "<address>"+
-                                    "<strong>"+req.session.user.lastname+","+req.session.user.firstname+"</strong>"+
-                                    "<br>"+req.session.user.location+"<br>"+req.session.user.city+"<br>"+
-                                    "<abbr title='Phone'>P:</abbr>"+req.session.user.phone+
-                                  "</address>"+
-                                "</div>"+
-                                "<div class='col-xs-6 col-sm-6 col-md-6 text-right'>"+
-                                  "<p><em>Date:"+today+"</em></p>"+
-                                  "<p><em>Order #:"+req.session.order_rcpt_number+"</em></p>"+
-                                "</div>"+
-                              "</div>"+
-                              "<div class='row'>"+
-                                "<div class='text-center'>"+
-                                  "<h1>Receipt</h1>"+
-                                "</div>"+
-                                "<table class='table table-hover'>"+
-                                  "<thead>"+
-                                    "<tr>"+
-                                      "<th>Item</th>"+
-                                      "<th>#</th>"+
-                                      "<th class='text-center'>Price</th>"+
-                                      "<th class='text-center'>Total</th>"+
-                                    "</tr>"+
-                                  "</thead>"+
-                                  "<tbody>";
-                                  for(var i=0;i<itemPriceArray.length;i++){
-                                    htmlMailFormate+="<tr>"+
-                                      "<td class='col-md-9'><em>"+itemNameArray[i]+"</em></td>"+
-                                      "<td class='col-md-1' style='text-align: center'>"+itemQtyArray[i]+"</td>"+
-                                      "<td class='col-md-1 text-center'>"+itemPriceArray[i]+"</td>"+
-                                      "<td class='col-md-1 text-center'>"+itemQtyArray[i]*itemPriceArray[i]+"</td>"
-                                    "</tr>";
-                                  }
-                                    htmlMailFormate+="<tr>"+
-                                      "<td>   </td>"+
-                                      "<td>   </td>"+
-                                      "<td class='text-right'>"+
-                                        "<p><strong>Subtotal: </strong></p>"+
-                                        "<p><strong>Tax: </strong></p>"+
-                                      "</td>"+
-                                      "<td class='text-center'>"+
-                                        "<p><strong>"+total+"</strong></p>"+
-                                        "<p><strong>0</strong></p>"+
-                                      "</td>"+
-                                    "</tr>"+
-                                    "<tr>"+
-                                      "<td>   </td>"+
-                                      "<td>   </td>"+
-                                      "<td class='text-right'><h4><strong>Total: </strong></h4></td>"+
-                                      "<td class='text-center text-danger'>"+
-                                        "<h4><strong>"+total+"</strong></h4>"+
-                                      "</td>"+
-                                    "</tr>"+
-                                  "</tbody>"+
-                                "</table>";
+        "<div class='row'>"+
+        "<div class='well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3'>"+
+        "<div class='row'>"+
+        "<div class='col-xs-6 col-sm-6 col-md-6'>"+
+        "<address>"+
+        "<strong>"+req.session.user.lastname+","+req.session.user.firstname+"</strong>"+
+        "<br>"+req.session.user.location+"<br>"+req.session.user.city+"<br>"+
+        "<abbr title='Phone'>P:</abbr>"+req.session.user.phone+
+        "</address>"+
+        "</div>"+
+        "<div class='col-xs-6 col-sm-6 col-md-6 text-right'>"+
+        "<p><em>Date:"+today+"</em></p>"+
+        "<p><em>Order #:"+req.session.order_rcpt_number+"</em></p>"+
+        "</div>"+
+        "</div>"+
+        "<div class='row'>"+
+        "<div class='text-center'>"+
+        "<h1>Receipt</h1>"+
+        "</div>"+
+        "<table class='table table-hover'>"+
+        "<thead>"+
+        "<tr>"+
+        "<th>Item</th>"+
+        "<th>#</th>"+
+        "<th class='text-center'>Price</th>"+
+        "<th class='text-center'>Total</th>"+
+        "</tr>"+
+        "</thead>"+
+        "<tbody>";
+    for(var i=0;i<itemPriceArray.length;i++){
+        htmlMailFormate+="<tr>"+
+            "<td class='col-md-9'><em>"+itemNameArray[i]+"</em></td>"+
+            "<td class='col-md-1' style='text-align: center'>"+itemQtyArray[i]+"</td>"+
+            "<td class='col-md-1 text-center'>"+itemPriceArray[i]+"</td>"+
+            "<td class='col-md-1 text-center'>"+itemQtyArray[i]*itemPriceArray[i]+"</td>"
+        "</tr>";
+    }
+    htmlMailFormate+="<tr>"+
+        "<td>   </td>"+
+        "<td>   </td>"+
+        "<td class='text-right'>"+
+        "<p><strong>Subtotal: </strong></p>"+
+        "<p><strong>Tax: </strong></p>"+
+        "</td>"+
+        "<td class='text-center'>"+
+        "<p><strong>"+total+"</strong></p>"+
+        "<p><strong>0</strong></p>"+
+        "</td>"+
+        "</tr>"+
+        "<tr>"+
+        "<td>   </td>"+
+        "<td>   </td>"+
+        "<td class='text-right'><h4><strong>Total: </strong></h4></td>"+
+        "<td class='text-center text-danger'>"+
+        "<h4><strong>"+total+"</strong></h4>"+
+        "</td>"+
+        "</tr>"+
+        "</tbody>"+
+        "</table>";
     var mailOptions = {
-      from: 'nilshah.31@gmail.com',
-      to: req.session.user.email,
-      subject: 'Payment Receipt -' + req.session.order_rcpt_number + '-Team SouthMeal',
-      html: htmlMailFormate
+        from: 'nilshah.31@gmail.com',
+        to: req.session.user.email,
+        subject: 'Payment Receipt -' + req.session.order_rcpt_number + '-Team SouthMeal',
+        html: htmlMailFormate
     };
 
     transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
     });
     req.flash('success_msg','You have Succesfully Placed Order, Please note Down Order number for future Reference : '+req.session.order_rcpt_number);
     res.redirect('/');

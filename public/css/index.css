@@ -167,36 +167,36 @@ th {
 
 /* Mobile CSS */
 @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    #cart_order_div {
-      position: relative;
-      right: 0%;
-      top: 0%;
-      width: 100%;
-      margin-top: 0em;
-      background-color:  #ffffb3;
-      padding-top: 0.5em;
-      padding-left: 0.5em;
-      padding-bottom: 0.5em;
-      border-right-color: #0f0f0f;
-      border-bottom-style:solid;
-      margin-bottom: 75px;
-      margin-top: -75px;
-    }
-    .item_col2_class{
-      width:100%;
-      margin-left:2%;
-      margin-right:-7%;
-    }
-    .panel_item_class{
-      background-color: white;
-      height:auto;
-      min-height:15.5em;
-      padding-left: 20px;
-    }
-    .br_not_display_if_mobile{
-      display: none;
-    }
+  /* For mobile phones: */
+  #cart_order_div {
+    position: relative;
+    right: 0%;
+    top: 0%;
+    width: 100%;
+    margin-top: 0em;
+    background-color:  #ffffb3;
+    padding-top: 0.5em;
+    padding-left: 0.5em;
+    padding-bottom: 0.5em;
+    border-right-color: #0f0f0f;
+    border-bottom-style:solid;
+    margin-bottom: 75px;
+    margin-top: -75px;
+  }
+  .item_col2_class{
+    width:100%;
+    margin-left:2%;
+    margin-right:-7%;
+  }
+  .panel_item_class{
+    background-color: white;
+    height:auto;
+    min-height:15.5em;
+    padding-left: 20px;
+  }
+  .br_not_display_if_mobile{
+    display: none;
+  }
 }
 
 #order_cart_value {

@@ -17,12 +17,12 @@ function delete_item(item_id) {
 function deleteitemsAll() {
     counter_temp = getCheckedBoxes('checkAllItems');
     if(counter_temp>0){
-      if(confirm("Do you want to delete all this Item ?")) {
-        document.getElementById("delete_multiple_item").submit();
-      }
+        if(confirm("Do you want to delete all this Item ?")) {
+            document.getElementById("delete_multiple_item").submit();
+        }
     }
     else {
-      alert("Please Select items to delete");
+        alert("Please Select items to delete");
     }
 }
 
@@ -72,14 +72,14 @@ $(document).ready(function() {
 
 //No Longer Needed
 function edit_item_status_inactive(item_id){
-  document.getElementById('item_status_id_active').value=item_id;
-  document.getElementById("update_item_status_active").submit();
+    document.getElementById('item_status_id_active').value=item_id;
+    document.getElementById("update_item_status_active").submit();
 }
 
 //No Longer Needed
 function edit_item_status_active(item_id){
-  document.getElementById('item_status_id_inactive').value=item_id;
-  document.getElementById("update_item_status_inactive").submit();
+    document.getElementById('item_status_id_inactive').value=item_id;
+    document.getElementById("update_item_status_inactive").submit();
 }
 
 //Edit the Item, Check for edit Image path
@@ -90,12 +90,12 @@ function edit_item(item_id, item_name, desc, price, init_qty, edit_item_img_path
     document.getElementById('editinititalQtyTxtBox').value=init_qty;
     document.getElementById('editItemId').value=item_id;
     if(edit_item_cat=='Veg'){
-      document.getElementById("editcategoryVeg").checked = true;
-      document.getElementById("editcategorynonVeg").checked = false;
+        document.getElementById("editcategoryVeg").checked = true;
+        document.getElementById("editcategorynonVeg").checked = false;
     }
     else{
-      document.getElementById("editcategorynonVeg").checked = true;
-      document.getElementById("editcategoryVeg").checked = false;
+        document.getElementById("editcategorynonVeg").checked = true;
+        document.getElementById("editcategoryVeg").checked = false;
     }
     document.getElementById('edit_item_img_disp').src=edit_item_img_path;
 
@@ -128,12 +128,12 @@ function delete_location(location_id) {
 function deletelocationAll() {
     counter_temp = getCheckedBoxesLocation('checkAllLocation');
     if(counter_temp>0){
-      if(confirm("Do you want to delete all selected Location ?")) {
-        document.getElementById("delete_multiple_location").submit();
-      }
+        if(confirm("Do you want to delete all selected Location ?")) {
+            document.getElementById("delete_multiple_location").submit();
+        }
     }
     else{
-      alert('Please Select Location\'s to Remove');
+        alert('Please Select Location\'s to Remove');
     }
 }
 
@@ -210,30 +210,30 @@ function edit_location(location_id, city, location) {
 //adminOrders
 
 function filterLocation()
-	{
+{
     if($('#filterLocation').val()!=0){
-		    var rex = new RegExp($('#filterLocation').val());
-		      if(rex =="/all/")
-          {
+        var rex = new RegExp($('#filterLocation').val());
+        if(rex =="/all/")
+        {
             clearFilter()
-          }
-          else{
+        }
+        else{
             $('.content').hide();
-			      $('.content').filter(function() {
-			           return rex.test($(this).text());
-			      }).show();
-	       }
+            $('.content').filter(function() {
+                return rex.test($(this).text());
+            }).show();
+        }
     }
     else{
-      removeFilterData();
+        removeFilterData();
     }
 }
 
 function clearFilter()
-	{
-		$('.filterLocation').val('');
-		$('.content').show();
-	}
+{
+    $('.filterLocation').val('');
+    $('.content').show();
+}
 
 function downloadpdf() {
     document.getElementById("downloadpdf_form").submit();
@@ -245,9 +245,9 @@ function removeFilterData() {
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
     for (i = 1; i < tr.length; i++) {
-          tr[i].style.display = "";
-        }
+        tr[i].style.display = "";
     }
+}
 
 
 //Filter Table Data
@@ -266,7 +266,7 @@ function filterOrderTableData(table_id,index,id,location,index2) {
             if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
                 if((td1.innerHTML.toUpperCase().indexOf(location.toUpperCase())) > -1){
                     tr[i].style.display = "";
-              }
+                }
             } else {
                 tr[i].style.display = "none";
             }
@@ -308,32 +308,32 @@ function filterItemWiseTableData(table_id,index,id) {
     input = document.getElementById(id);
     filter = input.value.toUpperCase();
     if(filter!=0){
-      table = document.getElementById(table_id);
-      tr = table.getElementsByTagName("tr");
-      for (i = 1; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[index];
-        if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-              }
-             else {
-                tr[i].style.display = "none";
-            }
-          }
-        }
-      }
-      else{
         table = document.getElementById(table_id);
         tr = table.getElementsByTagName("tr");
         for (i = 1; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[index];
-          if (td) {
-            tr[i].style.display = "";
-          }
+            td = tr[i].getElementsByTagName("td")[index];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                }
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
         }
-      }
-
     }
+    else{
+        table = document.getElementById(table_id);
+        tr = table.getElementsByTagName("tr");
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[index];
+            if (td) {
+                tr[i].style.display = "";
+            }
+        }
+    }
+
+}
 
 
 //Filter Order Table Data
@@ -357,12 +357,12 @@ function searchTodaysOrder(index,id,id2,location) {
         if (td) {
             if (td.innerText.toUpperCase().indexOf(filter) > -1) {
                 if(td1.innerText.toUpperCase().indexOf(filter1) > -1){
-                  if(td2.innerText.toUpperCase().indexOf(location.toUpperCase()) > -1){
-                    tr[i].style.display = "";
-                  }
-                  else{
-                    tr[i].style.display = "none";
-                  }
+                    if(td2.innerText.toUpperCase().indexOf(location.toUpperCase()) > -1){
+                        tr[i].style.display = "";
+                    }
+                    else{
+                        tr[i].style.display = "none";
+                    }
                 }
                 else{
                     tr[i].style.display = "none";
@@ -571,168 +571,168 @@ window.onclick = function(event) {
 }
 
 $('button.newLocation').click( function() {
-      $('form.newLocation').submit();
-   });
+    $('form.newLocation').submit();
+});
 $('button.newItem').click( function() {
-      $('form.newItem').submit();
-   });
+    $('form.newItem').submit();
+});
 
-   //$("#OrderDiv").toggle();
-   $(document).ready(function(){
-       $("#viewAllOrders").click(function(){
-           if ( $('#itemDIV').is(':visible')){
-               $("#itemDIV").toggle();
-           }
-           if ( $('#locationDIV').is(':visible')){
-               $("#locationDIV").toggle();
-           }
-           if ( $('#ItemOrderDiv').is(':visible')){
-               $("#ItemOrderDiv").toggle();
-           }
-           if ( $('#userDIV').is(':visible')){
-               $("#userDIV").toggle();
-           }
-           $("#OrderDiv").toggle();
-       });
-   });
+//$("#OrderDiv").toggle();
+$(document).ready(function(){
+    $("#viewAllOrders").click(function(){
+        if ( $('#itemDIV').is(':visible')){
+            $("#itemDIV").toggle();
+        }
+        if ( $('#locationDIV').is(':visible')){
+            $("#locationDIV").toggle();
+        }
+        if ( $('#ItemOrderDiv').is(':visible')){
+            $("#ItemOrderDiv").toggle();
+        }
+        if ( $('#userDIV').is(':visible')){
+            $("#userDIV").toggle();
+        }
+        $("#OrderDiv").toggle();
+    });
+});
 
 //Export to PDF Admin Order
 function DoCellData(cell, row, col, data) {}
 function DoBeforeAutotable(table, headers, rows, AutotableSettings) {}
 
 function downloadPDF(PDFtableName,headerTitle) {
-  var pdfsize = 'a4';
-  var pdf = new jsPDF('l', 'pt', pdfsize);
-  var res = pdf.autoTableHtmlToJson(document.getElementById(PDFtableName));
-  var header = function(data) {
-   pdf.setFontSize(18);
-   pdf.setTextColor(40);
-   pdf.setFontStyle('normal');
-   //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
-   pdf.text(headerTitle, data.settings.margin.left, 50);
-  }
-  pdf.autoTable(res.columns, res.data, {
-   beforePageContent: header,
-   startY: 60,
-   drawHeaderRow: function(row, data) {
-     row.height = 46;
-   },
-   drawHeaderCell: function(cell, data) {
-     pdf.rect(cell.x, cell.y, cell.width, cell.height, cell.styles.fillStyle);
-     pdf.setFillColor(230);
-     pdf.rect(cell.x, cell.y + (cell.height / 2), cell.width, cell.height / 2, cell.styles.fillStyle);
-     pdf.autoTableText(cell.text, cell.textPos.x, cell.textPos.y, {
-       halign: cell.styles.halign,
-       valign: cell.styles.valign
-     });
-     pdf.setTextColor(100);
-     var text = data.table.rows[0].cells[data.column.dataKey].text;
-     pdf.autoTableText(text, cell.textPos.x, cell.textPos.y + (cell.height / 2), {
-       halign: cell.styles.halign,
-       valign: cell.styles.valign
-     });
-     return false;
-   },
-   drawRow: function(row, data) {
-     if (row.index === 0) return false;
-   },
-   margin: {
-     top: 60
-   },
-   styles: {
-     overflow: 'linebreak',
-     fontSize: 10,
-     tableWidth: 'auto',
-     columnWidth: 'auto',
-   },
-   columnStyles: {
-     1: {
-       columnWidth: 'auto'
-     }
-   },
- });
- pdf.save("Report" + ".pdf");
+    var pdfsize = 'a4';
+    var pdf = new jsPDF('l', 'pt', pdfsize);
+    var res = pdf.autoTableHtmlToJson(document.getElementById(PDFtableName));
+    var header = function(data) {
+        pdf.setFontSize(18);
+        pdf.setTextColor(40);
+        pdf.setFontStyle('normal');
+        //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+        pdf.text(headerTitle, data.settings.margin.left, 50);
+    }
+    pdf.autoTable(res.columns, res.data, {
+        beforePageContent: header,
+        startY: 60,
+        drawHeaderRow: function(row, data) {
+            row.height = 46;
+        },
+        drawHeaderCell: function(cell, data) {
+            pdf.rect(cell.x, cell.y, cell.width, cell.height, cell.styles.fillStyle);
+            pdf.setFillColor(230);
+            pdf.rect(cell.x, cell.y + (cell.height / 2), cell.width, cell.height / 2, cell.styles.fillStyle);
+            pdf.autoTableText(cell.text, cell.textPos.x, cell.textPos.y, {
+                halign: cell.styles.halign,
+                valign: cell.styles.valign
+            });
+            pdf.setTextColor(100);
+            var text = data.table.rows[0].cells[data.column.dataKey].text;
+            pdf.autoTableText(text, cell.textPos.x, cell.textPos.y + (cell.height / 2), {
+                halign: cell.styles.halign,
+                valign: cell.styles.valign
+            });
+            return false;
+        },
+        drawRow: function(row, data) {
+            if (row.index === 0) return false;
+        },
+        margin: {
+            top: 60
+        },
+        styles: {
+            overflow: 'linebreak',
+            fontSize: 10,
+            tableWidth: 'auto',
+            columnWidth: 'auto',
+        },
+        columnStyles: {
+            1: {
+                columnWidth: 'auto'
+            }
+        },
+    });
+    pdf.save("Report" + ".pdf");
 }
 
 
 $(".exportButton").on("click", function() {
-  downloadPDF('myTable',$('#filterLocation').val());
+    downloadPDF('myTable',$('#filterLocation').val());
 });
 
 $(".exportButtonItemWise").on("click", function() {
-  downloadPDF('itemWiseOrderTable',$('#search_by_location_item').val());
+    downloadPDF('itemWiseOrderTable',$('#search_by_location_item').val());
 });
 
 function deleteItem(obj, id) {
-  if(confirm('Are you sure you want to delete this?')){
-    $.ajax({
-      url: "/dbs/removeItem/"+id,
-      type: "POST",
-      data: { 'id': id },
-      success: function(data){
-        $(obj).closest('tr').fadeOut(300,function(){
-            $(obj).closest('tr').remove();
+    if(confirm('Are you sure you want to delete this?')){
+        $.ajax({
+            url: "/dbs/removeItem/"+id,
+            type: "POST",
+            data: { 'id': id },
+            success: function(data){
+                $(obj).closest('tr').fadeOut(300,function(){
+                    $(obj).closest('tr').remove();
+                });
+                $.notify("Item Removed", "success");
+            },
         });
-        $.notify("Item Removed", "success");
-      },
-    });
-  }
+    }
 }
 
 function deleteLocation(obj, id) {
-  if(confirm('Are you sure you want to delete this?')){
-    $.ajax({
-      url: "/dbs/removeLocation/"+id,
-      type: "POST",
-      data: { 'id': id },
-      success: function(data){
-        $(obj).closest('tr').fadeOut(300,function(){
-            $(obj).closest('tr').remove();
+    if(confirm('Are you sure you want to delete this?')){
+        $.ajax({
+            url: "/dbs/removeLocation/"+id,
+            type: "POST",
+            data: { 'id': id },
+            success: function(data){
+                $(obj).closest('tr').fadeOut(300,function(){
+                    $(obj).closest('tr').remove();
+                });
+                $.notify("Item Removed", "success");
+            },
         });
-        $.notify("Item Removed", "success");
-      },
-    });
-  }
+    }
 }
 
 function addLocation() {
-  $.ajax({
-      url: "/dbs/addLocation",
-      type: "POST",
-      data: { 'city': $('#cityTxtBox').val(), 'company': $('#locationTxtBox').val() },
-      success: function(data){
-        $('#locationListTable').append('<tr>' +
-          '<td><input value="\''+data+'\'" id="checkAllLocation" type="checkbox" class="checkAllLocationSingle" name="checkAllLocation"></td>' +
-          '<td>'+ $('#cityTxtBox').val()+'</td>' +
-          '<td>'+ $('#locationTxtBox').val()+'</td>' +
-          '<td>'+
-            '<div class="link_edit">'+
-              '<a class="btnEdit" href="#" id="editItem" onclick="edit_location(\''+data+'\',\''+$('#cityTxtBox').val()+'\',\''+$('#locationTxtBox').val()+'\')">'+
-                  '<i class="fa fa-edit" title="Edit Item Detail"></i>'+
-              '</a>'+
-            '</div>'+
-          '</td>'+
-          '<td>'+
-            '<a class="btnEdit" href="#" onclick="deleteLocation(this,\''+data+'\')"><i class="fa fa-times fa-1x"></i></a>'+
-          '</td>'+
-          '</tr>');
-        $('#locationModal').hide();
-        $.notify("Location Added", "success");
-      }
-  });
+    $.ajax({
+        url: "/dbs/addLocation",
+        type: "POST",
+        data: { 'city': $('#cityTxtBox').val(), 'company': $('#locationTxtBox').val() },
+        success: function(data){
+            $('#locationListTable').append('<tr>' +
+                '<td><input value="\''+data+'\'" id="checkAllLocation" type="checkbox" class="checkAllLocationSingle" name="checkAllLocation"></td>' +
+                '<td>'+ $('#cityTxtBox').val()+'</td>' +
+                '<td>'+ $('#locationTxtBox').val()+'</td>' +
+                '<td>'+
+                '<div class="link_edit">'+
+                '<a class="btnEdit" href="#" id="editItem" onclick="edit_location(\''+data+'\',\''+$('#cityTxtBox').val()+'\',\''+$('#locationTxtBox').val()+'\')">'+
+                '<i class="fa fa-edit" title="Edit Item Detail"></i>'+
+                '</a>'+
+                '</div>'+
+                '</td>'+
+                '<td>'+
+                '<a class="btnEdit" href="#" onclick="deleteLocation(this,\''+data+'\')"><i class="fa fa-times fa-1x"></i></a>'+
+                '</td>'+
+                '</tr>');
+            $('#locationModal').hide();
+            $.notify("Location Added", "success");
+        }
+    });
 }
 $('#filterOrderTableWithOption').on('change', function(){
     selectedOption = $(this).val();
     selectedLocation = $('#filterLocation').val();
     if(selectedLocation!=0){
-      if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
-      if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3',selectedLocation);
-      if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3',selectedLocation);
+        if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
+        if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3',selectedLocation);
+        if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3',selectedLocation);
     }
     else{
-      if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
-      if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3','');
-      if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3','');
+        if(selectedOption==0)searchTodaysOrder(0,'myInput5','myInput3','');
+        if(selectedOption==1)searchTodaysOrder(8,'myInput6','myInput3','');
+        if(selectedOption==2)searchTodaysOrder(8,'myInput4','myInput3','');
     }
 });
 
@@ -740,19 +740,19 @@ $('#myInput1').keyup(function() {
     selectedLocation = $('#filterLocation').val();
     if(selectedLocation!=0)
     {
-      filterOrderTableData('myTable',0,'myInput1',selectedLocation,4);
+        filterOrderTableData('myTable',0,'myInput1',selectedLocation,4);
     }
     else{
-      filterOrderTableData('myTable',0,'myInput1','',4);
+        filterOrderTableData('myTable',0,'myInput1','',4);
     }
 });
 $('#myInput2').keyup(function() {
     selectedLocation = $('#filterLocation').val();
     if(selectedLocation!=0){
-      filterOrderTableData('myTable',1,'myInput2',selectedLocation,4);
+        filterOrderTableData('myTable',1,'myInput2',selectedLocation,4);
     }
     else{
-      filterOrderTableData('myTable',1,'myInput2','',4);
+        filterOrderTableData('myTable',1,'myInput2','',4);
     }
 });
 $('#search_by_location_item').change(function() {
@@ -764,28 +764,28 @@ $('select[multiple]').multiselect({
 });
 
 $('.multicheckboxLocation').on('change', function() {
-  item_id = this.name;
-  $("#"+this.id+" option:selected").each(function(){
-    location_id = $(this).val();
-    $.ajax({
-        url: "/dbs/addLocationtoMenu",
-        type: "POST",
-        data: { 'item_id': item_id, 'location_id': location_id },
-        success: function(data){
-          $.notify("Location Added Successfully", "success");
-        },
+    item_id = this.name;
+    $("#"+this.id+" option:selected").each(function(){
+        location_id = $(this).val();
+        $.ajax({
+            url: "/dbs/addLocationtoMenu",
+            type: "POST",
+            data: { 'item_id': item_id, 'location_id': location_id },
+            success: function(data){
+                $.notify("Location Added Successfully", "success");
+            },
+        });
     });
-  });
-  $("#"+this.id+" option:not(:selected)").each(function(){
-    location_id = $(this).val();
-    $.ajax({
-        url: "/dbs/removeLocationtoMenu",
-        type: "POST",
-        data: { 'item_id': item_id, 'location_id': location_id },
-        success: function(data){
-        },
+    $("#"+this.id+" option:not(:selected)").each(function(){
+        location_id = $(this).val();
+        $.ajax({
+            url: "/dbs/removeLocationtoMenu",
+            type: "POST",
+            data: { 'item_id': item_id, 'location_id': location_id },
+            success: function(data){
+            },
+        });
     });
-  });
 })
 
 
@@ -801,7 +801,7 @@ function changeImageWhenClick(input) {
 
         reader.readAsDataURL(input.files[0]);
     }else{
-         $('#edit_item_img_disp').attr('src', '/assets/no_preview.png');
+        $('#edit_item_img_disp').attr('src', '/assets/no_preview.png');
     }
 }
 

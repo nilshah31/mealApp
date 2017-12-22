@@ -1,109 +1,109 @@
 <aside class="sidebar-left">
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid" style="padding-right:0px;">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Admin Dashboard</a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="sidebar-menu">
-          <li class="header">MAIN NAVIGATION</li>
-          <li>
-            <a href="#" id="viewAllOrders">
-              <i class="fa fa-shopping-cart"></i> <span>ORDERS</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" id="viewAllItemOrderTable">
-              <i class="fa fa-shopping-cart"></i> <span>Item Wise Order</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" id="viewAllItem">
-              <i class="fa fa-book"></i> <span>Menu Items</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" id="viewAllLocation">
-              <i class="fa fa-location-arrow"></i><span>Location</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" id="viewAllUser">
-              <i class="fa fa-user"></i> <span>Users</span>
-            </a>
-          </li>
-          <li>
-              <a href="#" onclick="log_out()">
-                <form id="logoutAdmin" action="/logoutAdmin" method="post">
-                  <i class="fa fa-sign-out"></i>&nbsp;&nbsp;&nbsp;<span>Logout</span>
-                </form>
-              </a>
-          </li>
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid" style="padding-right:0px;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Admin Dashboard</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="sidebar-menu">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li>
+                        <a href="#" id="viewAllOrders">
+                            <i class="fa fa-shopping-cart"></i> <span>ORDERS</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="viewAllItemOrderTable">
+                            <i class="fa fa-shopping-cart"></i> <span>Item Wise Order</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="viewAllItem">
+                            <i class="fa fa-book"></i> <span>Menu Items</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="viewAllLocation">
+                            <i class="fa fa-location-arrow"></i><span>Location</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="viewAllUser">
+                            <i class="fa fa-user"></i> <span>Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="log_out()">
+                            <form id="logoutAdmin" action="/logoutAdmin" method="post">
+                                <i class="fa fa-sign-out"></i>&nbsp;&nbsp;&nbsp;<span>Logout</span>
+                            </form>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
 </aside>
 
 <div class='content container-fluid' style="background-color:#fafafa;">
-  <div class="col-sm-12">
-  {{#if success_msg}}
-  <div class="alert alert-success">
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-    {{success_msg}}
-  </div>
-  {{/if}}
-  {{#if error_msg}}
-    <div class="alert alert-danger">
-      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      {{error_msg}}
+    <div class="col-sm-12">
+        {{#if success_msg}}
+            <div class="alert alert-success">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {{success_msg}}
+            </div>
+        {{/if}}
+        {{#if error_msg}}
+            <div class="alert alert-danger">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {{error_msg}}
+            </div>
+        {{/if}}
     </div>
-  {{/if}}
-  </div>
 
-  <!--ProgressBar-->
-  <div class="col-sm-4">
-    <div id="work-in-progress" style="margin-left:-1em;margin-top:1.5em;">
-      <div class="work-spinner"></div>
+    <!--ProgressBar-->
+    <div class="col-sm-4">
+        <div id="work-in-progress" style="margin-left:-1em;margin-top:1.5em;">
+            <div class="work-spinner"></div>
+        </div>
+        <script>
+            $(window).bind("load", function () {
+                $('#work-in-progress').fadeOut(100);
+            });
+        </script>
     </div>
-    <script>
-      $(window).bind("load", function () {
-        $('#work-in-progress').fadeOut(100);
-      });
-      </script>
-  </div>
-  <!--ProgressBar-->
+    <!--ProgressBar-->
 
-  <!-- ALl Partial Forms-->
-  <div class="col-sm-12">
-    {{> adminItemWiseOrders }}
-  </div>
-  <div class="col-sm-12">
-    {{> adminOrders }}
-  </div>
-  <div class="col-sm-12">
-    {{> adminLocation }}
-  </div>
-  <div class="col-sm-12">
-    {{> adminItems }}
-  </div>
-  <div class="col-sm-12">
-    {{> adminUsers }}
-  </div>
+    <!-- ALl Partial Forms-->
+    <div class="col-sm-12">
+        {{> adminItemWiseOrders }}
+    </div>
+    <div class="col-sm-12">
+        {{> adminOrders }}
+    </div>
+    <div class="col-sm-12">
+        {{> adminLocation }}
+    </div>
+    <div class="col-sm-12">
+        {{> adminItems }}
+    </div>
+    <div class="col-sm-12">
+        {{> adminUsers }}
+    </div>
 
-  <div class="col-sm-12">
-    <footer>
-      <p>&copy;Team SouthMeal</p>
-    </footer>
-  </div>
+    <div class="col-sm-12">
+        <footer>
+            <p>&copy;Team SouthMeal</p>
+        </footer>
+    </div>
 </div>
 
 <!--All External CSS-->
@@ -116,24 +116,24 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
 {{#each itemList}}
-  {{#each ../locationList}}
-    <script>temp=false;</script>
-    {{#each ../../item_location_result}}
-      {{#checkIfTwoIdEqueal ../_id location_id}}
-        {{#checkIfTwoIdEqueal ../../_id item_id}}
-          <script>
-            $('<option selected value="{{../id}}">{{../company}}</option>').appendTo('#multicheckboxLocation{{../../id}}');
-            temp = true;
-          </script>
-        {{/checkIfTwoIdEqueal}}
-      {{/checkIfTwoIdEqueal}}
+    {{#each ../locationList}}
+        <script>temp=false;</script>
+        {{#each ../../item_location_result}}
+            {{#checkIfTwoIdEqueal ../_id location_id}}
+                {{#checkIfTwoIdEqueal ../../_id item_id}}
+                    <script>
+                        $('<option selected value="{{../id}}">{{../company}}</option>').appendTo('#multicheckboxLocation{{../../id}}');
+                        temp = true;
+                    </script>
+                {{/checkIfTwoIdEqueal}}
+            {{/checkIfTwoIdEqueal}}
+        {{/each}}
+        <script>
+            if(temp==false){
+                $('<option value="{{id}}">{{company}}</option>').appendTo('#multicheckboxLocation{{../id}}');
+            }
+        </script>
     {{/each}}
-    <script>
-      if(temp==false){
-        $('<option value="{{id}}">{{company}}</option>').appendTo('#multicheckboxLocation{{../id}}');
-      }
-    </script>
-  {{/each}}
 {{/each}}
 
 
@@ -156,13 +156,6 @@
 
 <!--notify uesr flash-->
 <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
-
-
-
-<script>
-//getPagination('#myTable');
-//$('#maxRows').trigger("change");
-</script>
 
 
 {{#if load_div_name}}

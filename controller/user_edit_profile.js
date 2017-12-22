@@ -49,7 +49,7 @@ router.post('/user_edit_profile', function(req, res){
     var location=req.body.location;
     var email=req.body.email;
     User.updateuserProfile (req.session.user._id,fname,lname,email,city,location,function (err,result) {
-      req.flash('success_msg','Successfully Updated Profile');
-      res.redirect('/user_edit_profile');
+        req.flash('success_msg','Successfully Updated Profile');
+        res.redirect('/user_edit_profile');
     });
 });

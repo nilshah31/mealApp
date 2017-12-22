@@ -109,8 +109,8 @@ input[type="submit"],#PPMiniCart .minicart-submit,.w3ls_vegetables ul li a,input
 }
 
 .custmInputBox_pw{
-  -webkit-text-security: disc;
-  -moz-text-security: disc;
+    -webkit-text-security: disc;
+    -moz-text-security: disc;
 }
 
 .w3l_search input[type="text"] {
@@ -218,7 +218,7 @@ button.w3view-cart:focus{
     outline:none;
 }
 .logo_products {
-    }
+}
 .w3ls_logo_products_left {
     float: left;
     text-align: center;

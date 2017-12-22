@@ -8,9 +8,9 @@
     <div class="work-spinner"></div>
 </div>
 <script>
-  $(window).bind("load", function () {
+    $(window).bind("load", function () {
         $('#work-in-progress').fadeOut(100);
-  });
+    });
 </script>
 <!--ProgressBar-->
 <br /><br /><br />
@@ -19,177 +19,177 @@
 
 
 <form id="order_cart_form" class="order_place" method="post">
-  <div id="cart_order_div" class="cart_order_div">
-    <h5><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;YOUR ORDER</h5>
-    <div id="order_cart_value">
-      <!--cart contents-->
+    <div id="cart_order_div" class="cart_order_div">
+        <h5><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;YOUR ORDER</h5>
+        <div id="order_cart_value">
+            <!--cart contents-->
+        </div>
     </div>
-  </div>
 </form>
 
 
 <div class="itemPanel">
-  <!--Flash Message-->
-  {{#if success_msg}}
-      <div class="alert alert-success" style="width:56%">
-          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-          {{success_msg}}
-      </div>
-  {{/if}}
+    <!--Flash Message-->
+    {{#if success_msg}}
+        <div class="alert alert-success" style="width:56%">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{success_msg}}
+        </div>
+    {{/if}}
 
-  {{#if error_msg}}
-      <div class="alert alert-danger" style="width:56%">
-          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-          {{error_msg}}
-      </div>
-  {{/if}}
+    {{#if error_msg}}
+        <div class="alert alert-danger" style="width:56%">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{error_msg}}
+        </div>
+    {{/if}}
 
 
-  <form action="" onsubmit="return false">
-    <div class="item_contianer">
-      <div class="row">
-      {{#if itemList}}
-        {{#startItemLayoutCounter}}{{/startItemLayoutCounter}}
-          {{#each itemList}}
-            {{#checkItemActive active}}
-              {{#ifCustomize}}
-              <div class="col-sm-2 column item_col2_class">
-                <div class="panel panel-success panel_item_class">
-                  <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
-                    <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
-                  </div>
+    <form action="" onsubmit="return false">
+        <div class="item_contianer">
+        <div class="row">
+            {{#if itemList}}
+                {{#startItemLayoutCounter}}{{/startItemLayoutCounter}}
+                {{#each itemList}}
+                    {{#checkItemActive active}}
+                        {{#ifCustomize}}
+                            <div class="col-sm-2 column item_col2_class">
+                                <div class="panel panel-success panel_item_class">
+                                    <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
+                                        <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
+                                    </div>
 
-                  <input type="hidden" name="item_name" value='{{name}}'>
-                  <input type="hidden" name="item_price" value='{{price}}'>
-                  <input type="hidden" name="item_id" value='{{id}}'>
-                  <input type="hidden" name="avble_qty" value='{{avaible_qty}}'>
-                  <div class="panel-body" style="padding:5px;5px;">
-                    <img src="{{item_image_path}}" style="border-radius:50%;box-shadow:0 0 2px 2px #bec0bf;height:100px;width:124px" alt="Image">
-                  </div>
-                  <div class="panel-footer" style="background-color: white">
-                    {{name}}<br />
-                  <i class="fa fa-inr"></i>&nbsp;{{price}}
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  {{#checkAvableQty avaible_qty}}
-                    <input type="submit"
-                      class="add_to_cart_btn add_to_cart btn btn-success"
-                      value="+"
-                      style="text-align:center;padding:2px 12px 12px 12px;font-size:20px;"
-                      onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1',{{avaible_qty}})"
-                    />
-                  {{else}}
-                    <input type="submit"
-                      class="btn"
-                      value="SOLD OUT"
-                      onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
-                      disabled
-                    />
-                  {{/checkAvableQty}}
-                </div>
-              </div>
-            </div>
+                                    <input type="hidden" name="item_name" value='{{name}}'>
+                                    <input type="hidden" name="item_price" value='{{price}}'>
+                                    <input type="hidden" name="item_id" value='{{id}}'>
+                                    <input type="hidden" name="avble_qty" value='{{avaible_qty}}'>
+                                    <div class="panel-body" style="padding:5px;5px;">
+                                        <img src="{{item_image_path}}" style="border-radius:50%;box-shadow:0 0 2px 2px #bec0bf;height:100px;width:124px" alt="Image">
+                                    </div>
+                                    <div class="panel-footer" style="background-color: white">
+                                        {{name}}<br />
+                                        <i class="fa fa-inr"></i>&nbsp;{{price}}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        {{#checkAvableQty avaible_qty}}
+                                            <input type="submit"
+                                                   class="add_to_cart_btn add_to_cart btn btn-success"
+                                                   value="+"
+                                                   style="text-align:center;padding:2px 12px 12px 12px;font-size:20px;"
+                                                   onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1',{{avaible_qty}})"
+                                            />
+                                        {{else}}
+                                            <input type="submit"
+                                                   class="btn"
+                                                   value="SOLD OUT"
+                                                   onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
+                                                   disabled
+                                            />
+                                        {{/checkAvableQty}}
+                                    </div>
+                                </div>
+                            </div>
+                        {{else}}
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 column item_col2_class">
+                                <div class="panel panel-success panel_item_class">
+                                    <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
+                                        <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
+                                    </div>
+                                    <input type="hidden" name="item_name" value='{{name}}'>
+                                    <input type="hidden" name="item_price" value='{{price}}'>
+                                    <input type="hidden" name="item_id" value='{{id}}'>
+                                    <input type="hidden" name="avble_qty" value='{{avaible_qty}}'>
+                                    <div class="panel-body" style="padding:5px;5px;">
+                                        <img src="{{item_image_path}}" style="border-radius:50%;box-shadow:0 0 2px 2px #bec0bf;height:100px;width:124px" alt="Image">
+                                    </div>
+                                    <div class="panel-footer" style="background-color: white">
+                                        {{name}}<br />
+                                        <i class="fa fa-inr"></i>&nbsp;{{price}}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        {{#checkAvableQty avaible_qty}}
+                                            <input type="submit"
+                                                   class="add_to_cart_btn add_to_cart btn btn-success"
+                                                   value="+"
+                                                   style="text-align:center;padding:2px 12px 12px 12px;font-size:20px;"
+                                                   onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1',{{avaible_qty}})"
+                                            />
+                                        {{else}}
+                                            <input type="submit"
+                                                   class="btn"
+                                                   onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
+                                                   value="SOLD OUT"
+                                                   disabled
+                                            />
+                                        {{/checkAvableQty}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{resetCounterVariable}}
+                        {{/ifCustomize}}
+                        {{#incrementCounterVariable}}{{/incrementCounterVariable}}
+                    {{/checkItemActive}}
+                {{/each}}
             {{else}}
-              </div>
-              <div class="row">
-              <div class="col-sm-2 column item_col2_class">
-                <div class="panel panel-success panel_item_class">
-                  <div class="topright" style="background-color:{{#checkFoodCatVeg category}}green{{else}}#A52A2A{{/checkFoodCatVeg}}">
-                    <span id="AVBLQTYSPAN{{id}}">{{avaible_qty}}</span>
-                  </div>
-                  <input type="hidden" name="item_name" value='{{name}}'>
-                  <input type="hidden" name="item_price" value='{{price}}'>
-                  <input type="hidden" name="item_id" value='{{id}}'>
-                  <input type="hidden" name="avble_qty" value='{{avaible_qty}}'>
-                  <div class="panel-body" style="padding:5px;5px;">
-                    <img src="{{item_image_path}}" style="border-radius:50%;box-shadow:0 0 2px 2px #bec0bf;height:100px;width:124px" alt="Image">
-                  </div>
-                  <div class="panel-footer" style="background-color: white">
-                    {{name}}<br />
-                  <i class="fa fa-inr"></i>&nbsp;{{price}}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  {{#checkAvableQty avaible_qty}}
-                    <input type="submit"
-                      class="add_to_cart_btn add_to_cart btn btn-success"
-                      value="+"
-                      style="text-align:center;padding:2px 12px 12px 12px;font-size:20px;"
-                      onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1',{{avaible_qty}})"
-                    />
-                  {{else}}
-                    <input type="submit"
-                      class="btn"
-                      onclick="addItemtoCart('{{id}}','{{name}}','{{price}}','1')"
-                      value="SOLD OUT"
-                      disabled
-                    />
-                  {{/checkAvableQty}}
-                </div>
-              </div>
-            </div>
+                <h1>We are closed today!</h1>
+                <br /><br /><br /><br /><br />
+            {{/if}}
+        </div>
             {{resetCounterVariable}}
-          {{/ifCustomize}}
-          {{#incrementCounterVariable}}{{/incrementCounterVariable}}
-        {{/checkItemActive}}
-      {{/each}}
-      {{else}}
-        <h1>We are closed today!</h1>
-        <br /><br /><br /><br /><br />
-      {{/if}}
+        </div>
+    </form>
+
+
+    <div class='customAlert'>
+        <p class='message'></p>
+        <input type='button' class='confirmButton custmMessageClassButton' value='Ok'>
     </div>
-    {{resetCounterVariable}}
-  </div>
-  </form>
-
-
-<div class='customAlert'>
-  <p class='message'></p>
-  <input type='button' class='confirmButton custmMessageClassButton' value='Ok'>
-</div>
 
 </div> <!--/Item Div-->
 
 
 
 <div class="br_not_display_if_mobile">
-<br /><br /><br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br /><br /><br />
 </div>
 <script>
-order_object = [];
-total = 0;
+    order_object = [];
+    total = 0;
 </script>
 {{#if user}}
-  <script>
-  logged_user = '{{user.firstname}}';
-  user_limit = {{user.avaible_limit}};
-  </script>
+    <script>
+        logged_user = '{{user.firstname}}';
+        user_limit = {{user.avaible_limit}};
+    </script>
 {{else}}
-  <script>
-  logged_user = false;
-  user_limit = 0;
-  </script>
+    <script>
+        logged_user = false;
+        user_limit = 0;
+    </script>
 {{/if}}
 <script>
-sub_total= 0;
-isLocationAvaible = {{isLocationAvaible}};
+    sub_total= 0;
+    isLocationAvaible = {{isLocationAvaible}};
 </script>
 
 <script src="/js/index.js"></script>
 <link href="css/index.css" rel="stylesheet" />
 
 <script>
-startTime();
-function startTime() {
-    var today=new Date();
-    var h=today.getHours();
-    var m=today.getMinutes();
-    var s=today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('timeing').innerHTML = h+":"+m+":"+s;
-    var t = setTimeout(function(){startTime()},500);
-}
+    startTime();
+    function startTime() {
+        var today=new Date();
+        var h=today.getHours();
+        var m=today.getMinutes();
+        var s=today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('timeing').innerHTML = h+":"+m+":"+s;
+        var t = setTimeout(function(){startTime()},500);
+    }
 
-function checkTime(i) {
-    if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
-    return i;
-}
+    function checkTime(i) {
+        if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+        return i;
+    }
 </script>

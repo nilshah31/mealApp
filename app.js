@@ -19,10 +19,10 @@ var MONGOLAB_URI = "mongodb://nilshah32:NVD420nvd@ds123614.mlab.com:23614/mealap
 
 global.base_dir = __dirname;
 global.abs_path = function(path) {
-  return base_dir + path;
+    return base_dir + path;
 }
 global.include = function(file) {
-  return require(abs_path('/' + file));
+    return require(abs_path('/' + file));
 }
 
 //are we really using prodcution variable like this?
@@ -78,20 +78,20 @@ app.use(passport.session());
 
 // Express Validator
 app.use(expressValidator({
-  errorFormatter: function(param, msg, value) {
-      var namespace = param.split('.')
-      , root    = namespace.shift()
-      , formParam = root;
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+            , root    = namespace.shift()
+            , formParam = root;
 
-    while(namespace.length) {
-      formParam += '[' + namespace.shift() + ']';
+        while(namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param : formParam,
+            msg   : msg,
+            value : value
+        };
     }
-    return {
-      param : formParam,
-      msg   : msg,
-      value : value
-    };
-  }
 }));
 
 // Connect Flash
@@ -99,11 +99,11 @@ app.use(flash());
 
 // Global Vars
 app.use(function (req, res, next) {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  res.locals.user = req.user || null;
-  next();
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
+    next();
 });
 
 app.use('/', index_controller);
@@ -120,5 +120,5 @@ app.use('/',contact_controller);
 app.set('port', (process.env.PORT || 8081));
 
 var server = app.listen(app.get('port'), function(){
-	console.log('Server started on port '+app.get('port'));
+    console.log('Server started on port '+app.get('port'));
 });

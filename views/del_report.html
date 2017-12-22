@@ -1,16 +1,16 @@
 <center>
-<div class="table-responsive">
-    <table id="myTable">
-        <tr class="header">
-            <th>Order Date <span class="glyphicon glyphicon-sort"></span></th>
-            <th>Receipt Number <span class="glyphicon glyphicon-sort"></span></th>
-            <th>Item</th>
-            <th># <span class="glyphicon glyphicon-sort"></span></th>
-            <th>Price <span class="glyphicon glyphicon-sort"></span></th>
-            <th>Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
-            <th>Status <span class="glyphicon glyphicon-sort"></span></th>
-        </tr>
-        {{#each object_item_hash}}
+    <div class="table-responsive">
+        <table id="myTable">
+            <tr class="header">
+                <th>Order Date <span class="glyphicon glyphicon-sort"></span></th>
+                <th>Receipt Number <span class="glyphicon glyphicon-sort"></span></th>
+                <th>Item</th>
+                <th># <span class="glyphicon glyphicon-sort"></span></th>
+                <th>Price <span class="glyphicon glyphicon-sort"></span></th>
+                <th>Bill Amount <span class="glyphicon glyphicon-sort"></span></th>
+                <th>Status <span class="glyphicon glyphicon-sort"></span></th>
+            </tr>
+            {{#each object_item_hash}}
             <tr>
                 <td>{{order_date}}</td>
                 <td>{{receipt_number}}</td>
@@ -20,12 +20,12 @@
                 <td><i class="fa fa-inr"></i>&nbsp;{{total}}</td>
                 <td style="width: 25%;"><span class="label label-info">{{status}}</span>
                     {{#checkOrderStatus status}}
-                        <a href="" >Update Status</a>
+                    <a href="" >Update Status</a>
                     {{/checkOrderStatus}}
                 </td>
             </tr>
-        {{/each}}
-    </table>
-</div>
-<br />
+            {{/each}}
+        </table>
+    </div>
+    <br />
 </center>

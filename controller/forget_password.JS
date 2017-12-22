@@ -17,37 +17,37 @@ router.get('/forget_password', function(req, res){
 
 
 function generateRandomNumber(){
-	var number = Math.floor((Math.random()*10000));
-	 if(number.length < 4 || number.length > 4){
-    	generateRandomNumber();
+    var number = Math.floor((Math.random()*10000));
+    if(number.length < 4 || number.length > 4){
+        generateRandomNumber();
     }
-	return number;
+    return number;
 }
 
 router.post('/forget_password', function(req, res) {
-  User.getUserBymobNumber(req.body.cur_mob_no,function(err,isMatch){
-    if(isMatch){
-      User.getUserByemailId(req.body.cur_email_id,function(err,isMatch){
+    User.getUserBymobNumber(req.body.cur_mob_no,function(err,isMatch){
         if(isMatch){
-            var number = generateRandomNumber();
-            User.sendForgetPasswordMessage(isMatch.lastname,isMatch.phone,number,function (err,result){
-            });
-            User.updateuserPassword(isMatch._id,number,function (err,result) {
-                if(err){
-                    res.render('forget_password',{msg_err:"Something went wrong Please try agains"});
+            User.getUserByemailId(req.body.cur_email_id,function(err,isMatch){
+                if(isMatch){
+                    var number = generateRandomNumber();
+                    User.sendForgetPasswordMessage(isMatch.lastname,isMatch.phone,number,function (err,result){
+                    });
+                    User.updateuserPassword(isMatch._id,number,function (err,result) {
+                        if(err){
+                            res.render('forget_password',{msg_err:"Something went wrong Please try agains"});
+                        }
+                        else{
+
+                            res.render('forget_password',{msg_success:"Please use New Password to login"});
+                        }
+                    });
                 }
                 else{
-
-                    res.render('forget_password',{msg_success:"Please use New Password to login"});
+                    res.render('forget_password',{msg_err:"User does not exist with this Mobilenumber/Emailid"});
                 }
             });
+        } else {
+            res.render('forget_password',{msg_err:"User does not exist with this Mobilenumber/Emailid"});
         }
-        else{
-          res.render('forget_password',{msg_err:"User does not exist with this Mobilenumber/Emailid"});
-        }
-      });
-    } else {
-        res.render('forget_password',{msg_err:"User does not exist with this Mobilenumber/Emailid"});
-    }
-  });
+    });
 });
