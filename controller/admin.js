@@ -344,6 +344,3 @@ router.post('/dbs/addLocation',function (req, res){
     res.send(Location._id);
 	});
 });
-
-
-filterItemWiseOrder('itemWiseOrderTable',3,'date_itemOrdered');

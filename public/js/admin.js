@@ -811,3 +811,5 @@ function onLoadSelectDiv(id){
     var value = url.searchParams.get("load_div_name");
     $("#"+value).toggle();
 }
+
+filterItemWiseOrder('itemWiseOrderTable',3,'date_itemOrdered');
